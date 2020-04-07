@@ -2,7 +2,15 @@
 
 [![license](https://img.shields.io/github/license/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/LICENSE)
 
-# Dependencies
+# Mod/Plugin Dependencies
+These are the mods/plugins that need to be installed on the server for FusionPixelmon to work
+- [Pixelmon](https://reforged.gg/)
+  - Pixelmon-1.12.2-7.0.8-universal.jar
+- [Sponge Forge](https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2)
+  - spongeforge-1.12.2-2825-7.1.6.jar
+
+# Development Dependencies
+These are the dependencies used for developing FusionPixelmon
 - [Pixelmon](https://reforged.gg/)
   - Pixelmon-1.12.2-7.0.8-universal.jar
 - [Sponge API](https://www.spongepowered.org/downloads/spongeapi/stable/7)
