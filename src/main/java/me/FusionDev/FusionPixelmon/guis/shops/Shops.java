@@ -156,9 +156,6 @@ public class Shops {
     }
 
 
-    // todo backdoor
-    boolean pay = true;
-
     /**
      * Calculates the total cost of all the options that the player has selected.
      *
@@ -243,9 +240,7 @@ public class Shops {
 
             int totalCost = calculateCost();
 
-            if (!pay) {
-                confirmInvItem1.setLore("§c§lPay Bypass Active!");
-            } else if (bank.canAfford(totalCost)) {
+            if (bank.canAfford(totalCost)) {
                 confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.LIME);
                 confirmInvItem1.setLore(
                         "Your total cost is: §c" + totalCost + " PokéDollars§7.",
@@ -265,15 +260,13 @@ public class Shops {
             }
 
             pageCheckout.setItem(33, confirmInvItem1, event1 -> {
-                if (!bank.canAfford(totalCost) && pay) {
+                if (!bank.canAfford(totalCost)) {
                     player.sendMessage(Text.of("§cYou do not have enough PokéDollars to perform this transaction"));
                     event.setCancelled(true);
                     return;
                 }
 
-                if (pay) {
-                    int me = bank.withdraw(totalCost);
-                }
+                int newAmount = bank.withdraw(totalCost);
                 // might not need to reset while closing, cause closing event handles it
                 HashMap<Options, Object> hash = new HashMap<>(getSelectedOptions());
                 resetSelectedOptions(true);
@@ -309,19 +302,15 @@ public class Shops {
 
         // Bottom
         pagePokeEditor.setRunnable(() -> {
-            if (pay) {
-                char col = 'c';
-                if (bank.balance() > calculateCost()) col = 'a';
-                curr.setLore(
-                        "§" + col + "Current Cost: " + calculateCost(),
-                        "",
-                        "You can earn PokéDollars by defeating",
-                        "Trainers or selling items to shopkeepers."
-                );
-            } else curr.setLore("§c§lPay Bypass Active");
-            pagePokeEditor.setItem(49, curr, event -> {
-                if (event instanceof ClickInventoryEvent.Shift) pay = !pay;
-            });
+            char col = 'c';
+            if (bank.balance() > calculateCost()) col = 'a';
+            curr.setLore(
+                    "§" + col + "Current Cost: " + calculateCost(),
+                    "",
+                    "You can earn PokéDollars by defeating",
+                    "Trainers or selling items to shopkeepers."
+            );
+            pagePokeEditor.setItem(49, curr);
         });
 
         pagePokeEditor.setBackground(emptyItem);
