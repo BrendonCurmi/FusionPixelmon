@@ -1,5 +1,6 @@
 # FusionPixelmon
 [![license](https://img.shields.io/github/license/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/LICENSE)
+[![version](https://img.shields.io/github/v/release/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/releases)
 
 This is a plugin/mod hybrid that adds extra features to your Pixelmon Sponge server.
 
