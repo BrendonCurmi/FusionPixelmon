@@ -13,4 +13,34 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <!-- mvn install:install-file -Dfile=libs/spongeapi-7.2.0-20191130.150509-32-shaded.jar -DgroupId=org.spongepowered -DartifactId=spongeapi -Dversion=7.2.0-20191130.150509-32-shaded -Dpackaging=jar -->
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>spongeapi</artifactId>
+            <version>7.2.0-20191130.150509-32-shaded</version>
+        </dependency>
+
+        <!-- mvn install:install-file -Dfile=libs/spongeforge-1.12.2-2825-7.1.6-dev-shaded.jar -DgroupId=org.spongepowered -DartifactId=spongeforge -Dversion=1.12.2-2825-7.1.6-dev-shaded -Dpackaging=jar -->
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>spongeforge</artifactId>
+            <version>1.12.2-2825-7.1.6-dev-shaded</version>
+        </dependency>
+
+        <!-- mvn install:install-file -Dfile=libs/Pixelmon-1.12.2-7.0.8-universal.jar -DgroupId=com.pixelmonmod -DartifactId=pixelmon -Dversion=1.12.2-7.0.8-universal -Dpackaging=jar -->
+        <dependency>
+            <groupId>com.pixelmonmod</groupId>
+            <artifactId>pixelmon</artifactId>
+            <version>1.12.2-7.0.8-universal</version>
+        </dependency>
+
+        <!-- mvn install:install-file -Dfile=libs/forgeSrc-1.12.2-14.23.5.2768.jar -Dsources=libs/forgeSrc-1.12.2-14.23.5.2768-sources.jar -DgroupId=net.minecraftforge -DartifactId=minecraftforge -Dversion=1.12.2-14.23.5.2768 -Dpackaging=jar -->
+        <dependency>
+            <groupId>net.minecraftforge</groupId>
+            <artifactId>minecraftforge</artifactId>
+            <version>1.12.2-14.23.5.2768</version>
+        </dependency>
+    </dependencies>
 </project>
