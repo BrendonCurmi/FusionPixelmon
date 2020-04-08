@@ -38,18 +38,12 @@ This plugin prevents taking fall damage by giving a 5 second grace period after 
 
 ### Sponge Inventory API
 An API for handling and creating custom GUI inventories.
- 
-<img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/inventory-1.png" width="300" height="150">
 
 ### Pixelmon API
 An API wrapper for some features from the Pixelmon mod.
 
-<img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/pixelmon-1.png" width="300" height="150">
-
 ### Pixelmon Currency API
-A Bank API for the Pixelmon currency.
- 
-<img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/currency-1.png" width="300" height="150">
+A Bank API for the Pixelmon currency. 
 
 # Installing
 As this is executed as a plugin, it only needs to be installed server-side in the 'mods' folder of a Sponge server.
