@@ -12,7 +12,6 @@ public class GenderShop extends Shops.BaseShop {
         super(shops);
     }
 
-    // todo dont do gender cost if already has gender
     @Override
     public InvPage buildPage() {
         Builder builder = new Shops.BaseShop.Builder("§0Gender Modification", "pokeeditor-gender", 5)

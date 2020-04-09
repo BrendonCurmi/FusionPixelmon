@@ -34,7 +34,6 @@ public class IVEVShop extends Shops.BaseShop {
     private static InvItem subtractionItem = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "").setKey(Keys.DYE_COLOR, DyeColors.RED);
     private static InvItem additionItem = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "").setKey(Keys.DYE_COLOR, DyeColors.GREEN);
 
-    // todo iv/ev only update when lvls change, so -5 lvls then +5 lvls ezempju
     @Override
     public InvPage buildPage() {
         final IVEVAction[] action = new IVEVAction[1];
@@ -208,8 +207,7 @@ public class IVEVShop extends Shops.BaseShop {
             shops.pokemon.getIVs().set(entry.getKey(), lvl);
         }
 
-        // Quickly change and restore the Pokemon's level, to
-        // update the stats in the Stats menu
+        // Quickly change and restore the Pokemon's level, to update the stats in the Stats menu
         int level = shops.pokemon.getLevel();
         shops.pokemon.setLevel(level - 1);
         shops.pokemon.setLevel(level);

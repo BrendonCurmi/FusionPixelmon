@@ -10,7 +10,6 @@ import me.FusionDev.FusionPixelmon.pixelmon.PokeData;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
@@ -21,12 +20,6 @@ import org.spongepowered.api.text.format.TextColors;
 import java.util.*;
 
 public class Shops {
-
-    // todo replace cancel with back
-    // todo add reset button
-    // todo add queue of changes
-    // todo add info stuff
-    // todo add query and box to show data
 
     /**
      * The player currently using the Shop

@@ -12,7 +12,6 @@ public class AbilityShop extends Shops.BaseShop {
         super(shops);
     }
 
-    // todo dont do cost if already has the ability
     private int abilitySlot = 0;
 
     @Override
