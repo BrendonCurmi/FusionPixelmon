@@ -46,6 +46,15 @@ An API wrapper for some features from the Pixelmon mod.
 ### Pixelmon Currency API
 A Bank API for the Pixelmon currency. 
 
+# Commands and Permissions
+| Command       | Permission                          | Description               |
+|---------------|-------------------------------------|---------------------------|
+| /pd           | fusionpixelmon.command.pokedesigner | Opens the PokeDesigner UI |
+| /pokedesigner                                                                   |
+| /arc          | fusionpixelmon.command.arc          | Opens the ArcPlates UI    |
+
+Note: Empty fields will follow the values of the row above them.
+
 # Installing
 As this is executed as a plugin, it only needs to be installed server-side in the 'mods' folder of a Sponge server.
 
