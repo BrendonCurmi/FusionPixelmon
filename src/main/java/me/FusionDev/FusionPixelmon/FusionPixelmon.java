@@ -1,6 +1,7 @@
 package me.FusionDev.FusionPixelmon;
 
 import com.google.inject.Inject;
+import me.FusionDev.FusionPixelmon.apis.UpdateChecker;
 import me.FusionDev.FusionPixelmon.commands.ArcPlatesCmd;
 import me.FusionDev.FusionPixelmon.commands.PokeDesignerCmd;
 
@@ -27,6 +28,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.text.Text;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import static com.pixelmonmod.pixelmon.Pixelmon.EVENT_BUS;
@@ -50,9 +52,9 @@ public class FusionPixelmon {
     // todo if change form and do something to affect form, wasted money
     // todo may need to update the lvl thing for nature as well
 
-    static final String ID = "fusionpixelmon";
-    static final String NAME = "FusionPixelmon";
-    static final String VERSION = "1.2";
+    public static final String ID = "fusionpixelmon";
+    public static final String NAME = "FusionPixelmon";
+    public static final String VERSION = "1.3";
 
     private static final String CMD_PERM = ID + ".command.";
 
@@ -141,6 +143,11 @@ public class FusionPixelmon {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         logger.info("Successfully running FusionPixelmon!");
+        try {
+            UpdateChecker.check(logger);
+        } catch (IOException ignored) {
+            // If an exception occurs, just don't check for newer versions
+        }
     }
 
     @Listener
