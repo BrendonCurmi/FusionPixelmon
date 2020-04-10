@@ -72,7 +72,7 @@ public class PokeShrinesListener {
                         PlayerInventory playerInv = (PlayerInventory) player.getInventory();
                         ItemType type = PixelmonAPI.getPixelmonItemType(block.replace("pixelmon:", ""));
                         ItemStack selected = ItemStack.builder().itemType(type).build();
-                        if (playerInv.getMainGrid().canFit(selected)) {
+                        if (playerInv.getMain().canFit(selected)) {
                             Location<World> blockLoc = blockSnapshot.getLocation().get();
                             blockLoc.setBlockType(EMPTY_BLOCK);
 
