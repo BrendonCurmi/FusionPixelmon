@@ -4,6 +4,7 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import me.FusionDev.FusionPixelmon.apis.Time;
 import me.FusionDev.FusionPixelmon.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.inventory.InvPage;
 import me.FusionDev.FusionPixelmon.pixelmon.PixelmonAPI;
@@ -62,14 +63,7 @@ public class EvolutionShop extends Shops.BaseShop {
     @Override
     public void purchaseAction(Object value) {
         PokemonSpecWrapper evolve = (PokemonSpecWrapper) value;
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-            shops.pokemon.evolve(evolve.pokemonSpec);
-        }).start();
+        Time.setTimeout(() -> shops.pokemon.evolve(evolve.pokemonSpec), 1000);
     }
 
     private List<PokemonSpec> getEvolutionsList(Pokemon pokemon) {
