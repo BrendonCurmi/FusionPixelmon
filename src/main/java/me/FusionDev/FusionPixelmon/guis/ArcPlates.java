@@ -8,6 +8,7 @@ import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
 import me.FusionDev.FusionPixelmon.apis.FileFactory;
 import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.apis.Grammar;
+import me.FusionDev.FusionPixelmon.apis.Time;
 import me.FusionDev.FusionPixelmon.data.ArcStorageData;
 import me.FusionDev.FusionPixelmon.inventory.InvInventory;
 import me.FusionDev.FusionPixelmon.inventory.InvItem;
@@ -50,6 +51,9 @@ public class ArcPlates {
 
     private static final int ROWS = 5;
     private static final int[] BACKGROUND_SLOTS = {0, 1, 9, 10, 19, 27, 28, 36, 37};
+
+    // Cooldown variable to prevent duping
+    private boolean enabled = true;
 
     /**
      * Launches the Arc Plates Storage interface for the specified
@@ -117,54 +121,61 @@ public class ArcPlates {
                 else if (selected.getType() instanceof ItemPlate) {
                     ItemPlate selectedItemPlate = (ItemPlate) selected.getType();
 
-                    // Left clicking plate in GUI
-                    if (event instanceof ClickInventoryEvent.Primary) {
-                        /*
-                         * Give the pokemon the plate that is left clicked in the GUI.
-                         * If the pokemon is already holding a plate (but different type), put it in storage and give
-                         * the pokemon the new clicked plate.
-                         * If the pokemon is already holding a plate but there is another one of the same type in
-                         * storage, do nothing as player must remove the one in storage first.
-                         * If the pokemon is already holding something which isnt a plate, do nothing as player must
-                         * remove that first.
-                         */
-                        if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
-                            if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
-                                ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
-                                if (selectedItemPlate == heldItemPlate) {
-                                    player.sendMessage(Text.of(TextColors.RED, "That Plate is already equipped!"));
-                                    return;
-                                } else {
-                                    ItemType heldItemType = getType(Objects.requireNonNull(heldItemPlate.getRegistryName()));
-                                    for (Plate p : Plate.values()) {
-                                        if (getType(Objects.requireNonNull(p.plate.getItem().getRegistryName())) == heldItemType) {
-                                            if (data.get(p.i) == null) {
-                                                data.set(p.i, ItemStack.builder().itemType(heldItemType).build());
-                                                break;
-                                            } else {
-                                                player.sendMessage(Text.of(TextColors.RED, "Cant unequip " + Grammar.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
-                                                return;
+                    if (enabled) {
+                        // Delay to prevent duping
+                        enabled = false;
+                        Time.setTimeout(() -> enabled = true, 700);
+
+                        // Left clicking plate in GUI
+                        if (event instanceof ClickInventoryEvent.Primary) {
+                            /*
+                             * Give the pokemon the plate that is left clicked in the GUI.
+                             * If the pokemon is already holding a plate (but different type), put it in storage and give
+                             * the pokemon the new clicked plate.
+                             * If the pokemon is already holding a plate but there is another one of the same type in
+                             * storage, do nothing as player must remove the one in storage first.
+                             * If the pokemon is already holding something which isnt a plate, do nothing as player must
+                             * remove that first.
+                             */
+                            if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
+                                if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
+                                    ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
+                                    if (selectedItemPlate == heldItemPlate) {
+                                        player.sendMessage(Text.of(TextColors.RED, "That Plate is already equipped!"));
+                                        return;
+                                    } else {
+                                        ItemType heldItemType = getType(Objects.requireNonNull(heldItemPlate.getRegistryName()));
+                                        for (Plate p : Plate.values()) {
+                                            if (getType(Objects.requireNonNull(p.plate.getItem().getRegistryName())) == heldItemType) {
+                                                if (data.get(p.i) == null) {
+                                                    data.set(p.i, ItemStack.builder().itemType(heldItemType).build());
+                                                    break;
+                                                } else {
+                                                    player.sendMessage(Text.of(TextColors.RED, "Cant unequip " + Grammar.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
+                                                    return;
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedItemPlate));
-                            data.set(getIDFromSlot(slot), null);
-                            player.sendMessage(Text.of(TextColors.GREEN, "Plate equipped!"));
-                        } else player.sendMessage(Text.of(TextColors.RED, "Cannot equip Plate because Pokemon is currently holding something!"));
-                    }
-                    // Right clicking plate in GUI
-                    else if (event instanceof ClickInventoryEvent.Secondary) {
-                        /*
-                         * Take the plate that is right clicked in the GUI and give it to the player if there is free
-                         * inventory space.
-                         */
-                        PlayerInventory playerInv = (PlayerInventory) player.getInventory();
-                        if (playerInv.getMainGrid().canFit(selected)) {
-                            player.getInventory().offer(selected);
-                            data.set(getIDFromSlot(slot), null);
-                        } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
+                                pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedItemPlate));
+                                data.set(getIDFromSlot(slot), null);
+                                player.sendMessage(Text.of(TextColors.GREEN, "Plate equipped!"));
+                            } else
+                                player.sendMessage(Text.of(TextColors.RED, "Cannot equip Plate because Pokemon is currently holding something!"));
+                        }
+                        // Right clicking plate in GUI
+                        else if (event instanceof ClickInventoryEvent.Secondary) {
+                            /*
+                             * Take the plate that is right clicked in the GUI and give it to the player if there is free
+                             * inventory space.
+                             */
+                            PlayerInventory playerInv = (PlayerInventory) player.getInventory();
+                            if (playerInv.getMainGrid().canFit(selected)) {
+                                player.getInventory().offer(selected);
+                                data.set(getIDFromSlot(slot), null);
+                            } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
+                        }
                     }
                 }
             }

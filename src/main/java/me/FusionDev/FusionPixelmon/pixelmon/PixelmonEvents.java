@@ -1,6 +1,7 @@
 package me.FusionDev.FusionPixelmon.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.events.BeatWildPixelmonEvent;
+import me.FusionDev.FusionPixelmon.apis.Time;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,14 +25,7 @@ public class PixelmonEvents {
     public void onBeatPokemon(BeatWildPixelmonEvent event) {
         if (!invulnerableFall.contains(event.player)) {
             invulnerableFall.add(event.player);
-            new Thread(() -> {
-                try {
-                    Thread.sleep(FALL_INVULNERABILITY * 1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                invulnerableFall.remove(event.player);
-            }).start();
+            Time.setTimeout(() -> invulnerableFall.remove(event.player), FALL_INVULNERABILITY * 1000);
         }
     }
 

@@ -1,6 +1,7 @@
 package me.FusionDev.FusionPixelmon.guis.shops;
 
 import com.pixelmonmod.pixelmon.api.enums.ExperienceGainType;
+import me.FusionDev.FusionPixelmon.apis.Time;
 import me.FusionDev.FusionPixelmon.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.inventory.InvPage;
 import org.spongepowered.api.data.key.Keys;
@@ -118,15 +119,10 @@ public class LevelShop extends Shops.BaseShop {
     public void purchaseAction(Object value) {
         int levels = (int) value;
         if (levels > 0) {
-            new Thread(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+            Time.setTimeout(() -> {
                 for (int i = 1; i <= levels; i++)
                     shops.pokemon.getLevelContainer().awardEXP(shops.pokemon.getExperienceToLevelUp(), ExperienceGainType.BATTLE);
-            }).start();
+            } ,1000);
         } else shops.pokemon.setLevel(shops.pokemon.getLevel() + levels);
     }
 }
