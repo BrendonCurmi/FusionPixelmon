@@ -15,15 +15,15 @@ public class UpdateChecker {
     private static final String VERSIONS_ENDPOINT = "https://ore.spongepowered.org/api/v1/projects/" + FusionPixelmon.ID + "/versions";
     private static final String ORE_VERSIONS = "https://ore.spongepowered.org/FusionDev/FusionPixelmon/versions";
 
-    public static void main(String[] args) throws IOException {
-        check(null);
-    }
-
+    /**
+     * Checks if there is a newer version of the plugin and reports to the logger if so.
+     * @param logger the logger.
+     * @throws IOException if an I/O exception occurs.
+     */
     public static void check(Logger logger) throws IOException {
         JSONArray payload = readJsonFromUrl(VERSIONS_ENDPOINT);
         // Get 0th element as versions are in order of latest first
-        JSONObject data = (JSONObject) payload.get(0);
-        String name = data.getString("name");
+        String name = ((JSONObject) payload.get(0)).getString("name");
         if (name != null && !name.equals(FusionPixelmon.VERSION)) {
             logger.info("There is a newer version of FusionPixelmon available! Version " + name + " @ " + ORE_VERSIONS);
         }
