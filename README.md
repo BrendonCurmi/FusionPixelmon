@@ -75,3 +75,29 @@ These are the dependencies used for developing FusionPixelmon
   - spongeforge-1.12.2-2825-7.1.6-dev-shaded.jar
 - [Forge Src](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/libs/forgeSrc-1.12.2-14.23.5.2768.jar)
   - forgeSrc-1.12.2-14.23.5.2768.jar
+
+# Config
+The config files can be found on the server in `config/fusionpixelmon` as well as serialized data.
+Only modify `.conf` files, so as not to corrupt serialized datafiles.
+
+To modify features of this plugin, open `fusionpixelmon.conf`, and start the server after saving any changes made.
+
+Above the settings in the config file, there will be a comment explaining the setting and some will tell you how to disable the feature entirely.
+
+For example:
+```text
+# Block the player from taking fall damage after winning a battle against a pokemon.
+anti-fall-damage=true
+# Pixelmon blocks that the player is able click on to collect.
+# To disable entirely, delete everything inside the brackets.
+shrine-pickup=[
+    "pixelmon:timespace_altar",
+    "pixelmon:plateholder",
+    "pixelmon:articuno_shrine",
+    "pixelmon:zapdos_shrine",
+    "pixelmon:moltres_shrine"
+]
+...
+```
+
+To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/src/main/resources/assets/fusionpixelmon/default.conf).
