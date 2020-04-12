@@ -190,46 +190,27 @@ public class InvInventory {
     private static final int UPDATE_TICK_RATE = 20;
 
     /**
-     * The number of ticks since the task has started.
-     */
-    private static long ticks = 0;
-
-    public static long getTicks() {
-        return ticks;
-    }
-
-    /**
-     * Increments the number of ticks each iteration.
-     */
-    public static void incrementTick() {
-        ticks++;
-    }
-
-    /**
      * Starts executing the inventory updater task.
      */
     public static void runUpdater() {
-        Task.builder().intervalTicks(1).execute(() -> {
+        Task.builder().intervalTicks(UPDATE_TICK_RATE).execute(() -> {
             // ticks / updateTickRate gives total number of executions
             // todo but number of executions is not important o track. could make 'ticks' to int and reset once ticks == updateTickRate
-            if (getTicks() % UPDATE_TICK_RATE == 0) {
-                for (InvPage page : openPages.values()) {
-                    // Execute every open page's runnable, if one is defined
-                    if (page.runnable != null) {
-                        page.runnable.run();
-                    }
+            for (InvPage page : openPages.values()) {
+                // Execute every open page's runnable, if one is defined
+                if (page.runnable != null) {
+                    page.runnable.run();
+                }
 
-                    // todo check this
-                    int num = 0;
-                    for (final Inventory slot : page.inventory.slots()) {
-                        if (page.elements.get(num) != null) {
-                            slot.set(page.elements.get(num).itemStack);
-                        }
-                        num++;
+                // todo check this
+                int num = 0;
+                for (final Inventory slot : page.inventory.slots()) {
+                    if (page.elements.get(num) != null) {
+                        slot.set(page.elements.get(num).itemStack);
                     }
+                    num++;
                 }
             }
-            incrementTick();
         }).submit(FusionPixelmon.getInstance());
     }
 }
