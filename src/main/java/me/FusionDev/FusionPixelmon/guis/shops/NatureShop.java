@@ -15,6 +15,11 @@ public class NatureShop extends Shops.BaseShop {
     }
 
     @Override
+    public Shops.Options getOption() {
+        return Shops.Options.NATURE;
+    }
+
+    @Override
     public InvPage buildPage() {
         Builder builder = new Builder("§0Nature Modification", "pokeeditor-nature", 5)
                 .setInfoItemData("Nature Info",
@@ -22,15 +27,16 @@ public class NatureShop extends Shops.BaseShop {
                         "simply select one of the options",
                         "on the right.")
                 .setSelectedItemName("Selected Nature")
-                .setSelectedOption(Shops.Options.NATURE);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         for (NatureOptions option : NatureOptions.values()) {
             InvItem item = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§3§l" + Grammar.cap(option.name())).setKey(Keys.DYE_COLOR, option.dyeColor);
             item.setLore("  Boosted: §b" + option.boosted, "  Lowered: §c" + option.lowered);
             page.setItem(option.slot, item, event -> {
-                if (!shops.pokemon.getNature().name().equalsIgnoreCase(option.name())) shops.getSelectedOptions().put(Shops.Options.NATURE, Grammar.cap(option.name()));
-                else shops.getSelectedOptions().remove(Shops.Options.NATURE);
+                if (!shops.pokemon.getNature().name().equalsIgnoreCase(option.name()))
+                    shops.getSelectedOptions().put(getOption(), Grammar.cap(option.name()));
+                else shops.getSelectedOptions().remove(getOption());
                 builder.setSelectedItem(item.itemStack);
             });
         }
@@ -40,17 +46,21 @@ public class NatureShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return 3000;
+        return getPriceOf(ConfigKeys.CHANGE, 3000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Nature Change", 3000);
+        addPriceSummary("Nature Change", getPriceOf(ConfigKeys.CHANGE, 3000));
     }
 
     @Override
     public void purchaseAction(Object value) {
         shops.pokemon.setNature(EnumNature.natureFromString(value.toString()));
+    }
+
+    private static class ConfigKeys {
+        static final String CHANGE = "change";
     }
 
     public enum NatureOptions {

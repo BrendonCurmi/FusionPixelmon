@@ -12,6 +12,11 @@ public class AbilityShop extends Shops.BaseShop {
         super(shops);
     }
 
+    @Override
+    public Shops.Options getOption() {
+        return Shops.Options.ABILITY;
+    }
+
     private int abilitySlot = 0;
 
     @Override
@@ -22,7 +27,7 @@ public class AbilityShop extends Shops.BaseShop {
                         "simply select one of the possible",
                         "options on the right.")
                 .setSelectedItemName("Selected Ability")
-                .setSelectedOption(Shops.Options.ABILITY);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         int[] slots = new int[]{20, 22, 24};
@@ -39,10 +44,10 @@ public class AbilityShop extends Shops.BaseShop {
                 page.setItem(slots[i], item, event -> {
                     if (!shops.pokemon.getAbilityName().equalsIgnoreCase(ability)) {
                         abilitySlot = finalI;
-                        shops.getSelectedOptions().put(Shops.Options.ABILITY, ability);
+                        shops.getSelectedOptions().put(getOption(), ability);
                     } else {
                         abilitySlot = 0;
-                        shops.getSelectedOptions().remove(Shops.Options.ABILITY);
+                        shops.getSelectedOptions().remove(getOption());
                     }
                     builder.setSelectedItem(item.itemStack);
                 });
@@ -53,17 +58,22 @@ public class AbilityShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return (abilitySlot == 2) ? 8000 : 750;
+        return (abilitySlot == 2) ? getPriceOf(ConfigKeys.SPECIAL, 8000) : getPriceOf(ConfigKeys.REGULAR, 750);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Regular Ability", 750);
-        addPriceSummary("Special Ability", 8000);
+        addPriceSummary("Regular Ability", getPriceOf(ConfigKeys.REGULAR, 750));
+        addPriceSummary("Special Ability", getPriceOf(ConfigKeys.SPECIAL, 8000));
     }
 
     @Override
     public void purchaseAction(Object value) {
         shops.pokemon.setAbility(value.toString());
+    }
+
+    private static class ConfigKeys {
+        static final String REGULAR = "regular";
+        static final String SPECIAL = "special";
     }
 }

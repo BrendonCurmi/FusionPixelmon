@@ -31,6 +31,11 @@ public class IVEVShop extends Shops.BaseShop {
         EV_CACHE = PixelmonAPI.getEVArray(shops.pokemon);
     }
 
+    @Override
+    public Shops.Options getOption() {
+        return Shops.Options.IVEV;
+    }
+
     private static InvItem subtractionItem = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "").setKey(Keys.DYE_COLOR, DyeColors.RED);
     private static InvItem additionItem = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "").setKey(Keys.DYE_COLOR, DyeColors.GREEN);
 
@@ -49,13 +54,13 @@ public class IVEVShop extends Shops.BaseShop {
                     action[0].IV.clear();
                     action[0].EV.clear();
                 })
-                .setSelectedOption(Shops.Options.IVEV);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         for (int i = 0; i < ROWS; i++) page.setItem(4 + (9 * i), EMPTY_ITEM);
 
 //        action = ((IVEVAction) getSelectedOptions().getOrDefault(Options.IVEV, new IVEVAction()));
-        shops.getSelectedOptions().remove(Shops.Options.IVEV);
+        shops.getSelectedOptions().remove(getOption());
 
 
         int totalIV = IntStream.of(IV_CACHE).sum();
@@ -101,8 +106,8 @@ public class IVEVShop extends Shops.BaseShop {
                     int delta = 1;
                     if (event instanceof ClickInventoryEvent.Shift) delta = 10;
                     action[0].removeEV(type.statsType, delta);
-                    shops.getSelectedOptions().put(Shops.Options.IVEV, action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(Shops.Options.IVEV);
+                    shops.getSelectedOptions().put(getOption(), action[0]);
+                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
 
                 items[i][2].setLore(
@@ -116,8 +121,8 @@ public class IVEVShop extends Shops.BaseShop {
                     int delta = 1;
                     if (event instanceof ClickInventoryEvent.Shift) delta = 10;
                     action[0].addEV(type.statsType, delta, totalEV);
-                    shops.getSelectedOptions().put(Shops.Options.IVEV, action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(Shops.Options.IVEV);
+                    shops.getSelectedOptions().put(getOption(), action[0]);
+                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
 
                 items[i][3].setLore(
@@ -131,8 +136,8 @@ public class IVEVShop extends Shops.BaseShop {
                     int delta = 1;
                     if (event instanceof ClickInventoryEvent.Shift) delta = 10;
                     action[0].removeIV(type.statsType, delta);
-                    shops.getSelectedOptions().put(Shops.Options.IVEV, action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(Shops.Options.IVEV);
+                    shops.getSelectedOptions().put(getOption(), action[0]);
+                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
 
                 items[i][4].setLore(
@@ -146,8 +151,8 @@ public class IVEVShop extends Shops.BaseShop {
                     int delta = 1;
                     if (event instanceof ClickInventoryEvent.Shift) delta = 10;
                     action[0].addIV(type.statsType, delta);
-                    shops.getSelectedOptions().put(Shops.Options.IVEV, action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(Shops.Options.IVEV);
+                    shops.getSelectedOptions().put(getOption(), action[0]);
+                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
                 i++;
             }
@@ -165,22 +170,23 @@ public class IVEVShop extends Shops.BaseShop {
         IVEVAction action = ((IVEVAction) value);
         int totalCost = 0;
         for (int i : action.IV.values()) {
-            if (i > 0) totalCost += i * 600;
-            else if (i < 0) totalCost += -i * 5;
+            if (i > 0) totalCost += i * getPriceOf(ConfigKeys.ADD_IV, 600);
+            else if (i < 0) totalCost += -i * getPriceOf(ConfigKeys.REMOVE_IV, 5);
         }
 
         for (int i : action.EV.values()) {
-            totalCost += Math.abs(i) * 5;
+            totalCost += Math.abs(i) * getPriceOf(ConfigKeys.CHANGE_EV, 5);
         }
         return totalCost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Add IV", "600 per IV");
-        addPriceSummary("Remove IV", "5 per IV");
-        addPriceSummary("Add EV", "5 per EV");
-        addPriceSummary("Remove IV", "5 per EV");
+        addPriceSummary("Add IV", getPriceOf(ConfigKeys.ADD_IV, 600) + " per IV");
+        addPriceSummary("Remove IV", getPriceOf(ConfigKeys.REMOVE_IV, 5) + " per IV");
+        String changeEV = getPriceOf(ConfigKeys.CHANGE_EV, 5) + " per EV";
+        addPriceSummary("Add EV", changeEV);
+        addPriceSummary("Remove IV", changeEV);
     }
 
     @Override
@@ -211,6 +217,12 @@ public class IVEVShop extends Shops.BaseShop {
         int level = shops.pokemon.getLevel();
         shops.pokemon.setLevel(level - 1);
         shops.pokemon.setLevel(level);
+    }
+
+    private static class ConfigKeys {
+        static final String ADD_IV = "add-iv";
+        static final String REMOVE_IV = "remove-iv";
+        static final String CHANGE_EV = "change-ev";
     }
 
     enum IVEVOption {

@@ -1,6 +1,7 @@
 package me.FusionDev.FusionPixelmon.pixelmon;
 
 import com.flowpowered.math.vector.Vector3i;
+import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
@@ -21,6 +22,7 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import org.spongepowered.common.block.SpongeBlockSnapshot;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +38,7 @@ public class PokeShrinesListener {
     /**
      * The blocks which can be obtained using this method.
      */
-    private static final String[] BLOCKS = {"pixelmon:timespace_altar", "pixelmon:plateholder", "pixelmon:articuno_shrine", "pixelmon:zapdos_shrine", "pixelmon:moltres_shrine"};
+    private static final List<String> BLOCKS = FusionPixelmon.getInstance().getConfig().getPickableShrines();
 
     /**
      * The block that the {@link #BLOCKS} will turn into upon valid interaction.
