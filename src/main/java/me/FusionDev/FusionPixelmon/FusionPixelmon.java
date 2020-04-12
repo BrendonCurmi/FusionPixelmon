@@ -48,18 +48,11 @@ import static com.pixelmonmod.pixelmon.Pixelmon.EVENT_BUS;
                 @Dependency(id = "pixelmon", version = "7.0.8"),
                 @Dependency(id = "spongeapi", version = "7.1.0")
         })
-public class FusionPixelmon {
+public class FusionPixelmon extends PluginInfo {
 
     // todo warning evolve down, cant evolve up if special evolve conditions
     // todo if change form and do something to affect form, wasted money
     // todo may need to update the lvl thing for nature as well
-
-    /* Constants */
-    public static final String ID = "fusionpixelmon";
-    public static final String NAME = "FusionPixelmon";
-    public static final String VERSION = "1.4";
-
-    private static final String CMD_PERM = ID + ".command.";
 
     /**
      * Contains a reference to this (soft) singleton class.
