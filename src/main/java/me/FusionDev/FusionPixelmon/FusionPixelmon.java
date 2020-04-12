@@ -165,7 +165,7 @@ public class FusionPixelmon {
 
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
-        logger.info("Successfully running FusionPixelmon!");
+        logger.info("Successfully running FusionPixelmon v" + VERSION + "!");
         try {
             UpdateChecker.check(logger);
         } catch (IOException ignored) {
