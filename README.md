@@ -4,6 +4,15 @@
 
 This is a plugin/mod hybrid that adds extra features to your Pixelmon Sponge server.
 
+## Summary
+1. [Features](#features)
+2. [Commands and Permissions](#commands-and-permissions)
+3. [Installing](#installing)
+4. [Download](#download)
+5. [Mod/Plugin Dependencies](#modplugin-dependencies)
+6. [Development Dependencies](#development-dependencies)
+7. [Config](#config)
+
 # Features
 
 ### PokeDesigner
@@ -57,6 +66,9 @@ Note: Empty fields will follow the values of the row above them.
 
 # Installing
 As this is executed as a plugin, it only needs to be installed server-side in the 'mods' folder of a Sponge server.
+
+# Download
+You can download the latest version from https://ore.spongepowered.org/FusionDev/FusionPixelmon
 
 # Mod/Plugin Dependencies
 These are the mods/plugins that need to be installed on the server for FusionPixelmon to work
