@@ -9,7 +9,7 @@ This is a plugin/mod hybrid that adds extra features to your Pixelmon Sponge ser
 2. [Commands and Permissions](#commands-and-permissions)
 3. [Installing](#installing)
 4. [Download](#download)
-5. [Mod/Plugin Dependencies](#modplugin-dependencies)
+5. [Dependencies](#dependencies)
 6. [Development Dependencies](#development-dependencies)
 7. [Config](#config)
 
@@ -70,12 +70,19 @@ As this is executed as a plugin, it only needs to be installed server-side in th
 # Download
 You can download the latest version from https://ore.spongepowered.org/FusionDev/FusionPixelmon
 
-# Mod/Plugin Dependencies
-These are the mods/plugins that need to be installed on the server for FusionPixelmon to work
+# Dependencies
+These are the mods that need to be installed on the server for FusionPixelmon to work.
+- [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html)
+  - forge-1.12.2-14.23.5.2847-universal.jar
 - [Sponge Forge](https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2)
   - spongeforge-1.12.2-2825-7.1.6.jar
 - [Pixelmon](https://reforged.gg/)
+  - Pixelmon-1.12.2-7.2.2-universal.jar
+  - Pixelmon-1.12.2-7.1.1-universal.jar
   - Pixelmon-1.12.2-7.0.8-universal.jar
+
+Multiple versions may be listed under the same mod to show which versions have been tested with this plugin.
+Only one version of each entry needs to be installed at a given time.
 
 # Development Dependencies
 These are the dependencies used for developing FusionPixelmon
