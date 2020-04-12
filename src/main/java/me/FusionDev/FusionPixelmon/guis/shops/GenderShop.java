@@ -13,6 +13,11 @@ public class GenderShop extends Shops.BaseShop {
     }
 
     @Override
+    public Shops.Options getOption() {
+        return Shops.Options.GENDER;
+    }
+
+    @Override
     public InvPage buildPage() {
         Builder builder = new Shops.BaseShop.Builder("§0Gender Modification", "pokeeditor-gender", 5)
                 .setInfoItemData("Gender Info",
@@ -20,7 +25,7 @@ public class GenderShop extends Shops.BaseShop {
                         "simply select one of the options",
                         "on the right.")
                 .setSelectedItemName("Selected Gender")
-                .setSelectedOption(Shops.Options.GENDER);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         if (shops.pokemon.getGender() == Gender.None) {
@@ -30,8 +35,8 @@ public class GenderShop extends Shops.BaseShop {
             InvItem item1 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§b§lMale").setKey(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
             item1.setLore("Click here to select the", "§bMale §7gender.");
             page.setItem(21, item1, event -> {
-                if (shops.pokemon.getGender() != Gender.Male) shops.getSelectedOptions().put(Shops.Options.GENDER, "§bMale");
-                else shops.getSelectedOptions().remove(Shops.Options.GENDER);
+                if (shops.pokemon.getGender() != Gender.Male) shops.getSelectedOptions().put(getOption(), "§bMale");
+                else shops.getSelectedOptions().remove(getOption());
                 builder.setSelectedItem(item1.itemStack);
             });
 
@@ -39,8 +44,8 @@ public class GenderShop extends Shops.BaseShop {
             InvItem item2 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§d§lFemale").setKey(Keys.DYE_COLOR, DyeColors.MAGENTA);
             item2.setLore("Click here to select the", "§dFemale §7gender.");
             page.setItem(23, item2, event -> {
-                if (shops.pokemon.getGender() != Gender.Female) shops.getSelectedOptions().put(Shops.Options.GENDER, "§dFemale");
-                else shops.getSelectedOptions().remove(Shops.Options.GENDER);
+                if (shops.pokemon.getGender() != Gender.Female) shops.getSelectedOptions().put(getOption(), "§dFemale");
+                else shops.getSelectedOptions().remove(getOption());
                 builder.setSelectedItem(item2.itemStack);
             });
         }
@@ -49,17 +54,21 @@ public class GenderShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return 1000;
+        return getPriceOf(ConfigKeys.CHANGE, 1000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Gender Change", 1000);
+        addPriceSummary("Gender Change", getPriceOf(ConfigKeys.CHANGE, 1000));
     }
 
     @Override
     public void purchaseAction(Object value) {
         if (value.toString().contains("Female")) shops.pokemon.setGender(Gender.Female);
         else if (value.toString().contains("Male")) shops.pokemon.setGender(Gender.Male);
+    }
+
+    private static class ConfigKeys {
+        static final String CHANGE = "change";
     }
 }

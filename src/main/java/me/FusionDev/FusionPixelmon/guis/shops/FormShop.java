@@ -17,6 +17,11 @@ public class FormShop extends Shops.BaseShop {
         super(shops);
     }
 
+    @Override
+    public Shops.Options getOption() {
+        return Shops.Options.FORM;
+    }
+
     // todo disclaimer about item types which change form
     @Override
     public InvPage buildPage() {
@@ -30,7 +35,7 @@ public class FormShop extends Shops.BaseShop {
                 .setResetSlot(50)
                 .setBackSlot(52)
                 .border(true)
-                .setSelectedOption(Shops.Options.FORM);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         InvItem emptyItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
@@ -48,8 +53,8 @@ public class FormShop extends Shops.BaseShop {
             pokemon.setForm(form);
             InvItem item1 = new InvItem(PixelmonAPI.getPokeSprite(pokemon), (pokemon.isShiny() ? "§3Shiny " : "§3") + pokemon.getSpecies().getPokemonName() + " §8(§e" + form.getLocalizedName() + "§8)");
             page.setItem(i, item1, event -> {
-                if (shops.pokemon.getFormEnum() != form) shops.getSelectedOptions().put(Shops.Options.FORM, form);
-                else shops.getSelectedOptions().remove(Shops.Options.FORM);
+                if (shops.pokemon.getFormEnum() != form) shops.getSelectedOptions().put(getOption(), form);
+                else shops.getSelectedOptions().remove(getOption());
                 builder.setSelectedItem(item1.itemStack);
             });
             i++;
@@ -60,16 +65,20 @@ public class FormShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return 4000;
+        return getPriceOf(ConfigKeys.CHANGE, 4000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Form Change", 4000);
+        addPriceSummary("Form Change", getPriceOf(ConfigKeys.CHANGE, 4000));
     }
 
     @Override
     public void purchaseAction(Object value) {
         shops.pokemon.setForm((IEnumForm) value);
+    }
+
+    private static class ConfigKeys {
+        static final String CHANGE = "change";
     }
 }

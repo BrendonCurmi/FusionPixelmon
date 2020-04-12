@@ -15,6 +15,11 @@ public class LevelShop extends Shops.BaseShop {
     }
 
     @Override
+    public Shops.Options getOption() {
+        return Shops.Options.LEVEL;
+    }
+
+    @Override
     public InvPage buildPage() {
         Builder builder = new Builder("§0Level Modification", "pokeeditor-level", 6)
                 .setInfoItemData("Level Info",
@@ -25,7 +30,7 @@ public class LevelShop extends Shops.BaseShop {
                 .setInfoSlot(48)
                 .setResetSlot(50)
                 .setBackSlot(52)
-                .setSelectedOption(Shops.Options.LEVEL);
+                .setSelectedOption(getOption());
 
         InvPage page = builder.build();
 
@@ -54,7 +59,7 @@ public class LevelShop extends Shops.BaseShop {
 
         for (int slots1 : item1slots) {
             page.setItem(slots1, item1, event -> {
-                int levels = (int) shops.getSelectedOptions().getOrDefault(Shops.Options.LEVEL, 0);
+                int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
                 int add = 1;
                 if (event instanceof ClickInventoryEvent.Shift) {
                     add = 10;
@@ -66,7 +71,7 @@ public class LevelShop extends Shops.BaseShop {
                     // 100 - lvl - lvls = add
                 }
                 if (shops.pokemon.getLevel() + levels + add <= 100) {
-                    shops.getSelectedOptions().put(Shops.Options.LEVEL, levels + add);
+                    shops.getSelectedOptions().put(getOption(), levels + add);
                 }
                 builder.setSelectedItem(item1.itemStack);
             });
@@ -83,7 +88,7 @@ public class LevelShop extends Shops.BaseShop {
         );
         for (int slots2 : item2slots) {
             page.setItem(slots2, item2, event -> {
-                int levels = (int) shops.getSelectedOptions().getOrDefault(Shops.Options.LEVEL, 0);
+                int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
                 int add = 1;
                 if (event instanceof ClickInventoryEvent.Shift) {
                     add = 10;
@@ -95,7 +100,7 @@ public class LevelShop extends Shops.BaseShop {
                     // add = lvl + lvls - 1
                 }
                 if (shops.pokemon.getLevel() + levels - add > 0) {
-                    shops.getSelectedOptions().put(Shops.Options.LEVEL, levels - add);
+                    shops.getSelectedOptions().put(getOption(), levels - add);
                 }
                 builder.setSelectedItem(item2.itemStack);
             });
@@ -106,13 +111,13 @@ public class LevelShop extends Shops.BaseShop {
     @Override
     public int prices(Object value) {
         int levels = (int) value;
-        return (levels > 0) ? levels * 100 : Math.abs(levels) * 10;
+        return (levels > 0) ? levels * getPriceOf(ConfigKeys.ADD_LEVEL, 100) : Math.abs(levels) * getPriceOf(ConfigKeys.REMOVE_LEVEL, 10);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Add Level", 100 + " per level");
-        addPriceSummary("Remove Level", 10 + " per level");
+        addPriceSummary("Add Level", getPriceOf(ConfigKeys.ADD_LEVEL, 100) + " per level");
+        addPriceSummary("Remove Level", getPriceOf(ConfigKeys.REMOVE_LEVEL, 10) + " per level");
     }
 
     @Override
@@ -122,7 +127,12 @@ public class LevelShop extends Shops.BaseShop {
             Time.setTimeout(() -> {
                 for (int i = 1; i <= levels; i++)
                     shops.pokemon.getLevelContainer().awardEXP(shops.pokemon.getExperienceToLevelUp(), ExperienceGainType.BATTLE);
-            } ,1000);
+            }, 1000);
         } else shops.pokemon.setLevel(shops.pokemon.getLevel() + levels);
+    }
+
+    private static class ConfigKeys {
+        static final String ADD_LEVEL = "add-per-level";
+        static final String REMOVE_LEVEL = "remove-per-level";
     }
 }

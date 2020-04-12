@@ -15,6 +15,11 @@ public class GrowthShop extends Shops.BaseShop {
     }
 
     @Override
+    public Shops.Options getOption() {
+        return Shops.Options.GROWTH;
+    }
+
+    @Override
     public InvPage buildPage() {
         Builder builder = new Builder("§0Growth Modification", "pokeeditor-growth", 5)
                 .setInfoItemData("Growth Info",
@@ -22,14 +27,15 @@ public class GrowthShop extends Shops.BaseShop {
                         "simply select one of the options",
                         "on the right.")
                 .setSelectedItemName("Selected Growth")
-                .setSelectedOption(Shops.Options.GROWTH);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         for (GrowthOptions option : GrowthOptions.values()) {
             InvItem item = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§3§l" + Grammar.cap(option.name())).setKey(Keys.DYE_COLOR, option.dyeColor);
             page.setItem(option.slot, item, event -> {
-                if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name())) shops.getSelectedOptions().put(Shops.Options.GROWTH, option.name());
-                else shops.getSelectedOptions().remove(Shops.Options.GROWTH);
+                if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
+                    shops.getSelectedOptions().put(getOption(), option.name());
+                else shops.getSelectedOptions().remove(getOption());
                 builder.setSelectedItem(item.itemStack);
             });
         }
@@ -39,21 +45,27 @@ public class GrowthShop extends Shops.BaseShop {
     @Override
     public int prices(Object value) {
         String growth = (String) value;
-        int cost = 600;
-        if (growth.equals(EnumGrowth.Microscopic.name()) || growth.equals(EnumGrowth.Ginormous.name())) cost = 2000;
+        int cost = getPriceOf(ConfigKeys.REGULAR, 600);
+        if (growth.equals(EnumGrowth.Microscopic.name()) || growth.equals(EnumGrowth.Ginormous.name()))
+            cost = getPriceOf(ConfigKeys.SPECIAL, 2000);
         return cost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Most Growths", 600);
-        addPriceSummary(EnumGrowth.Microscopic.name(), 2000);
-        addPriceSummary(EnumGrowth.Ginormous.name(), 2000);
+        addPriceSummary("Most Growths", getPriceOf(ConfigKeys.REGULAR, 600));
+        addPriceSummary(EnumGrowth.Microscopic.name(), getPriceOf(ConfigKeys.SPECIAL, 2000));
+        addPriceSummary(EnumGrowth.Ginormous.name(), getPriceOf(ConfigKeys.SPECIAL, 2000));
     }
 
     @Override
     public void purchaseAction(Object value) {
         shops.pokemon.setGrowth(EnumGrowth.growthFromString(value.toString()));
+    }
+
+    private static class ConfigKeys {
+        static final String REGULAR = "regular";
+        static final String SPECIAL = "special";
     }
 
     public enum GrowthOptions {

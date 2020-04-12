@@ -18,6 +18,11 @@ public class EvolutionShop extends Shops.BaseShop {
     }
 
     @Override
+    public Shops.Options getOption() {
+        return Shops.Options.EVOLUTION;
+    }
+
+    @Override
     public InvPage buildPage() {
         Builder builder = new Builder("§0Evolution Modification", "pokeeditor-evolution", 5)
                 .setInfoItemData("Evolution Info",
@@ -31,7 +36,7 @@ public class EvolutionShop extends Shops.BaseShop {
                 .setResetSlot(41)
                 .setBackSlot(43)
                 .border(true)
-                .setSelectedOption(Shops.Options.EVOLUTION);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         int i = 9;
@@ -39,9 +44,9 @@ public class EvolutionShop extends Shops.BaseShop {
             InvItem item = new InvItem(PixelmonAPI.getPokeSprite(spec.create()), "§f" + spec.name);
             page.setItem(i, item, event -> {
                 if (!spec.name.equals(shops.pokemon.getSpecies().name)) {
-                    PokemonSpecWrapper wrapper = (PokemonSpecWrapper) shops.getSelectedOptions().getOrDefault(Shops.Options.EVOLUTION, new PokemonSpecWrapper());
+                    PokemonSpecWrapper wrapper = (PokemonSpecWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new PokemonSpecWrapper());
                     wrapper.setPokemonSpec(spec);
-                    shops.getSelectedOptions().put(Shops.Options.EVOLUTION, wrapper);
+                    shops.getSelectedOptions().put(getOption(), wrapper);
                 }
                 builder.setSelectedItem(item.itemStack);
             });
@@ -52,18 +57,22 @@ public class EvolutionShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return 10000;
+        return getPriceOf(ConfigKeys.CHANGE, 10000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Change Evolution", 10000);
+        addPriceSummary("Change Evolution", getPriceOf(ConfigKeys.CHANGE, 10000));
     }
 
     @Override
     public void purchaseAction(Object value) {
         PokemonSpecWrapper evolve = (PokemonSpecWrapper) value;
         Time.setTimeout(() -> shops.pokemon.evolve(evolve.pokemonSpec), 1000);
+    }
+
+    private static class ConfigKeys {
+        static final String CHANGE = "change";
     }
 
     private List<PokemonSpec> getEvolutionsList(Pokemon pokemon) {

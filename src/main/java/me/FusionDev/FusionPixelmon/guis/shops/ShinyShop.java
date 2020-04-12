@@ -10,6 +10,11 @@ public class ShinyShop extends Shops.BaseShop {
     }
 
     @Override
+    public Shops.Options getOption() {
+        return Shops.Options.SHINY;
+    }
+
+    @Override
     public InvPage buildPage() {
         Builder builder = new Builder("§0Shininess Modification", "pokeeditor-shiny", 5)
                 .setInfoItemData("Shiny Info",
@@ -17,22 +22,22 @@ public class ShinyShop extends Shops.BaseShop {
                         "your Pokemon simply select one",
                         "of the options on the right.")
                 .setSelectedItemName("Selected Shininess")
-                .setSelectedOption(Shops.Options.SHINY);
+                .setSelectedOption(getOption());
         InvPage page = builder.build();
 
         InvItem item1 = new InvItem(PixelmonAPI.getPixelmonItemType("light_ball"), "§6§lShiny");
         item1.setLore("Click here to select the", "§6Shiny §7option.");
         page.setItem(21, item1, event -> {
-            if (!shops.pokemon.isShiny()) shops.getSelectedOptions().put(Shops.Options.SHINY, true);
-            else shops.getSelectedOptions().remove(Shops.Options.SHINY);
+            if (!shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), true);
+            else shops.getSelectedOptions().remove(getOption());
             builder.setSelectedItem(item1.itemStack);
         });
 
         InvItem item2 = new InvItem(PixelmonAPI.getPixelmonItemType("iron_ball"), "§8§lNon-Shiny");
         item2.setLore("Click here to select the", "§8Non-Shiny §7option.");
         page.setItem(23, item2, event -> {
-            if (shops.pokemon.isShiny()) shops.getSelectedOptions().put(Shops.Options.SHINY, false);
-            else shops.getSelectedOptions().remove(Shops.Options.SHINY);
+            if (shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), false);
+            else shops.getSelectedOptions().remove(getOption());
             builder.setSelectedItem(item2.itemStack);
         });
         return page;
@@ -40,13 +45,13 @@ public class ShinyShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return ((boolean) value) ? 4000 : 125;
+        return ((boolean) value) ? getPriceOf(ConfigKeys.ADD, 4000) : getPriceOf(ConfigKeys.REMOVE, 125);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Add Shininess", 4000);
-        addPriceSummary("Remove Shininess", 125);
+        addPriceSummary("Add Shininess", getPriceOf(ConfigKeys.ADD, 4000));
+        addPriceSummary("Remove Shininess", getPriceOf(ConfigKeys.REMOVE, 125));
     }
 
     @Override
@@ -58,5 +63,10 @@ public class ShinyShop extends Shops.BaseShop {
                 shops.pokemon.setShiny(set);
             }
         }
+    }
+
+    private static class ConfigKeys {
+        static final String ADD = "add";
+        static final String REMOVE = "remove";
     }
 }

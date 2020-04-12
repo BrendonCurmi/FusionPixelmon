@@ -1,7 +1,9 @@
 package me.FusionDev.FusionPixelmon.guis.shops;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.apis.BankAPI;
+import me.FusionDev.FusionPixelmon.config.configs.PokeDesignerConfig;
 import me.FusionDev.FusionPixelmon.pixelmon.PixelmonAPI;
 import me.FusionDev.FusionPixelmon.inventory.InvInventory;
 import me.FusionDev.FusionPixelmon.inventory.InvItem;
@@ -17,6 +19,7 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class Shops {
@@ -108,43 +111,49 @@ public class Shops {
      * Creates and adds the shops.
      */
     private void initShops() {
-        shops.putIfAbsent(Options.LEVEL, new LevelShop(this));
-        shops.putIfAbsent(Options.ABILITY, new AbilityShop(this));
-        shops.putIfAbsent(Options.NATURE, new NatureShop(this));
-        shops.putIfAbsent(Options.IVEV, new IVEVShop(this));
-        shops.putIfAbsent(Options.GENDER, new GenderShop(this));
-        shops.putIfAbsent(Options.GROWTH, new GrowthShop(this));
-        shops.putIfAbsent(Options.SHINY, new ShinyShop(this));
-        shops.putIfAbsent(Options.POKEBALL, new PokeballShop(this));
-        shops.putIfAbsent(Options.FORM, new FormShop(this));
-        shops.putIfAbsent(Options.EVOLUTION, new EvolutionShop(this));
+        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        for (Options option : Options.values()) {
+            if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
+                try {
+                    shops.putIfAbsent(option, option.getShopClass().getDeclaredConstructor(Shops.class).newInstance(this));
+                } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
      * Lists the different shop options with their properties to show in the main shop.
      */
     public enum Options {
-        LEVEL(11, PixelmonAPI.getPixelmonItemStack("rare_candy"), "Level", "level"),
-        ABILITY(13, PixelmonAPI.getPixelmonItemStack("ability_capsule"), "Ability", "ability"),
-        NATURE(15, PixelmonAPI.getPixelmonItemStack("ever_stone"), "Nature", "nature"),
-        IVEV(20, PixelmonAPI.getPixelmonItemStack("destiny_knot"), "IVs/EVs", "IVs/EVs"),
-        GENDER(22, PixelmonAPI.getPixelmonItemStack("full_incense"), "Gender", "gender"),
-        GROWTH(24, ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build(), "Growth", "growth"),
-        SHINY(29, PixelmonAPI.getPixelmonItemStack("light_ball"), "Shiny", "shininess"),
-        POKEBALL(31, PixelmonAPI.getPixelmonItemStack("poke_ball"), "Pokeball", "pokeball"),
-        FORM(33, PixelmonAPI.getPixelmonItemStack("meteorite"), "Form", "form"),
-        EVOLUTION(4, PixelmonAPI.getPixelmonItemStack("fire_stone"), "Evolution", "evolution");
+        LEVEL(LevelShop.class, 11, PixelmonAPI.getPixelmonItemStack("rare_candy"), "Level", "level"),
+        ABILITY(AbilityShop.class, 13, PixelmonAPI.getPixelmonItemStack("ability_capsule"), "Ability", "ability"),
+        NATURE(NatureShop.class, 15, PixelmonAPI.getPixelmonItemStack("ever_stone"), "Nature", "nature"),
+        IVEV(IVEVShop.class, 20, PixelmonAPI.getPixelmonItemStack("destiny_knot"), "IVs/EVs", "IVs/EVs"),
+        GENDER(GenderShop.class, 22, PixelmonAPI.getPixelmonItemStack("full_incense"), "Gender", "gender"),
+        GROWTH(GrowthShop.class, 24, ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build(), "Growth", "growth"),
+        SHINY(ShinyShop.class, 29, PixelmonAPI.getPixelmonItemStack("light_ball"), "Shiny", "shininess"),
+        POKEBALL(PokeballShop.class, 31, PixelmonAPI.getPixelmonItemStack("poke_ball"), "Pokeball", "pokeball"),
+        FORM(FormShop.class, 33, PixelmonAPI.getPixelmonItemStack("meteorite"), "Form", "form"),
+        EVOLUTION(EvolutionShop.class, 4, PixelmonAPI.getPixelmonItemStack("fire_stone"), "Evolution", "evolution");
 
+        Class<? extends Shops.BaseShop> shopClass;
         int slot;
         ItemStack itemStack;
         String name;
         String modifyWhat;
 
-        Options(int slot, ItemStack itemStack, String name, String modifyWhat) {
+        Options(Class<? extends Shops.BaseShop> shopClass, int slot, ItemStack itemStack, String name, String modifyWhat) {
+            this.shopClass = shopClass;
             this.slot = slot;
             this.itemStack = itemStack;
             this.name = name;
             this.modifyWhat = modifyWhat;
+        }
+
+        public Class<? extends BaseShop> getShopClass() {
+            return shopClass;
         }
     }
 
@@ -311,17 +320,17 @@ public class Shops {
         // Items
         pages.add(pagePokeEditor);
 
-        for (Options o : Options.values()) {
-            InvItem item = new InvItem(ItemStack.builder().fromItemStack(o.itemStack).build(), "§3§l" + o.name);
+        for (Map.Entry<Options, BaseShop> entry : shops.entrySet()) {
+            InvItem item = new InvItem(ItemStack.builder().fromItemStack(entry.getKey().itemStack).build(), "§3§l" + entry.getKey().name);
             item.setLore(
                     "§7Click here if you wish to",
-                    "modify your Pokemon's " + o.modifyWhat + ".",
+                    "modify your Pokemon's " + entry.getKey().modifyWhat + ".",
                     "",
                     "§aPrices:",
-                    shops.get(o).getPricesSummary()
+                    entry.getValue().getPricesSummary()
             );
-            InvPage page = shops.get(o).buildPage();
-            pagePokeEditor.setItem(o.slot, item, event -> inv.openPage(player, page));
+            InvPage page = entry.getValue().buildPage();
+            pagePokeEditor.setItem(entry.getKey().slot, item, event -> inv.openPage(player, page));
             pages.add(page);
         }
         inv.add(pages);
@@ -350,13 +359,44 @@ public class Shops {
         }
 
         /**
+         * Method variable for getting the option of that Shop.
+         *
+         * @return the option of the shop.
+         */
+        public abstract Options getOption();
+
+        /**
          * Builds the shop page.
+         *
          * @return the shop page object.
          */
         public abstract InvPage buildPage();
 
         /**
+         * Gets the config object of the Shop.
+         *
+         * @return the config object of the shop.
+         */
+        public PokeDesignerConfig.ShopConfig getShopConfig() {
+            return FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig().getShopNamed(getOption().name().toLowerCase());
+        }
+
+        /**
+         * Gets the price of the specified key from the shop config, or the specified
+         * default price if cannot.
+         *
+         * @param key          the config key.
+         * @param defaultPrice the default price.
+         * @return the price of the key from the shop config; or the defaultPrice if cant.
+         */
+        public int getPriceOf(String key, int defaultPrice) {
+            PokeDesignerConfig.ShopConfig shop = getShopConfig();
+            return shop != null ? shop.getPrices().getOrDefault(key, defaultPrice) : defaultPrice;
+        }
+
+        /**
          * Lists and returns the amount/price the specified value costs.
+         *
          * @param value the value the player has selected.
          * @return the price of the value.
          */
@@ -377,6 +417,7 @@ public class Shops {
 
         /**
          * Gets the price summaries lore of the shop.
+         *
          * @return the price summaries lore of the shop.
          */
         public List<String> getPricesSummary() {
@@ -386,7 +427,8 @@ public class Shops {
         /**
          * Adds the specified item and its price in a pretty-formatted
          * summary to the shop's item lore.
-         * @param item the selected item.
+         *
+         * @param item  the selected item.
          * @param price the price of the item.
          */
         protected void addPriceSummary(String item, int price) {
@@ -396,7 +438,8 @@ public class Shops {
         /**
          * Adds the specified item and its price in a pretty-formatted
          * summary to the shop's item lore.
-         * @param item the selected item.
+         *
+         * @param item  the selected item.
          * @param price the price of the item.
          */
         protected void addPriceSummary(String item, String price) {
@@ -405,6 +448,7 @@ public class Shops {
 
         /**
          * This method is executed upon a successful purchase for each shop.
+         *
          * @param value the value of the shop/option the player has purchased.
          */
         public abstract void purchaseAction(Object value);
@@ -412,7 +456,8 @@ public class Shops {
         /**
          * Allows the overriding of the default purchase summary item
          * lore for this shop/option, with a custom purchase summary.
-         * @param key the option the player is purchasing.
+         *
+         * @param key   the option the player is purchasing.
          * @param value the value the player is purchasing.
          * @return the overriding purchase summary for the shop option.
          */
