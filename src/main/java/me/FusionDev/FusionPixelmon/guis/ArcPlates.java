@@ -89,14 +89,17 @@ public class ArcPlates {
         // Handle inventory action
         page.setClickInventoryEventListener(event1 -> {
             ClickInventoryEvent event = (ClickInventoryEvent) event1;
+            if (event instanceof ClickInventoryEvent.Shift) {
+                player.sendMessage(Text.of(TextColors.RED, "Shifting in this inventory is not a function"));
+                return;
+            }
 
             ItemStack selected = event.getTransactions().get(0).getOriginal().createStack();
-            if (event instanceof ClickInventoryEvent.Shift && (selected.getType() == ItemTypes.AIR || selected.getType() == ItemTypes.NONE)) {
-                selected = event.getTransactions().get(0).getDefault().createStack();
-            }
 
             Optional<SlotIndex> slotIndex = event.getTransactions().get(0).getSlot().getInventoryProperty(SlotIndex.class);
             if (slotIndex.isPresent() && slotIndex.get().getValue() != null) {
+                // When shift clicking, seems slot is taken as the value of the slot where the item ends up, not
+                // where clicked. Hence disabling shift clicking in the inventory.
                 int slot = slotIndex.get().getValue();
 
                 // In Player Inventory
