@@ -13,6 +13,7 @@ This is a plugin/mod hybrid that adds extra features to your Pixelmon Sponge ser
 5. [Dependencies](#dependencies)
 6. [Development Dependencies](#development-dependencies)
 7. [Config](#config)
+8. [Known Issues](#known-issues)
 
 # Features
 
@@ -121,3 +122,7 @@ shrine-pickup=[
 ```
 
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/src/main/resources/assets/fusionpixelmon/default.conf).
+
+# Known Issues
+- Using Sponge 7.2.0 causes levels to be bought 1 at a time, and Pokemon to revert back to original form after battling or returning to pokeball.
+- Using inventory mods (like InventoryTweaks) on an open GUI menu can break the menu or cause item duplications.
