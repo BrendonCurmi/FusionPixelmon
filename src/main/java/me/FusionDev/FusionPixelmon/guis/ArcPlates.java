@@ -127,7 +127,7 @@ public class ArcPlates {
                     if (enabled) {
                         // Delay to prevent duping
                         enabled = false;
-                        Time.setTimeout(() -> enabled = true, 700);
+                        Time.setTimeout(() -> enabled = true, 1000);
 
                         // Left clicking plate in GUI
                         if (event instanceof ClickInventoryEvent.Primary) {
