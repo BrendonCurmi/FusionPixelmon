@@ -1,7 +1,9 @@
 package me.FusionDev.FusionPixelmon.config.configs;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
+import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -10,10 +12,24 @@ import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ConfigSerializable
 public class PokeDesignerConfig {
+    @Inject
+    @Setting("blacklisted-pokemon")
+    public List<EnumSpecies> blacklistedPokemon = ImmutableList.of();
+
+    /**
+     * Checks if the specified species is blacklisted from the PokeDesigner.
+     * @param species the species to check.
+     * @return true if the species is blacklisted; otherwise false.
+     */
+    public boolean containsBlackListedPokemon(EnumSpecies species) {
+        return blacklistedPokemon.contains(species);
+    }
+
     @ConfigSerializable
     public static class ShopConfig {
         @SuppressWarnings("UnstableApiUsage")
@@ -79,10 +95,10 @@ public class PokeDesignerConfig {
     @SuppressWarnings("UnstableApiUsage")
     public void loadPokeDesignerConfig(HoconConfigurationLoader loader) throws IOException, ObjectMappingException {
         CommentedConfigurationNode configRoot = loader.load();
-        Map<Object, ? extends CommentedConfigurationNode> map = configRoot.getNode("pokedesigner").getChildrenMap();
+        Map<Object, ? extends CommentedConfigurationNode> map = configRoot.getNode("pokedesigner", "shops").getChildrenMap();
         for (Object key : map.keySet()) {
             String name = (String) key;
-            ShopConfig shopConfig = configRoot.getNode("pokedesigner", name).getValue(ShopConfig.TYPE);
+            ShopConfig shopConfig = configRoot.getNode("pokedesigner", "shops", name).getValue(ShopConfig.TYPE);
             if (shopConfig != null) {
                 shops.put(name, shopConfig);
             }

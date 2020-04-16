@@ -1,5 +1,6 @@
 package me.FusionDev.FusionPixelmon.commands;
 
+import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.guis.PokeSelectorUI;
 import me.FusionDev.FusionPixelmon.guis.shops.Shops;
 import org.spongepowered.api.command.CommandResult;
@@ -7,6 +8,8 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.plugin.meta.util.NonnullByDefault;
 
 @NonnullByDefault
@@ -17,7 +20,11 @@ public class PokeDesignerCmd implements CommandExecutor {
         if (src instanceof Player) {
             Player player = (Player) src;
             Shops shops = new Shops(player);
-            new PokeSelectorUI(player, "Pokemon Selector", "pokeselector", shops::launch);
+            new PokeSelectorUI(player, "Pokemon Selector", "pokeselector", pokemon -> {
+                if (!FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig().containsBlackListedPokemon(pokemon.getSpecies())) {
+                    shops.launch(pokemon);
+                } else player.sendMessage(Text.of(TextColors.RED, "That Pokemon cant use the PokeDesigner!"));
+            });
         }
         return CommandResult.success();
     }
