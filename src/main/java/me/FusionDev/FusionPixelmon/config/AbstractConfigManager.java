@@ -46,11 +46,20 @@ public abstract class AbstractConfigManager<T extends ConfigurationNode, L exten
         if (checkVersion) {
             int version = Integer.parseInt(FusionPixelmon.VERSION.substring(FusionPixelmon.VERSION.indexOf(".") + 1));
             if (node.getNode("version").getInt() < version) {
-                node.mergeValuesFrom(getDefaultsFrom(loader));
-                node.getNode("version").setValue(version);
+                configUpdater(version);
             }
         }
         save();
+    }
+
+    /**
+     * Updates the config file from the default config.
+     * @param newVersion the new version of the config file.
+     * @throws IOException if an I/O exception occurs.
+     */
+    protected void configUpdater(int newVersion) throws IOException {
+        node.mergeValuesFrom(getDefaultsFrom(loader));
+        node.getNode("version").setValue(newVersion);
     }
 
     /**

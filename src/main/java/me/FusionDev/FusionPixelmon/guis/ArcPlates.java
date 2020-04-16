@@ -94,6 +94,9 @@ public class ArcPlates {
                 return;
             }
 
+            // If clicked outside bounds
+            if (event.getTransactions().isEmpty()) return;
+
             ItemStack selected = event.getTransactions().get(0).getOriginal().createStack();
 
             Optional<SlotIndex> slotIndex = event.getTransactions().get(0).getSlot().getInventoryProperty(SlotIndex.class);
@@ -127,7 +130,7 @@ public class ArcPlates {
                     if (enabled) {
                         // Delay to prevent duping
                         enabled = false;
-                        Time.setTimeout(() -> enabled = true, 700);
+                        Time.setTimeout(() -> enabled = true, 900);
 
                         // Left clicking plate in GUI
                         if (event instanceof ClickInventoryEvent.Primary) {
