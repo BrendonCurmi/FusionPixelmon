@@ -186,7 +186,7 @@ public class IVEVShop extends Shops.BaseShop {
         addPriceSummary("Remove IV", getPriceOf(ConfigKeys.REMOVE_IV, 5) + " per IV");
         String changeEV = getPriceOf(ConfigKeys.CHANGE_EV, 5) + " per EV";
         addPriceSummary("Add EV", changeEV);
-        addPriceSummary("Remove IV", changeEV);
+        addPriceSummary("Remove EV", changeEV);
     }
 
     @Override
