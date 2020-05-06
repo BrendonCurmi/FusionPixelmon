@@ -21,17 +21,4 @@ public class ConfigManager extends AbstractConfigManager<CommentedConfigurationN
     protected CommentedConfigurationNode getDefaultsFrom(HoconConfigurationLoader loader) throws IOException {
         return HoconConfigurationLoader.builder().setURL(Sponge.getAssetManager().getAsset(FusionPixelmon.getInstance(), "default.conf").get().getUrl()).build().load(loader.getDefaultOptions());
     }
-
-    @Override
-    protected void configUpdater(int newVersion) throws IOException {
-        // Backwards compatibility to move data from pokedesigner -> pokedesigner.shop for previous versions
-        CommentedConfigurationNode tmpNode = getNode().getNode("pokedesigner-shop-tmp");
-        tmpNode.setValue(getNode().getNode("pokedesigner").getChildrenMap());
-        getNode().removeChild("pokedesigner");
-
-        super.configUpdater(newVersion);
-
-        getNode().getNode("pokedesigner", "shops").setValue(tmpNode.getChildrenMap());
-        getNode().removeChild("pokedesigner-shop-tmp");
-    }
 }

@@ -136,7 +136,8 @@ public class Shops {
         SHINY(ShinyShop.class, 29, PixelmonAPI.getPixelmonItemStack("light_ball"), "Shiny", "shininess"),
         POKEBALL(PokeballShop.class, 31, PixelmonAPI.getPixelmonItemStack("poke_ball"), "Pokeball", "pokeball"),
         FORM(FormShop.class, 33, PixelmonAPI.getPixelmonItemStack("meteorite"), "Form", "form"),
-        EVOLUTION(EvolutionShop.class, 4, PixelmonAPI.getPixelmonItemStack("fire_stone"), "Evolution", "evolution");
+        EVOLUTION(EvolutionShop.class, 4, PixelmonAPI.getPixelmonItemStack("fire_stone"), "Evolution", "evolution"),
+        NICK(NickShop.class, 2, PixelmonAPI.getPixelmonItemStack("ruby"), "Nick", "nick colour");
 
         Class<? extends Shops.BaseShop> shopClass;
         int slot;
@@ -222,6 +223,7 @@ public class Shops {
         pagePokeEditor.setItem(27, airItem);
 
         // Center
+        pagePokeEditor.setItemRange(2, 6, airItem);
         pagePokeEditor.setItemRange(11, 15, airItem);
         pagePokeEditor.setItemRange(20, 24, airItem);
         pagePokeEditor.setItemRange(29, 33, airItem);

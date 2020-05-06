@@ -19,7 +19,7 @@ public class PokeData {
     }
 
     public String getTitle() {
-        return "§b" + getSpeciesName() + " §7: §eLvl " + pokemon.getLevel() + getIfShiny();
+        return "§b" + getName() + " §7: §eLvl " + pokemon.getLevel() + getIfShiny();
     }
 
     public String getIfShiny() {
@@ -30,12 +30,8 @@ public class PokeData {
         return pokemon.getSpecies().getPokemonName();
     }
 
-    public String getNickname() {
-        return "§7Nickname: §e" + pokemon.getNickname();
-    }
-
-    public boolean hasNickname() {
-        return pokemon.getNickname() == null;
+    public String getName() {
+        return (pokemon.getNickname() == null || pokemon.getNickname().isEmpty()) ? getSpeciesName() : pokemon.getNickname();
     }
 
     public String getAbility() {
