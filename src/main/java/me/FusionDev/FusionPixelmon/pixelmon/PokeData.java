@@ -31,7 +31,7 @@ public class PokeData {
     }
 
     public String getName() {
-        return pokemon.getNickname() != null ? pokemon.getNickname() : getSpeciesName();
+        return (pokemon.getNickname() == null || pokemon.getNickname().isEmpty()) ? getSpeciesName() : pokemon.getNickname();
     }
 
     public String getAbility() {
