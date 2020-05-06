@@ -222,6 +222,7 @@ public class Shops {
         pagePokeEditor.setItem(27, airItem);
 
         // Center
+        pagePokeEditor.setItemRange(2, 6, airItem);
         pagePokeEditor.setItemRange(11, 15, airItem);
         pagePokeEditor.setItemRange(20, 24, airItem);
         pagePokeEditor.setItemRange(29, 33, airItem);
