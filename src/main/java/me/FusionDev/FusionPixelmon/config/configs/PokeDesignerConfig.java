@@ -20,6 +20,12 @@ public class PokeDesignerConfig {
     @Inject
     @Setting("blacklisted-pokemon")
     public List<EnumSpecies> blacklistedPokemon = ImmutableList.of();
+    @Inject
+    @Setting("poke-selector-gui-title")
+    private String pokeSelectorGuiTitle;
+    @Inject
+    @Setting("gui-title")
+    private String guiTitle;
 
     /**
      * Checks if the specified species is blacklisted from the PokeDesigner.
@@ -28,6 +34,14 @@ public class PokeDesignerConfig {
      */
     public boolean containsBlackListedPokemon(EnumSpecies species) {
         return blacklistedPokemon.contains(species);
+    }
+
+    public String getPokeSelectorGuiTitle() {
+        return pokeSelectorGuiTitle;
+    }
+
+    public String getGuiTitle() {
+        return guiTitle;
     }
 
     @ConfigSerializable
