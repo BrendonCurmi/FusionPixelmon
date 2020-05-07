@@ -15,19 +15,20 @@ import org.spongepowered.plugin.meta.util.NonnullByDefault;
 
 @NonnullByDefault
 public class PokeDesignerCmd implements CommandExecutor {
-
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
-        if (src instanceof Player) {
-            Player player = (Player) src;
-            Shops shops = new Shops(player);
-            PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
-            new PokeSelectorUI(player, config.getPokeSelectorGuiTitle(), "pokeselector", pokemon -> {
-                if (!config.containsBlackListedPokemon(pokemon.getSpecies())) {
-                    shops.launch(pokemon, config.getGuiTitle());
-                } else player.sendMessage(Text.of(TextColors.RED, "That Pokemon cant use the PokeDesigner!"));
-            });
+        if (!(src instanceof Player)) {
+            src.sendMessage(Text.of(TextColors.RED, "This command can only be executed by a player"));
+            return CommandResult.empty();
         }
+        Player player = (Player) src;
+        Shops shops = new Shops(player);
+        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        new PokeSelectorUI(player, config.getPokeSelectorGuiTitle(), "pokeselector", pokemon -> {
+            if (!config.containsBlackListedPokemon(pokemon.getSpecies())) {
+                shops.launch(pokemon, config.getGuiTitle());
+            } else player.sendMessage(Text.of(TextColors.RED, "That Pokemon cant use the PokeDesigner!"));
+        });
         return CommandResult.success();
     }
 }
