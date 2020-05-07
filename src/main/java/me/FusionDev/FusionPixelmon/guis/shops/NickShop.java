@@ -27,7 +27,11 @@ public class NickShop extends Shops.BaseShop {
                 .setInfoItemData("Nick Info",
                         "To pick a nick colour for your Pokemon",
                         "simply select one of the options",
-                        "on the right.")
+                        "on the right.",
+                        "Previously bought options stack up.",
+                        "So before purchasing a new colour,",
+                        "clear the previous ones in the",
+                        "Pokemon rename screen.")
                 .setSelectedItemName("Selected Nick Colour")
                 .setSelectedSlot(46)
                 .setInfoSlot(48)
