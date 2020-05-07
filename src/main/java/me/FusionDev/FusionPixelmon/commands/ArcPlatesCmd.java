@@ -14,16 +14,17 @@ import org.spongepowered.plugin.meta.util.NonnullByDefault;
 
 @NonnullByDefault
 public class ArcPlatesCmd implements CommandExecutor {
-
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
-        if (src instanceof Player) {
-            Player player = (Player) src;
-            new PokeSelectorUI(player, "Arceus Selector", "arceusselector", pokemon -> {
-                if (pokemon.getSpecies() == EnumSpecies.Arceus) new ArcPlates().launch(player, pokemon);
-                else player.sendMessage(Text.of(TextColors.RED, "Please only select an Arceus!"));
-            });
+        if (!(src instanceof Player)) {
+            src.sendMessage(Text.of(TextColors.RED, "This command can only be executed by a player"));
+            return CommandResult.empty();
         }
+        Player player = (Player) src;
+        new PokeSelectorUI(player, "Arceus Selector", "arceusselector", pokemon -> {
+            if (pokemon.getSpecies() == EnumSpecies.Arceus) new ArcPlates().launch(player, pokemon);
+            else player.sendMessage(Text.of(TextColors.RED, "Please only select an Arceus!"));
+        });
         return CommandResult.success();
     }
 }

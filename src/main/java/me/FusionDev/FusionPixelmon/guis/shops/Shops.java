@@ -178,14 +178,14 @@ public class Shops {
      *
      * @param pokemon the selected pokemon.
      */
-    public void launch(Pokemon pokemon) {
+    public void launch(Pokemon pokemon, String guiTitle) {
         this.inv = new InvInventory();
         this.pages = new ArrayList<>();
         this.pokemon = pokemon;
 
         bank = new BankAPI(player);
 
-        pagePokeEditor = new InvPage("§8Pokemon Editor", SHOP_ID, 6);
+        pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
         pagePokeEditor.setInteractInventoryEventListener(event -> {
             if (event instanceof InteractInventoryEvent.Close) {
                 resetSelectedOptions(false);
