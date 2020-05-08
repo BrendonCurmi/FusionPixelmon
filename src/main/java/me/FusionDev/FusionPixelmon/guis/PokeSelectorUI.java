@@ -36,8 +36,8 @@ public class PokeSelectorUI {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
                 PokeData pokeData = new PokeData(pokemon);
-                partyItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon), pokeData.getTitle());
-                partyItem.setLore(
+                partyItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), pokeData.getTitle());
+                partyItem.addLore(
                         pokeData.getAbility(),
                         pokeData.getNature(),
                         "",
@@ -46,6 +46,9 @@ public class PokeSelectorUI {
                         "",
                         pokeData.getIVs()
                 );
+                if (!pokemon.getCustomTexture().isEmpty()) partyItem.appendLore("", pokeData.getCustomTexture());
+                partyItem.pushLore();
+
                 pagePokeSelect.setItem(i, partyItem, event -> {
                     selectedPokemon = pokemon;
                     consumer.accept(selectedPokemon);

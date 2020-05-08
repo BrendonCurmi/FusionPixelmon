@@ -94,6 +94,19 @@ public class InvItem {
     }
 
 
+    public InvItem addLore(Object... lore) {
+        List<Text> itemLore = new ArrayList<>();
+        for (Object line : lore) {
+            if (line == null) continue;
+            else if (line instanceof List)
+                for (String l : (List<String>) line) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, l));
+            else if (line instanceof String[])
+                for (String l : (String[]) line) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, l));
+            else itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
+        }
+        this.itemLore = itemLore;
+        return this;
+    }
 
     /**
      * Adds the specified lore as a list to the beginning of the item lore.
@@ -177,16 +190,7 @@ public class InvItem {
 
     // todo make better
     public InvItem setLore(Object... lore) {
-        List<Text> itemLore = new ArrayList<>();
-        for (Object line : lore) {
-            if (line == null) continue;
-            else if (line instanceof List)
-                for (String l : (List<String>) line) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, l));
-            else if (line instanceof String[])
-                for (String l : (String[]) line) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, l));
-            else itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
-        }
-        this.itemLore = itemLore;
+        addLore(lore);
         pushLore();
         return this;
     }

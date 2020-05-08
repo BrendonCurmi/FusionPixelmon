@@ -20,14 +20,27 @@ import org.spongepowered.common.item.inventory.util.ItemStackUtil;
 public class PixelmonAPI {
 
     /**
-     * Creates a Pokemon Photo Sprite based on the
-     * specified pokemon.
+     * Creates a Pokemon Photo Sprite based on the specified pokemon.
      *
      * @param pokemon the Pokemon to take a photo of.
-     * @return the ItemStack of the Pokemon Sprite photo.
+     * @return the ItemStack of the Pokemon photo.
      */
     public static ItemStack getPokeSprite(Pokemon pokemon) {
-        return ItemStackUtil.fromNative(ItemPixelmonSprite.getPhoto(pokemon));
+        return getPokeSprite(pokemon, false);
+    }
+
+    /**
+     * Creates a Pokemon Photo Sprite based on a copy of the specified pokemon.
+     *
+     * @param pokemon          the Pokemon to take a photo of.
+     * @param createNewPokemon if a copy of the pokemon should be taken to make the photo.
+     * @return the ItemStack of the Pokemon photo.
+     */
+    public static ItemStack getPokeSprite(Pokemon pokemon, boolean createNewPokemon) {
+        if (!createNewPokemon) return ItemStackUtil.fromNative(ItemPixelmonSprite.getPhoto(pokemon));
+        Pokemon newPokemon = fromPokemon(pokemon, true).create();
+        newPokemon.setCustomTexture("");
+        return ItemStackUtil.fromNative(ItemPixelmonSprite.getPhoto(newPokemon));
     }
 
     /**
@@ -48,7 +61,7 @@ public class PixelmonAPI {
             pokemonSpec.ability = pokemon.getAbility().getName();
             pokemonSpec.form = (byte) pokemon.getForm();
             pokemonSpec.ball = (byte) pokemon.getCaughtBall().getIndex();
-            pokemonSpec.pokerusType = (byte) pokemon.getPokerus().type.ordinal();
+            if (pokemon.getPokerus() != null) pokemonSpec.pokerusType = (byte) pokemon.getPokerus().type.ordinal();
             pokemonSpec.egg = pokemon.isEgg();
         }
         pokemonSpec.boss = null;

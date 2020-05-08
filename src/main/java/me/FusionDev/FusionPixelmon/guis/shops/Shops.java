@@ -201,8 +201,8 @@ public class Shops {
 
         // todo pokerus support
         PokeData pokeData = new PokeData(pokemon);
-        InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon), "§b§lSelected Pokemon");
-        pokeItem.setLore(
+        InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
+        pokeItem.addLore(
                 pokeData.getTitle(),
                 pokeData.getAbility(),
                 pokeData.getNature(),
@@ -216,6 +216,8 @@ public class Shops {
                 "",
                 pokeData.getEVs()
         );
+        if (!pokemon.getCustomTexture().isEmpty()) pokeItem.appendLore("", pokeData.getCustomTexture());
+        pokeItem.pushLore();
 
         // Left
         pagePokeEditor.setItem(9, airItem);
