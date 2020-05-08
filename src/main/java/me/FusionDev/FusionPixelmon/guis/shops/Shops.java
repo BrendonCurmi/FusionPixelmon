@@ -202,7 +202,7 @@ public class Shops {
         // todo pokerus support
         PokeData pokeData = new PokeData(pokemon);
         InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
-        pokeItem.addLore(
+        pokeItem.setLoreWait(
                 pokeData.getTitle(),
                 pokeData.getAbility(),
                 pokeData.getNature(),

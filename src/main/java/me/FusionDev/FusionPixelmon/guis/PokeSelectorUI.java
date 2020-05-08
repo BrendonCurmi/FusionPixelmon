@@ -37,7 +37,7 @@ public class PokeSelectorUI {
             if (pokemon != null && !pokemon.isEgg()) {
                 PokeData pokeData = new PokeData(pokemon);
                 partyItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), pokeData.getTitle());
-                partyItem.addLore(
+                partyItem.setLoreWait(
                         pokeData.getAbility(),
                         pokeData.getNature(),
                         "",
