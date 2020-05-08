@@ -129,11 +129,11 @@ public class InvInventory {
         for (final Inventory slot : inventory.slots()) {
             if (page.elements.containsKey(num)) {
                 slot.set(ItemStack.builder()
-                        .fromContainer(page.elements.get(num).itemStack.toContainer().set(DataQuery.of("UnsafeData", "slotnum"), num))
+                        .fromContainer(page.elements.get(num).getItemStack().toContainer().set(DataQuery.of("UnsafeData", "slotnum"), num))
                         .build());
             } else if (page.backgroundItem != null) {
                 slot.set(ItemStack.builder()
-                        .fromItemStack(page.backgroundItem.itemStack)
+                        .fromItemStack(page.backgroundItem.getItemStack())
                         .build());
             }
             num++;
@@ -206,7 +206,7 @@ public class InvInventory {
                 int num = 0;
                 for (final Inventory slot : page.inventory.slots()) {
                     if (page.elements.get(num) != null) {
-                        slot.set(page.elements.get(num).itemStack);
+                        slot.set(page.elements.get(num).getItemStack());
                     }
                     num++;
                 }

@@ -36,7 +36,7 @@ public class GrowthShop extends Shops.BaseShop {
                 if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), option.name());
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item.itemStack);
+                builder.setSelectedItem(item.getItemStack());
             });
         }
         return page;

@@ -47,7 +47,7 @@ public class NickShop extends Shops.BaseShop {
             if (option.getDyeColor() != null) item.setKey(Keys.DYE_COLOR, option.getDyeColor());
             page.setItem(slot, item, event -> {
                 shops.getSelectedOptions().put(getOption(), option.getColour());
-                builder.setSelectedItem(item.itemStack);
+                builder.setSelectedItem(item.getItemStack());
             });
             slot++;
         }

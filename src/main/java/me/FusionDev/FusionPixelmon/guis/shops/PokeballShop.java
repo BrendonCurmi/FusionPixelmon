@@ -41,7 +41,7 @@ public class PokeballShop extends Shops.BaseShop {
             page.setItem(slot, item, event -> {
                 if (shops.pokemon.getCaughtBall() != pokeballs) shops.getSelectedOptions().put(getOption(), pokeballs);
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item.itemStack);
+                builder.setSelectedItem(item.getItemStack());
             });
             slot++;
         }

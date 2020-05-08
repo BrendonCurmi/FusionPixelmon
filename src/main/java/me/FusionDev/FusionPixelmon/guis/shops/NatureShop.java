@@ -37,7 +37,7 @@ public class NatureShop extends Shops.BaseShop {
                 if (!shops.pokemon.getNature().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), Grammar.cap(option.name()));
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item.itemStack);
+                builder.setSelectedItem(item.getItemStack());
             });
         }
 

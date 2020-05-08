@@ -73,7 +73,7 @@ public class LevelShop extends Shops.BaseShop {
                 if (shops.pokemon.getLevel() + levels + add <= 100) {
                     shops.getSelectedOptions().put(getOption(), levels + add);
                 }
-                builder.setSelectedItem(item1.itemStack);
+                builder.setSelectedItem(item1.getItemStack());
             });
         }
 
@@ -102,7 +102,7 @@ public class LevelShop extends Shops.BaseShop {
                 if (shops.pokemon.getLevel() + levels - add > 0) {
                     shops.getSelectedOptions().put(getOption(), levels - add);
                 }
-                builder.setSelectedItem(item2.itemStack);
+                builder.setSelectedItem(item2.getItemStack());
             });
         }
         return page;

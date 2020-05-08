@@ -30,14 +30,14 @@ public class GenderShop extends Shops.BaseShop {
 
         if (shops.pokemon.getGender() == Gender.None) {
             InvItem item1 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§b§lNone").setKey(Keys.DYE_COLOR, DyeColors.YELLOW);
-            page.setItem(22, item1, event -> builder.setSelectedItem(item1.itemStack));
+            page.setItem(22, item1, event -> builder.setSelectedItem(item1.getItemStack()));
         } else {
             InvItem item1 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§b§lMale").setKey(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
             item1.setLore("Click here to select the", "§bMale §7gender.");
             page.setItem(21, item1, event -> {
                 if (shops.pokemon.getGender() != Gender.Male) shops.getSelectedOptions().put(getOption(), "§bMale");
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item1.itemStack);
+                builder.setSelectedItem(item1.getItemStack());
             });
 
 
@@ -46,7 +46,7 @@ public class GenderShop extends Shops.BaseShop {
             page.setItem(23, item2, event -> {
                 if (shops.pokemon.getGender() != Gender.Female) shops.getSelectedOptions().put(getOption(), "§dFemale");
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item2.itemStack);
+                builder.setSelectedItem(item2.getItemStack());
             });
         }
         return page;
