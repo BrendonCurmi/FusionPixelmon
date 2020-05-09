@@ -199,7 +199,6 @@ public class Shops {
         InvItem cancelInvItem = new InvItem(ItemTypes.DYE, "§4§lCancel").setKey(Keys.DYE_COLOR, DyeColors.RED);
         InvItem curr = new InvItem(PixelmonAPI.getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance());
 
-        // todo pokerus support
         PokeData pokeData = new PokeData(pokemon);
         InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
@@ -217,6 +216,7 @@ public class Shops {
                 pokeData.getEVs()
         );
         if (!pokemon.getCustomTexture().isEmpty()) pokeItem.appendLore("", pokeData.getCustomTexture());
+        if (pokemon.getPokerus() != null) pokeItem.appendLore("", pokeData.getPokerus());
         pokeItem.pushLore();
 
         // Left

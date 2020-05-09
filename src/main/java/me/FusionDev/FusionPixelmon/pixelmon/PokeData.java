@@ -75,6 +75,10 @@ public class PokeData {
         return "§7Texture: §e" + pokemon.getCustomTexture();
     }
 
+    public String getPokerus() {
+        return "§dPokerus";
+    }
+
     private static final String STATS = "§8(§cHP§8/§cA§8/§cD§8/§cSA§8/§cSD§8/§cSPD§8)";
 
     public static List<String> getStats(String ivev, HashMap<StatsType, Integer> stats, int[] cache, int max) {

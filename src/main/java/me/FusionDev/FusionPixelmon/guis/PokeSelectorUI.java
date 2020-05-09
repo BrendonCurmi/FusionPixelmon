@@ -47,6 +47,7 @@ public class PokeSelectorUI {
                         pokeData.getIVs()
                 );
                 if (!pokemon.getCustomTexture().isEmpty()) partyItem.appendLore("", pokeData.getCustomTexture());
+                if (pokemon.getPokerus() != null) partyItem.appendLore("", pokeData.getPokerus());
                 partyItem.pushLore();
 
                 pagePokeSelect.setItem(i, partyItem, event -> {
