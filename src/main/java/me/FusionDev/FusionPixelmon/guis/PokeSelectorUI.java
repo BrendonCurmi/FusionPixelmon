@@ -44,11 +44,12 @@ public class PokeSelectorUI {
                         pokeData.getGender(),
                         pokeData.getSize(),
                         "",
-                        pokeData.getIVs()
+                        pokeData.getIVs(),
+                        ""
                 );
-                if (!pokemon.getCustomTexture().isEmpty()) partyItem.appendLore("", pokeData.getCustomTexture());
-                if (pokemon.getPokerus() != null) partyItem.appendLore("", pokeData.getPokerus());
-                partyItem.pushLore();
+                if (!pokemon.getCustomTexture().isEmpty()) partyItem.appendLore(pokeData.getCustomTexture());
+                if (pokemon.getPokerus() != null) partyItem.appendLore(pokeData.getPokerus());
+                partyItem.pushLore(true);
 
                 pagePokeSelect.setItem(i, partyItem, event -> {
                     selectedPokemon = pokemon;

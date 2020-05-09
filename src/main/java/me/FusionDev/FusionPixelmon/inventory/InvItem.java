@@ -169,11 +169,29 @@ public class InvItem {
     }
 
     /**
-     * Pushes the saved item lore to the item.
+     * Pushes the saved item lore to the item, without clearing the empty trailing lines.
      *
      * @return this instance.
      */
     public InvItem pushLore() {
+        return pushLore(false);
+    }
+
+    /**
+     * Pushes the saved item lore to the item, possibly after clearing the empty trailing lines.
+     *
+     * @param clearTrailing if the empty trailing lines should be cleared.
+     * @return this instance
+     */
+    public InvItem pushLore(boolean clearTrailing) {
+        if (clearTrailing) {
+            Text text;
+            for (int i = 0; i < itemLore.size() - 1; i++) {
+                text = itemLore.get((itemLore.size() - 1) - i);
+                if (text.toPlain().isEmpty()) itemLore.remove((itemLore.size() - 1) - i);
+                else break;
+            }
+        }
         itemStack.offer(Keys.ITEM_LORE, itemLore);
         return this;
     }

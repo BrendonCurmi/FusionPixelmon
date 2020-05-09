@@ -213,11 +213,12 @@ public class Shops {
                 "",
                 pokeData.getIVs(),
                 "",
-                pokeData.getEVs()
+                pokeData.getEVs(),
+                ""
         );
-        if (!pokemon.getCustomTexture().isEmpty()) pokeItem.appendLore("", pokeData.getCustomTexture());
-        if (pokemon.getPokerus() != null) pokeItem.appendLore("", pokeData.getPokerus());
-        pokeItem.pushLore();
+        if (!pokemon.getCustomTexture().isEmpty()) pokeItem.appendLore(pokeData.getCustomTexture());
+        if (pokemon.getPokerus() != null) pokeItem.appendLore(pokeData.getPokerus());
+        pokeItem.pushLore(true);
 
         // Left
         pagePokeEditor.setItem(9, airItem);
