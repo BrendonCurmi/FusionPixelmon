@@ -29,6 +29,7 @@ import org.spongepowered.api.item.recipe.crafting.ShapedCraftingRecipe;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
 
 import java.io.IOException;
@@ -159,6 +160,11 @@ public class FusionPixelmon extends PluginInfo {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         logger.info("Successfully running FusionPixelmon v" + VERSION + "!");
+
+        if (!Sponge.getServiceManager().isRegistered(EconomyService.class) && getConfig().getPokeDesignerConfig().useCurrency()) {
+            logger.warn("No economy plugin detected, so using PokeDollars as currency instead");
+        }
+
         try {
             UpdateChecker.check(logger);
         } catch (IOException ignored) {

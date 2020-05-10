@@ -26,6 +26,9 @@ public class PokeDesignerConfig {
     @Inject
     @Setting("gui-title")
     private String guiTitle;
+    @Inject
+    @Setting("currency")
+    private boolean currency;
 
     /**
      * Checks if the specified species is blacklisted from the PokeDesigner.
@@ -42,6 +45,10 @@ public class PokeDesignerConfig {
 
     public String getGuiTitle() {
         return guiTitle;
+    }
+
+    public boolean useCurrency() {
+        return currency;
     }
 
     @ConfigSerializable

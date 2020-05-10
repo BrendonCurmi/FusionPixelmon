@@ -3,6 +3,7 @@ package me.FusionDev.FusionPixelmon.guis.shops;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.apis.BankAPI;
+import me.FusionDev.FusionPixelmon.apis.economy.EconomyProvider;
 import me.FusionDev.FusionPixelmon.apis.economy.IEconomyProvider;
 import me.FusionDev.FusionPixelmon.config.configs.PokeDesignerConfig;
 import me.FusionDev.FusionPixelmon.pixelmon.PixelmonAPI;
@@ -10,6 +11,7 @@ import me.FusionDev.FusionPixelmon.inventory.InvInventory;
 import me.FusionDev.FusionPixelmon.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.inventory.InvPage;
 import me.FusionDev.FusionPixelmon.pixelmon.PokeData;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;
@@ -17,6 +19,7 @@ import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
@@ -184,7 +187,8 @@ public class Shops {
         this.pages = new ArrayList<>();
         this.pokemon = pokemon;
 
-        bank = new BankAPI(player);
+        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider() : new BankAPI(player);
 
         pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
         pagePokeEditor.setInteractInventoryEventListener(event -> {
@@ -251,25 +255,25 @@ public class Shops {
             if (bank.canAfford(player, totalCost)) {
                 confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.LIME);
                 confirmInvItem1.setLore(
-                        "Your total cost is: §c" + totalCost + " PokéDollars§7.",
+                        "Your total cost is: §c" + bank.getCurrencySymbol(totalCost) + "§7.",
                         "",
                         "Clicking this button will confirm your purchase.",
                         "Once clicked, changes cannot be reversed.",
                         "",
-                        "Your updated balance will be §a" + (bank.balance(player).intValue() - totalCost) + " PokéDollars§7."
+                        "Your updated balance will be §a" + bank.getCurrencySymbol(bank.balance(player).intValue() - totalCost) + "§7."
                 );
             } else {
                 confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.GRAY);
                 confirmInvItem1.setLore(
-                        "Your total cost is: §c" + totalCost + " PokéDollars§7.",
+                        "Your total cost is: §c" + bank.getCurrencySymbol(totalCost) + "§7.",
                         "",
-                        "§c§lYou do not have enough PokéDollars to make this purchase."
+                        "§c§lYou are not able to make this purchase."
                 );
             }
 
             pageCheckout.setItem(33, confirmInvItem1, event1 -> {
                 if (!bank.canAfford(player, totalCost)) {
-                    player.sendMessage(Text.of("§cYou do not have enough PokéDollars to perform this transaction"));
+                    player.sendMessage(Text.of("§cYou are not able to make this transaction"));
                     event.setCancelled(true);
                     return;
                 }
@@ -312,12 +316,7 @@ public class Shops {
         pagePokeEditor.setRunnable(() -> {
             char col = 'c';
             if (bank.balance(player).intValue() > calculateCost()) col = 'a';
-            curr.setLore(
-                    "§" + col + "Current Cost: " + calculateCost(),
-                    "",
-                    "You can earn PokéDollars by defeating",
-                    "Trainers or selling items to shopkeepers."
-            );
+            curr.setLore("§" + col + "Current Cost: " + calculateCost());
             pagePokeEditor.setItem(49, curr);
         });
 
