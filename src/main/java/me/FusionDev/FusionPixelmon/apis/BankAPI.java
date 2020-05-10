@@ -2,7 +2,13 @@ package me.FusionDev.FusionPixelmon.apis;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.economy.IPixelmonBankAccount;
+import me.FusionDev.FusionPixelmon.apis.economy.IEconomyProvider;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.service.economy.Currency;
+import org.spongepowered.api.service.economy.EconomyService;
+
+import java.math.BigDecimal;
+import java.util.Optional;
 
 /**
  * This Bank API contains the player's bank account and transaction operations.
@@ -19,52 +25,47 @@ import org.spongepowered.api.entity.living.player.Player;
  *     /givemoney &lt;player&gt; &lt;amount&gt;
  * </code></pre>
  */
-public class BankAPI {
+public class BankAPI implements IEconomyProvider {
     private IPixelmonBankAccount account;
 
     public BankAPI(Player player) {
         account = Pixelmon.moneyManager.getBankAccount(player.getUniqueId()).orElseThrow(() -> new NullPointerException("No bank account for " + player.getName()));
     }
 
-    /**
-     * Checks the amount of money the Player has.
-     *
-     * @return the amount of money the player has.
-     */
-    public int balance() {
-        return account.getMoney();
+    @Override
+    public Optional<EconomyService> getService() {
+        return Optional.empty();
     }
 
-    /**
-     * Checks if the player can afford the specified amount.
-     * For a player to afford an amount, they must have more or
-     * equal to the specified amount.
-     *
-     * @param amount the amount to check.
-     * @return true if the player can afford the amount; otherwise false.
-     */
-    public boolean canAfford(int amount) {
+    @Override
+    public Currency getCurrency() {
+        return null;
+    }
+
+    @Override
+    public String getCurrencySymbol(double amount) {
+        String currency = amount != 1 ? "PokeDollars" : "PokeDollar";
+        return amount + " " + currency;
+    }
+
+    @Override
+    public BigDecimal balance(Player player) {
+        return BigDecimal.valueOf(account.getMoney());
+    }
+
+    @Override
+    public boolean canAfford(Player player, double amount) {
         return account.getMoney() >= amount;
     }
 
-    /**
-     * Deposits the specified amount into the player's account.
-     *
-     * @param amount the amount to deposit.
-     * @return the new balance after the deposit.
-     */
-    public int deposit(int amount) {
-        return change(MathHelper.clamp(amount, 0, MAX));
+    @Override
+    public boolean deposit(Player player, double amount, boolean message) {
+        return change(MathHelper.clamp((int) amount, 0, MAX)) != -1;
     }
 
-    /**
-     * Withdraws the specified amount from the player's account.
-     *
-     * @param amount the amount to withdraw.
-     * @return the new balance after the withdrawal.
-     */
-    public int withdraw(int amount) {
-        return change(-MathHelper.clamp(amount, 0, MAX));
+    @Override
+    public boolean withdraw(Player player, double amount, boolean message) {
+        return change(-MathHelper.clamp((int) amount, 0, MAX)) != -1;
     }
 
     private final int MAX = 999999;
@@ -78,14 +79,15 @@ public class BankAPI {
      * @param amount the amount to change by.
      * @return the player's balance after the change.
      */
-    public int change(int amount) {
+    private int change(int amount) {
         amount = MathHelper.clamp(amount, MIN, MAX);
-        int before = balance();
+        int before = account.getMoney();
         int change = account.changeMoney(amount);
         int diff = change - before;
-        if (diff == 0) {
-            if (amount > 0) {}//limit of money reached
-            else {}//no more money left
+        if (diff == 0 && amount != 0) {
+            // if amount > 0 - limit of money reached
+            // else - no more money left
+            return -1;
         }
         return change;
     }

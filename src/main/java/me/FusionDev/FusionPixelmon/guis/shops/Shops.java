@@ -3,6 +3,7 @@ package me.FusionDev.FusionPixelmon.guis.shops;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.apis.BankAPI;
+import me.FusionDev.FusionPixelmon.apis.economy.IEconomyProvider;
 import me.FusionDev.FusionPixelmon.config.configs.PokeDesignerConfig;
 import me.FusionDev.FusionPixelmon.pixelmon.PixelmonAPI;
 import me.FusionDev.FusionPixelmon.inventory.InvInventory;
@@ -54,7 +55,7 @@ public class Shops {
     /**
      * The player's bank account.
      */
-    private BankAPI bank;
+    private IEconomyProvider bank;
 
     public Shops(Player player) {
         this.player = player;
@@ -197,7 +198,7 @@ public class Shops {
         InvItem confirmInvItem = new InvItem(ItemTypes.DYE, "§a§lConfirm").setKey(Keys.DYE_COLOR, DyeColors.LIME);
         confirmInvItem.setLore("This will take you to", "the final checkout page.");
         InvItem cancelInvItem = new InvItem(ItemTypes.DYE, "§4§lCancel").setKey(Keys.DYE_COLOR, DyeColors.RED);
-        InvItem curr = new InvItem(PixelmonAPI.getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance());
+        InvItem curr = new InvItem(PixelmonAPI.getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
 
         PokeData pokeData = new PokeData(pokemon);
         InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
@@ -247,7 +248,7 @@ public class Shops {
 
             int totalCost = calculateCost();
 
-            if (bank.canAfford(totalCost)) {
+            if (bank.canAfford(player, totalCost)) {
                 confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.LIME);
                 confirmInvItem1.setLore(
                         "Your total cost is: §c" + totalCost + " PokéDollars§7.",
@@ -255,7 +256,7 @@ public class Shops {
                         "Clicking this button will confirm your purchase.",
                         "Once clicked, changes cannot be reversed.",
                         "",
-                        "Your updated balance will be §a" + (bank.balance() - totalCost) + " PokéDollars§7."
+                        "Your updated balance will be §a" + (bank.balance(player).intValue() - totalCost) + " PokéDollars§7."
                 );
             } else {
                 confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.GRAY);
@@ -267,13 +268,13 @@ public class Shops {
             }
 
             pageCheckout.setItem(33, confirmInvItem1, event1 -> {
-                if (!bank.canAfford(totalCost)) {
+                if (!bank.canAfford(player, totalCost)) {
                     player.sendMessage(Text.of("§cYou do not have enough PokéDollars to perform this transaction"));
                     event.setCancelled(true);
                     return;
                 }
 
-                int newAmount = bank.withdraw(totalCost);
+                bank.withdraw(player, totalCost);
                 // might not need to reset while closing, cause closing event handles it
                 HashMap<Options, Object> hash = new HashMap<>(getSelectedOptions());
                 resetSelectedOptions(true);
@@ -310,7 +311,7 @@ public class Shops {
         // Bottom
         pagePokeEditor.setRunnable(() -> {
             char col = 'c';
-            if (bank.balance() > calculateCost()) col = 'a';
+            if (bank.balance(player).intValue() > calculateCost()) col = 'a';
             curr.setLore(
                     "§" + col + "Current Cost: " + calculateCost(),
                     "",
