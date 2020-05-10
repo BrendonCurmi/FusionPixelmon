@@ -30,7 +30,7 @@ public class ShinyShop extends Shops.BaseShop {
         page.setItem(21, item1, event -> {
             if (!shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), true);
             else shops.getSelectedOptions().remove(getOption());
-            builder.setSelectedItem(item1.itemStack);
+            builder.setSelectedItem(item1.getItemStack());
         });
 
         InvItem item2 = new InvItem(PixelmonAPI.getPixelmonItemType("iron_ball"), "§8§lNon-Shiny");
@@ -38,7 +38,7 @@ public class ShinyShop extends Shops.BaseShop {
         page.setItem(23, item2, event -> {
             if (shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), false);
             else shops.getSelectedOptions().remove(getOption());
-            builder.setSelectedItem(item2.itemStack);
+            builder.setSelectedItem(item2.getItemStack());
         });
         return page;
     }

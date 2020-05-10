@@ -48,7 +48,7 @@ public class EvolutionShop extends Shops.BaseShop {
                     wrapper.setPokemonSpec(spec);
                     shops.getSelectedOptions().put(getOption(), wrapper);
                 }
-                builder.setSelectedItem(item.itemStack);
+                builder.setSelectedItem(item.getItemStack());
             });
             i++;
         }

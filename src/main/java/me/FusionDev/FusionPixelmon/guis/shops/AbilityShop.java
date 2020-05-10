@@ -49,7 +49,7 @@ public class AbilityShop extends Shops.BaseShop {
                         abilitySlot = 0;
                         shops.getSelectedOptions().remove(getOption());
                     }
-                    builder.setSelectedItem(item.itemStack);
+                    builder.setSelectedItem(item.getItemStack());
                 });
             }
         }

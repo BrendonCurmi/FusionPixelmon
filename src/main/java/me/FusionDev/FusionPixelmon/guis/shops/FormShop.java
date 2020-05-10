@@ -55,7 +55,7 @@ public class FormShop extends Shops.BaseShop {
             page.setItem(i, item1, event -> {
                 if (shops.pokemon.getFormEnum() != form) shops.getSelectedOptions().put(getOption(), form);
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item1.itemStack);
+                builder.setSelectedItem(item1.getItemStack());
             });
             i++;
         }
