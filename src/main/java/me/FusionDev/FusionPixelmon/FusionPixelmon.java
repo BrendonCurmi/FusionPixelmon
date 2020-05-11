@@ -1,16 +1,16 @@
 package me.FusionDev.FusionPixelmon;
 
 import com.google.inject.Inject;
-import me.FusionDev.FusionPixelmon.apis.UpdateChecker;
-import me.FusionDev.FusionPixelmon.commands.ArcPlatesCmd;
-import me.FusionDev.FusionPixelmon.commands.PokeDesignerCmd;
+import me.FusionDev.FusionPixelmon.util.UpdateChecker;
+import me.FusionDev.FusionPixelmon.modules.arcplates.commands.ArcPlatesCmd;
+import me.FusionDev.FusionPixelmon.modules.pokedesigner.commands.PokeDesignerCmd;
 
-import me.FusionDev.FusionPixelmon.config.ConfigManager;
-import me.FusionDev.FusionPixelmon.config.configs.Config;
-import me.FusionDev.FusionPixelmon.inventory.InvInventory;
-import me.FusionDev.FusionPixelmon.pixelmon.PokeShrinesListener;
-import me.FusionDev.FusionPixelmon.pixelmon.PixelmonAPI;
-import me.FusionDev.FusionPixelmon.pixelmon.PixelmonEvents;
+import me.FusionDev.FusionPixelmon.api.config.ConfigManager;
+import me.FusionDev.FusionPixelmon.config.Config;
+import me.FusionDev.FusionPixelmon.api.inventory.InvInventory;
+import me.FusionDev.FusionPixelmon.modules.shrinepickup.listeners.PokeShrinesListener;
+import me.FusionDev.FusionPixelmon.api.pixelmon.PixelmonAPI;
+import me.FusionDev.FusionPixelmon.modules.antifall.listeners.PixelmonEvents;
 import net.minecraftforge.common.MinecraftForge;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.slf4j.Logger;
