@@ -1,16 +1,16 @@
 package me.FusionDev.FusionPixelmon;
 
 import com.google.inject.Inject;
-import me.FusionDev.FusionPixelmon.apis.UpdateChecker;
-import me.FusionDev.FusionPixelmon.commands.ArcPlatesCmd;
-import me.FusionDev.FusionPixelmon.commands.PokeDesignerCmd;
+import me.FusionDev.FusionPixelmon.util.UpdateChecker;
+import me.FusionDev.FusionPixelmon.modules.arcplates.commands.ArcPlatesCmd;
+import me.FusionDev.FusionPixelmon.modules.pokedesigner.commands.PokeDesignerCmd;
 
-import me.FusionDev.FusionPixelmon.config.ConfigManager;
-import me.FusionDev.FusionPixelmon.config.configs.Config;
-import me.FusionDev.FusionPixelmon.inventory.InvInventory;
-import me.FusionDev.FusionPixelmon.pixelmon.PokeShrinesListener;
-import me.FusionDev.FusionPixelmon.pixelmon.PixelmonAPI;
-import me.FusionDev.FusionPixelmon.pixelmon.PixelmonEvents;
+import me.FusionDev.FusionPixelmon.api.config.ConfigManager;
+import me.FusionDev.FusionPixelmon.config.Config;
+import me.FusionDev.FusionPixelmon.api.inventory.InvInventory;
+import me.FusionDev.FusionPixelmon.modules.shrinepickup.listeners.PokeShrinesListener;
+import me.FusionDev.FusionPixelmon.api.pixelmon.PixelmonAPI;
+import me.FusionDev.FusionPixelmon.modules.antifall.listeners.PixelmonEvents;
 import net.minecraftforge.common.MinecraftForge;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.slf4j.Logger;
@@ -29,6 +29,7 @@ import org.spongepowered.api.item.recipe.crafting.ShapedCraftingRecipe;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
 
 import java.io.IOException;
@@ -159,6 +160,11 @@ public class FusionPixelmon extends PluginInfo {
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         logger.info("Successfully running FusionPixelmon v" + VERSION + "!");
+
+        if (!Sponge.getServiceManager().isRegistered(EconomyService.class) && getConfig().getPokeDesignerConfig().useCurrency()) {
+            logger.warn("No economy plugin detected, so using PokeDollars as currency instead");
+        }
+
         try {
             UpdateChecker.check(logger);
         } catch (IOException ignored) {
