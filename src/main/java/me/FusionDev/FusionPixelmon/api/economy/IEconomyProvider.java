@@ -17,6 +17,10 @@ public interface IEconomyProvider {
 
     Currency getCurrency();
 
+    default Currency getCurrency(String name) {
+        return getCurrency();
+    }
+
     String getCurrencySymbol(double amount);
 
     BigDecimal balance(Player player);
