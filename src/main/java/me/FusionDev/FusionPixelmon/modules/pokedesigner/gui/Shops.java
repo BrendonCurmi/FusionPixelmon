@@ -188,7 +188,7 @@ public class Shops {
         this.pokemon = pokemon;
 
         PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
-        bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider() : new BankAPI(player);
+        bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider(config.getCurrency()) : new BankAPI(player);
 
         pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
         pagePokeEditor.setInteractInventoryEventListener(event -> {
