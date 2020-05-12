@@ -21,4 +21,11 @@ public class ConfigManager extends AbstractConfigManager<CommentedConfigurationN
     protected CommentedConfigurationNode getDefaultsFrom(HoconConfigurationLoader loader) throws IOException {
         return HoconConfigurationLoader.builder().setURL(Sponge.getAssetManager().getAsset(FusionPixelmon.getInstance(), "default.conf").get().getUrl()).build().load(loader.getDefaultOptions());
     }
+
+    @Override
+    protected void configUpdater(int newVersion) throws IOException {
+        // Backwards compatibility to remove 1.8 "currency" field
+        getNode().getNode("pokedesigner").removeChild("currency");
+        super.configUpdater(newVersion);
+    }
 }
