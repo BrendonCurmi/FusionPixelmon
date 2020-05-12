@@ -32,6 +32,7 @@ public class PokeDesignerConfig {
 
     /**
      * Checks if the specified species is blacklisted from the PokeDesigner.
+     *
      * @param species the species to check.
      * @return true if the species is blacklisted; otherwise false.
      */

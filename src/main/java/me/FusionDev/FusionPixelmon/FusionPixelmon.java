@@ -1,7 +1,7 @@
 package me.FusionDev.FusionPixelmon;
 
 import com.google.inject.Inject;
-import me.FusionDev.FusionPixelmon.util.UpdateChecker;
+import me.FusionDev.FusionPixelmon.api.updater.UpdateChecker;
 import me.FusionDev.FusionPixelmon.modules.arcplates.commands.ArcPlatesCmd;
 import me.FusionDev.FusionPixelmon.modules.pokedesigner.commands.PokeDesignerCmd;
 
@@ -77,6 +77,7 @@ public class FusionPixelmon extends PluginInfo {
     }
 
     @Listener
+    @SuppressWarnings("UnstableApiUsage")
     public void preInit(GamePreInitializationEvent event) {
         // Configs
         try {
@@ -166,7 +167,7 @@ public class FusionPixelmon extends PluginInfo {
         }
 
         try {
-            UpdateChecker.check(logger);
+            new UpdateChecker(logger).check(VERSIONS_ENDPOINT, ORE_VERSIONS);
         } catch (IOException ignored) {
             // If an exception occurs, just don't check for newer versions
         }

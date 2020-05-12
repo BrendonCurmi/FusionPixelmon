@@ -5,7 +5,7 @@ import com.pixelmonmod.pixelmon.enums.EnumPlate;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
-import me.FusionDev.FusionPixelmon.util.FileFactory;
+import me.FusionDev.FusionPixelmon.api.data.FileFactory;
 import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.util.Grammar;
 import me.FusionDev.FusionPixelmon.util.TimeUtil;
@@ -66,7 +66,8 @@ public class ArcPlates {
         if (pokemon.getSpecies() != EnumSpecies.Arceus) return;
 
         File dataFile = new File(path.toFile(), player.getUniqueId() + " " + pokemon.getUUID().toString());
-        ArcStorageData data = dataFile.exists() ? (ArcStorageData) FileFactory.deserialize(dataFile.getAbsolutePath()) : new ArcStorageData();
+        FileFactory factory = new FileFactory();
+        ArcStorageData data = dataFile.exists() ? (ArcStorageData) factory.deserialize(dataFile.getAbsolutePath()) : new ArcStorageData();
 
         InvPage page = new InvPage("§8Arc Plates", "arcplates", ROWS);
 
@@ -82,7 +83,7 @@ public class ArcPlates {
                         ex.printStackTrace();
                     }
                 }
-                FileFactory.serialize(data, dataFile.getAbsolutePath());
+                factory.serialize(data, dataFile.getAbsolutePath());
             }
         });
 

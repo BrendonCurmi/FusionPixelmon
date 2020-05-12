@@ -4,8 +4,9 @@ public class TimeUtil {
 
     /**
      * Asynchronously executes the specified runnable a time 'millis' milliseconds later.
+     *
      * @param runnable the runnable.
-     * @param millis the delay in milliseconds before executing.
+     * @param millis   the delay in milliseconds before executing.
      */
     public static void setTimeout(Runnable runnable, int millis) {
         new Thread(() -> {
