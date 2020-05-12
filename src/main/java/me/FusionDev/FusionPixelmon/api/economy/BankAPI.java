@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.api;
+package me.FusionDev.FusionPixelmon.api.economy;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.economy.IPixelmonBankAccount;

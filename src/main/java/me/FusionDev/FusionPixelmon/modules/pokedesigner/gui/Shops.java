@@ -2,7 +2,7 @@ package me.FusionDev.FusionPixelmon.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.FusionDev.FusionPixelmon.FusionPixelmon;
-import me.FusionDev.FusionPixelmon.api.BankAPI;
+import me.FusionDev.FusionPixelmon.api.economy.BankAPI;
 import me.FusionDev.FusionPixelmon.api.economy.EconomyProvider;
 import me.FusionDev.FusionPixelmon.api.economy.IEconomyProvider;
 import me.FusionDev.FusionPixelmon.modules.pokedesigner.config.PokeDesignerConfig;

@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.util;
+package me.FusionDev.FusionPixelmon.api.updater;
 
 import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import org.json.JSONArray;
@@ -12,20 +12,25 @@ import java.nio.charset.StandardCharsets;
 
 public class UpdateChecker {
 
-    private static final String VERSIONS_ENDPOINT = "https://ore.spongepowered.org/api/v1/projects/" + FusionPixelmon.ID + "/versions";
-    private static final String ORE_VERSIONS = "https://ore.spongepowered.org/FusionDev/FusionPixelmon/versions";
+    private Logger logger;
+
+    public UpdateChecker(Logger logger) {
+        this.logger = logger;
+    }
 
     /**
      * Checks if there is a newer version of the plugin and reports to the logger if so.
-     * @param logger the logger.
+     *
+     * @param apiUrl      the url of the version API endpoint.
+     * @param downloadUrl the url of the download page.
      * @throws IOException if an I/O exception occurs.
      */
-    public static void check(Logger logger) throws IOException {
-        JSONArray payload = readJsonFromUrl(VERSIONS_ENDPOINT);
+    public void check(String apiUrl, String downloadUrl) throws IOException {
+        JSONArray payload = readJsonFromUrl(apiUrl);
         // Get 0th element as versions are in order of latest first
         String name = ((JSONObject) payload.get(0)).getString("name");
         if (name != null && !name.equals(FusionPixelmon.VERSION)) {
-            logger.info("There is a newer version of FusionPixelmon available! Version " + name + " @ " + ORE_VERSIONS);
+            logger.info("There is a newer version of FusionPixelmon available! Version " + name + " @ " + downloadUrl);
         }
     }
 
@@ -36,7 +41,7 @@ public class UpdateChecker {
      * @return the data from the url as a JSONObject.
      * @throws IOException if an I/O error occurs.
      */
-    public static JSONArray readJsonFromUrl(String url) throws IOException {
+    private static JSONArray readJsonFromUrl(String url) throws IOException {
         URLConnection urlConnection = new URL(url).openConnection();
         urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
         InputStream inputStream = urlConnection.getInputStream();
