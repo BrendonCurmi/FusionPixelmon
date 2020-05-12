@@ -16,6 +16,12 @@ import java.util.Optional;
 
 public class EconomyProvider implements IEconomyProvider {
 
+    private Currency currency;
+
+    public EconomyProvider(String currencyName) {
+        this.currency = getCurrency(currencyName);
+    }
+
     @Override
     public Optional<EconomyService> getService() {
         return Sponge.getServiceManager().provide(EconomyService.class);
@@ -23,13 +29,23 @@ public class EconomyProvider implements IEconomyProvider {
 
     @Override
     public Currency getCurrency() {
-        return getService().map(EconomyService::getDefaultCurrency).orElse(null);
+        return currency != null ? currency : getCurrency("");
+    }
+
+    @Override
+    public Currency getCurrency(String name) {
+        Optional<EconomyService> economyService = getService();
+        if (economyService.isPresent() && name != null && !name.isEmpty())
+            for (Currency currency : economyService.get().getCurrencies())
+                if (currency.getName().equalsIgnoreCase(name))
+                    return currency;
+        return economyService.map(EconomyService::getDefaultCurrency).orElse(null);
     }
 
     @Override
     public String getCurrencySymbol(double amount) {
         return getService().map(economyService -> {
-            Text text = amount != 1 ? economyService.getDefaultCurrency().getPluralDisplayName() : economyService.getDefaultCurrency().getDisplayName();
+            Text text = amount != 1 ? getCurrency().getPluralDisplayName() : getCurrency().getDisplayName();
             return amount + " " + text.toPlain();
         }).orElseGet(() -> String.valueOf(amount));
     }
@@ -40,7 +56,7 @@ public class EconomyProvider implements IEconomyProvider {
         if (economyService.isPresent()) {
             Optional<UniqueAccount> account = economyService.get().getOrCreateAccount(player.getUniqueId());
             if (account.isPresent())
-                return account.get().getBalance(getCurrency());
+                return account.get().getBalance(currency);
         }
         return BigDecimal.ZERO;
     }
@@ -67,7 +83,7 @@ public class EconomyProvider implements IEconomyProvider {
             }
 
             BigDecimal cost = BigDecimal.valueOf(amount);
-            TransactionResult result = account.get().deposit(service.getDefaultCurrency(), cost, CauseStackUtil.createCause(player));
+            TransactionResult result = account.get().deposit(getCurrency(), cost, CauseStackUtil.createCause(player));
             if (result.getResult() == ResultType.SUCCESS) {
                 if (message) {
                     player.sendMessage(Text.of(TextColors.GREEN, "Successfully deposited " + getCurrencySymbol(amount) + " into your account"));
@@ -94,7 +110,7 @@ public class EconomyProvider implements IEconomyProvider {
             }
 
             BigDecimal cost = BigDecimal.valueOf(amount);
-            TransactionResult result = account.get().withdraw(service.getDefaultCurrency(), cost, CauseStackUtil.createCause(player));
+            TransactionResult result = account.get().withdraw(getCurrency(), cost, CauseStackUtil.createCause(player));
             if (result.getResult() == ResultType.SUCCESS) {
                 if (message) {
                     player.sendMessage(Text.of(TextColors.GREEN, "Successfully withdrew " + getCurrencySymbol(amount) + " from your account"));

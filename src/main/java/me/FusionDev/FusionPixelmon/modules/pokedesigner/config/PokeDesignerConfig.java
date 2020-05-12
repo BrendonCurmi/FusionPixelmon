@@ -27,8 +27,10 @@ public class PokeDesignerConfig {
     @Setting("gui-title")
     private String guiTitle;
     @Inject
-    @Setting("currency")
-    private boolean currency;
+    @Setting("shop-currency")
+    private String currency;
+
+    private static final String DEFAULT_CURRENCY = "pokedollar";
 
     /**
      * Checks if the specified species is blacklisted from the PokeDesigner.
@@ -49,6 +51,10 @@ public class PokeDesignerConfig {
     }
 
     public boolean useCurrency() {
+        return !currency.equalsIgnoreCase(DEFAULT_CURRENCY);
+    }
+
+    public String getCurrency() {
         return currency;
     }
 
