@@ -141,7 +141,7 @@ public class Shops {
         POKEBALL(PokeballShop.class, 31, PixelmonAPI.getPixelmonItemStack("poke_ball"), "Pokeball", "pokeball"),
         FORM(FormShop.class, 33, PixelmonAPI.getPixelmonItemStack("meteorite"), "Form", "form"),
         EVOLUTION(EvolutionShop.class, 4, PixelmonAPI.getPixelmonItemStack("fire_stone"), "Evolution", "evolution"),
-        NICK(NickShop.class, 2, PixelmonAPI.getPixelmonItemStack("ruby"), "Nick", "nick colour");
+        NICK(NickShop.class, 2, PixelmonAPI.getPixelmonItemStack("ruby"), "Nick", "nick colour and style");
 
         Class<? extends Shops.BaseShop> shopClass;
         int slot;
