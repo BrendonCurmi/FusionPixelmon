@@ -1,6 +1,8 @@
 package me.FusionDev.FusionPixelmon.modules.pokedesigner.gui;
 
-import me.FusionDev.FusionPixelmon.api.Colour;
+import me.FusionDev.FusionPixelmon.api.colour.Colour;
+import me.FusionDev.FusionPixelmon.api.colour.IColourWrapper;
+import me.FusionDev.FusionPixelmon.util.ColourWrapper;
 import me.FusionDev.FusionPixelmon.util.Grammar;
 import me.FusionDev.FusionPixelmon.api.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.api.inventory.InvPage;
@@ -25,13 +27,10 @@ public class NickShop extends Shops.BaseShop {
     public InvPage buildPage() {
         Builder builder = new Builder("§0Nick Modification", "pokeeditor-nick", 6)
                 .setInfoItemData("Nick Info",
-                        "To pick a nick colour for your Pokemon",
-                        "simply select one of the options",
-                        "on the right.",
-                        "Previously bought options stack up.",
-                        "So before purchasing a new colour,",
-                        "clear the previous ones in the",
-                        "Pokemon rename screen.")
+                        "To pick a nick colour or style for your Pokemon",
+                        "simply use the options above.",
+                        "Colours and styles can be bought at once.",
+                        "Previously bought options dont stack up.")
                 .setSelectedItemName("Selected Nick Colour")
                 .setSelectedSlot(46)
                 .setInfoSlot(48)
@@ -46,7 +45,10 @@ public class NickShop extends Shops.BaseShop {
             InvItem item = new InvItem(option.getItemType(), "§" + option.getCode() + Grammar.cap(option.name()));
             if (option.getDyeColor() != null) item.setKey(Keys.DYE_COLOR, option.getDyeColor());
             page.setItem(slot, item, event -> {
-                shops.getSelectedOptions().put(getOption(), option.getColour());
+                IColourWrapper wrapper = (IColourWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new ColourWrapper());
+                if (option.getColour().isStyle()) wrapper.setStyle(option.getColour());
+                else wrapper.setColour(option.getColour());
+                shops.getSelectedOptions().put(getOption(), wrapper);
                 builder.setSelectedItem(item.getItemStack());
             });
             slot++;
@@ -56,21 +58,30 @@ public class NickShop extends Shops.BaseShop {
 
     @Override
     public int prices(Object value) {
-        return getPriceOf(ConfigKeys.CHANGE, 10000);
+        IColourWrapper wrapper = (IColourWrapper) value;
+        int cost = 0;
+        if (wrapper.hasColour()) cost += getPriceOf(ConfigKeys.CHANGE_COLOUR, 10000);
+        if (wrapper.hasStyle()) cost += getPriceOf(ConfigKeys.CHANGE_STYLE, 20000);
+        return cost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Nick Change", getPriceOf(ConfigKeys.CHANGE, 10000));
+        addPriceSummary("Change Colour", getPriceOf(ConfigKeys.CHANGE_COLOUR, 10000));
+        addPriceSummary("Change Style", getPriceOf(ConfigKeys.CHANGE_STYLE, 20000));
     }
 
     @Override
     public void purchaseAction(Object value) {
-        shops.pokemon.setNickname("§" + ((Colour) value).getCode() + new PokeData(shops.pokemon).getName());
+        String name = new PokeData(shops.pokemon).getName();
+        if (name.contains("§"))
+            name = name.substring(name.lastIndexOf("§") + 2);
+        shops.pokemon.setNickname(((IColourWrapper) value).getFullCode() + name);
     }
 
     private static class ConfigKeys {
-        static final String CHANGE = "change";
+        static final String CHANGE_COLOUR = "change-colour";
+        static final String CHANGE_STYLE = "change-style";
     }
 
     public enum ColourOptions {

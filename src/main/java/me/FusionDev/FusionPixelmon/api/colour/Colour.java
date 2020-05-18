@@ -1,6 +1,4 @@
-package me.FusionDev.FusionPixelmon.api;
-
-import me.FusionDev.FusionPixelmon.util.Grammar;
+package me.FusionDev.FusionPixelmon.api.colour;
 
 public enum Colour {
     DARK_RED('4'),
@@ -20,25 +18,30 @@ public enum Colour {
     DARK_GREY('8'),
     BLACK('0'),
 
-    OBFUSCATED('k'),
-    BOLD('l'),
-    STRIKETHROUGH('m'),
-    UNDERLINE('n'),
-    ITALIC('o'),
-    RESET('r');
+    OBFUSCATED('k', true),
+    BOLD('l', true),
+    STRIKETHROUGH('m', true),
+    UNDERLINE('n', true),
+    ITALIC('o', true),
+    RESET('r', true);
 
     private char code;
+    private boolean style;
+
+    Colour(char code, boolean style) {
+        this.code = code;
+        this.style = style;
+    }
 
     Colour(char code) {
-        this.code = code;
+        this(code, false);
     }
 
     public char getCode() {
         return code;
     }
 
-    @Override
-    public String toString() {
-        return Grammar.cap(name());
+    public boolean isStyle() {
+        return style;
     }
 }
