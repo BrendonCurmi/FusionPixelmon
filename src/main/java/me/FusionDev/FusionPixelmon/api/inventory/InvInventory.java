@@ -187,7 +187,7 @@ public class InvInventory {
     /**
      * The number of ticks between each execution.
      */
-    private static final int UPDATE_TICK_RATE = 20;
+    private static final int UPDATE_TICK_RATE = 10;
 
     /**
      * Starts executing the inventory updater task.
