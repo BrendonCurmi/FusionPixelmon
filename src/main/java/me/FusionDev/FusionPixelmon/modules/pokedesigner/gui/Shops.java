@@ -5,12 +5,13 @@ import me.FusionDev.FusionPixelmon.FusionPixelmon;
 import me.FusionDev.FusionPixelmon.api.economy.BankAPI;
 import me.FusionDev.FusionPixelmon.api.economy.EconomyProvider;
 import me.FusionDev.FusionPixelmon.api.economy.IEconomyProvider;
+import me.FusionDev.FusionPixelmon.api.pixelmon.IPokemonWrapper;
 import me.FusionDev.FusionPixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 import me.FusionDev.FusionPixelmon.api.pixelmon.PixelmonAPI;
 import me.FusionDev.FusionPixelmon.api.inventory.InvInventory;
 import me.FusionDev.FusionPixelmon.api.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.api.inventory.InvPage;
-import me.FusionDev.FusionPixelmon.api.pixelmon.PokeData;
+import me.FusionDev.FusionPixelmon.api.pixelmon.PokemonWrapper;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
@@ -204,25 +205,25 @@ public class Shops {
         InvItem cancelInvItem = new InvItem(ItemTypes.DYE, "§4§lCancel").setKey(Keys.DYE_COLOR, DyeColors.RED);
         InvItem curr = new InvItem(PixelmonAPI.getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
 
-        PokeData pokeData = new PokeData(pokemon);
+        IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
         InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
-                pokeData.getTitle(),
-                pokeData.getAbility(),
-                pokeData.getNature(),
+                pokemonWrapper.getTitle(),
+                pokemonWrapper.getAbility(),
+                pokemonWrapper.getNature(),
                 "",
-                pokeData.getGender(),
-                pokeData.getSize(),
-                pokeData.getCaughtBall(),
-                pokeData.getForm(),
+                pokemonWrapper.getGender(),
+                pokemonWrapper.getSize(),
+                pokemonWrapper.getCaughtBall(),
+                pokemonWrapper.getForm(),
                 "",
-                pokeData.getIVs(),
+                pokemonWrapper.getIVs(),
                 "",
-                pokeData.getEVs(),
+                pokemonWrapper.getEVs(),
                 ""
         );
-        if (!pokemon.getCustomTexture().isEmpty()) pokeItem.appendLore(pokeData.getCustomTexture());
-        if (pokemon.getPokerus() != null) pokeItem.appendLore(pokeData.getPokerus());
+        if (pokemonWrapper.hasTexture()) pokeItem.appendLore(pokemonWrapper.getTexture());
+        if (pokemon.getPokerus() != null) pokeItem.appendLore(pokemonWrapper.getPokerus());
         pokeItem.pushLore(true);
 
         // Left
