@@ -1,8 +1,10 @@
 package me.FusionDev.FusionPixelmon.api.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.entities.pixelmon.EnumSpecialTexture;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
+import me.FusionDev.FusionPixelmon.util.Grammar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,8 +73,15 @@ public class PokeData {
         return "§7Pokeball: §e" + pokemon.getCaughtBall().name();
     }
 
-    public String getCustomTexture() {
-        return "§7Texture: §e" + pokemon.getCustomTexture();
+    public boolean hasTexture() {
+        return pokemon.getSpecialTexture() != EnumSpecialTexture.None || !pokemon.getCustomTexture().isEmpty();
+    }
+
+    public String getTexture() {
+        return "§7Texture: §e"
+                + Grammar.cap(pokemon.getSpecialTexture() != EnumSpecialTexture.None
+                ? pokemon.getSpecialTexture().name()
+                : pokemon.getCustomTexture());
     }
 
     public String getPokerus() {

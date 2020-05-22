@@ -221,7 +221,7 @@ public class Shops {
                 pokeData.getEVs(),
                 ""
         );
-        if (!pokemon.getCustomTexture().isEmpty()) pokeItem.appendLore(pokeData.getCustomTexture());
+        if (pokeData.hasTexture()) pokeItem.appendLore(pokeData.getTexture());
         if (pokemon.getPokerus() != null) pokeItem.appendLore(pokeData.getPokerus());
         pokeItem.pushLore(true);
 
