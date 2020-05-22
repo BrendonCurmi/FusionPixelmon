@@ -6,7 +6,7 @@ import me.FusionDev.FusionPixelmon.util.ColourWrapper;
 import me.FusionDev.FusionPixelmon.util.Grammar;
 import me.FusionDev.FusionPixelmon.api.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.api.inventory.InvPage;
-import me.FusionDev.FusionPixelmon.api.pixelmon.PokeData;
+import me.FusionDev.FusionPixelmon.api.pixelmon.PokemonWrapper;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
@@ -73,7 +73,7 @@ public class NickShop extends Shops.BaseShop {
 
     @Override
     public void purchaseAction(Object value) {
-        String name = new PokeData(shops.pokemon).getName();
+        String name = new PokemonWrapper(shops.pokemon).getName();
         if (name.contains("§"))
             name = name.substring(name.lastIndexOf("§") + 2);
         shops.pokemon.setNickname(((IColourWrapper) value).getFullCode() + name);

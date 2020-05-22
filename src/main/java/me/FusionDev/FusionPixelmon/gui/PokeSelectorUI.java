@@ -6,8 +6,9 @@ import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import me.FusionDev.FusionPixelmon.api.inventory.InvInventory;
 import me.FusionDev.FusionPixelmon.api.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.api.inventory.InvPage;
+import me.FusionDev.FusionPixelmon.api.pixelmon.IPokemonWrapper;
 import me.FusionDev.FusionPixelmon.api.pixelmon.PixelmonAPI;
-import me.FusionDev.FusionPixelmon.api.pixelmon.PokeData;
+import me.FusionDev.FusionPixelmon.api.pixelmon.PokemonWrapper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
@@ -35,20 +36,20 @@ public class PokeSelectorUI {
         for (int i = 0; i < 6; i++) {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
-                PokeData pokeData = new PokeData(pokemon);
-                partyItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), pokeData.getTitle());
+                IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
+                partyItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
-                        pokeData.getAbility(),
-                        pokeData.getNature(),
+                        pokemonWrapper.getAbility(),
+                        pokemonWrapper.getNature(),
                         "",
-                        pokeData.getGender(),
-                        pokeData.getSize(),
+                        pokemonWrapper.getGender(),
+                        pokemonWrapper.getSize(),
                         "",
-                        pokeData.getIVs(),
+                        pokemonWrapper.getIVs(),
                         ""
                 );
-                if (pokeData.hasTexture()) partyItem.appendLore(pokeData.getTexture());
-                if (pokemon.getPokerus() != null) partyItem.appendLore(pokeData.getPokerus());
+                if (pokemonWrapper.hasTexture()) partyItem.appendLore(pokemonWrapper.getTexture());
+                if (pokemon.getPokerus() != null) partyItem.appendLore(pokemonWrapper.getPokerus());
                 partyItem.pushLore(true);
 
                 pagePokeSelect.setItem(i, partyItem, event -> {

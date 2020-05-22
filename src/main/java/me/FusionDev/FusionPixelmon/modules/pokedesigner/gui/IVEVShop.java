@@ -8,7 +8,7 @@ import me.FusionDev.FusionPixelmon.util.MathUtil;
 import me.FusionDev.FusionPixelmon.api.pixelmon.PixelmonAPI;
 import me.FusionDev.FusionPixelmon.api.inventory.InvItem;
 import me.FusionDev.FusionPixelmon.api.inventory.InvPage;
-import me.FusionDev.FusionPixelmon.api.pixelmon.PokeData;
+import me.FusionDev.FusionPixelmon.api.pixelmon.PokemonWrapper;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
@@ -192,9 +192,9 @@ public class IVEVShop extends Shops.BaseShop {
     @Override
     public List<String> purchaseSummary(Shops.Options key, Object value) {
         IVEVAction action = (IVEVAction) value;
-        List<String> list = new ArrayList<>(PokeData.getStats("IV", action.IV, IV_CACHE, IVStore.MAX_IVS * 6));
+        List<String> list = new ArrayList<>(PokemonWrapper.getStats("IV", action.IV, IV_CACHE, IVStore.MAX_IVS * 6));
         list.add("");
-        list.addAll(PokeData.getStats("EV", action.EV, EV_CACHE, EVStore.MAX_TOTAL_EVS));
+        list.addAll(PokemonWrapper.getStats("EV", action.EV, EV_CACHE, EVStore.MAX_TOTAL_EVS));
         return list;
     }
 

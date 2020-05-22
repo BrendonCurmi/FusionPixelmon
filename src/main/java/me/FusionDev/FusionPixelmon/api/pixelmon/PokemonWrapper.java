@@ -13,37 +13,44 @@ import java.util.List;
 /**
  * Contains information on the Pokemon.
  */
-public class PokeData {
+public class PokemonWrapper implements IPokemonWrapper {
     private Pokemon pokemon;
 
-    public PokeData(Pokemon pokemon) {
+    public PokemonWrapper(Pokemon pokemon) {
         this.pokemon = pokemon;
     }
 
+    @Override
     public String getTitle() {
         return "§b" + getName() + " §7: §eLvl " + pokemon.getLevel() + getIfShiny();
     }
 
+    @Override
     public String getIfShiny() {
         return pokemon.isShiny() ? " §7(§6Shiny§7)" : "";
     }
 
+    @Override
     public String getSpeciesName() {
         return pokemon.getSpecies().getPokemonName();
     }
 
+    @Override
     public String getName() {
         return (pokemon.getNickname() == null || pokemon.getNickname().isEmpty()) ? getSpeciesName() : pokemon.getNickname();
     }
 
+    @Override
     public String getAbility() {
         return "§7Ability: §e" + pokemon.getAbilityName();
     }
 
+    @Override
     public String getNature() {
         return "§7Nature: §e" + pokemon.getNature().getLocalizedName();
     }
 
+    @Override
     public String getGender() {
         String gender;
         switch (pokemon.getGender()) {
@@ -61,22 +68,27 @@ public class PokeData {
         return "§7Gender: " + gender;
     }
 
+    @Override
     public String getSize() {
         return "§7Size: §e" + pokemon.getGrowth().name();
     }
 
+    @Override
     public String getForm() {
         return "§7Form: §e" + pokemon.getFormEnum().getLocalizedName();
     }
 
+    @Override
     public String getCaughtBall() {
         return "§7Pokeball: §e" + pokemon.getCaughtBall().name();
     }
 
+    @Override
     public boolean hasTexture() {
         return pokemon.getSpecialTexture() != EnumSpecialTexture.None || !pokemon.getCustomTexture().isEmpty();
     }
 
+    @Override
     public String getTexture() {
         return "§7Texture: §e"
                 + Grammar.cap(pokemon.getSpecialTexture() != EnumSpecialTexture.None
@@ -84,6 +96,7 @@ public class PokeData {
                 : pokemon.getCustomTexture());
     }
 
+    @Override
     public String getPokerus() {
         return "§dPokerus";
     }
@@ -110,6 +123,7 @@ public class PokeData {
         return result;
     }
 
+    @Override
     public List<String> getIVs() {
         int total = 0;
         int max = 186;// 31 max IV * 6 stat types
@@ -127,6 +141,7 @@ public class PokeData {
         return result;
     }
 
+    @Override
     public List<String> getEVs() {
         int total = 0;
         int max = EVStore.MAX_TOTAL_EVS;// 510
