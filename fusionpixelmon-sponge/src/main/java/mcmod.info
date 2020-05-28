@@ -1,0 +1,21 @@
+[
+    {
+        "modid": "fusionpixelmon",
+        "name": "FusionPixelmon",
+        "description": "A plugin/mod hybrid that adds a little extra to Pixelmon servers!",
+        "authorList": ["BrendonCurmi/FusionDev"],
+        "version": "1.9",
+        "mcversion": "1.12.2",
+        "forgeversion": "Forge 14.23.5.2768",
+        "url": "https://ore.spongepowered.org/FusionDev/FusionPixelmon",
+        "sourceUrl": "https://github.com/BrendonCurmi/FusionPixelmon",
+        "dependencies": [
+            "pixelmon@7.1.1",
+            "spongeapi@7.1.0"
+        ],
+        "requiredMods": [
+            "pixelmon@7.1.1",
+            "spongeapi@7.1.0"
+        ]
+    }
+]
