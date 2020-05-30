@@ -3,6 +3,7 @@ package io.github.brendoncurmi.fusionpixelmon.sponge;
 import com.google.inject.Inject;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.config.ConfigManager;
 import io.github.brendoncurmi.fusionpixelmon.sponge.config.Config;
+import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCmd;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.shrinepickup.listeners.PokeShrinesListener;
@@ -39,16 +40,16 @@ import java.util.Optional;
 
 import static com.pixelmonmod.pixelmon.Pixelmon.EVENT_BUS;
 
-@Plugin(id = FusionPixelmon.ID,
-        name = FusionPixelmon.NAME,
-        version = FusionPixelmon.VERSION,
+@Plugin(id = SpongeFusionPixelmon.ID,
+        name = SpongeFusionPixelmon.NAME,
+        version = SpongeFusionPixelmon.VERSION,
         authors = {"BrendonCurmi/FusionDev"},
         description = "A plugin/mod hybrid that adds a little extra to Pixelmon servers!",
         dependencies = {
                 @Dependency(id = "pixelmon", version = "7.0.8"),
                 @Dependency(id = "spongeapi", version = "7.1.0")
         })
-public class FusionPixelmon extends PluginInfo {
+public class SpongeFusionPixelmon extends PluginInfo {
 
     // todo warning evolve down, cant evolve up if special evolve conditions
     // todo if change form and do something to affect form, wasted money
@@ -57,7 +58,7 @@ public class FusionPixelmon extends PluginInfo {
     /**
      * Contains a reference to this (soft) singleton class.
      */
-    private static FusionPixelmon instance;
+    private static SpongeFusionPixelmon instance;
 
     public Path configDir;
     private Logger logger;
@@ -69,11 +70,10 @@ public class FusionPixelmon extends PluginInfo {
      * @param pluginContainer the container passed by Sponge.
      */
     @Inject
-    public FusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, PluginContainer pluginContainer) {
-        FusionPixelmon.instance = this;
+    public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, PluginContainer pluginContainer) {
+        SpongeFusionPixelmon.instance = this;
         this.configDir = configDir;
         this.logger = logger;
-        io.github.brendoncurmi.fusionpixelmon.FusionPixelmon.setRegistry(new SpongeRegistry());
     }
 
     @Listener
@@ -155,7 +155,7 @@ public class FusionPixelmon extends PluginInfo {
 
     @Listener
     public void postInit(GamePostInitializationEvent event) {
-        InvInventory.runUpdater();
+        SpongeInvInventory.runUpdater();
     }
 
     @Listener
@@ -178,11 +178,11 @@ public class FusionPixelmon extends PluginInfo {
         logger.info("Successfully stopped FusionPixelmon!");
     }
 
-    public static FusionPixelmon getInstance() {
-        return FusionPixelmon.instance;
+    public static SpongeFusionPixelmon getInstance() {
+        return SpongeFusionPixelmon.instance;
     }
 
     public Config getConfig() {
-        return FusionPixelmon.instance.config;
+        return SpongeFusionPixelmon.instance.config;
     }
 }

@@ -1,6 +1,6 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.api.config;
 
-import io.github.brendoncurmi.fusionpixelmon.sponge.FusionPixelmon;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
@@ -44,7 +44,7 @@ public abstract class AbstractConfigManager<T extends ConfigurationNode, L exten
     protected void load(boolean checkVersion) throws IOException {
         node = loader.load();
         if (checkVersion) {
-            int version = Integer.parseInt(FusionPixelmon.VERSION.substring(FusionPixelmon.VERSION.indexOf(".") + 1));
+            int version = Integer.parseInt(SpongeFusionPixelmon.VERSION.substring(SpongeFusionPixelmon.VERSION.indexOf(".") + 1));
             if (node.getNode("version").getInt() < version) {
                 configUpdater(version);
             }

@@ -2,9 +2,11 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class PokeballShop extends Shops.BaseShop {
     public PokeballShop(Shops shops) {
@@ -38,11 +40,11 @@ public class PokeballShop extends Shops.BaseShop {
         int slot = 9;
         for (EnumPokeballs pokeballs : EnumPokeballs.values()) {
             if (pokeballs == EnumPokeballs.BeastBall && !IPokemonWrapper.isUltraBeast(shops.pokemon)) continue;
-            InvItem item = new InvItem(PixelmonAPI.getPixelmonItemType(pokeballs.getFilenamePrefix()), "§3§l" + pokeballs.name());
+            InvItem item = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemType(pokeballs.getFilenamePrefix())), "§3§l" + pokeballs.name());
             page.setItem(slot, item, event -> {
                 if (shops.pokemon.getCaughtBall() != pokeballs) shops.getSelectedOptions().put(getOption(), pokeballs);
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item.getItemStack());
+                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
             });
             slot++;
         }

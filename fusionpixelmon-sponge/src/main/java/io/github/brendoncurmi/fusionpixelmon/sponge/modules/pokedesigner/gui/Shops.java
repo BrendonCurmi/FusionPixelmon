@@ -4,13 +4,14 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
 import io.github.brendoncurmi.fusionpixelmon.api.economy.IEconomyProvider;
 import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import io.github.brendoncurmi.fusionpixelmon.sponge.FusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvInventory;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.economy.BankAPI;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.economy.EconomyProvider;
@@ -18,6 +19,8 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Event;
+import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
@@ -118,7 +121,7 @@ public class Shops {
      * Creates and adds the shops.
      */
     private void initShops() {
-        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
         for (Options option : Options.values()) {
             if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
                 try {
@@ -186,11 +189,11 @@ public class Shops {
      * @param pokemon the selected pokemon.
      */
     public void launch(Pokemon pokemon, String guiTitle) {
-        this.inv = new InvInventory();
+        this.inv = new SpongeInvInventory();
         this.pages = new ArrayList<>();
         this.pokemon = pokemon;
 
-        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
         bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider(config.getCurrency()) : new BankAPI(player);
 
         pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
@@ -200,15 +203,24 @@ public class Shops {
             }
         });
 
-        InvItem emptyItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
-        InvItem airItem = new InvItem(ItemStack.builder().itemType(ItemTypes.AIR).build(), "");
-        InvItem confirmInvItem = new InvItem(ItemTypes.DYE, "§a§lConfirm").setKey(Keys.DYE_COLOR, DyeColors.LIME);
+        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        InvItem emptyItem = new InvItem(SpongeAdapter.adapt(emptyStack), "");
+
+        InvItem airItem = new InvItem(SpongeAdapter.adapt(ItemStack.builder().itemType(ItemTypes.AIR).build()), "");
+
+        ItemStack confirmInvStack = ItemStack.builder().itemType(ItemTypes.DYE).build();
+        confirmInvStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
+        InvItem confirmInvItem = new InvItem(SpongeAdapter.adapt(confirmInvStack), "§a§lConfirm");
         confirmInvItem.setLore("This will take you to", "the final checkout page.");
-        InvItem cancelInvItem = new InvItem(ItemTypes.DYE, "§4§lCancel").setKey(Keys.DYE_COLOR, DyeColors.RED);
-        InvItem curr = new InvItem(PixelmonAPI.getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
+
+        ItemStack cancelInvStack = ItemStack.builder().itemType(ItemTypes.DYE).build();
+        cancelInvStack.offer(Keys.DYE_COLOR, DyeColors.RED);
+        InvItem cancelInvItem = new InvItem(SpongeAdapter.adapt(confirmInvStack), "§4§lCancel");
+        InvItem curr = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
 
         IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-        InvItem pokeItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
+        InvItem pokeItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
@@ -256,7 +268,7 @@ public class Shops {
             int totalCost = calculateCost();
 
             if (bank.canAfford(player, totalCost)) {
-                confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.LIME);
+                //todo confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.LIME);
                 confirmInvItem1.setLore(
                         "Your total cost is: §c" + bank.getCurrencySymbol(totalCost) + "§7.",
                         "",
@@ -266,7 +278,7 @@ public class Shops {
                         "Your updated balance will be §a" + bank.getCurrencySymbol(bank.balance(player).intValue() - totalCost) + "§7."
                 );
             } else {
-                confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.GRAY);
+                //todo confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.GRAY);
                 confirmInvItem1.setLore(
                         "Your total cost is: §c" + bank.getCurrencySymbol(totalCost) + "§7.",
                         "",
@@ -277,7 +289,7 @@ public class Shops {
             pageCheckout.setItem(33, confirmInvItem1, event1 -> {
                 if (!bank.canAfford(player, totalCost)) {
                     player.sendMessage(Text.of("§cYou are not able to make this transaction"));
-                    event.setCancelled(true);
+                    ((ClickInventoryEvent) (event)).setCancelled(true);
                     return;
                 }
 
@@ -295,7 +307,7 @@ public class Shops {
             pageCheckout.setItem(31, curr);
 
 
-            InvItem purchaseItem = new InvItem(ItemTypes.PAPER, "§a§lPurchasing");
+            InvItem purchaseItem = new InvItem(SpongeAdapter.adapt(ItemTypes.PAPER), "§a§lPurchasing");
             List<String> lore = new ArrayList<>();
             for (Map.Entry<Options, Object> entry : getSelectedOptions().entrySet()) {
                 if (shops.get(entry.getKey()).hasPurchaseSummary) {
@@ -329,7 +341,7 @@ public class Shops {
         pages.add(pagePokeEditor);
 
         for (Map.Entry<Options, BaseShop> entry : shops.entrySet()) {
-            InvItem item = new InvItem(ItemStack.builder().fromItemStack(entry.getKey().itemStack).build(), "§3§l" + entry.getKey().name);
+            InvItem item = new InvItem(SpongeAdapter.adapt(ItemStack.builder().fromItemStack(entry.getKey().itemStack).build()), "§3§l" + entry.getKey().name);
             item.setLore(
                     "§7Click here if you wish to",
                     "modify your Pokemon's " + entry.getKey().modifyWhat + ".",
@@ -386,7 +398,7 @@ public class Shops {
          * @return the config object of the shop.
          */
         public PokeDesignerConfig.ShopConfig getShopConfig() {
-            return FusionPixelmon.getInstance().getConfig().getPokeDesignerConfig().getShopNamed(getOption().name().toLowerCase());
+            return SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig().getShopNamed(getOption().name().toLowerCase());
         }
 
         /**
@@ -480,7 +492,13 @@ public class Shops {
         /**
          * The item that represents an empty slot.
          */
-        static final InvItem EMPTY_ITEM = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
+        static final InvItem EMPTY_ITEM;
+
+        static {
+            ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+            emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+            EMPTY_ITEM = new InvItem(SpongeAdapter.adapt(emptyStack), "");
+        }
 
         public class Builder {
             private String title;
@@ -488,10 +506,10 @@ public class Shops {
             private int rows;
 
             private int backSlot = -1;
-            InvItem backItem = new InvItem(PixelmonAPI.getPixelmonItemStack("eject_button"), "§4§lBack to main menu");
+            InvItem backItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemStack("eject_button")), "§4§lBack to main menu");
 
             private int resetSlot = -1;
-            InvItem resetItem = new InvItem(PixelmonAPI.getPixelmonItemStack("trash_can"), "§4§lReset options");
+            InvItem resetItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemStack("trash_can")), "§4§lReset options");
 
             private int infoSlot = -1;
             private ItemType infoItemStack = ItemTypes.PAPER;
@@ -530,7 +548,7 @@ public class Shops {
             }
 
             public Builder setInfoItemData(String name, String... lore) {
-                infoItem = new InvItem(infoItemStack, "§3§l" + name);
+                infoItem = new InvItem(SpongeAdapter.adapt(infoItemStack), "§3§l" + name);
                 infoItem.setLore(lore);
                 return this;
             }
@@ -541,7 +559,7 @@ public class Shops {
             }
 
             public Builder setSelectedItem(InvPage page, ItemType itemType, String name, String... lore) {
-                InvItem item = new InvItem(itemType, name);
+                InvItem item = new InvItem(SpongeAdapter.adapt(itemType), name);
                 item.setLore(lore);
                 page.setItem(selectedSlot, item);
                 return this;
@@ -588,7 +606,7 @@ public class Shops {
                 InvPage page = new InvPage("§cDesigner §7>> §8" + title, id, rows);
                 page.setInteractInventoryEventListener(event -> {
                     if (event instanceof InteractInventoryEvent.Close) {
-                        Shops.resetSelectedOptions(SpongeAdapter.adapt((Player) event.getSource()), false);
+                        Shops.resetSelectedOptions(SpongeAdapter.adapt((Player) ((Event) event).getSource()), false);
                     }
                 });
 
@@ -633,7 +651,7 @@ public class Shops {
                     infoSlot = row * 9;
                 }
                 if (infoItem == null) {
-                    infoItem = new InvItem(infoItemStack, "§3§lInfo");
+                    infoItem = new InvItem(SpongeAdapter.adapt(infoItemStack), "§3§lInfo");
                 }
                 page.setItem(infoSlot, infoItem);
 
@@ -644,7 +662,7 @@ public class Shops {
                 }
 
                 page.setRunnable(() -> {
-                    InvItem selectedItem = (selectedItemStack != null) ? new InvItem(selectedItemStack, "§3§l" + selectedItemName) : new InvItem(DEFAULT_SELECTED_ITEM_TYPE, "§3§l" + selectedItemName);
+                    InvItem selectedItem = (selectedItemStack != null) ? new InvItem(SpongeAdapter.adapt(selectedItemStack), "§3§l" + selectedItemName) : new InvItem(SpongeAdapter.adapt(DEFAULT_SELECTED_ITEM_TYPE), "§3§l" + selectedItemName);
                     Object value = shops.getSelectedOptions().getOrDefault(options, "N/A");
                     if (value instanceof Integer) {
                         if ((int) value < 0) value = "§c" + value;

@@ -1,8 +1,10 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class ShinyShop extends Shops.BaseShop {
     public ShinyShop(Shops shops) {
@@ -25,20 +27,20 @@ public class ShinyShop extends Shops.BaseShop {
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
 
-        InvItem item1 = new InvItem(PixelmonAPI.getPixelmonItemType("light_ball"), "§6§lShiny");
+        InvItem item1 = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemType("light_ball")), "§6§lShiny");
         item1.setLore("Click here to select the", "§6Shiny §7option.");
         page.setItem(21, item1, event -> {
             if (!shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), true);
             else shops.getSelectedOptions().remove(getOption());
-            builder.setSelectedItem(item1.getItemStack());
+            builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
         });
 
-        InvItem item2 = new InvItem(PixelmonAPI.getPixelmonItemType("iron_ball"), "§8§lNon-Shiny");
+        InvItem item2 = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemType("iron_ball")), "§8§lNon-Shiny");
         item2.setLore("Click here to select the", "§8Non-Shiny §7option.");
         page.setItem(23, item2, event -> {
             if (shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), false);
             else shops.getSelectedOptions().remove(getOption());
-            builder.setSelectedItem(item2.getItemStack());
+            builder.setSelectedItem((ItemStack) item2.getItemStack().getRaw());
         });
         return page;
     }

@@ -5,13 +5,15 @@ import io.github.brendoncurmi.fusionpixelmon.api.colour.IColourWrapper;
 import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import io.github.brendoncurmi.fusionpixelmon.impl.colour.ColourWrapper;
 import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class NickShop extends Shops.BaseShop {
     public NickShop(Shops shops) {
@@ -42,14 +44,15 @@ public class NickShop extends Shops.BaseShop {
 
         int slot = 9;
         for (ColourOptions option : ColourOptions.values()) {
-            InvItem item = new InvItem(option.getItemType(), "§" + option.getCode() + Grammar.cap(option.name()));
-            if (option.getDyeColor() != null) item.setKey(Keys.DYE_COLOR, option.getDyeColor());
+            ItemStack itemStack = ItemStack.builder().itemType(option.getItemType()).build();
+            if (option.getDyeColor() != null) itemStack.offer(Keys.DYE_COLOR, option.getDyeColor());
+            InvItem item = new InvItem(SpongeAdapter.adapt(itemStack), "§" + option.getCode() + Grammar.cap(option.name()));
             page.setItem(slot, item, event -> {
                 IColourWrapper wrapper = (IColourWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new ColourWrapper());
                 if (option.getColour().isStyle()) wrapper.setStyle(option.getColour());
                 else wrapper.setColour(option.getColour());
                 shops.getSelectedOptions().put(getOption(), wrapper);
-                builder.setSelectedItem(item.getItemStack());
+                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
             });
             slot++;
         }

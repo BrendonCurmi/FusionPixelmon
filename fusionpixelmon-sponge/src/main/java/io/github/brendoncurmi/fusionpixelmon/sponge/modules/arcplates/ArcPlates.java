@@ -5,15 +5,16 @@ import com.pixelmonmod.pixelmon.enums.EnumPlate;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.FusionPixelmon;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.api.data.FileFactory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
+import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.FusionDev.FusionPixelmon.data.ArcStorageData;
 import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
 import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvInventory;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
 import net.minecraft.util.ResourceLocation;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
@@ -49,7 +50,7 @@ public class ArcPlates {
     /**
      * The config path to the serialised data files.
      */
-    private static Path path = FusionPixelmon.getInstance().configDir.resolve("arcplates");
+    private static Path path = SpongeFusionPixelmon.getInstance().configDir.resolve("arcplates");
 
     private static final int ROWS = 5;
     private static final int[] BACKGROUND_SLOTS = {0, 1, 9, 10, 19, 27, 28, 36, 37};
@@ -204,12 +205,12 @@ public class ArcPlates {
                     stack = ItemStack.builder().itemType(getType(Objects.requireNonNull(plateItem.getRegistryName()))).build();
                     name = "§a" + Grammar.cap(plate.name()) + " Plate";
                 }
-                page.setItem(plate.slot, new InvItem(stack, name));
+                page.setItem(plate.slot, new InvItem(SpongeAdapter.adapt(stack), name));
             }
         });
 
         // Create the GUI
-        InvItem infoItem = new InvItem(ItemTypes.PAPER, "§b§lStorage Info").setLore(
+        InvItem infoItem = new InvItem(SpongeAdapter.adapt(ItemTypes.PAPER), "§b§lStorage Info").setLore(
                 "",
                 "In Storage:",
                 "  Left Click: §aEquip Plate",
@@ -220,10 +221,12 @@ public class ArcPlates {
         );
         page.setItem(18, infoItem);
 
-        InvItem backgroundItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
+        ItemStack backgroundStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        backgroundStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        InvItem backgroundItem = new InvItem(SpongeAdapter.adapt(backgroundStack), "");
         for (int backSlot : BACKGROUND_SLOTS) page.setItem(backSlot, backgroundItem);
 
-        new InvInventory().openPage(SpongeAdapter.adapt(player), page);
+        new SpongeInvInventory().openPage(SpongeAdapter.adapt(player), page);
     }
 
     /**

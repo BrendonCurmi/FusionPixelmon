@@ -4,10 +4,12 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +43,14 @@ public class EvolutionShop extends Shops.BaseShop {
 
         int i = 9;
         for (PokemonSpec spec : getEvolutionsList(shops.pokemon)) {
-            InvItem item = new InvItem(PixelmonAPI.getPokeSprite(spec.create()), "§f" + spec.name);
+            InvItem item = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(spec.create())), "§f" + spec.name);
             page.setItem(i, item, event -> {
                 if (!spec.name.equals(shops.pokemon.getSpecies().name)) {
                     PokemonSpecWrapper wrapper = (PokemonSpecWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new PokemonSpecWrapper());
                     wrapper.setPokemonSpec(spec);
                     shops.getSelectedOptions().put(getOption(), wrapper);
                 }
-                builder.setSelectedItem(item.getItemStack());
+                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
             });
             i++;
         }

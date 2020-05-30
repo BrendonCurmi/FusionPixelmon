@@ -4,7 +4,7 @@ import io.github.brendoncurmi.fusionpixelmon.api.Raw;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
 import org.spongepowered.api.item.inventory.Inventory;
 
-public class SpongeInventory extends AbstractInventory implements Raw<Inventory> {
+public class SpongeInventory extends AbstractInventory {
     Inventory inventory;
 
     public SpongeInventory(org.spongepowered.api.item.inventory.Inventory inventory) {
@@ -12,12 +12,7 @@ public class SpongeInventory extends AbstractInventory implements Raw<Inventory>
     }
 
     @Override
-    public Object get() {
-        return inventory;
-    }
-
-    @Override
     public Inventory getRaw() {
-        return null;
+        return inventory;
     }
 }

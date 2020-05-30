@@ -2,12 +2,14 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.enums.EnumNature;
 import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class NatureShop extends Shops.BaseShop {
     public NatureShop(Shops shops) {
@@ -31,13 +33,15 @@ public class NatureShop extends Shops.BaseShop {
         InvPage page = builder.build();
 
         for (NatureOptions option : NatureOptions.values()) {
-            InvItem item = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§3§l" + Grammar.cap(option.name())).setKey(Keys.DYE_COLOR, option.dyeColor);
+            ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
+            InvItem item = new InvItem(SpongeAdapter.adapt(itemStack), "§3§l" + Grammar.cap(option.name()));
             item.setLore("  Boosted: §b" + option.boosted, "  Lowered: §c" + option.lowered);
             page.setItem(option.slot, item, event -> {
                 if (!shops.pokemon.getNature().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), Grammar.cap(option.name()));
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item.getItemStack());
+                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
             });
         }
 

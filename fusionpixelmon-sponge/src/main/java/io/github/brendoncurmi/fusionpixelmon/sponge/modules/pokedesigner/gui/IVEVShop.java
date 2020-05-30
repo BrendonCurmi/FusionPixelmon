@@ -4,16 +4,18 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.IVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
 import io.github.brendoncurmi.fusionpixelmon.impl.MathUtil;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +39,16 @@ public class IVEVShop extends Shops.BaseShop {
         return Shops.Options.IVEV;
     }
 
-    private static InvItem subtractionItem = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "").setKey(Keys.DYE_COLOR, DyeColors.RED);
-    private static InvItem additionItem = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "").setKey(Keys.DYE_COLOR, DyeColors.GREEN);
+    private static InvItem subtractionItem;
+    private static InvItem additionItem;
+    static {
+        ItemStack subtractionStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+        subtractionStack.offer(Keys.DYE_COLOR, DyeColors.RED);
+        subtractionItem = new InvItem(SpongeAdapter.adapt(subtractionStack), "");
+        ItemStack additionStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+        additionStack.offer(Keys.DYE_COLOR, DyeColors.GREEN);
+        additionItem = new InvItem(SpongeAdapter.adapt(additionStack), "");
+    }
 
     @Override
     public InvPage buildPage() {
@@ -78,7 +88,7 @@ public class IVEVShop extends Shops.BaseShop {
         for (IVEVOption type : IVEVOption.values()) {
             optName = Grammar.underscoreToSpace(type.name());
 
-            items[i1][0] = new InvItem(PixelmonAPI.getPixelmonItemType(type.itemID), "§3§l" + optName);
+            items[i1][0] = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemType(type.itemID)), "§3§l" + optName);
             page.setItem(i1 * 9, items[i1][0]);
 
             items[i1][1] = subtractionItem.copy("§c§lRemove " + optName + " EVs");

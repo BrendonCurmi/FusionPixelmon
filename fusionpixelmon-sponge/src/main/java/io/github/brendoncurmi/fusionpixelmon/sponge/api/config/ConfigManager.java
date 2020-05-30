@@ -1,6 +1,6 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.api.config;
 
-import io.github.brendoncurmi.fusionpixelmon.sponge.FusionPixelmon;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import org.spongepowered.api.Sponge;
@@ -19,7 +19,7 @@ public class ConfigManager extends AbstractConfigManager<CommentedConfigurationN
     }
 
     protected CommentedConfigurationNode getDefaultsFrom(HoconConfigurationLoader loader) throws IOException {
-        return HoconConfigurationLoader.builder().setURL(Sponge.getAssetManager().getAsset(FusionPixelmon.getInstance(), "default.conf").get().getUrl()).build().load(loader.getDefaultOptions());
+        return HoconConfigurationLoader.builder().setURL(Sponge.getAssetManager().getAsset(SpongeFusionPixelmon.getInstance(), "default.conf").get().getUrl()).build().load(loader.getDefaultOptions());
     }
 
     @Override

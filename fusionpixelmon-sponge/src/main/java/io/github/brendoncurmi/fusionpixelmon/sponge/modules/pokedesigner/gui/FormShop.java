@@ -3,12 +3,14 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.enums.forms.IEnumForm;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class FormShop extends Shops.BaseShop {
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
 
-        InvItem emptyItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
+//        InvItem emptyItem = new InvItem(SpongeAdapter.adapt(ItemTypes.STAINED_GLASS_PANE), "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
 //        page.setBackground(emptyItem);
 
         PokemonSpec spec = PokemonSpec.from(shops.pokemon.getSpecies().getPokemonName());
@@ -51,11 +53,11 @@ public class FormShop extends Shops.BaseShop {
         List<IEnumForm> forms = pokemon.getSpecies().getPossibleForms(true);
         for (IEnumForm form : forms) {
             pokemon.setForm(form);
-            InvItem item1 = new InvItem(PixelmonAPI.getPokeSprite(pokemon), (pokemon.isShiny() ? "§3Shiny " : "§3") + pokemon.getSpecies().getPokemonName() + " §8(§e" + form.getLocalizedName() + "§8)");
+            InvItem item1 = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon)), (pokemon.isShiny() ? "§3Shiny " : "§3") + pokemon.getSpecies().getPokemonName() + " §8(§e" + form.getLocalizedName() + "§8)");
             page.setItem(i, item1, event -> {
                 if (shops.pokemon.getFormEnum() != form) shops.getSelectedOptions().put(getOption(), form);
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item1.getItemStack());
+                builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
             });
             i++;
         }

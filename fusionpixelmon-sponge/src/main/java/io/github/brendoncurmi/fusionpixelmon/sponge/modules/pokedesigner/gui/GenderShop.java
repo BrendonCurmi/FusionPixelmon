@@ -1,11 +1,13 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class GenderShop extends Shops.BaseShop {
     public GenderShop(Shops shops) {
@@ -29,24 +31,30 @@ public class GenderShop extends Shops.BaseShop {
         InvPage page = builder.build();
 
         if (shops.pokemon.getGender() == Gender.None) {
-            InvItem item1 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§b§lNone").setKey(Keys.DYE_COLOR, DyeColors.YELLOW);
-            page.setItem(22, item1, event -> builder.setSelectedItem(item1.getItemStack()));
+            ItemStack genderStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            genderStack.offer(Keys.DYE_COLOR, DyeColors.YELLOW);
+            InvItem item1 = new InvItem(SpongeAdapter.adapt(genderStack), "§b§lNone");
+            page.setItem(22, item1, event -> builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw()));
         } else {
-            InvItem item1 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§b§lMale").setKey(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
+            ItemStack maleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            maleStack.offer(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
+            InvItem item1 = new InvItem(SpongeAdapter.adapt(maleStack), "§b§lMale");
             item1.setLore("Click here to select the", "§bMale §7gender.");
             page.setItem(21, item1, event -> {
                 if (shops.pokemon.getGender() != Gender.Male) shops.getSelectedOptions().put(getOption(), "§bMale");
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item1.getItemStack());
+                builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
             });
 
 
-            InvItem item2 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§d§lFemale").setKey(Keys.DYE_COLOR, DyeColors.MAGENTA);
+            ItemStack femaleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            femaleStack.offer(Keys.DYE_COLOR, DyeColors.MAGENTA);
+            InvItem item2 = new InvItem(SpongeAdapter.adapt(femaleStack), "§d§lFemale");
             item2.setLore("Click here to select the", "§dFemale §7gender.");
             page.setItem(23, item2, event -> {
                 if (shops.pokemon.getGender() != Gender.Female) shops.getSelectedOptions().put(getOption(), "§dFemale");
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem(item2.getItemStack());
+                builder.setSelectedItem((ItemStack) item2.getItemStack().getRaw());
             });
         }
         return page;

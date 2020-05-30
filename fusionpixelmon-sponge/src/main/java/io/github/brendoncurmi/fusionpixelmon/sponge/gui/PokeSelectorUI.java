@@ -7,14 +7,16 @@ import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvInventory;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class PokeSelectorUI {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
                 IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-                partyItem = new InvItem(PixelmonAPI.getPokeSprite(pokemon, true), pokemonWrapper.getTitle());
+                partyItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
                         pokemonWrapper.getAbility(),
                         pokemonWrapper.getNature(),
@@ -58,23 +60,27 @@ public class PokeSelectorUI {
                     consumer.accept(selectedPokemon);
                 });
             } else if (pokemon != null) {
-                partyItem = new InvItem(ItemTypes.EGG, "§3Unknown");
+                partyItem = new InvItem(SpongeAdapter.adapt(ItemTypes.EGG), "§3Unknown");
                 pagePokeSelect.setItem(i, partyItem);
             } else {
-                partyItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "§fEmpty party slot").setKey(Keys.DYE_COLOR, DyeColors.WHITE);
+                ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+                itemStack.offer(Keys.DYE_COLOR, DyeColors.WHITE);
+                partyItem = new InvItem(SpongeAdapter.adapt(itemStack), "§fEmpty party slot");
                 pagePokeSelect.setItem(i, partyItem);
             }
         }
 
         // Party can have max 6 pokemon but inventory row has 9 slots, so fill remaining space with panes
-        InvItem emptyItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
+        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        InvItem emptyItem = new InvItem(SpongeAdapter.adapt(emptyStack), "");
         pagePokeSelect.setItem(6, emptyItem);
         pagePokeSelect.setItem(7, emptyItem);
         pagePokeSelect.setItem(8, emptyItem);
 
         pages.add(pagePokeSelect);
 
-        InvInventory inv = new InvInventory();
+        InvInventory inv = new SpongeInvInventory();
         inv.add(pages);
         inv.openPage(SpongeAdapter.adapt(player), pagePokeSelect);
     }

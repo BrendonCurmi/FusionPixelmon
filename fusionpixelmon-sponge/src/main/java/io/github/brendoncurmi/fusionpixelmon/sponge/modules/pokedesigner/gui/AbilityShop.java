@@ -1,11 +1,13 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class AbilityShop extends Shops.BaseShop {
     public AbilityShop(Shops shops) {
@@ -35,11 +37,13 @@ public class AbilityShop extends Shops.BaseShop {
         String[] allAbilities = shops.pokemon.getBaseStats().abilities;
         for (int i = 0; i < allAbilities.length; i++) {
             if (allAbilities[i] == null || (i == 1 && allAbilities[1].equals(allAbilities[0]))) {
-                InvItem item = new InvItem(ItemTypes.BARRIER, "§c§lN/A");
+                InvItem item = new InvItem(SpongeAdapter.adapt(ItemTypes.BARRIER), "§c§lN/A");
                 page.setItem(slots[i], item);
             } else {
                 String ability = allAbilities[i];
-                InvItem item = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§3§l" + ability).setKey(Keys.DYE_COLOR, colors[i]);
+                ItemStack abilityStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+                abilityStack.offer(Keys.DYE_COLOR, colors[i]);
+                InvItem item = new InvItem(SpongeAdapter.adapt(abilityStack), "§3§l" + ability);
                 int finalI = i;
                 page.setItem(slots[i], item, event -> {
                     if (!shops.pokemon.getAbilityName().equalsIgnoreCase(ability)) {
@@ -49,7 +53,7 @@ public class AbilityShop extends Shops.BaseShop {
                         abilitySlot = 0;
                         shops.getSelectedOptions().remove(getOption());
                     }
-                    builder.setSelectedItem(item.getItemStack());
+                    builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
                 });
             }
         }

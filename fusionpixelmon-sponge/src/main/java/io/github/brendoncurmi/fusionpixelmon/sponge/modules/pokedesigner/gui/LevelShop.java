@@ -2,12 +2,14 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.enums.ExperienceGainType;
 import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 
 public class LevelShop extends Shops.BaseShop {
     public LevelShop(Shops shops) {
@@ -34,10 +36,14 @@ public class LevelShop extends Shops.BaseShop {
 
         InvPage page = builder.build();
 
-        InvItem emptyItem = new InvItem(ItemTypes.STAINED_GLASS_PANE, "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
+        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        InvItem emptyItem = new InvItem(SpongeAdapter.adapt(emptyStack), "");
         page.setBackground(emptyItem);
 
-        InvItem item1 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§a§lAdd Levels").setKey(Keys.DYE_COLOR, DyeColors.LIME);
+        ItemStack addStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+        addStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
+        InvItem item1 = new InvItem(SpongeAdapter.adapt(addStack), "§a§lAdd Levels");
         item1.setLore(
                 "Click here to increase the",
                 "level of your pokemon.",
@@ -73,11 +79,13 @@ public class LevelShop extends Shops.BaseShop {
                 if (shops.pokemon.getLevel() + levels + add <= 100) {
                     shops.getSelectedOptions().put(getOption(), levels + add);
                 }
-                builder.setSelectedItem(item1.getItemStack());
+                builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
             });
         }
 
-        InvItem item2 = new InvItem(ItemTypes.STAINED_HARDENED_CLAY, "§c§lRemove Levels").setKey(Keys.DYE_COLOR, DyeColors.RED);
+        ItemStack removeStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+        removeStack.offer(Keys.DYE_COLOR, DyeColors.RED);
+        InvItem item2 = new InvItem(SpongeAdapter.adapt(removeStack), "§c§lRemove Levels");
         item2.setLore(
                 "Click here to decrease the",
                 "level of your pokemon.",
@@ -102,7 +110,7 @@ public class LevelShop extends Shops.BaseShop {
                 if (shops.pokemon.getLevel() + levels - add > 0) {
                     shops.getSelectedOptions().put(getOption(), levels - add);
                 }
-                builder.setSelectedItem(item2.getItemStack());
+                builder.setSelectedItem((ItemStack) item2.getItemStack().getRaw());
             });
         }
         return page;

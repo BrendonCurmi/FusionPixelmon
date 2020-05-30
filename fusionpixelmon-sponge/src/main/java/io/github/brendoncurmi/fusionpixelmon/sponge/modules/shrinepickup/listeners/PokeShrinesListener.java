@@ -1,7 +1,7 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.shrinepickup.listeners;
 
 import com.flowpowered.math.vector.Vector3i;
-import io.github.brendoncurmi.fusionpixelmon.sponge.FusionPixelmon;
+import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
@@ -39,7 +39,7 @@ public class PokeShrinesListener {
     /**
      * The blocks which can be obtained using this method.
      */
-    private static final List<String> BLOCKS = FusionPixelmon.getInstance().getConfig().getPickableShrines();
+    private static final List<String> BLOCKS = SpongeFusionPixelmon.getInstance().getConfig().getPickableShrines();
 
     /**
      * The block that the {@link #BLOCKS} will turn into upon valid interaction.
