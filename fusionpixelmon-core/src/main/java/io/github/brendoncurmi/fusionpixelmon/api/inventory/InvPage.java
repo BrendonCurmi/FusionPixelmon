@@ -1,8 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory;
-
-import org.spongepowered.api.event.Event;
-import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
-import org.spongepowered.api.item.inventory.Inventory;
+package io.github.brendoncurmi.fusionpixelmon.api.inventory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +11,13 @@ public class InvPage {
 
     public String title;
     public String id;
-    int rows = 4;
+    public int rows = 4;
     public Map<Integer, InvItem> elements;
     public HashMap<Integer, InvAction> actions;
 
     public InvItem backgroundItem = null;
 
-    public Inventory inventory;
+    public AbstractInventory inventory;
 
     public Runnable runnable;
 
@@ -73,16 +69,16 @@ public class InvPage {
         this.backgroundItem = backgroundItem;
     }
 
-    public Consumer<Event> interactInventoryEventListener;
+    public Consumer<Object> interactInventoryEventListener;
 
-    public void setInteractInventoryEventListener(Consumer<Event> listener) {
+    public void setInteractInventoryEventListener(Consumer<Object> listener) {
         this.interactInventoryEventListener = listener;
     }
 
 
-    public Consumer<Event> clickInventoryEventListener;
+    public Consumer<Object> clickInventoryEventListener;
 
-    public void setClickInventoryEventListener(Consumer<Event> listener) {
+    public void setClickInventoryEventListener(Consumer<Object> listener) {
         this.clickInventoryEventListener = listener;
     }
 
@@ -93,6 +89,6 @@ public class InvPage {
     }
 
     public static interface InvAction {
-        void action(ClickInventoryEvent event);
+        void action(Object event);
     }
 }

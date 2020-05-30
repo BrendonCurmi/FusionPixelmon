@@ -1,6 +1,6 @@
 package io.github.brendoncurmi.fusionpixelmon.api.inventory;
 
-public abstract class AbstractInventory {
-    public abstract Object get();
+import io.github.brendoncurmi.fusionpixelmon.api.Raw;
 
+public abstract class AbstractInventory implements Raw {
 }

@@ -1,4 +1,8 @@
 package io.github.brendoncurmi.fusionpixelmon.api.items;
 
-public class AbstractItemType {
+import io.github.brendoncurmi.fusionpixelmon.api.Raw;
+
+public abstract class AbstractItemType implements Raw {
+
+    public abstract AbstractItemStack to();
 }

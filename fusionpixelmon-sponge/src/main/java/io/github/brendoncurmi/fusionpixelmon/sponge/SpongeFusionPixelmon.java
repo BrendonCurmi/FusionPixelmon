@@ -8,7 +8,7 @@ import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.command
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.shrinepickup.listeners.PokeShrinesListener;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.api.updater.UpdateChecker;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.InvInventory;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
 import net.minecraftforge.common.MinecraftForge;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -73,6 +73,7 @@ public class FusionPixelmon extends PluginInfo {
         FusionPixelmon.instance = this;
         this.configDir = configDir;
         this.logger = logger;
+        io.github.brendoncurmi.fusionpixelmon.FusionPixelmon.setRegistry(new SpongeRegistry());
     }
 
     @Listener

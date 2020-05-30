@@ -1,42 +1,38 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory;
+package io.github.brendoncurmi.fusionpixelmon.api.inventory;
 
-import org.spongepowered.api.data.key.Key;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColor;
-import org.spongepowered.api.text.format.TextColors;
+import io.github.brendoncurmi.fusionpixelmon.api.colour.Colour;
+import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
+import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InvItem {
-    private ItemStack itemStack;
+    private AbstractItemStack itemStack;
     private String name;
-    private List<Text> itemLore;
+    private List<String> itemLore;
 
-    private static final TextColor DEFAULT_LORE_COLOUR = TextColors.GRAY;
+    private static final Colour DEFAULT_LORE_COLOUR = Colour.GREY;
 
-    public InvItem(ItemStack itemStack, String name, List<Text> itemLore) {
-        this.itemStack = ItemStack.builder().fromItemStack(itemStack).add(Keys.DISPLAY_NAME, Text.of(name)).build();
+    public InvItem(AbstractItemStack itemStack, String name, List<String> itemLore) {
+        this.itemStack = itemStack;
         this.name = name;
         this.itemLore = itemLore;
     }
 
-    public InvItem(ItemStack itemStack, String name) {
+    public InvItem(AbstractItemStack itemStack, String name) {
         this(itemStack, name, new ArrayList<>());
     }
 
-    public InvItem(ItemType itemType, String name) {
-        this(ItemStack.builder().itemType(itemType).build(), name);
+    public InvItem(AbstractItemType itemType, String name) {
+        this(itemType.to(), name);
     }
 
-    public ItemStack getItemStack() {
+    public AbstractItemStack getItemStack() {
         return itemStack;
     }
 
-    public void setItemStack(ItemStack itemStack) {
+    public void setItemStack(AbstractItemStack itemStack) {
         this.itemStack = itemStack;
     }
 
@@ -45,22 +41,21 @@ public class InvItem {
     }
 
     public void setName(String name) {
-        itemStack.offer(Keys.DISPLAY_NAME, Text.of(this.name = name));
+//        itemStack.offer(Keys.DISPLAY_NAME, Text.of(this.name = name));
+        itemStack.setName(name);
     }
 
-    public List<Text> getItemLore() {
+    public List<String> getItemLore() {
         return itemLore;
     }
 
-    public void setItemLore(List<Text> itemLore) {
+    public void setItemLore(List<String> itemLore) {
         this.itemLore = itemLore;
         pushLore();
     }
 
-    public List<Text> getLore() {
-        if (itemStack.get(Keys.ITEM_LORE).isPresent())
-            return itemStack.get(Keys.ITEM_LORE).get();
-        return new ArrayList<>();
+    public List<String> getLore() {
+        return itemStack.getLore();
     }
 
     /**
@@ -72,24 +67,24 @@ public class InvItem {
      * @return this instance.
      */
     public InvItem setLoreWait(Object... lore) {
-        List<Text> itemLore = new ArrayList<>();
+        List<String> itemLore = new ArrayList<>();
         for (Object line : lore) {
             if (line == null) continue;
             else if (line instanceof List)
-                for (String l : (List<String>) line) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, l));
+                for (String l : (List<String>) line) itemLore.add(DEFAULT_LORE_COLOUR + l);
             else if (line instanceof String[])
-                for (String l : (String[]) line) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, l));
-            else itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
+                for (String l : (String[]) line) itemLore.add(DEFAULT_LORE_COLOUR +l);
+            else itemLore.add(DEFAULT_LORE_COLOUR + line.toString());
         }
         this.itemLore = itemLore;
         return this;
     }
 
     public InvItem setLore(String... lore) {
-        List<Text> itemLore = new ArrayList<>();
+        List<String> itemLore = new ArrayList<>();
         for (String line : lore) {
             if (line == null) continue;
-            itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
+            itemLore.add(DEFAULT_LORE_COLOUR + line);
         }
         this.itemLore = itemLore;
         pushLore();
@@ -103,8 +98,8 @@ public class InvItem {
     }
 
     public InvItem setLore(List<String> lore) {
-        List<Text> itemLore = new ArrayList<>();
-        for (String line : lore) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
+        List<String> itemLore = new ArrayList<>();
+        for (String line : lore) itemLore.add(DEFAULT_LORE_COLOUR + line);
         this.itemLore = itemLore;
         pushLore();
         return this;
@@ -117,8 +112,8 @@ public class InvItem {
      * @return this instance for chaining.todo
      */
     public InvItem prependLore(List<String> lore) {
-        List<Text> list = new ArrayList<>();
-        for (String line : lore) list.add(Text.of(DEFAULT_LORE_COLOUR, line));
+        List<String> list = new ArrayList<>();
+        for (String line : lore) list.add(DEFAULT_LORE_COLOUR + line);
         itemLore.addAll(0, list);
         return this;
     }
@@ -130,8 +125,8 @@ public class InvItem {
      * @return this instance.
      */
     public InvItem prependLore(String... lore) {
-        List<Text> list = new ArrayList<>();
-        for (String line : lore) list.add(Text.of(DEFAULT_LORE_COLOUR, line));
+        List<String> list = new ArrayList<>();
+        for (String line : lore) list.add(DEFAULT_LORE_COLOUR + line);
         itemLore.addAll(0, list);
         return this;
     }
@@ -143,7 +138,7 @@ public class InvItem {
      * @return this instance.
      */
     public InvItem appendLore(List<String> lore) {
-        for (String line : lore) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
+        for (String line : lore) itemLore.add(DEFAULT_LORE_COLOUR + line);
         return this;
     }
 
@@ -154,17 +149,7 @@ public class InvItem {
      * @return this instance.
      */
     public InvItem appendLore(String... lore) {
-        for (String line : lore) itemLore.add(Text.of(DEFAULT_LORE_COLOUR, line));
-        return this;
-    }
-
-    public InvItem copyLoreFrom(InvItem item) {
-        /*if (item.itemStack.get(Keys.ITEM_LORE).isPresent()) {
-            itemStack.offer(Keys.ITEM_LORE, item.itemStack.get(Keys.ITEM_LORE).get());
-        }*/
-        if (item.itemLore != null && !item.itemLore.isEmpty()) {
-            itemStack.offer(Keys.ITEM_LORE, item.itemLore);
-        }
+        for (String line : lore) itemLore.add(DEFAULT_LORE_COLOUR + line);
         return this;
     }
 
@@ -185,14 +170,14 @@ public class InvItem {
      */
     public InvItem pushLore(boolean clearTrailing) {
         if (clearTrailing) {
-            Text text;
+            String text;
             for (int i = 0; i < itemLore.size() - 1; i++) {
                 text = itemLore.get((itemLore.size() - 1) - i);
-                if (text.toPlain().isEmpty()) itemLore.remove((itemLore.size() - 1) - i);
+                if (text.isEmpty()) itemLore.remove((itemLore.size() - 1) - i);
                 else break;
             }
         }
-        itemStack.offer(Keys.ITEM_LORE, itemLore);
+        itemStack.setLore(itemLore);
         return this;
     }
 
@@ -236,8 +221,8 @@ public class InvItem {
      * @param value the value.
      * @return this instance.
      */
-    public InvItem setKey(Key key, Object value) {
+    /*public InvItem setKey(Object key, Object value) {
         itemStack.offer(key, value);
         return this;
-    }
+    }*/
 }
