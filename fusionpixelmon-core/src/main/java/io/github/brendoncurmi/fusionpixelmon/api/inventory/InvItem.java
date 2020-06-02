@@ -46,17 +46,33 @@ public class InvItem {
         getItemStack().setName(name);
     }
 
-    public List<String> getItemLore() {
-        return itemLore;
-    }
-
-    public void setItemLore(List<String> itemLore) {
-        this.itemLore = itemLore;
-        pushLore();
-    }
-
     public List<String> getLore() {
         return itemStack.getLore();
+    }
+
+    public InvItem setLore(List<String> lore) {
+        List<String> itemLore = new ArrayList<>();
+        for (String line : lore) itemLore.add(DEFAULT_LORE_COLOUR + line);
+        this.itemLore = itemLore;
+        pushLore();
+        return this;
+    }
+
+    public InvItem setLore(String... lore) {
+        List<String> itemLore = new ArrayList<>();
+        for (String line : lore) {
+            if (line == null) continue;
+            itemLore.add(DEFAULT_LORE_COLOUR + line);
+        }
+        this.itemLore = itemLore;
+        pushLore();
+        return this;
+    }
+
+    public InvItem setLore(Object... lore) {
+        setLoreWait(lore);//todo check why this is wait - actually is it due to the parsing of object lore?
+        pushLore();
+        return this;
     }
 
     /**
@@ -78,31 +94,6 @@ public class InvItem {
             else itemLore.add(DEFAULT_LORE_COLOUR + line.toString());
         }
         this.itemLore = itemLore;
-        return this;
-    }
-
-    public InvItem setLore(String... lore) {
-        List<String> itemLore = new ArrayList<>();
-        for (String line : lore) {
-            if (line == null) continue;
-            itemLore.add(DEFAULT_LORE_COLOUR + line);
-        }
-        this.itemLore = itemLore;
-        pushLore();
-        return this;
-    }
-
-    public InvItem setLore(Object... lore) {
-        setLoreWait(lore);
-        pushLore();
-        return this;
-    }
-
-    public InvItem setLore(List<String> lore) {
-        List<String> itemLore = new ArrayList<>();
-        for (String line : lore) itemLore.add(DEFAULT_LORE_COLOUR + line);
-        this.itemLore = itemLore;
-        pushLore();
         return this;
     }
 
