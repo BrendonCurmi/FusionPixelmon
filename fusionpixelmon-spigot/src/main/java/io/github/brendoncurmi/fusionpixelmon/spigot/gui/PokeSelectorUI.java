@@ -37,7 +37,7 @@ public class PokeSelectorUI {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
                 IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-                partyItem = new SpigotInvItem(Material.BEDROCK, pokemonWrapper.getTitle());
+                partyItem = new SpigotInvItem(SpigotAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
                         pokemonWrapper.getAbility(),
                         pokemonWrapper.getNature(),
