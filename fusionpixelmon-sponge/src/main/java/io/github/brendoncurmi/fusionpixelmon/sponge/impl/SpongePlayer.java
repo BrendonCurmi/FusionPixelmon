@@ -43,6 +43,6 @@ public class SpongePlayer extends AbstractPlayer {
 
     @Override
     public void openInventory(AbstractInventory inventory) {
-        player.openInventory((Inventory) inventory.get());
+        player.openInventory((Inventory) inventory.getRaw());
     }
 }

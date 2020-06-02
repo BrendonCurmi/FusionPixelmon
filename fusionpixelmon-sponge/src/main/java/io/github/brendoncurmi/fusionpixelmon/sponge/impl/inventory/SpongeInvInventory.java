@@ -101,7 +101,7 @@ public class SpongeInvInventory extends InvInventory {
 
         // Open page for player
         Task.builder().execute(() -> {
-            player.openInventory(SpongeAdapter.adapt(inventory));
+            player.openInventory(this.inventory);
         }).delayTicks(1).submit(SpongeFusionPixelmon.getInstance());
         playerOpened(player, page);
     }
