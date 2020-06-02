@@ -12,4 +12,7 @@ public abstract class AbstractItemStack implements Raw {
     public abstract List<String> getLore();
 
     public abstract void setLore(List<String> itemLore);
+
+    public void setColour(Object colour) {
+    }
 }
