@@ -16,8 +16,8 @@ public class InvItem {
 
     public InvItem(AbstractItemStack itemStack, String name, List<String> itemLore) {
         this.itemStack = itemStack;
-        this.name = name;
-        this.itemLore = itemLore;
+        setName(name);
+        setLore(itemLore);
     }
 
     public InvItem(AbstractItemStack itemStack, String name) {
@@ -41,8 +41,9 @@ public class InvItem {
     }
 
     public void setName(String name) {
+        this.name = name;
 //        itemStack.offer(Keys.DISPLAY_NAME, Text.of(this.name = name));
-        itemStack.setName(name);
+        getItemStack().setName(name);
     }
 
     public List<String> getItemLore() {
