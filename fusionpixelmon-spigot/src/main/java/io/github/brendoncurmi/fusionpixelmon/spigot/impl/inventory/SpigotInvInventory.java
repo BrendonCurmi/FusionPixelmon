@@ -11,33 +11,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 
 public class SpigotInvInventory extends InvInventory implements Listener {
-    Inventory inv;
-
-    public Inventory getInv() {
-        return inv;
-    }
-
-    public SpigotInvInventory() {
-        inv = Bukkit.createInventory(null, 9, "Example");
-    }
 
     @Override
     public void openPage(AbstractPlayer player, InvPage page) {
-
         Inventory inventory = Bukkit.createInventory(null, 9 * page.rows, page.title);
-        inv = inventory;
-//        inv.addItem(createGuiItem(Material.DIAMOND_SWORD, "Example Sword", "§aFirst line of the lore", "§bSecond line of the lore"));
-//        inv.addItem(createGuiItem(Material.IRON_HELMET, "§bExample Helmet", "§aFirst line of the lore", "§bSecond line of the lore"));
-
 
         // Add items to inventory
         for (int i = 0; i < inventory.getSize(); i++) {
@@ -49,52 +38,64 @@ public class SpigotInvInventory extends InvInventory implements Listener {
         }
 
         this.inventory = new SpigotInventory(inventory);
-
-
         player.openInventory(this.inventory);
+        playerOpened(player, page);
     }
 
-    // Nice little method to create a gui item with a custom name, and description
-    protected ItemStack createGuiItem(final Material material, final String name, final String... lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (openPages.containsKey(player.getUniqueId())) {
+            InvPage invPage = getPlayerOpened(player.getUniqueId());
+            event.setCancelled(true);
 
-        // Set the name of the item
-        meta.setDisplayName(name);
+            if (invPage.clickInventoryEventListener != null) {
+                invPage.clickInventoryEventListener.accept(event);
+            }
 
-        // Set the lore of the item
-        meta.setLore(Arrays.asList(lore));
+            // Check which slot is clicked and run action if one is defined for the slot
+            try {
+                int slot = event.getRawSlot();
 
+                if ((invPage.rows * 9) - 1 > slot) {
+                    if (invPage.actions.containsKey(slot)) {
+                        invPage.actions.get(slot).action(event);
+                    }
+                }
+            } catch (IndexOutOfBoundsException ignored) {
+            }
 
-        item.setItemMeta(meta);
+            //ItemStack clickedItem = event.getCurrentItem();
+            //if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
+        }
+    }
 
-        return item;
+    @EventHandler
+    public void onInventoryInteract(InventoryInteractEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (openPages.containsKey(player.getUniqueId())) {
+            event.setCancelled(true);
+            InvPage invPage = getPlayerOpened(player.getUniqueId());
+            if (invPage.interactInventoryEventListener != null) {
+                invPage.interactInventoryEventListener.accept(event);
+            }
+        }
     }
 
 
     @EventHandler
-    public void onInventoryClick(final InventoryClickEvent e) {
-        if (e.getInventory() != inv) return;
-
-        e.setCancelled(true);
-
-        final ItemStack clickedItem = e.getCurrentItem();
-
-        // verify current item is not null
-        if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
-
-        final Player p = (Player) e.getWhoClicked();
-
-
-        // Using slots click is a best option for your inventory click's
-        p.sendMessage("You clicked at slot " + e.getRawSlot());
+    public void onInventoryClose(InventoryCloseEvent event) {
+        Player player = (Player) event.getPlayer();
+        if (openPages.containsKey(player.getUniqueId())) {
+            playerClosed(player.getUniqueId());
+        }
     }
 
-    // Cancel dragging in our inventory
     @EventHandler
-    public void onInventoryClick(final InventoryDragEvent e) {
-        if (e.getInventory() == inv) {
-            e.setCancelled(true);
+    public void onInventoryClick(InventoryDragEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (openPages.containsKey(player.getUniqueId())) {
+            event.setCancelled(true);
         }
     }
 }
