@@ -70,7 +70,11 @@ public abstract class InvInventory {
      */
     public static InvPage getPlayerOpened(AbstractPlayer player) {
         if (player == null) throw new InventoryException("Player can't be null");
-        return openPages.get(player.getUniqueId());
+        return getPlayerOpened(player.getUniqueId());
+    }
+
+    public static InvPage getPlayerOpened(UUID uuid) {
+        return openPages.get(uuid);
     }
 
     /**
@@ -91,6 +95,10 @@ public abstract class InvInventory {
      * @param player the player closing the inventory.
      */
     public static void playerClosed(AbstractPlayer player) {
-        openPages.remove(player.getUniqueId());
+        playerClosed(player.getUniqueId());
+    }
+
+    public static void playerClosed(UUID uuid) {
+        openPages.remove(uuid);
     }
 }
