@@ -2,8 +2,12 @@ package io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory;
 
 import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
 import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
+import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Colorable;
+import org.bukkit.material.MaterialData;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +25,10 @@ public class SpigotItemStack extends AbstractItemStack {
         return itemType.to();
     }
 
-
     @Override
     public void setName(String name) {
-        meta(meta -> meta.setDisplayName(name));
+        // If name is empty, set it to some colour to not be empty, otherwise spigot will revert display name sigh
+        meta(meta -> meta.setDisplayName(!name.isEmpty() ? name : ChatColor.BLACK + ""));
     }
 
     @Override
@@ -41,6 +45,9 @@ public class SpigotItemStack extends AbstractItemStack {
 
     @Override
     public void setColour(Object colour) {
+        Colorable cl = (Colorable) itemStack.getData();
+        cl.setColor((DyeColor) colour);
+        itemStack.setData((MaterialData) cl);
     }
 
     private void meta(Runnable runnable) {
