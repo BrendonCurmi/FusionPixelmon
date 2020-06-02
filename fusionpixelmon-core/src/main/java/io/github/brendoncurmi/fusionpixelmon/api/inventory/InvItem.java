@@ -165,7 +165,7 @@ public class InvItem {
             String text;
             for (int i = 0; i < itemLore.size() - 1; i++) {
                 text = itemLore.get((itemLore.size() - 1) - i);
-                if (text.isEmpty()) itemLore.remove((itemLore.size() - 1) - i);
+                if (text.isEmpty() || text.equals(DEFAULT_LORE_COLOUR)) itemLore.remove((itemLore.size() - 1) - i);
                 else break;
             }
         }
