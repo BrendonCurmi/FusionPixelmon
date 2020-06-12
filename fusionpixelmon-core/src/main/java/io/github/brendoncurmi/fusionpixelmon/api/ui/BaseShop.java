@@ -1,6 +1,5 @@
 package io.github.brendoncurmi.fusionpixelmon.api.ui;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractConfig;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
 import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
@@ -9,8 +8,6 @@ import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops.Options;
-
 /**
  * The superclass base for the shop implementations.
  */
@@ -18,7 +15,7 @@ public abstract class BaseShop {
     protected Shops shops;
     /**
      * Whether the shop/option has a custom purchase summary
-     * defined using {@link #purchaseSummary(Options, Object)}.
+     * defined using {@link #purchaseSummary(Shops.Options, Object)}.
      */
     private boolean hasPurchaseSummary;
 
@@ -41,7 +38,7 @@ public abstract class BaseShop {
      *
      * @return the option of the shop.
      */
-    public abstract Options getOption();
+    public abstract Shops.Options getOption();
 
     /**
      * Builds the shop page.
@@ -118,7 +115,7 @@ public abstract class BaseShop {
      * @param value the value the player is purchasing.
      * @return the overriding purchase summary for the shop option.
      */
-    public List<String> purchaseSummary(Options key, Object value) {
+    public List<String> purchaseSummary(Shops.Options key, Object value) {
         return null;
     }
 
@@ -222,9 +219,9 @@ public abstract class BaseShop {
             return this;
         }
 
-        private Options options;
+        private Shops.Options options;
 
-        public Builder setSelectedOption(Options options) {
+        public Builder setSelectedOption(Shops.Options options) {
             this.options = options;
             return this;
         }
@@ -247,6 +244,7 @@ public abstract class BaseShop {
             // todo check that rows is minimum of 2 due to right side options
             InvPage page = new InvPage("§cDesigner §7>> §8" + title, id, rows);
             page.setInteractInventoryEventListener(event -> {
+                //todo pls find a way to migrate this
                 if (event instanceof InteractInventoryEvent.Close) {
                     Shops.resetSelectedOptions(SpongeAdapter.adapt((Player) ((Event) event).getSource()), false);
                 }
