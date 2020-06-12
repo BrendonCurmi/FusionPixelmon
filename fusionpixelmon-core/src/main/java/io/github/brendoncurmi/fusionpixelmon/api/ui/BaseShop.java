@@ -1,5 +1,6 @@
 package io.github.brendoncurmi.fusionpixelmon.api.ui;
 
+import io.github.brendoncurmi.fusionpixelmon.api.AbstractConfig;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
 import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
@@ -47,6 +48,15 @@ public abstract class BaseShop {
      */
     public abstract InvPage buildPage();
 
+    /**
+     * Gets the price of the specified key from the shop config, or the specified default price if cannot.
+     * @param key the config key.
+     * @param defaultPrice the default price.
+     * @return the price of the key from the shop config; or the defaultPrice if cant.
+     */
+    public int getPriceOf(String key, int defaultPrice) {
+        return shops.getPriceOf(getOption(), key, defaultPrice);
+    }
 
     /**
      * Lists and returns the amount/price the specified value costs.

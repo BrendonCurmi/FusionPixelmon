@@ -189,7 +189,7 @@ public abstract class Shops {
      *
      * @return the config object of the shop.
      */
-    public abstract AbstractConfig getShopConfig();
+    public abstract AbstractConfig getShopConfig(Options option);
 
     /**
      * Gets the price of the specified key from the shop config, or the specified
@@ -199,5 +199,5 @@ public abstract class Shops {
      * @param defaultPrice the default price.
      * @return the price of the key from the shop config; or the defaultPrice if cant.
      */
-    public abstract int getPriceOf(String key, int defaultPrice);
+    public abstract int getPriceOf(Options option, String key, int defaultPrice);
 }
