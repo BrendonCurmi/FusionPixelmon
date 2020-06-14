@@ -2,6 +2,8 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import io.github.brendoncurmi.fusionpixelmon.api.colour.Colour;
 import io.github.brendoncurmi.fusionpixelmon.api.colour.IColourWrapper;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import io.github.brendoncurmi.fusionpixelmon.impl.colour.ColourWrapper;
 import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
@@ -15,7 +17,7 @@ import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class NickShop extends Shops.BaseShop {
+public class NickShop extends BaseShop {
     public NickShop(Shops shops) {
         super(shops);
     }
@@ -52,7 +54,7 @@ public class NickShop extends Shops.BaseShop {
                 if (option.getColour().isStyle()) wrapper.setStyle(option.getColour());
                 else wrapper.setColour(option.getColour());
                 shops.getSelectedOptions().put(getOption(), wrapper);
-                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
+                builder.setSelectedItem(item.getItemStack());
             });
             slot++;
         }

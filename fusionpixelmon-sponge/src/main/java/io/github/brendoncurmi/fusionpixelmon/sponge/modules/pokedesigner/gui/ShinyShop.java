@@ -1,12 +1,14 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import org.spongepowered.api.item.inventory.ItemStack;
 
-public class ShinyShop extends Shops.BaseShop {
+public class ShinyShop extends BaseShop {
+
     public ShinyShop(Shops shops) {
         super(shops);
     }
@@ -32,7 +34,7 @@ public class ShinyShop extends Shops.BaseShop {
         page.setItem(21, item1, event -> {
             if (!shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), true);
             else shops.getSelectedOptions().remove(getOption());
-            builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
+            builder.setSelectedItem(item1.getItemStack());
         });
 
         InvItem item2 = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemType("iron_ball")), "§8§lNon-Shiny");
@@ -40,7 +42,7 @@ public class ShinyShop extends Shops.BaseShop {
         page.setItem(23, item2, event -> {
             if (shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), false);
             else shops.getSelectedOptions().remove(getOption());
-            builder.setSelectedItem((ItemStack) item2.getItemStack().getRaw());
+            builder.setSelectedItem(item2.getItemStack());
         });
         return page;
     }

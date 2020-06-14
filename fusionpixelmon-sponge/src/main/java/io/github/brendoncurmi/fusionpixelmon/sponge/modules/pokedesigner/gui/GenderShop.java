@@ -3,13 +3,15 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class GenderShop extends Shops.BaseShop {
+public class GenderShop extends BaseShop {
     public GenderShop(Shops shops) {
         super(shops);
     }
@@ -21,7 +23,7 @@ public class GenderShop extends Shops.BaseShop {
 
     @Override
     public InvPage buildPage() {
-        Builder builder = new Shops.BaseShop.Builder("§0Gender Modification", "pokeeditor-gender", 5)
+        Builder builder = new Builder("§0Gender Modification", "pokeeditor-gender", 5)
                 .setInfoItemData("Gender Info",
                         "To pick a gender for your Pokemon",
                         "simply select one of the options",
@@ -34,7 +36,7 @@ public class GenderShop extends Shops.BaseShop {
             ItemStack genderStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
             genderStack.offer(Keys.DYE_COLOR, DyeColors.YELLOW);
             InvItem item1 = new InvItem(SpongeAdapter.adapt(genderStack), "§b§lNone");
-            page.setItem(22, item1, event -> builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw()));
+            page.setItem(22, item1, event -> builder.setSelectedItem(item1.getItemStack()));
         } else {
             ItemStack maleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
             maleStack.offer(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
@@ -43,7 +45,7 @@ public class GenderShop extends Shops.BaseShop {
             page.setItem(21, item1, event -> {
                 if (shops.pokemon.getGender() != Gender.Male) shops.getSelectedOptions().put(getOption(), "§bMale");
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
+                builder.setSelectedItem(item1.getItemStack());
             });
 
 
@@ -54,7 +56,7 @@ public class GenderShop extends Shops.BaseShop {
             page.setItem(23, item2, event -> {
                 if (shops.pokemon.getGender() != Gender.Female) shops.getSelectedOptions().put(getOption(), "§dFemale");
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem((ItemStack) item2.getItemStack().getRaw());
+                builder.setSelectedItem(item2.getItemStack());
             });
         }
         return page;

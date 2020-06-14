@@ -1,6 +1,8 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.enums.EnumGrowth;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
@@ -11,7 +13,7 @@ import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class GrowthShop extends Shops.BaseShop {
+public class GrowthShop extends BaseShop {
     public GrowthShop(Shops shops) {
         super(shops);
     }
@@ -40,7 +42,7 @@ public class GrowthShop extends Shops.BaseShop {
                 if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), option.name());
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
+                builder.setSelectedItem(item.getItemStack());
             });
         }
         return page;

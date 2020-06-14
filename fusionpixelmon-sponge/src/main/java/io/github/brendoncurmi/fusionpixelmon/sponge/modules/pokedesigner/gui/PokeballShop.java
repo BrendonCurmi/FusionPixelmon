@@ -2,13 +2,14 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import org.spongepowered.api.item.inventory.ItemStack;
 
-public class PokeballShop extends Shops.BaseShop {
+public class PokeballShop extends BaseShop {
     public PokeballShop(Shops shops) {
         super(shops);
     }
@@ -44,7 +45,7 @@ public class PokeballShop extends Shops.BaseShop {
             page.setItem(slot, item, event -> {
                 if (shops.pokemon.getCaughtBall() != pokeballs) shops.getSelectedOptions().put(getOption(), pokeballs);
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
+                builder.setSelectedItem(item.getItemStack());
             });
             slot++;
         }

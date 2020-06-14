@@ -4,6 +4,8 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.IVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class IVEVShop extends Shops.BaseShop {
+public class IVEVShop extends BaseShop {
 
     private final int[] IV_CACHE;
     private final int[] EV_CACHE;
@@ -41,6 +43,7 @@ public class IVEVShop extends Shops.BaseShop {
 
     private static InvItem subtractionItem;
     private static InvItem additionItem;
+
     static {
         ItemStack subtractionStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
         subtractionStack.offer(Keys.DYE_COLOR, DyeColors.RED);

@@ -2,6 +2,8 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColor;
@@ -9,7 +11,7 @@ import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class AbilityShop extends Shops.BaseShop {
+public class AbilityShop extends BaseShop {
     public AbilityShop(Shops shops) {
         super(shops);
     }
@@ -53,7 +55,7 @@ public class AbilityShop extends Shops.BaseShop {
                         abilitySlot = 0;
                         shops.getSelectedOptions().remove(getOption());
                     }
-                    builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
+                    builder.setSelectedItem(item.getItemStack());
                 });
             }
         }

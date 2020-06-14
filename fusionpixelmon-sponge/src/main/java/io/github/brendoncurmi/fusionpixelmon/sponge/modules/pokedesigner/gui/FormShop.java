@@ -3,18 +3,16 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.enums.forms.IEnumForm;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColors;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.List;
 
-public class FormShop extends Shops.BaseShop {
+public class FormShop extends BaseShop {
     public FormShop(Shops shops) {
         super(shops);
     }
@@ -57,7 +55,7 @@ public class FormShop extends Shops.BaseShop {
             page.setItem(i, item1, event -> {
                 if (shops.pokemon.getFormEnum() != form) shops.getSelectedOptions().put(getOption(), form);
                 else shops.getSelectedOptions().remove(getOption());
-                builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
+                builder.setSelectedItem(item1.getItemStack());
             });
             i++;
         }

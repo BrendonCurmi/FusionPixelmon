@@ -1,6 +1,8 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.enums.ExperienceGainType;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
@@ -11,7 +13,7 @@ import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-public class LevelShop extends Shops.BaseShop {
+public class LevelShop extends BaseShop {
     public LevelShop(Shops shops) {
         super(shops);
     }
@@ -79,7 +81,7 @@ public class LevelShop extends Shops.BaseShop {
                 if (shops.pokemon.getLevel() + levels + add <= 100) {
                     shops.getSelectedOptions().put(getOption(), levels + add);
                 }
-                builder.setSelectedItem((ItemStack) item1.getItemStack().getRaw());
+                builder.setSelectedItem(item1.getItemStack());
             });
         }
 
@@ -110,7 +112,7 @@ public class LevelShop extends Shops.BaseShop {
                 if (shops.pokemon.getLevel() + levels - add > 0) {
                     shops.getSelectedOptions().put(getOption(), levels - add);
                 }
-                builder.setSelectedItem((ItemStack) item2.getItemStack().getRaw());
+                builder.setSelectedItem(item2.getItemStack());
             });
         }
         return page;

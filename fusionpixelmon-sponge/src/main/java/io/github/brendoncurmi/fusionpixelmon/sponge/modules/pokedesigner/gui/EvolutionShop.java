@@ -4,17 +4,18 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import org.spongepowered.api.item.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EvolutionShop extends Shops.BaseShop {
+public class EvolutionShop extends BaseShop {
     public EvolutionShop(Shops shops) {
         super(shops);
     }
@@ -50,7 +51,7 @@ public class EvolutionShop extends Shops.BaseShop {
                     wrapper.setPokemonSpec(spec);
                     shops.getSelectedOptions().put(getOption(), wrapper);
                 }
-                builder.setSelectedItem((ItemStack) item.getItemStack().getRaw());
+                builder.setSelectedItem(item.getItemStack());
             });
             i++;
         }
