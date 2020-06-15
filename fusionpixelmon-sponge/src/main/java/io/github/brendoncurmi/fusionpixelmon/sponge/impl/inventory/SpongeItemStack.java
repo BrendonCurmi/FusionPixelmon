@@ -49,7 +49,7 @@ public class SpongeItemStack extends AbstractItemStack {
     @Override
     public ItemStack getRaw() {
         //return ItemStack.builder().fromItemStack(itemStack).add(Keys.DISPLAY_NAME, Text.of(name)).build();
-        return ItemStack.builder().fromItemStack(itemStack).build();
+        return itemStack;
     }
 
     private List<Text> toTextList(List<String> list) {
