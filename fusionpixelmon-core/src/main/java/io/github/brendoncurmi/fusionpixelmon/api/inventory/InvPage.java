@@ -1,5 +1,7 @@
 package io.github.brendoncurmi.fusionpixelmon.api.inventory;
 
+import io.github.brendoncurmi.fusionpixelmon.api.ui.EventHandler;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -69,17 +71,10 @@ public class InvPage {
         this.backgroundItem = backgroundItem;
     }
 
-    public Consumer<Object> interactInventoryEventListener;
+    private EventHandler eventHandler = new EventHandler();
 
-    public void setInteractInventoryEventListener(Consumer<Object> listener) {
-        this.interactInventoryEventListener = listener;
-    }
-
-
-    public Consumer<Object> clickInventoryEventListener;
-
-    public void setClickInventoryEventListener(Consumer<Object> listener) {
-        this.clickInventoryEventListener = listener;
+    public EventHandler getEventHandler() {
+        return eventHandler;
     }
 
     boolean isCancellable = true;
