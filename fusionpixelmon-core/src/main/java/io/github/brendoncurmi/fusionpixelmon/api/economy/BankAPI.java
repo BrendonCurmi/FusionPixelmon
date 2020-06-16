@@ -1,14 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.api.economy;
+package io.github.brendoncurmi.fusionpixelmon.api.economy;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.economy.IPixelmonBankAccount;
 import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.economy.IEconomyProvider;
 import io.github.brendoncurmi.fusionpixelmon.impl.MathUtil;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.SpongePlayer;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.service.economy.Currency;
-import org.spongepowered.api.service.economy.EconomyService;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -28,7 +23,7 @@ import java.util.Optional;
  *     /givemoney &lt;player&gt; &lt;amount&gt;
  * </code></pre>
  */
-public class BankAPI implements IEconomyProvider<EconomyService, Currency> {
+public class BankAPI implements IEconomyProvider {
     private IPixelmonBankAccount account;
 
     public BankAPI(AbstractPlayer player) {
@@ -36,12 +31,12 @@ public class BankAPI implements IEconomyProvider<EconomyService, Currency> {
     }
 
     @Override
-    public Optional<EconomyService> getService() {
+    public Optional<Object> getService() {
         return Optional.empty();
     }
 
     @Override
-    public Currency getCurrency() {
+    public Object getCurrency() {
         return null;
     }
 
