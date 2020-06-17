@@ -102,8 +102,9 @@ public class SpongeInvInventory extends InvInventory {
             }
             num++;
         }
-        this.inventory = new SpongeInventory(inventory);
-//        page.inventory = inventory;
+        AbstractInventory abstractInventory = new SpongeInventory(inventory);
+        this.inventory = abstractInventory;
+        page.inventory = abstractInventory;
 
         // Open page for player
         Task.builder().execute(() -> {
