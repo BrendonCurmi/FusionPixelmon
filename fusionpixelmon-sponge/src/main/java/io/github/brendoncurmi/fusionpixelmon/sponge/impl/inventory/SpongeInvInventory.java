@@ -2,8 +2,10 @@ package io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory;
 
 import io.github.brendoncurmi.fusionpixelmon.FusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
+import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Event;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.sponge.impl.SpongeInventory;
@@ -33,12 +35,15 @@ public class SpongeInvInventory extends InvInventory {
                 .of(InventoryArchetypes.CHEST)
                 .listener(InteractInventoryEvent.class, event -> {
                     // Execute InteractInventoryEvent if the page has one defined
-                    if (page.interactInventoryEventListener != null) {
+                    /*if (page.interactInventoryEventListener != null) {
                         page.interactInventoryEventListener.accept(event);
-                    }
+                    }*/
+                    page.getEventHandler().call(Event.INTERACT_INVENTORY, event, player);
 
                     // Register player has closed inventory upon inventory close (duh)
+                    // todo maybe pull this first so that if InteractInventoryEvent doesnt run if InteractInventoryEvent.close
                     if (event instanceof InteractInventoryEvent.Close) {
+                        page.getEventHandler().call(Event.CLOSE_INVENTORY, event, player);
                         playerClosed(player);
                         return;
                     }
@@ -55,9 +60,10 @@ public class SpongeInvInventory extends InvInventory {
                     event.setCancelled(true);
 
                     // Execute ClickInventoryEvent if the page has one defined
-                    if (page.clickInventoryEventListener != null) {
+                    /*if (page.clickInventoryEventListener != null) {
                         page.clickInventoryEventListener.accept(event);
-                    }
+                    }*/
+                    page.getEventHandler().call(Event.CLICK_INVENTORY, event, player);
 
                     // Check which slot is clicked and run action if one is defined for the slot
                     try {
