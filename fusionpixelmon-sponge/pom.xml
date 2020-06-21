@@ -32,20 +32,6 @@
             <artifactId>spongeforge</artifactId>
             <version>1.12.2-2825-7.1.6-dev-shaded</version>
         </dependency>
-
-        <!-- mvn install:install-file -Dfile=libs/Pixelmon-1.12.2-7.0.8-universal.jar -DgroupId=com.pixelmonmod -DartifactId=pixelmon -Dversion=1.12.2-7.0.8-universal -Dpackaging=jar -->
-        <dependency>
-            <groupId>com.pixelmonmod</groupId>
-            <artifactId>pixelmon</artifactId>
-            <version>1.12.2-7.2.2-universal</version>
-        </dependency>
-
-        <!-- mvn install:install-file -Dfile=libs/forgeSrc-1.12.2-14.23.5.2768.jar -Dsources=libs/forgeSrc-1.12.2-14.23.5.2768-sources.jar -DgroupId=net.minecraftforge -DartifactId=minecraftforge -Dversion=1.12.2-14.23.5.2768 -Dpackaging=jar -->
-        <dependency>
-            <groupId>net.minecraftforge</groupId>
-            <artifactId>minecraftforge</artifactId>
-            <version>1.12.2-14.23.5.2768</version>
-        </dependency>
     </dependencies>
 
     <build>

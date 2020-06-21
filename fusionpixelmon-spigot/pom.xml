@@ -31,11 +31,6 @@
             <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>-->
-        <dependency>
-            <groupId>net.minecraftforge</groupId>
-            <artifactId>minecraftforge</artifactId>
-            <version>1.12.2-14.23.5.2768</version>
-        </dependency>
 
         <!-- mvn install:install-file -Dfile=fusionpixelmon-spigot/libs/spigot-1.12.2.jar -DgroupId=org.spigotmc -DartifactId=spigot-api -Dversion=1.12.2-bt -Dpackaging=jar -->
         <dependency>
