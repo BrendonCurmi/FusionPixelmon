@@ -1,14 +1,13 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.api.config;
+package io.github.brendoncurmi.fusionpixelmon.api.config;
 
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
-import org.spongepowered.api.Sponge;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 
-public class ConfigManager extends AbstractConfigManager<CommentedConfigurationNode, HoconConfigurationLoader> {
+public abstract class ConfigManager extends AbstractConfigManager<CommentedConfigurationNode, HoconConfigurationLoader> {
 
     public ConfigManager(Path path) throws IOException {
         super(path, true);
@@ -19,7 +18,7 @@ public class ConfigManager extends AbstractConfigManager<CommentedConfigurationN
     }
 
     protected CommentedConfigurationNode getDefaultsFrom(HoconConfigurationLoader loader) throws IOException {
-        return HoconConfigurationLoader.builder().setURL(Sponge.getAssetManager().getAsset(SpongeFusionPixelmon.getInstance(), "default.conf").get().getUrl()).build().load(loader.getDefaultOptions());
+        return HoconConfigurationLoader.builder().setURL(getUrl()).build().load(loader.getDefaultOptions());
     }
 
     @Override
@@ -28,4 +27,6 @@ public class ConfigManager extends AbstractConfigManager<CommentedConfigurationN
         getNode().getNode("pokedesigner").removeChild("currency");
         super.configUpdater(newVersion);
     }
+
+    public abstract URL getUrl();
 }
