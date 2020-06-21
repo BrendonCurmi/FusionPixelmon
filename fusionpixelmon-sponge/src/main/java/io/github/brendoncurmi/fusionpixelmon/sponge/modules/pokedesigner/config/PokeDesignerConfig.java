@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import io.github.brendoncurmi.fusionpixelmon.api.AbstractConfig;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @ConfigSerializable
-public class PokeDesignerConfig {
+public class PokeDesignerConfig extends AbstractConfig {
     @Inject
     @Setting("blacklisted-pokemon")
     public List<EnumSpecies> blacklistedPokemon = ImmutableList.of();
@@ -59,7 +60,7 @@ public class PokeDesignerConfig {
     }
 
     @ConfigSerializable
-    public static class ShopConfig {
+    public static class ShopConfig extends AbstractConfig {
         @SuppressWarnings("UnstableApiUsage")
         public final static TypeToken<ShopConfig> TYPE = TypeToken.of(ShopConfig.class);
 
