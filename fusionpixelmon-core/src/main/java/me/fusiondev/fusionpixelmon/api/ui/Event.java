@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.ui;
+package me.fusiondev.fusionpixelmon.api.ui;
 
 public enum Event {
     INTERACT_INVENTORY,

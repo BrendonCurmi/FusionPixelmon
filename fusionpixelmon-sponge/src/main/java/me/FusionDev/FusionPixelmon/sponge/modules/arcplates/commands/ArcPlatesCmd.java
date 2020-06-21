@@ -1,8 +1,8 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.arcplates.commands;
+package me.FusionDev.FusionPixelmon.sponge.modules.arcplates.commands;
 
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import io.github.brendoncurmi.fusionpixelmon.sponge.gui.PokeSelectorUI;
-import io.github.brendoncurmi.fusionpixelmon.sponge.modules.arcplates.ArcPlates;
+import me.FusionDev.FusionPixelmon.sponge.gui.PokeSelectorUI;
+import me.FusionDev.FusionPixelmon.sponge.modules.arcplates.ArcPlates;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;

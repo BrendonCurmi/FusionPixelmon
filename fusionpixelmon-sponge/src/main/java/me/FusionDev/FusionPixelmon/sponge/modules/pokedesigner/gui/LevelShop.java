@@ -1,12 +1,12 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
+package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.enums.ExperienceGainType;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
-import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;

@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.api.items;
+package me.fusiondev.fusionpixelmon.api.items;
 
-import io.github.brendoncurmi.fusionpixelmon.api.Raw;
+import me.fusiondev.fusionpixelmon.api.Raw;
 
 import java.util.List;
 

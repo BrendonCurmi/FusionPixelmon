@@ -1,7 +1,7 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory;
+package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 

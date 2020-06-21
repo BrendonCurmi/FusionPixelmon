@@ -1,11 +1,11 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
 
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
-import io.github.brendoncurmi.fusionpixelmon.spigot.SpigotAdapter;
-import io.github.brendoncurmi.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
+import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
 
 public class ShinyShop extends BaseShop {
 

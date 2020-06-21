@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.data;
+package me.fusiondev.fusionpixelmon.api.data;
 
 import java.io.*;
 

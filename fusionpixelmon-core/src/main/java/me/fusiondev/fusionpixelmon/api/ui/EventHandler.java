@@ -1,10 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.api.ui;
+package me.fusiondev.fusionpixelmon.api.ui;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 
 import java.util.HashMap;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class EventHandler {
 

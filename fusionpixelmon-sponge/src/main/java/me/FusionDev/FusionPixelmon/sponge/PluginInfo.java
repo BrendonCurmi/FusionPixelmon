@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge;
+package me.FusionDev.FusionPixelmon.sponge;
 
-import io.github.brendoncurmi.fusionpixelmon.IPluginInfo;
+import me.fusiondev.fusionpixelmon.IPluginInfo;
 
 public class PluginInfo implements IPluginInfo {
     public static final String ID = "fusionpixelmon";

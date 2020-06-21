@@ -1,15 +1,15 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui;
+package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
 
-import io.github.brendoncurmi.fusionpixelmon.api.colour.Colour;
-import io.github.brendoncurmi.fusionpixelmon.api.colour.IColourWrapper;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
-import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import io.github.brendoncurmi.fusionpixelmon.impl.colour.ColourWrapper;
-import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.colour.IColourWrapper;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
+import me.fusiondev.fusionpixelmon.impl.colour.ColourWrapper;
+import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;

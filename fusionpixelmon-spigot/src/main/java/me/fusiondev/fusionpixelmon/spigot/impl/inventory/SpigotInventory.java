@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory;
+package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import org.bukkit.inventory.Inventory;
 
 public class SpigotInventory extends AbstractInventory {

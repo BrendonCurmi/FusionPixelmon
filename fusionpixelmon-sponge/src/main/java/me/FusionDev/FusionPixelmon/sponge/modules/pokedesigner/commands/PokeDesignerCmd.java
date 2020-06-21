@@ -1,11 +1,11 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.commands;
+package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.commands;
 
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
-import io.github.brendoncurmi.fusionpixelmon.sponge.gui.PokeSelectorUI;
-import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
-import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui.SpongeShops;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
+import me.FusionDev.FusionPixelmon.sponge.gui.PokeSelectorUI;
+import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
+import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui.SpongeShops;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;

@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.updater;
+package me.fusiondev.fusionpixelmon.api.updater;
 
 import java.io.IOException;
 

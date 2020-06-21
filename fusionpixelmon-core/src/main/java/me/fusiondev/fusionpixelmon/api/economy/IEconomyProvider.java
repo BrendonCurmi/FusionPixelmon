@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.api.economy;
+package me.fusiondev.fusionpixelmon.api.economy;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 
 import java.math.BigDecimal;
 import java.util.Optional;

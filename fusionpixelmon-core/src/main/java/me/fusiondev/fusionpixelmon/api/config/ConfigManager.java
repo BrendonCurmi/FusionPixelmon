@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.config;
+package me.fusiondev.fusionpixelmon.api.config;
 
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;

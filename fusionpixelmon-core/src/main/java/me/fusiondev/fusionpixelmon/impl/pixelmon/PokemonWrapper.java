@@ -1,11 +1,11 @@
-package io.github.brendoncurmi.fusionpixelmon.impl.pixelmon;
+package me.fusiondev.fusionpixelmon.impl.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EnumSpecialTexture;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
-import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
-import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import me.fusiondev.fusionpixelmon.impl.Grammar;
 
 import java.util.ArrayList;
 import java.util.HashMap;

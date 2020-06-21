@@ -1,10 +1,10 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.config;
+package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractConfig;
+import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;

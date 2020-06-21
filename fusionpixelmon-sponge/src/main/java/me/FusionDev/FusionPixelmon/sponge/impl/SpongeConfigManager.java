@@ -1,7 +1,7 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.impl;
+package me.FusionDev.FusionPixelmon.sponge.impl;
 
-import io.github.brendoncurmi.fusionpixelmon.api.config.ConfigManager;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
+import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import org.spongepowered.api.Sponge;
 
 import java.io.IOException;

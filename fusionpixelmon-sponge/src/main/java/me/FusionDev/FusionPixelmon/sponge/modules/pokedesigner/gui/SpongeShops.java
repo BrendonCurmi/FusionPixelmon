@@ -1,23 +1,32 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
-import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemType;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
+import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
+import me.FusionDev.FusionPixelmon.sponge.api.economy.EconomyProvider;
+import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
+import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;//todo hi
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.type.DyeColors;
+import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
+import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.service.economy.EconomyService;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -25,69 +34,69 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SpigotShops extends Shops {
+public class SpongeShops extends Shops {
 
     static {
-        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.BLACK.getWoolData());
-        BaseShop.EMPTY_ITEM = new InvItem(SpigotAdapter.adapt(emptyStack), "");
+        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        BaseShop.EMPTY_ITEM = new InvItem(SpongeAdapter.adapt(emptyStack), "");
 
 
-        BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpigotItemType(Material.BARRIER);
+        BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpongeItemType(ItemTypes.BARRIER);
 
 
-        BaseShop.backItemStack = new SpigotItemStack(PixelmonAPI.getPixelmonItemStack("eject_button"));
-        BaseShop.resetItemStack = new SpigotItemStack(PixelmonAPI.getPixelmonItemStack("trash_can"));
-        BaseShop.infoItemStack = new SpigotItemStack(new ItemStack(Material.PAPER));
+        BaseShop.backItemStack = new SpongeItemStack(PixelmonAPI.getPixelmonItemStack("eject_button"));
+        BaseShop.resetItemStack = new SpongeItemStack(PixelmonAPI.getPixelmonItemStack("trash_can"));
+        BaseShop.infoItemStack = new SpongeItemStack(ItemStack.builder().itemType(ItemTypes.PAPER).build());
     }
 
-    public SpigotShops(AbstractPlayer player) {
+    public SpongeShops(AbstractPlayer player) {
         super(player);
 
+        // Update Shops.Options with SpongeShops.Options variables
         for (Options options : Options.values()) {
             Shops.Options opt = Shops.Options.valueOf(options.name());
             opt.setShopClass(options.getShopClass());
-            opt.setItemStack(SpigotAdapter.adapt(options.getItemStack()));
+            opt.setItemStack(SpongeAdapter.adapt(options.getItemStack()));
         }
     }
 
     @Override
-    public AbstractConfig getShopConfig(Shops.Options option) {
-/*        return SpigotFusionPixelmon.getInstance()
+    public PokeDesignerConfig.ShopConfig getShopConfig(Shops.Options option) {
+        return SpongeFusionPixelmon.getInstance()
                 .getConfig()
                 .getPokeDesignerConfig()
-                .getShopNamed(option.name().toLowerCase());*/
-        return null;
+                .getShopNamed(option.name().toLowerCase());
     }
 
     @Override
     public int getPriceOf(Shops.Options option, String key, int defaultPrice) {
-        //PokeDesignerConfig.ShopConfig shop = getShopConfig(option);
-        //return shop != null ? shop.getPrices().getOrDefault(key, defaultPrice) : defaultPrice;
-        return 0;
+        PokeDesignerConfig.ShopConfig shop = getShopConfig(option);
+        return shop != null ? shop.getPrices().getOrDefault(key, defaultPrice) : defaultPrice;
     }
 
     @Override
     protected void initShops() {
-//        PokeDesignerConfig config = SpigotFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
         for (Shops.Options option : Shops.Options.values()) {
-//            if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
+            if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
                 try {
                     shops.putIfAbsent(option, option.getShopClass().getDeclaredConstructor(Shops.class).newInstance(this));
                 } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException ex) {
                     ex.printStackTrace();
                 }
-//            }
+            }
         }
     }
 
     @Override
     public void launch(Pokemon pokemon, String guiTitle) {
-        this.inv = new SpigotInvInventory();
+        this.inv = new SpongeInvInventory();
         this.pages = new ArrayList<>();
         this.pokemon = pokemon;
 
-        //PokeDesignerConfig config = SpigotFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
-        //bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider(config.getCurrency()) : new BankAPI(player);
+        PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider(config.getCurrency()) : new BankAPI(player);
 
         InvPage pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
         /*pagePokeEditor.setInteractInventoryEventListener(event -> {
@@ -99,21 +108,24 @@ public class SpigotShops extends Shops {
             resetSelectedOptions(false);
         });
 
-        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.BLACK.getWoolData());
-        InvItem emptyItem = new InvItem(SpigotAdapter.adapt(emptyStack), "");
+        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        InvItem emptyItem = new InvItem(SpongeAdapter.adapt(emptyStack), "");
 
-        InvItem airItem = new InvItem(SpigotAdapter.adapt(new ItemStack(Material.AIR)), "");
+        InvItem airItem = new InvItem(SpongeAdapter.adapt(ItemStack.builder().itemType(ItemTypes.AIR).build()), "");
 
-        ItemStack confirmInvStack = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.LIME.getWoolData());
-        InvItem confirmInvItem = new InvItem(SpigotAdapter.adapt(confirmInvStack), "§a§lConfirm");
+        ItemStack confirmInvStack = ItemStack.builder().itemType(ItemTypes.DYE).build();
+        confirmInvStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
+        InvItem confirmInvItem = new InvItem(SpongeAdapter.adapt(confirmInvStack), "§a§lConfirm");
         confirmInvItem.setLore("This will take you to", "the final checkout page.");
 
-        ItemStack cancelInvStack = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.RED.getWoolData());
-        InvItem cancelInvItem = new InvItem(SpigotAdapter.adapt(cancelInvStack), "§4§lCancel");
-        InvItem curr = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
+        ItemStack cancelInvStack = ItemStack.builder().itemType(ItemTypes.DYE).build();
+        cancelInvStack.offer(Keys.DYE_COLOR, DyeColors.RED);
+        InvItem cancelInvItem = new InvItem(SpongeAdapter.adapt(cancelInvStack), "§4§lCancel");
+        InvItem curr = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
 
         IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-        InvItem pokeItem = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), "§b§lSelected Pokemon");
+        InvItem pokeItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
@@ -181,9 +193,8 @@ public class SpigotShops extends Shops {
 
             pageCheckout.setItem(33, confirmInvItem1, event1 -> {
                 if (!bank.canAfford(player, totalCost)) {
-                    player.sendMessage("§cYou are not able to make this transaction");
-                    //((ClickInventoryEvent) (event)).setCancelled(true);
-                    //todo handle this
+                    player.sendMessage(Text.of("§cYou are not able to make this transaction"));
+                    ((ClickInventoryEvent) (event)).setCancelled(true);
                     return;
                 }
 
@@ -196,12 +207,12 @@ public class SpigotShops extends Shops {
                     Object result = e.getValue();
                     shops.get(e.getKey()).purchaseAction(result);
                 }
-                player.sendMessage("§aSuccessfully edited your Pokemon!");
+                player.sendMessage(Text.of(TextColors.GREEN, "Successfully edited your Pokemon!"));
             });
             pageCheckout.setItem(31, curr);
 
 
-            InvItem purchaseItem = new InvItem(SpigotAdapter.adapt(Material.PAPER), "§a§lPurchasing");
+            InvItem purchaseItem = new InvItem(SpongeAdapter.adapt(ItemTypes.PAPER), "§a§lPurchasing");
             List<String> lore = new ArrayList<>();
             for (Map.Entry<Shops.Options, Object> entry : getSelectedOptions().entrySet()) {
                 if (shops.get(entry.getKey()).hasPurchaseSummary()) {
@@ -257,7 +268,7 @@ public class SpigotShops extends Shops {
         NATURE(NatureShop.class, PixelmonAPI.getPixelmonItemStack("ever_stone")),
         IVEV(IVEVShop.class, PixelmonAPI.getPixelmonItemStack("destiny_knot")),
         GENDER(GenderShop.class, PixelmonAPI.getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.WHITE.getWoolData())),
+        GROWTH(GrowthShop.class, ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build()),
         SHINY(ShinyShop.class, PixelmonAPI.getPixelmonItemStack("light_ball")),
         POKEBALL(PokeballShop.class, PixelmonAPI.getPixelmonItemStack("poke_ball")),
         FORM(FormShop.class, PixelmonAPI.getPixelmonItemStack("meteorite")),

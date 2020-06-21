@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.inventory;
+package me.fusiondev.fusionpixelmon.api.inventory;
 
 public class InventoryException extends RuntimeException {
     public InventoryException(String message) {

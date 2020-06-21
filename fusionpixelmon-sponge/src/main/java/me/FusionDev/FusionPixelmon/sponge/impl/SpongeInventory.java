@@ -1,7 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.impl;
+package me.FusionDev.FusionPixelmon.sponge.impl;
 
-import io.github.brendoncurmi.fusionpixelmon.api.Raw;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import org.spongepowered.api.item.inventory.Inventory;
 
 public class SpongeInventory extends AbstractInventory {

@@ -1,8 +1,8 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.shrinepickup.listeners;
+package me.FusionDev.FusionPixelmon.sponge.modules.shrinepickup.listeners;
 
 import com.flowpowered.math.vector.Vector3i;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
-import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
+import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
+import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;

@@ -1,12 +1,12 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot;
+package me.fusiondev.fusionpixelmon.spigot;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
-import io.github.brendoncurmi.fusionpixelmon.spigot.impl.SpigotPlayer;
-import io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory.SpigotInventory;
-import io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
-import io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory.SpigotItemType;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.spigot.impl.SpigotPlayer;
+import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInventory;
+import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
+import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

@@ -1,16 +1,16 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.gui;
+package me.FusionDev.FusionPixelmon.sponge.gui;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
-import io.github.brendoncurmi.fusionpixelmon.api.pixelmon.IPokemonWrapper;
-import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
-import io.github.brendoncurmi.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
+import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
+import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
+import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;

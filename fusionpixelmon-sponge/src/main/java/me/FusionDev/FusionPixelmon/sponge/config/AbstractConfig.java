@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.config;
+package me.FusionDev.FusionPixelmon.sponge.config;
 
-import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
+import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 
 import java.util.List;
 

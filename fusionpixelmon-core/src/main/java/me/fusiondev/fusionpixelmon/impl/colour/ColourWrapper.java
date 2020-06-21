@@ -1,8 +1,8 @@
-package io.github.brendoncurmi.fusionpixelmon.impl.colour;
+package me.fusiondev.fusionpixelmon.impl.colour;
 
-import io.github.brendoncurmi.fusionpixelmon.api.colour.Colour;
-import io.github.brendoncurmi.fusionpixelmon.api.colour.IColourWrapper;
-import io.github.brendoncurmi.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.colour.IColourWrapper;
+import me.fusiondev.fusionpixelmon.impl.Grammar;
 
 public class ColourWrapper implements IColourWrapper {
 

@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.api.inventory;
+package me.fusiondev.fusionpixelmon.api.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 
 import java.util.*;
 

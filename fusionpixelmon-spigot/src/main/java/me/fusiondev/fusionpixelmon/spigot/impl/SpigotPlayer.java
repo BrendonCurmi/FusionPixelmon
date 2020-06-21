@@ -1,7 +1,7 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.impl;
+package me.fusiondev.fusionpixelmon.spigot.impl;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 

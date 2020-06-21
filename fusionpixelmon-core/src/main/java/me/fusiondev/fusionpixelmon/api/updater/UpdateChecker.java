@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.api.updater;
+package me.fusiondev.fusionpixelmon.api.updater;
 
-import io.github.brendoncurmi.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;

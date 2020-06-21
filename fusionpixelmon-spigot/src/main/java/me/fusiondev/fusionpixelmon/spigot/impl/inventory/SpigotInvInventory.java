@@ -1,13 +1,11 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory;
+package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Event;
-import io.github.brendoncurmi.fusionpixelmon.spigot.SpigotAdapter;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.ui.Event;
+import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,11 +15,6 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
 
 public class SpigotInvInventory extends InvInventory implements Listener {
 

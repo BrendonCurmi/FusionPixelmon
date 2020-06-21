@@ -1,5 +1,4 @@
 package me.fusiondev.fusionpixelmon.api;
 
-public interface Raw<E> {
-    E getRaw();
+public abstract class AbstractConfig {
 }

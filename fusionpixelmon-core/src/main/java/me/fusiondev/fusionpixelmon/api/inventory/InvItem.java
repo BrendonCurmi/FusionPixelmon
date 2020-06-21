@@ -1,8 +1,8 @@
-package io.github.brendoncurmi.fusionpixelmon.api.inventory;
+package me.fusiondev.fusionpixelmon.api.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.colour.Colour;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 
 import java.util.ArrayList;
 import java.util.List;

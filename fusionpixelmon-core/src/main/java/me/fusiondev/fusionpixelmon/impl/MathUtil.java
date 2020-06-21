@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.impl;
+package me.fusiondev.fusionpixelmon.impl;
 
 public class MathUtil {
 

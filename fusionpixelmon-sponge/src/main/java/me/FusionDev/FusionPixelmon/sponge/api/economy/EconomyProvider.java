@@ -1,11 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.api.economy;
+package me.FusionDev.FusionPixelmon.sponge.api.economy;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.economy.IEconomyProvider;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.SpongePlayer;
-import io.github.brendoncurmi.fusionpixelmon.sponge.util.CauseStackUtil;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
+import me.FusionDev.FusionPixelmon.sponge.util.CauseStackUtil;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.service.economy.account.UniqueAccount;

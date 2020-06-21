@@ -1,9 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge;
+package me.FusionDev.FusionPixelmon.sponge;
 
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.SpongeInventory;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.SpongePlayer;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeItemStack;
-import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeItemType;
+import me.FusionDev.FusionPixelmon.sponge.impl.SpongeInventory;
+import me.FusionDev.FusionPixelmon.sponge.impl.SpongePlayer;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.Inventory;

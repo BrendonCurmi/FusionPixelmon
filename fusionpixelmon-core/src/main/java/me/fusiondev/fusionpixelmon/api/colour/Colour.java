@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.colour;
+package me.fusiondev.fusionpixelmon.api.colour;
 
 public enum Colour {
     DARK_RED('4'),

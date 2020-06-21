@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.api.config;
+package me.fusiondev.fusionpixelmon.api.config;
 
-import io.github.brendoncurmi.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 

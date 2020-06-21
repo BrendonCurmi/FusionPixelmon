@@ -1,7 +1,7 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.modules.antifall.listeners;
+package me.FusionDev.FusionPixelmon.sponge.modules.antifall.listeners;
 
 import com.pixelmonmod.pixelmon.api.events.BeatWildPixelmonEvent;
-import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.impl.TimeUtil;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

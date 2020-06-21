@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon;
+package me.FusionDev.FusionPixelmon.sponge.api.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;

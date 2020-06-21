@@ -1,16 +1,16 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.BaseShop;
-import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
-import io.github.brendoncurmi.fusionpixelmon.impl.TimeUtil;
-import io.github.brendoncurmi.fusionpixelmon.spigot.SpigotAdapter;
-import io.github.brendoncurmi.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
+import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory;
+package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemStack;

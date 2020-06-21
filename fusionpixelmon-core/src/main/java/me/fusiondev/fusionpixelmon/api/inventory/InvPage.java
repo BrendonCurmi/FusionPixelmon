@@ -1,10 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.api.inventory;
+package me.fusiondev.fusionpixelmon.api.inventory;
 
-import io.github.brendoncurmi.fusionpixelmon.api.ui.EventHandler;
+import me.fusiondev.fusionpixelmon.api.ui.EventHandler;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * can only have 1 action/item per slot

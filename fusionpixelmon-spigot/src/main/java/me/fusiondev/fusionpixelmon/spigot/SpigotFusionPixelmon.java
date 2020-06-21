@@ -1,9 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot;
+package me.fusiondev.fusionpixelmon.spigot;
 
-import io.github.brendoncurmi.fusionpixelmon.FusionPixelmon;
-import io.github.brendoncurmi.fusionpixelmon.IPluginInfo;
-import io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
-import io.github.brendoncurmi.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.IPluginInfo;
+import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
+import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;

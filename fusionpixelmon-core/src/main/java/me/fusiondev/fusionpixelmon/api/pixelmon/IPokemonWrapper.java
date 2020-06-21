@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon.api.pixelmon;
+package me.fusiondev.fusionpixelmon.api.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;

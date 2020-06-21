@@ -1,9 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.api.economy;
+package me.fusiondev.fusionpixelmon.api.economy;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.economy.IPixelmonBankAccount;
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.impl.MathUtil;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.impl.MathUtil;
 
 import java.math.BigDecimal;
 import java.util.Optional;

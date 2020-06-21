@@ -1,8 +1,8 @@
-package io.github.brendoncurmi.fusionpixelmon;
+package me.fusiondev.fusionpixelmon;
 
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemTypes;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 
 public abstract class Registry {
     public abstract AbstractItemStack getItemStack();

@@ -1,7 +1,7 @@
-package io.github.brendoncurmi.fusionpixelmon.sponge.impl;
+package me.FusionDev.FusionPixelmon.sponge.impl;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.text.Text;

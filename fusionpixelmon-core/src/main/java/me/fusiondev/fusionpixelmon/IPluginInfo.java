@@ -1,4 +1,4 @@
-package io.github.brendoncurmi.fusionpixelmon;
+package me.fusiondev.fusionpixelmon;
 
 public interface IPluginInfo {
     String getId();

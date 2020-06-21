@@ -1,14 +1,12 @@
-package io.github.brendoncurmi.fusionpixelmon.api.ui;
+package me.fusiondev.fusionpixelmon.api.ui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractConfig;
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
-import io.github.brendoncurmi.fusionpixelmon.api.economy.IEconomyProvider;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.AbstractConfig;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
+import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 
 import java.util.*;
 

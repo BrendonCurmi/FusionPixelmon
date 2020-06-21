@@ -1,7 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.spigot.modules.pokedesigner.commands;
+package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands;
 
-import io.github.brendoncurmi.fusionpixelmon.spigot.gui.PokeSelectorUI;
-import io.github.brendoncurmi.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
+import me.fusiondev.fusionpixelmon.spigot.gui.PokeSelectorUI;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

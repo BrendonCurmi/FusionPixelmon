@@ -1,10 +1,9 @@
-package io.github.brendoncurmi.fusionpixelmon.api.ui;
+package me.fusiondev.fusionpixelmon.api.ui;
 
-import io.github.brendoncurmi.fusionpixelmon.api.AbstractConfig;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemStack;
-import io.github.brendoncurmi.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 
 import java.util.ArrayList;
 import java.util.List;

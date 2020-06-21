@@ -1,6 +1,6 @@
-package io.github.brendoncurmi.fusionpixelmon.api;
+package me.fusiondev.fusionpixelmon.api;
 
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.AbstractInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 
 import java.util.UUID;
 
