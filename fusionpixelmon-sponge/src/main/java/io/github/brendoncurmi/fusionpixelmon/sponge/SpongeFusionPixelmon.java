@@ -1,15 +1,16 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge;
 
 import com.google.inject.Inject;
-import io.github.brendoncurmi.fusionpixelmon.sponge.api.config.ConfigManager;
+import io.github.brendoncurmi.fusionpixelmon.FusionPixelmon;
+import io.github.brendoncurmi.fusionpixelmon.api.config.ConfigManager;
 import io.github.brendoncurmi.fusionpixelmon.sponge.config.Config;
+import io.github.brendoncurmi.fusionpixelmon.sponge.impl.SpongeConfigManager;
 import io.github.brendoncurmi.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCmd;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.shrinepickup.listeners.PokeShrinesListener;
 import io.github.brendoncurmi.fusionpixelmon.sponge.api.pixelmon.PixelmonAPI;
 import io.github.brendoncurmi.fusionpixelmon.api.updater.UpdateChecker;
-import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
 import net.minecraftforge.common.MinecraftForge;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -72,6 +73,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     @Inject
     public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, PluginContainer pluginContainer) {
         SpongeFusionPixelmon.instance = this;
+        FusionPixelmon.setPlugin(this);
         this.configDir = configDir;
         this.logger = logger;
     }
@@ -95,7 +97,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
             }
 
             // Load main config
-            ConfigManager configManager = new ConfigManager(path);
+            ConfigManager configManager = new SpongeConfigManager(path);
             config = configManager.getNode().getValue(Config.type);
 
             // Load PokeDesigner config
