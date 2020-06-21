@@ -12,4 +12,14 @@ public class FusionPixelmon {
     public static void setRegistry(Registry registry) {
         FusionPixelmon.registry = registry;
     }
+
+    private static IPluginInfo plugin;
+
+    public static void setPlugin(IPluginInfo plugin) {
+        FusionPixelmon.plugin = plugin;
+    }
+
+    public static IPluginInfo getPlugin() {
+        return FusionPixelmon.plugin;
+    }
 }

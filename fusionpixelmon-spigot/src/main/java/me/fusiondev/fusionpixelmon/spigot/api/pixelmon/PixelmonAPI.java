@@ -3,6 +3,7 @@ package io.github.brendoncurmi.fusionpixelmon.spigot.api.pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.items.ItemPixelmonSprite;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
@@ -36,5 +37,13 @@ public class PixelmonAPI {
         pokemonSpec.boss = null;
         pokemonSpec.shiny = pokemon.isShiny();
         return pokemonSpec;
+    }
+
+    public static ItemStack getPixelmonItemStack(String id) {
+        return new ItemStack(getPixelmonItemType(id));
+    }
+
+    public static Material getPixelmonItemType(String id) {
+        return Material.matchMaterial("pixelmon_" + id);
     }
 }

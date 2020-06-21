@@ -4,6 +4,7 @@ import io.github.brendoncurmi.fusionpixelmon.api.AbstractPlayer;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvInventory;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvItem;
 import io.github.brendoncurmi.fusionpixelmon.api.inventory.InvPage;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Event;
 import io.github.brendoncurmi.fusionpixelmon.spigot.SpigotAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -49,9 +50,11 @@ public class SpigotInvInventory extends InvInventory implements Listener {
             InvPage invPage = getPlayerOpened(player.getUniqueId());
             event.setCancelled(true);
 
-            if (invPage.clickInventoryEventListener != null) {
+            invPage.getEventHandler().call(Event.CLICK_INVENTORY, event, SpigotAdapter.adapt(player));
+
+            /*if (invPage.clickInventoryEventListener != null) {
                 invPage.clickInventoryEventListener.accept(event);
-            }
+            }*/
 
             // Check which slot is clicked and run action if one is defined for the slot
             try {
@@ -76,9 +79,10 @@ public class SpigotInvInventory extends InvInventory implements Listener {
         if (openPages.containsKey(player.getUniqueId())) {
             event.setCancelled(true);
             InvPage invPage = getPlayerOpened(player.getUniqueId());
-            if (invPage.interactInventoryEventListener != null) {
+            invPage.getEventHandler().call(Event.INTERACT_INVENTORY, event, SpigotAdapter.adapt(player));
+            /*if (invPage.interactInventoryEventListener != null) {
                 invPage.interactInventoryEventListener.accept(event);
-            }
+            }*/
         }
     }
 

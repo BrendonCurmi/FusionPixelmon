@@ -5,6 +5,7 @@ import com.pixelmonmod.pixelmon.enums.EnumPlate;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Event;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.api.data.FileFactory;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
@@ -75,7 +76,7 @@ public class ArcPlates {
         InvPage page = new InvPage("§8Arc Plates", "arcplates", ROWS);
 
         // Save data to file upon closing GUI
-        page.setInteractInventoryEventListener(event -> {
+        /*page.setInteractInventoryEventListener(event -> {
             if (event instanceof InteractInventoryEvent.Close) {
                 if (!dataFile.exists()) {
                     try {
@@ -88,10 +89,22 @@ public class ArcPlates {
                 }
                 factory.serialize(data, dataFile.getAbsolutePath());
             }
+        });*/
+        page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player1) -> {
+            if (!dataFile.exists()) {
+                try {
+                    boolean created = dataFile.getParentFile().mkdirs() && dataFile.createNewFile();
+                    if (!created && !dataFile.exists())
+                        throw new FileNotFoundException("File " + dataFile.getAbsolutePath() + " could not be found or created!");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            factory.serialize(data, dataFile.getAbsolutePath());
         });
 
         // Handle inventory action
-        page.setClickInventoryEventListener(event1 -> {
+        /*page.setClickInventoryEventListener(event1 -> {
             ClickInventoryEvent event = (ClickInventoryEvent) event1;
             if (event instanceof ClickInventoryEvent.Shift) {
                 player.sendMessage(Text.of(TextColors.RED, "Shifting in this inventory is not a function"));
@@ -138,7 +151,7 @@ public class ArcPlates {
 
                         // Left clicking plate in GUI
                         if (event instanceof ClickInventoryEvent.Primary) {
-                            /*
+                            *//*
                              * Give the pokemon the plate that is left clicked in the GUI.
                              * If the pokemon is already holding a plate (but different type), put it in storage and give
                              * the pokemon the new clicked plate.
@@ -146,7 +159,7 @@ public class ArcPlates {
                              * storage, do nothing as player must remove the one in storage first.
                              * If the pokemon is already holding something which isnt a plate, do nothing as player must
                              * remove that first.
-                             */
+                             *//*
                             if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
                                 if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
                                     ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
@@ -176,10 +189,10 @@ public class ArcPlates {
                         }
                         // Right clicking plate in GUI
                         else if (event instanceof ClickInventoryEvent.Secondary) {
-                            /*
+                            *//*
                              * Take the plate that is right clicked in the GUI and give it to the player if there is free
                              * inventory space.
-                             */
+                             *//*
                             PlayerInventory playerInv = (PlayerInventory) player.getInventory();
                             if (playerInv.getMainGrid().canFit(selected)) {
                                 player.getInventory().offer(selected);
@@ -189,6 +202,105 @@ public class ArcPlates {
                     }
                 }
             }
+        });*/
+        page.getEventHandler().add(Event.CLICK_INVENTORY, (event1, player1) -> {
+                ClickInventoryEvent event = (ClickInventoryEvent) event1;
+                if (event instanceof ClickInventoryEvent.Shift) {
+                    player.sendMessage(Text.of(TextColors.RED, "Shifting in this inventory is not a function"));
+                    return;
+                }
+
+                // If clicked outside bounds
+                if (event.getTransactions().isEmpty()) return;
+
+                ItemStack selected = event.getTransactions().get(0).getOriginal().createStack();
+
+                Optional<SlotIndex> slotIndex = event.getTransactions().get(0).getSlot().getInventoryProperty(SlotIndex.class);
+                if (slotIndex.isPresent() && slotIndex.get().getValue() != null) {
+                    // When shift clicking, seems slot is taken as the value of the slot where the item ends up, not
+                    // where clicked. Hence disabling shift clicking in the inventory.
+                    int slot = slotIndex.get().getValue();
+
+                    // In Player Inventory
+                    if (slot > (ROWS * 9) - 1 && selected.getType() instanceof ItemPlate) {
+                        new Thread(() -> {
+                            // When the item is clicked, it isn't found in the inventory as it would be on the cursor
+                            // even with setCancelled(true). So wait until the item is returned to the inventory upon
+                            // cancellation, and then remove it.
+                            Inventory openInv;
+                            Optional<ItemStack> itemStack;
+                            do {
+                                // todo might not work if player quickly closes inventory. can do ifPresent() and remove plate update due to no payment
+                                openInv = player.getOpenInventory().get().query(SlotIndex.of(slot));
+                                itemStack = openInv.first().peek(1);
+                            } while (!itemStack.isPresent());
+                            if (checkItem(itemStack.get(), data)) {
+                                openInv.first().poll(1);
+                            }
+                        }, player.getName() + "'s " + slot + pokemon.getUUID()).start();
+                    }
+                    // In GUI Page
+                    else if (selected.getType() instanceof ItemPlate) {
+                        ItemPlate selectedItemPlate = (ItemPlate) selected.getType();
+
+                        if (enabled) {
+                            // Delay to prevent duping
+                            enabled = false;
+                            TimeUtil.setTimeout(() -> enabled = true, 900);
+
+                            // Left clicking plate in GUI
+                            if (event instanceof ClickInventoryEvent.Primary) {
+                                /*
+                                 * Give the pokemon the plate that is left clicked in the GUI.
+                                 * If the pokemon is already holding a plate (but different type), put it in storage and give
+                                 * the pokemon the new clicked plate.
+                                 * If the pokemon is already holding a plate but there is another one of the same type in
+                                 * storage, do nothing as player must remove the one in storage first.
+                                 * If the pokemon is already holding something which isnt a plate, do nothing as player must
+                                 * remove that first.
+                                 */
+                                if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
+                                    if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
+                                        ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
+                                        if (selectedItemPlate == heldItemPlate) {
+                                            player.sendMessage(Text.of(TextColors.RED, "That Plate is already equipped!"));
+                                            return;
+                                        } else {
+                                            ItemType heldItemType = getType(Objects.requireNonNull(heldItemPlate.getRegistryName()));
+                                            for (Plate p : Plate.values()) {
+                                                if (getType(Objects.requireNonNull(p.plate.getItem().getRegistryName())) == heldItemType) {
+                                                    if (data.get(p.i) == null) {
+                                                        data.set(p.i, ItemStack.builder().itemType(heldItemType).build());
+                                                        break;
+                                                    } else {
+                                                        player.sendMessage(Text.of(TextColors.RED, "Cant unequip " + Grammar.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedItemPlate));
+                                    data.set(getIDFromSlot(slot), null);
+                                    player.sendMessage(Text.of(TextColors.GREEN, "Plate equipped!"));
+                                } else
+                                    player.sendMessage(Text.of(TextColors.RED, "Cannot equip Plate because Pokemon is currently holding something!"));
+                            }
+                            // Right clicking plate in GUI
+                            else if (event instanceof ClickInventoryEvent.Secondary) {
+                                /*
+                                 * Take the plate that is right clicked in the GUI and give it to the player if there is free
+                                 * inventory space.
+                                 */
+                                PlayerInventory playerInv = (PlayerInventory) player.getInventory();
+                                if (playerInv.getMainGrid().canFit(selected)) {
+                                    player.getInventory().offer(selected);
+                                    data.set(getIDFromSlot(slot), null);
+                                } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
+                            }
+                        }
+                    }
+                }
         });
 
         // GUI page runnable task

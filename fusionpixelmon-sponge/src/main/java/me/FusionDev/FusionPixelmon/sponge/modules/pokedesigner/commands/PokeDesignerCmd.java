@@ -1,10 +1,11 @@
 package io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.commands;
 
+import io.github.brendoncurmi.fusionpixelmon.api.ui.Shops;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import io.github.brendoncurmi.fusionpixelmon.sponge.SpongeAdapter;
 import io.github.brendoncurmi.fusionpixelmon.sponge.gui.PokeSelectorUI;
 import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
-import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui.Shops;
+import io.github.brendoncurmi.fusionpixelmon.sponge.modules.pokedesigner.gui.SpongeShops;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -23,7 +24,7 @@ public class PokeDesignerCmd implements CommandExecutor {
             return CommandResult.empty();
         }
         Player player = (Player) src;
-        Shops shops = new Shops(SpongeAdapter.adapt(player));
+        Shops shops = new SpongeShops(SpongeAdapter.adapt(player));
         PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
         new PokeSelectorUI(player, config.getPokeSelectorGuiTitle(), "pokeselector", pokemon -> {
             if (!config.containsBlackListedPokemon(pokemon.getSpecies())) {
