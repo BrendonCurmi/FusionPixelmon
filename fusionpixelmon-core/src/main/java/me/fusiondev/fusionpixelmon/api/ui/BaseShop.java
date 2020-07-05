@@ -252,12 +252,6 @@ public abstract class BaseShop {
         public InvPage build() {
             // todo check that rows is minimum of 2 due to right side options
             InvPage page = new InvPage("§cDesigner §7>> §8" + title, id, rows);
-            /*page.setInteractInventoryEventListener(event -> {
-                //todo pls find a way to migrate this
-                if (event instanceof InteractInventoryEvent.Close) {
-                    Shops.resetSelectedOptions(SpongeAdapter.adapt((Player) ((Event) event).getSource()), false);
-                }
-            });*/
             page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player) -> {
                 Shops.resetSelectedOptions(player, false);
             });
