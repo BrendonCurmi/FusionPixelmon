@@ -89,6 +89,7 @@ public class SpigotShops extends Shops {
 
         //PokeDesignerConfig config = SpigotFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
         //bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider(config.getCurrency()) : new BankAPI(player);
+        bank = new BankAPI(player);
 
         InvPage pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
         /*pagePokeEditor.setInteractInventoryEventListener(event -> {
