@@ -46,11 +46,11 @@ public class IVEVShop extends BaseShop {
     static {
         AbstractItemStack subtractionStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //        subtractionStack.offer(Keys.DYE_COLOR, DyeColors.RED);
-        subtractionStack.setColour(DyeColor.RED);
+        subtractionStack.setColour(DyeColor.RED.getWoolData());
         subtractionItem = new InvItem(subtractionStack, "");
         AbstractItemStack additionStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //        additionStack.offer(Keys.DYE_COLOR, DyeColors.GREEN);
-        additionStack.setColour(DyeColor.GREEN);
+        additionStack.setColour(DyeColor.GREEN.getWoolData());
         additionItem = new InvItem(additionStack, "");
     }
 

@@ -46,7 +46,7 @@ public class NickShop extends BaseShop {
         for (ColourOptions option : ColourOptions.values()) {
 //            if (option.getDyeColor() != null) itemStack.offer(Keys.DYE_COLOR, option.getDyeColor());
             AbstractItemStack itemStack = SpigotAdapter.adapt(new ItemStack(option.getItemType()));
-            itemStack.setColour(option.getDyeColor());
+            if (option.getDyeColor() != null) itemStack.setColour(option.getDyeColor());
             InvItem item = new InvItem(itemStack, "§" + option.getCode() + Grammar.cap(option.name()));
             page.setItem(slot, item, event -> {
                 IColourWrapper wrapper = (IColourWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new ColourWrapper());
@@ -89,35 +89,35 @@ public class NickShop extends BaseShop {
     }
 
     public enum ColourOptions {
-        DARK_RED(Colour.DARK_RED, Material.CONCRETE, DyeColor.RED),
+        DARK_RED(Colour.DARK_RED, Material.CONCRETE, DyeColor.RED.getWoolData()),
         RED(Colour.RED, Material.REDSTONE_BLOCK, null),
         GOLD(Colour.GOLD, Material.GOLD_BLOCK, null),
-        YELLOW(Colour.YELLOW, Material.CONCRETE, DyeColor.YELLOW),
-        DARK_GREEN(Colour.DARK_GREEN, Material.CONCRETE, DyeColor.GREEN),
-        GREEN(Colour.GREEN, Material.CONCRETE, DyeColor.LIME),
-        AQUA(Colour.AQUA, Material.CONCRETE, DyeColor.LIGHT_BLUE),
-        DARK_AQUA(Colour.DARK_AQUA, Material.CONCRETE, DyeColor.CYAN),
-        DARK_BLUE(Colour.DARK_BLUE, Material.CONCRETE, DyeColor.BLUE),
+        YELLOW(Colour.YELLOW, Material.CONCRETE, DyeColor.YELLOW.getWoolData()),
+        DARK_GREEN(Colour.DARK_GREEN, Material.CONCRETE, DyeColor.GREEN.getWoolData()),
+        GREEN(Colour.GREEN, Material.CONCRETE, DyeColor.LIME.getWoolData()),
+        AQUA(Colour.AQUA, Material.CONCRETE, DyeColor.LIGHT_BLUE.getWoolData()),
+        DARK_AQUA(Colour.DARK_AQUA, Material.CONCRETE, DyeColor.CYAN.getWoolData()),
+        DARK_BLUE(Colour.DARK_BLUE, Material.CONCRETE, DyeColor.BLUE.getWoolData()),
         BLUE(Colour.BLUE, Material.LAPIS_BLOCK, null),
-        LIGHT_PURPLE(Colour.LIGHT_PURPLE, Material.CONCRETE, DyeColor.MAGENTA),
-        DARK_PURPLE(Colour.DARK_PURPLE, Material.CONCRETE, DyeColor.PURPLE),
+        LIGHT_PURPLE(Colour.LIGHT_PURPLE, Material.CONCRETE, DyeColor.MAGENTA.getWoolData()),
+        DARK_PURPLE(Colour.DARK_PURPLE, Material.CONCRETE, DyeColor.PURPLE.getWoolData()),
         WHITE(Colour.WHITE, Material.QUARTZ_BLOCK, null),
-        GREY(Colour.GREY, Material.CONCRETE, DyeColor.SILVER),
-        DARK_GREY(Colour.DARK_GREY, Material.CONCRETE, DyeColor.GRAY),
-        BLACK(Colour.BLACK, Material.CONCRETE, DyeColor.BLACK),
+        GREY(Colour.GREY, Material.CONCRETE, DyeColor.SILVER.getWoolData()),
+        DARK_GREY(Colour.DARK_GREY, Material.CONCRETE, DyeColor.GRAY.getWoolData()),
+        BLACK(Colour.BLACK, Material.CONCRETE, DyeColor.BLACK.getWoolData()),
 
-        OBFUSCATED(Colour.OBFUSCATED, Material.INK_SACK, DyeColor.GRAY),
-        BOLD(Colour.BOLD, Material.INK_SACK, DyeColor.GRAY),
-        STRIKETHROUGH(Colour.STRIKETHROUGH, Material.INK_SACK, DyeColor.GRAY),
-        UNDERLINE(Colour.UNDERLINE, Material.INK_SACK, DyeColor.GRAY),
-        ITALIC(Colour.ITALIC, Material.INK_SACK, DyeColor.GRAY),
-        RESET(Colour.RESET, Material.INK_SACK, DyeColor.GRAY);
+        OBFUSCATED(Colour.OBFUSCATED, Material.INK_SACK, DyeColor.GRAY.getDyeData()),
+        BOLD(Colour.BOLD, Material.INK_SACK, DyeColor.GRAY.getDyeData()),
+        STRIKETHROUGH(Colour.STRIKETHROUGH, Material.INK_SACK, DyeColor.GRAY.getDyeData()),
+        UNDERLINE(Colour.UNDERLINE, Material.INK_SACK, DyeColor.GRAY.getDyeData()),
+        ITALIC(Colour.ITALIC, Material.INK_SACK, DyeColor.GRAY.getDyeData()),
+        RESET(Colour.RESET, Material.INK_SACK, DyeColor.GRAY.getDyeData());
 
         private Colour colour;
         private Material itemType;
-        private DyeColor dyeColor;
+        private Object dyeColor;
 
-        ColourOptions(Colour colour, Material itemType, DyeColor dyeColor) {
+        ColourOptions(Colour colour, Material itemType, Object dyeColor) {
             this.colour = colour;
             this.itemType = itemType;
             this.dyeColor = dyeColor;
@@ -135,7 +135,7 @@ public class NickShop extends BaseShop {
             return itemType;
         }
 
-        public DyeColor getDyeColor() {
+        public Object getDyeColor() {
             return dyeColor;
         }
     }

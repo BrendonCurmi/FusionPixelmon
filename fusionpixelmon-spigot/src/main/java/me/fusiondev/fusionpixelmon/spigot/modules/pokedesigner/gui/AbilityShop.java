@@ -43,7 +43,7 @@ public class AbilityShop extends BaseShop {
             } else {
                 String ability = allAbilities[i];
                 AbstractItemStack abilityStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
-                abilityStack.setColour(colors[i]);
+                abilityStack.setColour(colors[i].getWoolData());
 //                abilityStack.offer(Keys.DYE_COLOR, colors[i]);
                 InvItem item = new InvItem(abilityStack, "§3§l" + ability);
                 int finalI = i;

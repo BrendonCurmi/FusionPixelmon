@@ -36,7 +36,7 @@ public class NatureShop extends BaseShop {
         for (NatureOptions option : NatureOptions.values()) {
             AbstractItemStack itemStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //            itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
-            itemStack.setColour(option.dyeColor);
+            itemStack.setColour(option.dyeColor.getWoolData());
             InvItem item = new InvItem(itemStack, "§3§l" + Grammar.cap(option.name()));
             item.setLore("  Boosted: §b" + option.boosted, "  Lowered: §c" + option.lowered);
             page.setItem(option.slot, item, event -> {

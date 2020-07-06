@@ -39,13 +39,13 @@ public class LevelShop extends BaseShop {
 
         AbstractItemStack emptyStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
-        emptyStack.setColour(DyeColor.BLACK);
+        emptyStack.setColour(DyeColor.BLACK.getWoolData());
         InvItem emptyItem = new InvItem(emptyStack, "");
         page.setBackground(emptyItem);
 
         AbstractItemStack addStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //        addStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
-        addStack.setColour(DyeColor.LIME);
+        addStack.setColour(DyeColor.LIME.getWoolData());
         InvItem item1 = new InvItem(addStack, "§a§lAdd Levels");
         item1.setLore(
                 "Click here to increase the",
@@ -89,7 +89,7 @@ public class LevelShop extends BaseShop {
 
         AbstractItemStack removeStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //        removeStack.offer(Keys.DYE_COLOR, DyeColors.RED);
-        removeStack.setColour(DyeColor.RED);
+        removeStack.setColour(DyeColor.RED.getWoolData());
         InvItem item2 = new InvItem(removeStack, "§c§lRemove Levels");
         item2.setLore(
                 "Click here to decrease the",

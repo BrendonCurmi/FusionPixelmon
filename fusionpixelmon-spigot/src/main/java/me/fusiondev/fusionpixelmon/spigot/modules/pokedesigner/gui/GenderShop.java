@@ -35,13 +35,13 @@ public class GenderShop extends BaseShop {
         if (shops.pokemon.getGender() == Gender.None) {
             AbstractItemStack genderStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //            genderStack.offer(Keys.DYE_COLOR, DyeColors.YELLOW);
-            genderStack.setColour(DyeColor.YELLOW);
+            genderStack.setColour(DyeColor.YELLOW.getWoolData());
             InvItem item1 = new InvItem(genderStack, "§b§lNone");
             page.setItem(22, item1, event -> builder.setSelectedItem(item1.getItemStack()));
         } else {
             AbstractItemStack maleStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //            maleStack.offer(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
-            maleStack.setColour(DyeColor.LIGHT_BLUE);
+            maleStack.setColour(DyeColor.LIGHT_BLUE.getWoolData());
             InvItem item1 = new InvItem(maleStack, "§b§lMale");
             item1.setLore("Click here to select the", "§bMale §7gender.");
             page.setItem(21, item1, event -> {
@@ -53,7 +53,7 @@ public class GenderShop extends BaseShop {
 
             AbstractItemStack femaleStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //            femaleStack.offer(Keys.DYE_COLOR, DyeColors.MAGENTA);
-            femaleStack.setColour(DyeColor.MAGENTA);
+            femaleStack.setColour(DyeColor.MAGENTA.getWoolData());
             InvItem item2 = new InvItem(femaleStack, "§d§lFemale");
             item2.setLore("Click here to select the", "§dFemale §7gender.");
             page.setItem(23, item2, event -> {

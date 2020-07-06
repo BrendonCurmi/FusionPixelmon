@@ -3,6 +3,7 @@ package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class SpigotShops extends Shops {
 
     static {
-        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.BLACK.getWoolData());
+        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getWoolData());
         BaseShop.EMPTY_ITEM = new InvItem(SpigotAdapter.adapt(emptyStack), "");
 
 
@@ -99,16 +100,16 @@ public class SpigotShops extends Shops {
             resetSelectedOptions(false);
         });
 
-        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.BLACK.getWoolData());
+        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getWoolData());
         InvItem emptyItem = new InvItem(SpigotAdapter.adapt(emptyStack), "");
 
         InvItem airItem = new InvItem(SpigotAdapter.adapt(new ItemStack(Material.AIR)), "");
 
-        ItemStack confirmInvStack = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.LIME.getWoolData());
+        ItemStack confirmInvStack = new ItemStack(Material.INK_SACK, 1, DyeColor.LIME.getDyeData());
         InvItem confirmInvItem = new InvItem(SpigotAdapter.adapt(confirmInvStack), "§a§lConfirm");
         confirmInvItem.setLore("This will take you to", "the final checkout page.");
 
-        ItemStack cancelInvStack = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.RED.getWoolData());
+        ItemStack cancelInvStack = new ItemStack(Material.INK_SACK, 1, DyeColor.RED.getDyeData());
         InvItem cancelInvItem = new InvItem(SpigotAdapter.adapt(cancelInvStack), "§4§lCancel");
         InvItem curr = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
 
@@ -257,7 +258,7 @@ public class SpigotShops extends Shops {
         NATURE(NatureShop.class, PixelmonAPI.getPixelmonItemStack("ever_stone")),
         IVEV(IVEVShop.class, PixelmonAPI.getPixelmonItemStack("destiny_knot")),
         GENDER(GenderShop.class, PixelmonAPI.getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.WHITE.getWoolData())),
+        GROWTH(GrowthShop.class, new ItemStack(Material.INK_SACK, 1, DyeColor.WHITE.getDyeData())),
         SHINY(ShinyShop.class, PixelmonAPI.getPixelmonItemStack("light_ball")),
         POKEBALL(PokeballShop.class, PixelmonAPI.getPixelmonItemStack("poke_ball")),
         FORM(FormShop.class, PixelmonAPI.getPixelmonItemStack("meteorite")),

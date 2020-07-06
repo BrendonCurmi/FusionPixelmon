@@ -36,7 +36,7 @@ public class GrowthShop extends BaseShop {
         for (GrowthOptions option : GrowthOptions.values()) {
             AbstractItemStack itemStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
 //            itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
-            itemStack.setColour(option.dyeColor);
+            itemStack.setColour(option.dyeColor.getWoolData());
             InvItem item = new InvItem(itemStack, "§3§l" + Grammar.cap(option.name()));
             page.setItem(option.slot, item, event -> {
                 if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
