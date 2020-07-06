@@ -4,6 +4,7 @@ import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Colorable;
@@ -51,6 +52,7 @@ public class SpigotItemStack extends AbstractItemStack {
     }
 
     private void meta(Runnable runnable) {
+        if (itemStack.getData().getItemType() == Material.AIR) return;
         ItemMeta meta = itemStack.getItemMeta();
         runnable.run(meta);
         itemStack.setItemMeta(meta);
