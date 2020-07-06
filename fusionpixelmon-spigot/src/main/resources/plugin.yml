@@ -1,7 +1,7 @@
 name: FusionPixelmon
 version: 1.9
 author: BrendonCurmi
-main: io.github.brendoncurmi.fusionpixelmon.spigot.SpigotFusionPixelmon
+main: me.fusiondev.fusionpixelmon.spigot.SpigotFusionPixelmon
 website: https://github.com/BrendonCurmi/FusionPixelmon
 commands:
   pd:
