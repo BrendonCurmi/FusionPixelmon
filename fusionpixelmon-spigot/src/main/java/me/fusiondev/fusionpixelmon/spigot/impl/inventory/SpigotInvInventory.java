@@ -1,10 +1,13 @@
 package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
+import me.fusiondev.fusionpixelmon.spigot.SpigotFusionPixelmon;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +18,8 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Map;
 
 public class SpigotInvInventory extends InvInventory implements Listener {
 
@@ -31,7 +36,9 @@ public class SpigotInvInventory extends InvInventory implements Listener {
             }
         }
 
-        this.inventory = new SpigotInventory(inventory);
+        AbstractInventory abstractInventory = new SpigotInventory(inventory);
+        this.inventory = abstractInventory;
+        page.inventory = abstractInventory;
         player.openInventory(this.inventory);
         playerOpened(player, page);
     }
@@ -94,5 +101,33 @@ public class SpigotInvInventory extends InvInventory implements Listener {
         if (openPages.containsKey(player.getUniqueId())) {
             event.setCancelled(true);
         }
+    }
+
+    private static final int UPDATE_TICK_RATE = 10;
+
+    public static void runUpdater() {
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SpigotFusionPixelmon.getInstance(), () -> {
+            for (InvPage page : openPages.values()) {
+                // Execute every open page's runnable, if one is defined
+                if (page.runnable != null) {
+                    page.runnable.run();
+                }
+
+                for (Map.Entry<Integer, InvItem> element : page.elements.entrySet()) {
+                    if (element.getValue() != null) {
+                        System.out.println(page.inventory);
+                        ((Inventory) page.inventory.getRaw()).setItem(element.getKey(), (ItemStack) element.getValue().getItemStack().getRaw());
+                        //slot.set((ItemStack) page.elements.get(num).getItemStack().getRaw());
+                    }
+                }
+                /*int num = 0;
+                for (final Inventory slot : ((Inventory) page.inventory.getRaw()).slots()) {
+                    if (page.elements.get(num) != null) {
+                        slot.set((ItemStack) page.elements.get(num).getItemStack().getRaw());
+                    }
+                    num++;
+                }*/
+            }
+        }, 0L, (long) UPDATE_TICK_RATE);
     }
 }
