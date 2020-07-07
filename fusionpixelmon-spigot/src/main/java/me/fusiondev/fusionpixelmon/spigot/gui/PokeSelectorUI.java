@@ -68,7 +68,7 @@ public class PokeSelectorUI {
         }
 
         // Party can have max 6 pokemon but inventory row has 9 slots, so fill remaining space with panes
-        ItemStack og = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.BLACK.getWoolData());
+        ItemStack og = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getWoolData());
         AbstractItemStack stack = new SpigotItemStack(og);
         InvItem emptyItem = new SpigotInvItem(stack, "");
         pagePokeSelect.setItem(6, emptyItem);
