@@ -32,6 +32,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
 
         getServer().getPluginManager().registerEvents(new SpigotInvInventory(), this);
+
+        SpigotInvInventory.runUpdater();
     }
 
     private void get(String name, CommandExecutor e) {
