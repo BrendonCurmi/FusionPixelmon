@@ -3,12 +3,9 @@ package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.Colorable;
-import org.bukkit.material.MaterialData;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,9 +43,10 @@ public class SpigotItemStack extends AbstractItemStack {
 
     @Override
     public void setColour(Object colour) {
-        Colorable cl = (Colorable) itemStack.getData();
-        cl.setColor((DyeColor) colour);
-        itemStack.setData((MaterialData) cl);
+        //Colorable cl = (Colorable) itemStack.getData();
+        //cl.setColor((DyeColor) colour);
+        //itemStack.setData((MaterialData) cl);
+        itemStack.setDurability((byte) colour);
     }
 
     private void meta(Runnable runnable) {
