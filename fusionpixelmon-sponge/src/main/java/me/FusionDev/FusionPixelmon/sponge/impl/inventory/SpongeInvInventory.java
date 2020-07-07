@@ -129,7 +129,8 @@ public class SpongeInvInventory extends InvInventory {
                     page.runnable.run();
                 }
 
-                // todo check this
+                // This populates the inventory again, which also handles elements added/updated through runnable
+                //todo optimize this
                 int num = 0;
                 for (final Inventory slot : ((Inventory) page.inventory.getRaw()).slots()) {
                     if (page.elements.get(num) != null) {
