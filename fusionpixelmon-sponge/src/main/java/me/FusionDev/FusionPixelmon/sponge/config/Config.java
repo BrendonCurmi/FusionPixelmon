@@ -3,9 +3,9 @@ package me.FusionDev.FusionPixelmon.sponge.config;
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
+import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.Setting;
+import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
 import java.util.List;
 

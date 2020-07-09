@@ -1,6 +1,7 @@
 package me.FusionDev.FusionPixelmon.sponge;
 
 import com.google.inject.Inject;
+import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.FusionDev.FusionPixelmon.sponge.config.Config;
@@ -13,7 +14,6 @@ import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.FusionDev.FusionPixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
 import net.minecraftforge.common.MinecraftForge;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;

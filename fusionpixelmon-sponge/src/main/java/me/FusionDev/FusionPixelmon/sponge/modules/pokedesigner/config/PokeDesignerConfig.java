@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import info.pixelmon.repack.ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import info.pixelmon.repack.ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
+import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.Setting;
+import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 import me.fusiondev.fusionpixelmon.api.AbstractConfig;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
 import java.io.IOException;
 import java.util.HashMap;
