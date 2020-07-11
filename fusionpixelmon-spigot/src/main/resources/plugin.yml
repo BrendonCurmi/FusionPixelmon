@@ -1,0 +1,10 @@
+name: FusionPixelmon
+version: 1.9
+author: BrendonCurmi
+main: me.fusiondev.fusionpixelmon.spigot.SpigotFusionPixelmon
+website: https://github.com/BrendonCurmi/FusionPixelmon
+commands:
+  pd:
+    description: Opens the pokedesigner
+    usage: /pd
+    aliases: [pokedesigner]

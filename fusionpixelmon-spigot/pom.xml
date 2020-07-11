@@ -9,8 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fusionpixelmon-sponge</artifactId>
+    <artifactId>fusionpixelmon-spigot</artifactId>
     <version>1.9</version>
+
+    <!--<repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>-->
 
     <dependencies>
         <dependency>
@@ -18,19 +25,32 @@
             <artifactId>fusionpixelmon-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--<dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>-->
 
-        <!-- mvn install:install-file -Dfile=libs/spongeapi-7.2.0-20191130.150509-32-shaded.jar -DgroupId=org.spongepowered -DartifactId=spongeapi -Dversion=7.2.0-20191130.150509-32-shaded -Dpackaging=jar -->
+        <!-- mvn install:install-file -Dfile=fusionpixelmon-spigot/libs/spigot-1.12.2.jar -DgroupId=org.spigotmc -DartifactId=spigot-api -Dversion=1.12.2-bt -Dpackaging=jar -->
         <dependency>
-            <groupId>org.spongepowered</groupId>
-            <artifactId>spongeapi</artifactId>
-            <version>7.2.0-20191130.150509-32-shaded</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.12.2-bt</version>
         </dependency>
 
-        <!-- mvn install:install-file -Dfile=libs/spongeforge-1.12.2-2825-7.1.6-dev-shaded.jar -DgroupId=org.spongepowered -DartifactId=spongeforge -Dversion=1.12.2-2825-7.1.6-dev-shaded -Dpackaging=jar -->
+        <!-- mvn install:install-file -Dfile=fusionpixelmon-spigot/libs/craftbukkit-1.12.2.jar -DgroupId=org.spigotmc -DartifactId=craftbukkit -Dversion=1.12.2-bt -Dpackaging=jar -->
         <dependency>
-            <groupId>org.spongepowered</groupId>
-            <artifactId>spongeforge</artifactId>
-            <version>1.12.2-2825-7.1.6-dev-shaded</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>1.12.2-bt</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>16.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
