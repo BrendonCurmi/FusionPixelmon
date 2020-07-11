@@ -2,7 +2,7 @@
 /out
 */target
 */libs
-FusionPixelmon.iml
+*.iml
 
 /libs/*
 !/libs/forgeSrc-1.12.2-14.23.5.2768.jar
