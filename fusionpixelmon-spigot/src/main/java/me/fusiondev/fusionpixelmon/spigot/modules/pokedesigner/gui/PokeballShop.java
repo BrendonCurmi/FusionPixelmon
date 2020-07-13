@@ -1,13 +1,12 @@
 package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
 
 public class PokeballShop extends BaseShop {
     public PokeballShop(Shops shops) {
@@ -41,7 +40,7 @@ public class PokeballShop extends BaseShop {
         int slot = 9;
         for (EnumPokeballs pokeballs : EnumPokeballs.values()) {
             if (pokeballs == EnumPokeballs.BeastBall && !IPokemonWrapper.isUltraBeast(shops.pokemon)) continue;
-            InvItem item = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPixelmonItemType(pokeballs.getFilenamePrefix())), "§3§l" + pokeballs.name());
+            InvItem item = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(pokeballs.getFilenamePrefix()), "§3§l" + pokeballs.name());
             page.setItem(slot, item, event -> {
                 if (shops.pokemon.getCaughtBall() != pokeballs) shops.getSelectedOptions().put(getOption(), pokeballs);
                 else shops.getSelectedOptions().remove(getOption());

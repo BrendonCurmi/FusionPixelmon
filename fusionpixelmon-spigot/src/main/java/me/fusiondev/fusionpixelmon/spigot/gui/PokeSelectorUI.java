@@ -3,6 +3,7 @@ package me.fusiondev.fusionpixelmon.spigot.gui;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
@@ -10,7 +11,6 @@ import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvItem;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
@@ -37,7 +37,7 @@ public class PokeSelectorUI {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
                 IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-                partyItem = new SpigotInvItem(SpigotAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), pokemonWrapper.getTitle());
+                partyItem = new SpigotInvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(pokemon, true), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
                         pokemonWrapper.getAbility(),
                         pokemonWrapper.getNature(),
