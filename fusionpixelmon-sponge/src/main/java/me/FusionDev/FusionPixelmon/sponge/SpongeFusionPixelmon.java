@@ -74,6 +74,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, PluginContainer pluginContainer) {
         SpongeFusionPixelmon.instance = this;
         FusionPixelmon.setPlugin(this);
+        FusionPixelmon.setRegistry(new SpongeRegistry());
         this.configDir = configDir;
         this.logger = logger;
     }
