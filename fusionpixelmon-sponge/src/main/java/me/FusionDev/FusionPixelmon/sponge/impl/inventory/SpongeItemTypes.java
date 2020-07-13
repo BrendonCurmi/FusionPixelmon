@@ -27,6 +27,11 @@ public class SpongeItemTypes extends AbstractItemTypes {
         return get(ItemTypes.STAINED_GLASS_PANE);
     }
 
+    @Override
+    public AbstractItemType EGG() {
+        return get(ItemTypes.EGG);
+    }
+
     private AbstractItemType get(ItemType itemType) {
         return SpongeAdapter.adapt(itemType);
     }
