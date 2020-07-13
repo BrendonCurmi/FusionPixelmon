@@ -115,7 +115,6 @@ public class SpigotInvInventory extends InvInventory implements Listener {
 
                 for (Map.Entry<Integer, InvItem> element : page.elements.entrySet()) {
                     if (element.getValue() != null) {
-                        System.out.println(page.inventory);
                         ((Inventory) page.inventory.getRaw()).setItem(element.getKey(), (ItemStack) element.getValue().getItemStack().getRaw());
                         //slot.set((ItemStack) page.elements.get(num).getItemStack().getRaw());
                     }
