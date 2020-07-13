@@ -26,6 +26,11 @@ public class SpigotItemTypes extends AbstractItemTypes {
         return get(Material.STAINED_GLASS_PANE);
     }
 
+    @Override
+    public AbstractItemType EGG() {
+        return get(Material.EGG);
+    }
+
     private AbstractItemType get(Material material) {
         return SpigotAdapter.adapt(material);
     }
