@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.bukkit.ChatColor;
@@ -46,7 +47,16 @@ public class SpigotItemStack extends AbstractItemStack {
         //Colorable cl = (Colorable) itemStack.getData();
         //cl.setColor((DyeColor) colour);
         //itemStack.setData((MaterialData) cl);
-        itemStack.setDurability((byte) colour);
+        if (colour instanceof DyeColor) {
+            if (itemStack.getType() == Material.INK_SACK
+                    || itemStack.getType() == Material.BANNER
+                    || itemStack.getType() == Material.STANDING_BANNER
+                    || itemStack.getType() == Material.WALL_BANNER) {
+                itemStack.setDurability(((DyeColor) colour).getDyeData());
+            } else {
+                itemStack.setDurability(((DyeColor) colour).getBlockData());
+            }
+        } else itemStack.setDurability((byte) colour);
     }
 
     private void meta(Runnable runnable) {

@@ -27,4 +27,12 @@ public enum DyeColor {
         this.dyeData = (byte) dyeData;
         this.blockData = (byte) blockData;
     }
+
+    public byte getDyeData() {
+        return dyeData;
+    }
+
+    public byte getBlockData() {
+        return blockData;
+    }
 }
