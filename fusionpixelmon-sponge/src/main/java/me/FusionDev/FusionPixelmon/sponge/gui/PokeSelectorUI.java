@@ -3,8 +3,8 @@ package me.FusionDev.FusionPixelmon.sponge.gui;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
@@ -40,7 +40,7 @@ public class PokeSelectorUI {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
                 IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-                partyItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), pokemonWrapper.getTitle());
+                partyItem = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(pokemon, true), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
                         pokemonWrapper.getAbility(),
                         pokemonWrapper.getNature(),

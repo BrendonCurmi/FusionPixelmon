@@ -1,9 +1,11 @@
 package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
@@ -12,7 +14,6 @@ import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.FusionDev.FusionPixelmon.sponge.api.economy.EconomyProvider;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
@@ -45,8 +46,8 @@ public class SpongeShops extends Shops {
         BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpongeItemType(ItemTypes.BARRIER);
 
 
-        BaseShop.backItemStack = new SpongeItemStack(PixelmonAPI.getPixelmonItemStack("eject_button"));
-        BaseShop.resetItemStack = new SpongeItemStack(PixelmonAPI.getPixelmonItemStack("trash_can"));
+        BaseShop.backItemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("eject_button");
+        BaseShop.resetItemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("trash_can");
         BaseShop.infoItemStack = new SpongeItemStack(ItemStack.builder().itemType(ItemTypes.PAPER).build());
     }
 
@@ -57,7 +58,7 @@ public class SpongeShops extends Shops {
         for (Options options : Options.values()) {
             Shops.Options opt = Shops.Options.valueOf(options.name());
             opt.setShopClass(options.getShopClass());
-            opt.setItemStack(SpongeAdapter.adapt(options.getItemStack()));
+            opt.setItemStack(options.getItemStack());
         }
     }
 
@@ -122,10 +123,10 @@ public class SpongeShops extends Shops {
         ItemStack cancelInvStack = ItemStack.builder().itemType(ItemTypes.DYE).build();
         cancelInvStack.offer(Keys.DYE_COLOR, DyeColors.RED);
         InvItem cancelInvItem = new InvItem(SpongeAdapter.adapt(cancelInvStack), "§4§lCancel");
-        InvItem curr = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
+        InvItem curr = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
 
         IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-        InvItem pokeItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), "§b§lSelected Pokemon");
+        InvItem pokeItem = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
@@ -263,22 +264,22 @@ public class SpongeShops extends Shops {
     }
 
     public enum Options {
-        LEVEL(LevelShop.class, PixelmonAPI.getPixelmonItemStack("rare_candy")),
-        ABILITY(AbilityShop.class, PixelmonAPI.getPixelmonItemStack("ability_capsule")),
-        NATURE(NatureShop.class, PixelmonAPI.getPixelmonItemStack("ever_stone")),
-        IVEV(IVEVShop.class, PixelmonAPI.getPixelmonItemStack("destiny_knot")),
-        GENDER(GenderShop.class, PixelmonAPI.getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build()),
-        SHINY(ShinyShop.class, PixelmonAPI.getPixelmonItemStack("light_ball")),
-        POKEBALL(PokeballShop.class, PixelmonAPI.getPixelmonItemStack("poke_ball")),
-        FORM(FormShop.class, PixelmonAPI.getPixelmonItemStack("meteorite")),
-        EVOLUTION(EvolutionShop.class, PixelmonAPI.getPixelmonItemStack("fire_stone")),
-        NICK(NickShop.class, PixelmonAPI.getPixelmonItemStack("ruby"));
+        LEVEL(LevelShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("rare_candy")),
+        ABILITY(AbilityShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ability_capsule")),
+        NATURE(NatureShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ever_stone")),
+        IVEV(IVEVShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("destiny_knot")),
+        GENDER(GenderShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("full_incense")),
+        GROWTH(GrowthShop.class, SpongeAdapter.adapt(ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build())),
+        SHINY(ShinyShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("light_ball")),
+        POKEBALL(PokeballShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("poke_ball")),
+        FORM(FormShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("meteorite")),
+        EVOLUTION(EvolutionShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("fire_stone")),
+        NICK(NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
 
         private Class<? extends BaseShop> shopClass;
-        private ItemStack itemStack;
+        private AbstractItemStack itemStack;
 
-        Options(Class<? extends BaseShop> shopClass, ItemStack itemStack) {
+        Options(Class<? extends BaseShop> shopClass, AbstractItemStack itemStack) {
             this.shopClass = shopClass;
             this.itemStack = itemStack;
         }
@@ -287,7 +288,7 @@ public class SpongeShops extends Shops {
             return shopClass;
         }
 
-        public ItemStack getItemStack() {
+        public AbstractItemStack getItemStack() {
             return itemStack;
         }
     }

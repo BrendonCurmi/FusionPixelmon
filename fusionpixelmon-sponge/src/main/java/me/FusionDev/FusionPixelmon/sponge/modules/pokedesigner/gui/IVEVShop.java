@@ -3,11 +3,11 @@ package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.IVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import me.fusiondev.fusionpixelmon.impl.Grammar;
 import me.fusiondev.fusionpixelmon.impl.MathUtil;
@@ -91,7 +91,7 @@ public class IVEVShop extends BaseShop {
         for (IVEVOption type : IVEVOption.values()) {
             optName = Grammar.underscoreToSpace(type.name());
 
-            items[i1][0] = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemType(type.itemID)), "§3§l" + optName);
+            items[i1][0] = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(type.itemID), "§3§l" + optName);
             page.setItem(i1 * 9, items[i1][0]);
 
             items[i1][1] = subtractionItem.copy("§c§lRemove " + optName + " EVs");

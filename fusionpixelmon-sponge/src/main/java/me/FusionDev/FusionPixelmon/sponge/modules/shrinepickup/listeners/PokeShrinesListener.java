@@ -2,7 +2,7 @@ package me.FusionDev.FusionPixelmon.sponge.modules.shrinepickup.listeners;
 
 import com.flowpowered.math.vector.Vector3i;
 import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
@@ -73,8 +73,7 @@ public class PokeShrinesListener {
                     SpongeBlockSnapshot blockSnapshot = (SpongeBlockSnapshot) context.get(EventContextKeys.BLOCK_HIT);
                     if (blockSnapshot.getLocation().isPresent()) {
                         PlayerInventory playerInv = (PlayerInventory) player.getInventory();
-                        ItemType type = PixelmonAPI.getPixelmonItemType(block.replace("pixelmon:", ""));
-                        ItemStack selected = ItemStack.builder().itemType(type).build();
+                        ItemStack selected = (ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(block.replace("pixelmon:", "")).to().getRaw();
                         if (playerInv.getMain().canFit(selected)) {
                             Location<World> blockLoc = blockSnapshot.getLocation().get();
                             blockLoc.setBlockType(EMPTY_BLOCK);

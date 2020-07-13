@@ -10,7 +10,6 @@ import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.FusionDev.FusionPixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCmd;
 import me.FusionDev.FusionPixelmon.sponge.modules.shrinepickup.listeners.PokeShrinesListener;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.FusionDev.FusionPixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
 import net.minecraftforge.common.MinecraftForge;
@@ -150,7 +149,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
                             .where('O', Ingredient.of(ItemTypes.OBSIDIAN))
                             .where('B', Ingredient.of(ItemTypes.STONE_BUTTON))
                             .where('D', Ingredient.of(ItemTypes.DIAMOND))
-                            .result(PixelmonAPI.getPixelmonItemStack("master_ball"))
+                            .result((ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("master_ball").getRaw())
                             .build("master_ball", this)
             );
         }

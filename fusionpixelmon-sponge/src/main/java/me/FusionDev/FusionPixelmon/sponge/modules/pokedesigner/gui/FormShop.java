@@ -3,10 +3,9 @@ package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.enums.forms.IEnumForm;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 
@@ -51,7 +50,7 @@ public class FormShop extends BaseShop {
         List<IEnumForm> forms = pokemon.getSpecies().getPossibleForms(true);
         for (IEnumForm form : forms) {
             pokemon.setForm(form);
-            InvItem item1 = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon)), (pokemon.isShiny() ? "§3Shiny " : "§3") + pokemon.getSpecies().getPokemonName() + " §8(§e" + form.getLocalizedName() + "§8)");
+            InvItem item1 = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(pokemon), (pokemon.isShiny() ? "§3Shiny " : "§3") + pokemon.getSpecies().getPokemonName() + " §8(§e" + form.getLocalizedName() + "§8)");
             page.setItem(i, item1, event -> {
                 if (shops.pokemon.getFormEnum() != form) shops.getSelectedOptions().put(getOption(), form);
                 else shops.getSelectedOptions().remove(getOption());
