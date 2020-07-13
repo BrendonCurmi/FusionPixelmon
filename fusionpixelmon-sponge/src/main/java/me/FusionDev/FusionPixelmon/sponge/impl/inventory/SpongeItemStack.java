@@ -1,5 +1,6 @@
 package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
 
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.spongepowered.api.data.key.Keys;
@@ -43,7 +44,11 @@ public class SpongeItemStack extends AbstractItemStack {
 
     @Override
     public void setColour(Object colour) {
-        itemStack.offer(Keys.DYE_COLOR, (DyeColor) colour);
+        if (colour instanceof DyeColor) {
+            itemStack.offer(Keys.DYE_COLOR, (DyeColor) colour);
+        } else if (colour instanceof me.fusiondev.fusionpixelmon.api.colour.DyeColor) {
+            itemStack.offer(Keys.DYE_COLOR, SpongeAdapter.adapt((me.fusiondev.fusionpixelmon.api.colour.DyeColor) colour));
+        }
     }
 
     @Override
