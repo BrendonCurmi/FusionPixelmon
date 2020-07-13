@@ -5,4 +5,5 @@ public abstract class AbstractItemTypes {
     public abstract AbstractItemType PAPER();
     public abstract AbstractItemType GLASS_PANE();
     public abstract AbstractItemType STAINED_GLASS_PANE();
+    public abstract AbstractItemType EGG();
 }
