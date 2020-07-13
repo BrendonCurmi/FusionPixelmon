@@ -1,7 +1,6 @@
 package me.FusionDev.FusionPixelmon.sponge.modules.arcplates;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.enums.EnumPlate;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
@@ -15,10 +14,10 @@ import me.fusiondev.fusionpixelmon.impl.Grammar;
 import me.fusiondev.fusionpixelmon.impl.TimeUtil;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates.Plate;
 import net.minecraft.util.ResourceLocation;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
@@ -195,8 +194,8 @@ public class ArcPlates {
                 ItemStack stack;
                 String name = "";
                 if (data.get(plate.i) == null) {
-                    stack = ItemStack.builder().itemType(plate.type).build();
-                    if (plate.colour != null) stack.offer(Keys.DYE_COLOR, plate.colour);
+                    stack = ItemStack.builder().itemType((ItemType) plate.type.getRaw()).build();
+                    if (plate.colour != null) stack.offer(Keys.DYE_COLOR, SpongeAdapter.adapt(plate.colour));
                 } else {
                     ItemPlate plateItem = (ItemPlate) plate.plate.getItem();
                     stack = ItemStack.builder().itemType(getType(Objects.requireNonNull(plateItem.getRegistryName()))).build();
@@ -272,50 +271,5 @@ public class ArcPlates {
      */
     private ItemType getType(ResourceLocation name) {
         return Sponge.getRegistry().getType(ItemType.class, name.toString()).orElse(ItemTypes.AIR);
-    }
-
-    /**
-     * The Plate entries.
-     * Note: The slot values should be in ascending order.
-     */
-    enum Plate {
-        DRACO(0, 3, EnumPlate.DRACO, DyeColors.RED),
-        DREAD(1, 5, EnumPlate.DREAD, DyeColors.CYAN),
-        EARTH(2, 7, EnumPlate.EARTH, DyeColors.ORANGE),
-        FIST(3, 11, EnumPlate.FIST, DyeColors.GRAY),
-        FLAME(4, 13, EnumPlate.FLAME, DyeColors.PINK),
-        ICICLE(5, 15, EnumPlate.ICICLE, DyeColors.SILVER),
-        INSECT(6, 17, EnumPlate.INSECT, DyeColors.LIME),
-        IRON(7, 21, EnumPlate.IRON, DyeColors.WHITE),
-        MEADOW(8, 23, EnumPlate.MEADOW, DyeColors.GREEN),
-        MIND(9, 25, EnumPlate.MIND, ItemTypes.GLASS_PANE),
-        PIXIE(10, 29, EnumPlate.PIXIE, DyeColors.PURPLE),
-        SKY(11, 31, EnumPlate.SKY, DyeColors.LIGHT_BLUE),
-        SPLASH(12, 33, EnumPlate.SPLASH, DyeColors.BLUE),
-        SPOOKY(13, 35, EnumPlate.SPOOKY, DyeColors.BLACK),
-        STONE(14, 39, EnumPlate.STONE, DyeColors.BROWN),
-        TOXIC(15, 41, EnumPlate.TOXIC, DyeColors.MAGENTA),
-        ZAP(16, 43, EnumPlate.ZAP, DyeColors.YELLOW);
-
-        int i;
-        int slot;
-        EnumPlate plate;
-        DyeColor colour;
-        ItemType type;
-
-        Plate(int i, int slot, EnumPlate plate, DyeColor colour) {
-            this.i = i;
-            this.slot = slot;
-            this.plate = plate;
-            this.colour = colour;
-            this.type = ItemTypes.STAINED_GLASS_PANE;
-        }
-
-        Plate(int i, int slot, EnumPlate plate, ItemType type) {
-            this.i = i;
-            this.slot = slot;
-            this.plate = plate;
-            this.type = type;
-        }
     }
 }
