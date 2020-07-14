@@ -14,8 +14,6 @@ import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.FusionDev.FusionPixelmon.sponge.api.economy.EconomyProvider;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;//todo hi
 import org.spongepowered.api.Sponge;
@@ -35,20 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SpongeShops extends Shops {
-
-    static {
-        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
-        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
-        BaseShop.EMPTY_ITEM = new InvItem(SpongeAdapter.adapt(emptyStack), "");
-
-
-        BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpongeItemType(ItemTypes.BARRIER);
-
-
-        BaseShop.backItemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("eject_button");
-        BaseShop.resetItemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("trash_can");
-        BaseShop.infoItemStack = new SpongeItemStack(ItemStack.builder().itemType(ItemTypes.PAPER).build());
-    }
 
     public SpongeShops(AbstractPlayer player) {
         super(player);

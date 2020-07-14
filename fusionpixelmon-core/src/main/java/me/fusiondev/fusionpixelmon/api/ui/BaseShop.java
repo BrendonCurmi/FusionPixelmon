@@ -1,5 +1,8 @@
 package me.fusiondev.fusionpixelmon.api.ui;
 
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.Registry;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
@@ -49,7 +52,8 @@ public abstract class BaseShop {
 
     /**
      * Gets the price of the specified key from the shop config, or the specified default price if cannot.
-     * @param key the config key.
+     *
+     * @param key          the config key.
      * @param defaultPrice the default price.
      * @return the price of the key from the shop config; or the defaultPrice if cant.
      */
@@ -128,24 +132,20 @@ public abstract class BaseShop {
         return null;
     }
 
+    private static Registry reg = FusionPixelmon.getRegistry();
+
     /**
      * The default item to show when displaying what the player is purchasing.
      */
-    public static AbstractItemType DEFAULT_SELECTED_ITEM_TYPE;
+    public static AbstractItemType DEFAULT_SELECTED_ITEM_TYPE = reg.getItemTypesRegistry().BARRIER();
     /**
      * The item that represents an empty slot.
      */
-    public static InvItem EMPTY_ITEM;
+    public static InvItem EMPTY_ITEM = new InvItem(reg.getItemTypesRegistry().STAINED_GLASS_PANE().to().setColour(DyeColor.BLACK), "");
 
-        /*static {
-            ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
-            emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
-            EMPTY_ITEM = new InvItem(SpongeAdapter.adapt(emptyStack), "");
-        }*/
-
-    public static AbstractItemStack backItemStack;
-    public static AbstractItemStack resetItemStack;
-    public static AbstractItemStack infoItemStack;
+    public static AbstractItemStack backItemStack = reg.getPixelmonUtils().getPixelmonItemStack("eject_button");
+    public static AbstractItemStack resetItemStack = reg.getPixelmonUtils().getPixelmonItemStack("trash_can");
+    public static AbstractItemStack infoItemStack = reg.getItemTypesRegistry().PAPER().to();
 
 
     public class Builder {

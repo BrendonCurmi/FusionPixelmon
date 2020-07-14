@@ -14,8 +14,6 @@ import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemType;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -27,19 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SpigotShops extends Shops {
-
-    static {
-        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getWoolData());
-        BaseShop.EMPTY_ITEM = new InvItem(SpigotAdapter.adapt(emptyStack), "");
-
-
-        BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpigotItemType(Material.BARRIER);
-
-
-        BaseShop.backItemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("eject_button");
-        BaseShop.resetItemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("trash_can");
-        BaseShop.infoItemStack = new SpigotItemStack(new ItemStack(Material.PAPER));
-    }
 
     public SpigotShops(AbstractPlayer player) {
         super(player);
