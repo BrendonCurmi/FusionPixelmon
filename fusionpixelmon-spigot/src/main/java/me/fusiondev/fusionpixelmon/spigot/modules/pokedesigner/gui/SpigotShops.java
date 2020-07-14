@@ -7,13 +7,11 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.*;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
@@ -45,12 +43,6 @@ public class SpigotShops extends Shops {
 
     public SpigotShops(AbstractPlayer player) {
         super(player);
-
-        for (Options options : Options.values()) {
-            Shops.Options opt = Shops.Options.valueOf(options.name());
-            opt.setShopClass(options.getShopClass());
-            opt.setItemStack(options.getItemStack());
-        }
     }
 
     @Override
@@ -253,35 +245,5 @@ public class SpigotShops extends Shops {
         }
         inv.add(pages);
         inv.openPage(player, pagePokeEditor);
-    }
-
-    public enum Options {
-        LEVEL(LevelShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("rare_candy")),
-        ABILITY(AbilityShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ability_capsule")),
-        NATURE(NatureShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ever_stone")),
-        IVEV(IVEVShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("destiny_knot")),
-        GENDER(GenderShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, SpigotAdapter.adapt(new ItemStack(Material.INK_SACK, 1, DyeColor.WHITE.getDyeData()))),
-        SHINY(ShinyShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("light_ball")),
-        POKEBALL(PokeballShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("poke_ball")),
-        FORM(FormShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("meteorite")),
-        EVOLUTION(EvolutionShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("fire_stone")),
-        NICK(NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
-
-        private Class<? extends BaseShop> shopClass;
-        private AbstractItemStack itemStack;
-
-        Options(Class<? extends BaseShop> shopClass, AbstractItemStack itemStack) {
-            this.shopClass = shopClass;
-            this.itemStack = itemStack;
-        }
-
-        public Class<? extends BaseShop> getShopClass() {
-            return shopClass;
-        }
-
-        public AbstractItemStack getItemStack() {
-            return itemStack;
-        }
     }
 }

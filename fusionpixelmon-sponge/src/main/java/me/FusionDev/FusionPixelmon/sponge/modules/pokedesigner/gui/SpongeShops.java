@@ -5,7 +5,6 @@ import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
@@ -19,7 +18,6 @@ import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;//todo hi
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.*;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
@@ -54,13 +52,6 @@ public class SpongeShops extends Shops {
 
     public SpongeShops(AbstractPlayer player) {
         super(player);
-
-        // Update Shops.Options with SpongeShops.Options variables
-        for (Options options : Options.values()) {
-            Shops.Options opt = Shops.Options.valueOf(options.name());
-            opt.setShopClass(options.getShopClass());
-            opt.setItemStack(options.getItemStack());
-        }
     }
 
     @Override
@@ -262,35 +253,5 @@ public class SpongeShops extends Shops {
         }
         inv.add(pages);
         inv.openPage(player, pagePokeEditor);
-    }
-
-    public enum Options {
-        LEVEL(LevelShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("rare_candy")),
-        ABILITY(AbilityShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ability_capsule")),
-        NATURE(NatureShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ever_stone")),
-        IVEV(IVEVShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("destiny_knot")),
-        GENDER(GenderShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, SpongeAdapter.adapt(ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build())),
-        SHINY(ShinyShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("light_ball")),
-        POKEBALL(PokeballShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("poke_ball")),
-        FORM(FormShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("meteorite")),
-        EVOLUTION(EvolutionShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("fire_stone")),
-        NICK(NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
-
-        private Class<? extends BaseShop> shopClass;
-        private AbstractItemStack itemStack;
-
-        Options(Class<? extends BaseShop> shopClass, AbstractItemStack itemStack) {
-            this.shopClass = shopClass;
-            this.itemStack = itemStack;
-        }
-
-        public Class<? extends BaseShop> getShopClass() {
-            return shopClass;
-        }
-
-        public AbstractItemStack getItemStack() {
-            return itemStack;
-        }
     }
 }
