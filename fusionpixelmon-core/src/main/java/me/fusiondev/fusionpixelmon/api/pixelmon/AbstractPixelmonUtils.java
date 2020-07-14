@@ -5,6 +5,9 @@ import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 
+/**
+ * Toolkit class that provides helper methods for accessing the Pixelmon mod.
+ */
 public abstract class AbstractPixelmonUtils {
 
     /**

@@ -11,6 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Toolkit class that provides helper methods for accessing the Pixelmon mod.
+ */
 public class PixelmonUtils extends AbstractPixelmonUtils {
 
     @Override
