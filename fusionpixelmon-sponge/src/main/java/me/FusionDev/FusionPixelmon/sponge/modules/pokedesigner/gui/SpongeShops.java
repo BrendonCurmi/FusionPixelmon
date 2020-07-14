@@ -19,6 +19,7 @@ import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;//todo hi
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.*;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;

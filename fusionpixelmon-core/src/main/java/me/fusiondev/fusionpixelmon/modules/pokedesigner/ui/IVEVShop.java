@@ -1,22 +1,20 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.IVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.Grammar;
 import me.fusiondev.fusionpixelmon.impl.MathUtil;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,13 +40,16 @@ public class IVEVShop extends BaseShop {
 
     private static InvItem subtractionItem;
     private static InvItem additionItem;
+    private static AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
 
     static {
-        AbstractItemStack subtractionStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
-        subtractionStack.setColour(DyeColor.RED.getWoolData());
+        AbstractItemStack subtractionStack = reg.STAINED_HARDENED_CLAY().to();
+        subtractionStack.setColour(DyeColor.RED);
+//        subtractionStack.offer(Keys.DYE_COLOR, DyeColors.RED);
         subtractionItem = new InvItem(subtractionStack, "");
-        AbstractItemStack additionStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
-        additionStack.setColour(DyeColor.GREEN.getWoolData());
+        AbstractItemStack additionStack = reg.STAINED_HARDENED_CLAY().to();
+        additionStack.setColour(DyeColor.GREEN);
+//        additionStack.offer(Keys.DYE_COLOR, DyeColors.GREEN);
         additionItem = new InvItem(additionStack, "");
     }
 
@@ -117,8 +118,7 @@ public class IVEVShop extends BaseShop {
                 );
                 page.setItem((i * 9) + 2, items[i][1], event -> {
                     int delta = 1;
-                    //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
-                    //todo need to handle this
+                    //if (event instanceof ClickInventoryEvent.Shift) delta = 10;todo add shift function to event
                     action[0].removeEV(type.statsType, delta);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -134,7 +134,6 @@ public class IVEVShop extends BaseShop {
                 page.setItem((i * 9) + 3, items[i][2], event -> {
                     int delta = 1;
                     //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
-                    //todo need to handle this
                     action[0].addEV(type.statsType, delta, totalEV);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -150,7 +149,6 @@ public class IVEVShop extends BaseShop {
                 page.setItem((i * 9) + 5, items[i][3], event -> {
                     int delta = 1;
                     //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
-                    //todo need to handle this
                     action[0].removeIV(type.statsType, delta);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -166,7 +164,6 @@ public class IVEVShop extends BaseShop {
                 page.setItem((i * 9) + 6, items[i][4], event -> {
                     int delta = 1;
                     //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
-                    //todo need to handle this
                     action[0].addIV(type.statsType, delta);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -177,10 +174,10 @@ public class IVEVShop extends BaseShop {
         return page;
     }
 
+
     private static String[] lore(String current, String currentTotal, String requested, String requestedTotal) {
         return new String[]{"Current: " + current, "Current Total: " + currentTotal, "", "Requested: " + requested, "Requested Total: " + requestedTotal};
     }
-
 
     @Override
     public int prices(Object value) {

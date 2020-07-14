@@ -1,12 +1,12 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
-import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 
 public class PokeballShop extends BaseShop {
     public PokeballShop(Shops shops) {

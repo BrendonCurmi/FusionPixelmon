@@ -1,21 +1,19 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.colour.IColourWrapper;
-import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
-import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import me.fusiondev.fusionpixelmon.impl.colour.ColourWrapper;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColor;
-import org.spongepowered.api.data.type.DyeColors;
-import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.colour.ColourWrapper;
+import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 
 public class NickShop extends BaseShop {
     public NickShop(Shops shops) {
@@ -43,12 +41,14 @@ public class NickShop extends BaseShop {
                 .border(true)
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
+        AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
 
         int slot = 9;
         for (ColourOptions option : ColourOptions.values()) {
-            ItemStack itemStack = ItemStack.builder().itemType(option.getItemType()).build();
-            if (option.getDyeColor() != null) itemStack.offer(Keys.DYE_COLOR, option.getDyeColor());
-            InvItem item = new InvItem(SpongeAdapter.adapt(itemStack), "§" + option.getCode() + Grammar.cap(option.name()));
+            AbstractItemStack itemStack = option.getItemType().to();
+            itemStack.setColour(option.getDyeColor());
+            //if (option.getDyeColor() != null) itemStack.offer(Keys.DYE_COLOR, option.getDyeColor());
+            InvItem item = new InvItem(itemStack, "§" + option.getCode() + Grammar.cap(option.name()));
             page.setItem(slot, item, event -> {
                 IColourWrapper wrapper = (IColourWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new ColourWrapper());
                 if (option.getColour().isStyle()) wrapper.setStyle(option.getColour());
@@ -89,36 +89,38 @@ public class NickShop extends BaseShop {
         static final String CHANGE_STYLE = "change-style";
     }
 
-    public enum ColourOptions {
-        DARK_RED(Colour.DARK_RED, ItemTypes.CONCRETE, DyeColors.RED),
-        RED(Colour.RED, ItemTypes.REDSTONE_BLOCK, null),
-        GOLD(Colour.GOLD, ItemTypes.GOLD_BLOCK, null),
-        YELLOW(Colour.YELLOW, ItemTypes.CONCRETE, DyeColors.YELLOW),
-        DARK_GREEN(Colour.DARK_GREEN, ItemTypes.CONCRETE, DyeColors.GREEN),
-        GREEN(Colour.GREEN, ItemTypes.CONCRETE, DyeColors.LIME),
-        AQUA(Colour.AQUA, ItemTypes.CONCRETE, DyeColors.LIGHT_BLUE),
-        DARK_AQUA(Colour.DARK_AQUA, ItemTypes.CONCRETE, DyeColors.CYAN),
-        DARK_BLUE(Colour.DARK_BLUE, ItemTypes.CONCRETE, DyeColors.BLUE),
-        BLUE(Colour.BLUE, ItemTypes.LAPIS_BLOCK, null),
-        LIGHT_PURPLE(Colour.LIGHT_PURPLE, ItemTypes.CONCRETE, DyeColors.MAGENTA),
-        DARK_PURPLE(Colour.DARK_PURPLE, ItemTypes.CONCRETE, DyeColors.PURPLE),
-        WHITE(Colour.WHITE, ItemTypes.QUARTZ_BLOCK, null),
-        GREY(Colour.GREY, ItemTypes.CONCRETE, DyeColors.SILVER),
-        DARK_GREY(Colour.DARK_GREY, ItemTypes.CONCRETE, DyeColors.GRAY),
-        BLACK(Colour.BLACK, ItemTypes.CONCRETE, DyeColors.BLACK),
+    private static AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
 
-        OBFUSCATED(Colour.OBFUSCATED, ItemTypes.DYE, DyeColors.GRAY),
-        BOLD(Colour.BOLD, ItemTypes.DYE, DyeColors.GRAY),
-        STRIKETHROUGH(Colour.STRIKETHROUGH, ItemTypes.DYE, DyeColors.GRAY),
-        UNDERLINE(Colour.UNDERLINE, ItemTypes.DYE, DyeColors.GRAY),
-        ITALIC(Colour.ITALIC, ItemTypes.DYE, DyeColors.GRAY),
-        RESET(Colour.RESET, ItemTypes.DYE, DyeColors.GRAY);
+    public enum ColourOptions {
+        DARK_RED(Colour.DARK_RED, reg.CONCRETE(), DyeColor.RED),
+        RED(Colour.RED, reg.REDSTONE_BLOCK(), null),
+        GOLD(Colour.GOLD, reg.GOLD_BLOCK(), null),
+        YELLOW(Colour.YELLOW, reg.CONCRETE(), DyeColor.YELLOW),
+        DARK_GREEN(Colour.DARK_GREEN, reg.CONCRETE(), DyeColor.GREEN),
+        GREEN(Colour.GREEN, reg.CONCRETE(), DyeColor.LIME),
+        AQUA(Colour.AQUA, reg.CONCRETE(), DyeColor.LIGHT_BLUE),
+        DARK_AQUA(Colour.DARK_AQUA, reg.CONCRETE(), DyeColor.CYAN),
+        DARK_BLUE(Colour.DARK_BLUE, reg.CONCRETE(), DyeColor.BLUE),
+        BLUE(Colour.BLUE, reg.LAPIS_BLOCK(), null),
+        LIGHT_PURPLE(Colour.LIGHT_PURPLE, reg.CONCRETE(), DyeColor.MAGENTA),
+        DARK_PURPLE(Colour.DARK_PURPLE, reg.CONCRETE(), DyeColor.PURPLE),
+        WHITE(Colour.WHITE, reg.QUARTZ_BLOCK(), null),
+        GREY(Colour.GREY, reg.CONCRETE(), DyeColor.SILVER),
+        DARK_GREY(Colour.DARK_GREY, reg.CONCRETE(), DyeColor.GRAY),
+        BLACK(Colour.BLACK, reg.CONCRETE(), DyeColor.BLACK),
+
+        OBFUSCATED(Colour.OBFUSCATED, reg.DYE(), DyeColor.GRAY),
+        BOLD(Colour.BOLD, reg.DYE(), DyeColor.GRAY),
+        STRIKETHROUGH(Colour.STRIKETHROUGH, reg.DYE(), DyeColor.GRAY),
+        UNDERLINE(Colour.UNDERLINE, reg.DYE(), DyeColor.GRAY),
+        ITALIC(Colour.ITALIC, reg.DYE(), DyeColor.GRAY),
+        RESET(Colour.RESET, reg.DYE(), DyeColor.GRAY);
 
         private Colour colour;
-        private ItemType itemType;
+        private AbstractItemType itemType;
         private DyeColor dyeColor;
 
-        ColourOptions(Colour colour, ItemType itemType, DyeColor dyeColor) {
+        ColourOptions(Colour colour, AbstractItemType itemType, DyeColor dyeColor) {
             this.colour = colour;
             this.itemType = itemType;
             this.dyeColor = dyeColor;
@@ -132,7 +134,7 @@ public class NickShop extends BaseShop {
             return colour.getCode();
         }
 
-        public ItemType getItemType() {
+        public AbstractItemType getItemType() {
             return itemType;
         }
 

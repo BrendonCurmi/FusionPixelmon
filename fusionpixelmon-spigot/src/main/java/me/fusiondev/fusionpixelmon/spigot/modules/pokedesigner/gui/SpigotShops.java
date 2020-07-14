@@ -13,6 +13,7 @@ import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.*;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;

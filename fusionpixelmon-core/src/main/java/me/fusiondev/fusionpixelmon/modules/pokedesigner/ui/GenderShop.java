@@ -1,15 +1,14 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.Registry;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColors;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
 
 public class GenderShop extends BaseShop {
     public GenderShop(Shops shops) {
@@ -31,16 +30,23 @@ public class GenderShop extends BaseShop {
                 .setSelectedItemName("Selected Gender")
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
+        Registry reg = FusionPixelmon.getRegistry();
 
         if (shops.pokemon.getGender() == Gender.None) {
-            ItemStack genderStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
-            genderStack.offer(Keys.DYE_COLOR, DyeColors.YELLOW);
-            InvItem item1 = new InvItem(SpongeAdapter.adapt(genderStack), "§b§lNone");
+            AbstractItemStack genderStack = reg.getItemTypesRegistry().STAINED_HARDENED_CLAY().to();
+            genderStack.setColour(DyeColor.YELLOW);
+
+            //ItemStack genderStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            //genderStack.offer(Keys.DYE_COLOR, DyeColors.YELLOW);
+            InvItem item1 = new InvItem(genderStack, "§b§lNone");
             page.setItem(22, item1, event -> builder.setSelectedItem(item1.getItemStack()));
         } else {
-            ItemStack maleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
-            maleStack.offer(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
-            InvItem item1 = new InvItem(SpongeAdapter.adapt(maleStack), "§b§lMale");
+            AbstractItemStack maleStack = reg.getItemTypesRegistry().STAINED_HARDENED_CLAY().to();
+            maleStack.setColour(DyeColor.LIGHT_BLUE);
+
+            //ItemStack maleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            //maleStack.offer(Keys.DYE_COLOR, DyeColors.LIGHT_BLUE);
+            InvItem item1 = new InvItem(maleStack, "§b§lMale");
             item1.setLore("Click here to select the", "§bMale §7gender.");
             page.setItem(21, item1, event -> {
                 if (shops.pokemon.getGender() != Gender.Male) shops.getSelectedOptions().put(getOption(), "§bMale");
@@ -48,10 +54,12 @@ public class GenderShop extends BaseShop {
                 builder.setSelectedItem(item1.getItemStack());
             });
 
+            AbstractItemStack femaleStack = reg.getItemTypesRegistry().STAINED_HARDENED_CLAY().to();
+            femaleStack.setColour(DyeColor.MAGENTA);
 
-            ItemStack femaleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
-            femaleStack.offer(Keys.DYE_COLOR, DyeColors.MAGENTA);
-            InvItem item2 = new InvItem(SpongeAdapter.adapt(femaleStack), "§d§lFemale");
+            //ItemStack femaleStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            //femaleStack.offer(Keys.DYE_COLOR, DyeColors.MAGENTA);
+            InvItem item2 = new InvItem(femaleStack, "§d§lFemale");
             item2.setLore("Click here to select the", "§dFemale §7gender.");
             page.setItem(23, item2, event -> {
                 if (shops.pokemon.getGender() != Gender.Female) shops.getSelectedOptions().put(getOption(), "§dFemale");

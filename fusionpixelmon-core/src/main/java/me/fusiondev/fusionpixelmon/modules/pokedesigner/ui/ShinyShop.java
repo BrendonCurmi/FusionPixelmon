@@ -1,13 +1,12 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
-import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
-import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
 
 public class ShinyShop extends BaseShop {
-
     public ShinyShop(Shops shops) {
         super(shops);
     }
@@ -49,6 +48,7 @@ public class ShinyShop extends BaseShop {
     @Override
     public int prices(Object value) {
         return ((boolean) value) ? getPriceOf(ConfigKeys.ADD, 4000) : getPriceOf(ConfigKeys.REMOVE, 125);
+
     }
 
     @Override

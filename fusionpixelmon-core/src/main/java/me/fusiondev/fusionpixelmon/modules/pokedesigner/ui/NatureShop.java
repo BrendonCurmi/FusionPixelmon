@@ -1,16 +1,15 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.enums.EnumNature;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.Grammar;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class NatureShop extends BaseShop {
     public NatureShop(Shops shops) {
@@ -32,11 +31,12 @@ public class NatureShop extends BaseShop {
                 .setSelectedItemName("Selected Nature")
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
+        AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
 
         for (NatureOptions option : NatureOptions.values()) {
-            AbstractItemStack itemStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
-//            itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
-            itemStack.setColour(option.dyeColor.getWoolData());
+            AbstractItemStack itemStack = reg.STAINED_HARDENED_CLAY().to();
+            itemStack.setColour(option.dyeColor);
+            //itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
             InvItem item = new InvItem(itemStack, "§3§l" + Grammar.cap(option.name()));
             item.setLore("  Boosted: §b" + option.boosted, "  Lowered: §c" + option.lowered);
             page.setItem(option.slot, item, event -> {
