@@ -7,6 +7,10 @@ import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 
 public class SpongeItemTypes extends AbstractItemTypes {
+    private AbstractItemType get(ItemType itemType) {
+        return SpongeAdapter.adapt(itemType);
+    }
+
     @Override
     public AbstractItemType BARRIER() {
         return get(ItemTypes.BARRIER);
@@ -32,7 +36,38 @@ public class SpongeItemTypes extends AbstractItemTypes {
         return get(ItemTypes.EGG);
     }
 
-    private AbstractItemType get(ItemType itemType) {
-        return SpongeAdapter.adapt(itemType);
+    @Override
+    public AbstractItemType STAINED_HARDENED_CLAY() {
+        return get(ItemTypes.STAINED_HARDENED_CLAY);
+    }
+
+    @Override
+    public AbstractItemType CONCRETE() {
+        return get(ItemTypes.CONCRETE);
+    }
+
+    @Override
+    public AbstractItemType LAPIS_BLOCK() {
+        return get(ItemTypes.LAPIS_BLOCK);
+    }
+
+    @Override
+    public AbstractItemType REDSTONE_BLOCK() {
+        return get(ItemTypes.REDSTONE_BLOCK);
+    }
+
+    @Override
+    public AbstractItemType GOLD_BLOCK() {
+        return get(ItemTypes.GOLD_BLOCK);
+    }
+
+    @Override
+    public AbstractItemType QUARTZ_BLOCK() {
+        return get(ItemTypes.QUARTZ_BLOCK);
+    }
+
+    @Override
+    public AbstractItemType DYE() {
+        return get(ItemTypes.DYE);
     }
 }
