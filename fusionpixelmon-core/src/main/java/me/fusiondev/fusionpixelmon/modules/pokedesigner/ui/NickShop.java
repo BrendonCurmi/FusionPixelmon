@@ -46,7 +46,7 @@ public class NickShop extends BaseShop {
         int slot = 9;
         for (ColourOptions option : ColourOptions.values()) {
             AbstractItemStack itemStack = option.getItemType().to();
-            itemStack.setColour(option.getDyeColor());
+            if (option.getDyeColor() != null) itemStack.setColour(option.getDyeColor());
             //if (option.getDyeColor() != null) itemStack.offer(Keys.DYE_COLOR, option.getDyeColor());
             InvItem item = new InvItem(itemStack, "§" + option.getCode() + Grammar.cap(option.name()));
             page.setItem(slot, item, event -> {
