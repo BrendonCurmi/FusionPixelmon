@@ -25,9 +25,10 @@ public class SpigotItemStack extends AbstractItemStack {
     }
 
     @Override
-    public void setName(String name) {
+    public AbstractItemStack setName(String name) {
         // If name is empty, set it to some colour to not be empty, otherwise spigot will revert display name sigh
         meta(meta -> meta.setDisplayName(!name.isEmpty() ? name : ChatColor.BLACK + ""));
+        return this;
     }
 
     @Override
@@ -36,14 +37,15 @@ public class SpigotItemStack extends AbstractItemStack {
     }
 
     @Override
-    public void setLore(List<String> itemLore) {
+    public AbstractItemStack setLore(List<String> itemLore) {
         meta(meta -> {
             meta.setLore(itemLore);
         });
+        return this;
     }
 
     @Override
-    public void setColour(Object colour) {
+    public AbstractItemStack setColour(Object colour) {
         //Colorable cl = (Colorable) itemStack.getData();
         //cl.setColor((DyeColor) colour);
         //itemStack.setData((MaterialData) cl);
@@ -57,6 +59,7 @@ public class SpigotItemStack extends AbstractItemStack {
                 itemStack.setDurability(((DyeColor) colour).getBlockData());
             }
         } else itemStack.setDurability((byte) colour);
+        return this;
     }
 
     private void meta(Runnable runnable) {
