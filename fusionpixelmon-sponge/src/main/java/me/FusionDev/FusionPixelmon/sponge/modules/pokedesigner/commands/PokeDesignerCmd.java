@@ -4,7 +4,7 @@ import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
-import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui.SpongeShops;
+import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.ui.SpongeShops;
 import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;

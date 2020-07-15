@@ -2,7 +2,7 @@ package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands;
 
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui.SpigotShops;
+import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.ui.SpigotShops;
 import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
