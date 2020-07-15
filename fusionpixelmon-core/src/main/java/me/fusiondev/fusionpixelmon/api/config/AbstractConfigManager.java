@@ -44,7 +44,7 @@ public abstract class AbstractConfigManager<T extends ConfigurationNode, L exten
     protected void load(boolean checkVersion) throws IOException {
         node = loader.load();
         if (checkVersion) {
-            String versionStr = FusionPixelmon.getPlugin().getVersion();
+            String versionStr = FusionPixelmon.getInstance().getVersion();
             int version = Integer.parseInt(versionStr.substring(versionStr.indexOf(".") + 1));
             if (node.getNode("version").getInt() < version) {
                 configUpdater(version);
