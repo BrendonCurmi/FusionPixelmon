@@ -2,7 +2,6 @@ package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
-import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
@@ -12,6 +11,7 @@ import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import org.bukkit.DyeColor;
@@ -31,32 +31,30 @@ public class SpigotShops extends Shops {
     }
 
     @Override
-    public AbstractConfig getShopConfig(Shops.Options option) {
-/*        return SpigotFusionPixelmon.getInstance()
-                .getConfig()
+    public PokeDesignerConfig.ShopConfig getShopConfig(Shops.Options option) {
+        return FusionPixelmon.getInstance()
+                .getConfiguration()
                 .getPokeDesignerConfig()
-                .getShopNamed(option.name().toLowerCase());*/
-        return null;
+                .getShopNamed(option.name().toLowerCase());
     }
 
     @Override
     public int getPriceOf(Shops.Options option, String key, int defaultPrice) {
-        //PokeDesignerConfig.ShopConfig shop = getShopConfig(option);
-        //return shop != null ? shop.getPrices().getOrDefault(key, defaultPrice) : defaultPrice;
-        return 0;
+        PokeDesignerConfig.ShopConfig shop = getShopConfig(option);
+        return shop != null ? shop.getPrices().getOrDefault(key, defaultPrice) : defaultPrice;
     }
 
     @Override
     protected void initShops() {
-//        PokeDesignerConfig config = SpigotFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfiguration().getPokeDesignerConfig();
         for (Shops.Options option : Shops.Options.values()) {
-//            if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
+            if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
                 try {
                     shops.putIfAbsent(option, option.getShopClass().getDeclaredConstructor(Shops.class).newInstance(this));
                 } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException ex) {
                     ex.printStackTrace();
                 }
-//            }
+            }
         }
     }
 
