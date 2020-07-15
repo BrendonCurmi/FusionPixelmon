@@ -26,7 +26,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
     @Override
     public void onEnable() {
         instance = this;
-        FusionPixelmon.setPlugin(this);
+        FusionPixelmon.setInstance(this);
+        FusionPixelmon.setRegistry(new SpigotRegistry());
         System.out.println("STARTED");
 
         createConfigFile(new File(getDataFolder(), "default.conf"), true);
@@ -39,7 +40,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
             config = configManager.getNode().getValue(Config.type);
 
             // Load PokeDesigner config
-            getConfigReal().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
+            getConfigInst().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
         } catch (IOException | ObjectMappingException ex) {
             ex.printStackTrace();
         }
@@ -80,7 +81,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         return SpigotFusionPixelmon.instance;
     }
 
-    public Config getConfigReal() {
+    public Config getConfigInst() {
         return SpigotFusionPixelmon.instance.config;
     }
 

@@ -1,12 +1,15 @@
 package me.fusiondev.fusionpixelmon.api.ui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.*;
 
 import java.util.*;
 
@@ -104,29 +107,30 @@ public abstract class Shops {
      * Lists the different shop options with their properties to show in the main shop.
      */
     public enum Options {
-        LEVEL(11, "Level", "level"),
-        ABILITY(13, "Ability", "ability"),
-        NATURE(15, "Nature", "nature"),
-        IVEV(20, "IVs/EVs", "IVs/EVs"),
-        GENDER(22, "Gender", "gender"),
-        GROWTH(24, "Growth", "growth"),
-        SHINY(29, "Shiny", "shininess"),
-        POKEBALL(31, "Pokeball", "pokeball"),
-        FORM(33, "Form", "form"),
-        EVOLUTION(4, "Evolution", "evolution"),
-        NICK(2, "Nick", "nick colour and style");
+        LEVEL(11, "Level", "level", LevelShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("rare_candy")),
+        ABILITY(13, "Ability", "ability", AbilityShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ability_capsule")),
+        NATURE(15, "Nature", "nature", NatureShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ever_stone")),
+        IVEV(20, "IVs/EVs", "IVs/EVs", IVEVShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("destiny_knot")),
+        GENDER(22, "Gender", "gender", GenderShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("full_incense")),
+        GROWTH(24, "Growth", "growth", GrowthShop.class, FusionPixelmon.getRegistry().getItemTypesRegistry().DYE().to().setColour(DyeColor.WHITE)),
+        SHINY(29, "Shiny", "shininess", ShinyShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("light_ball")),
+        POKEBALL(31, "Pokeball", "pokeball", PokeballShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("poke_ball")),
+        FORM(33, "Form", "form", FormShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("meteorite")),
+        EVOLUTION(4, "Evolution", "evolution", EvolutionShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("fire_stone")),
+        NICK(2, "Nick", "nick colour and style", NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
 
-        int slot;
-        String name;
-        String modifyWhat;
+        private int slot;
+        private String name;
+        private String modifyWhat;
+        private Class<? extends BaseShop> shopClass;
+        private AbstractItemStack itemStack;
 
-        Class<? extends BaseShop> shopClass;
-        AbstractItemStack itemStack;
-
-        Options(int slot, String name, String modifyWhat) {
+        Options(int slot, String name, String modifyWhat, Class<? extends BaseShop> shopClass, AbstractItemStack itemStack) {
             this.slot = slot;
             this.name = name;
             this.modifyWhat = modifyWhat;
+            this.shopClass = shopClass;
+            this.itemStack = itemStack;
         }
 
         public int getSlot() {
@@ -141,21 +145,12 @@ public abstract class Shops {
             return modifyWhat;
         }
 
-
         public Class<? extends BaseShop> getShopClass() {
             return shopClass;
         }
 
-        public void setShopClass(Class<? extends BaseShop> shopClass) {
-            this.shopClass = shopClass;
-        }
-
         public AbstractItemStack getItemStack() {
             return itemStack;
-        }
-
-        public void setItemStack(AbstractItemStack itemStack) {
-            this.itemStack = itemStack;
         }
     }
 

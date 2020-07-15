@@ -1,14 +1,12 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
 
 public class ShinyShop extends BaseShop {
-
     public ShinyShop(Shops shops) {
         super(shops);
     }
@@ -29,7 +27,7 @@ public class ShinyShop extends BaseShop {
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
 
-        InvItem item1 = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPixelmonItemType("light_ball")), "§6§lShiny");
+        InvItem item1 = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType("light_ball"), "§6§lShiny");
         item1.setLore("Click here to select the", "§6Shiny §7option.");
         page.setItem(21, item1, event -> {
             if (!shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), true);
@@ -37,7 +35,7 @@ public class ShinyShop extends BaseShop {
             builder.setSelectedItem(item1.getItemStack());
         });
 
-        InvItem item2 = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPixelmonItemType("iron_ball")), "§8§lNon-Shiny");
+        InvItem item2 = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType("iron_ball"), "§8§lNon-Shiny");
         item2.setLore("Click here to select the", "§8Non-Shiny §7option.");
         page.setItem(23, item2, event -> {
             if (shops.pokemon.isShiny()) shops.getSelectedOptions().put(getOption(), false);
@@ -50,6 +48,7 @@ public class ShinyShop extends BaseShop {
     @Override
     public int prices(Object value) {
         return ((boolean) value) ? getPriceOf(ConfigKeys.ADD, 4000) : getPriceOf(ConfigKeys.REMOVE, 125);
+
     }
 
     @Override

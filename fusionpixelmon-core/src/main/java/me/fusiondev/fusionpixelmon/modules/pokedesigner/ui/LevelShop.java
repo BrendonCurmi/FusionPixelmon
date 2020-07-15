@@ -1,17 +1,15 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.api.enums.ExperienceGainType;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.TimeUtil;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class LevelShop extends BaseShop {
     public LevelShop(Shops shops) {
@@ -37,14 +35,17 @@ public class LevelShop extends BaseShop {
                 .setSelectedOption(getOption());
 
         InvPage page = builder.build();
+        AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
 
-        AbstractItemStack emptyStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_GLASS_PANE));
-        emptyStack.setColour(DyeColor.BLACK.getWoolData());
+        AbstractItemStack emptyStack = reg.STAINED_GLASS_PANE().to();
+        emptyStack.setColour(DyeColor.BLACK);
+        //emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
         InvItem emptyItem = new InvItem(emptyStack, "");
         page.setBackground(emptyItem);
 
-        AbstractItemStack addStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
-        addStack.setColour(DyeColor.LIME.getWoolData());
+        AbstractItemStack addStack = reg.STAINED_HARDENED_CLAY().to();
+        addStack.setColour(DyeColor.LIME);
+        //addStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
         InvItem item1 = new InvItem(addStack, "§a§lAdd Levels");
         item1.setLore(
                 "Click here to increase the",
@@ -69,9 +70,9 @@ public class LevelShop extends BaseShop {
             page.setItem(slots1, item1, event -> {
                 int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
                 int add = 1;
-                if (event instanceof InventoryClickEvent && ((InventoryClickEvent) event).isShiftClick()) {
+                /*if (event instanceof ClickInventoryEvent.Shift) {
                     add = 10;
-                }
+                }*/
                 if (shops.pokemon.getLevel() + levels + add > 100) {
                     add = 100 - shops.pokemon.getLevel() - levels;
                     // 100 = lvl + lvls + add
@@ -85,8 +86,9 @@ public class LevelShop extends BaseShop {
             });
         }
 
-        AbstractItemStack removeStack = SpigotAdapter.adapt(new ItemStack(Material.STAINED_CLAY));
-        removeStack.setColour(DyeColor.RED.getWoolData());
+        AbstractItemStack removeStack = reg.STAINED_HARDENED_CLAY().to();
+        removeStack.setColour(DyeColor.RED);
+        //removeStack.offer(Keys.DYE_COLOR, DyeColors.RED);
         InvItem item2 = new InvItem(removeStack, "§c§lRemove Levels");
         item2.setLore(
                 "Click here to decrease the",
@@ -100,9 +102,9 @@ public class LevelShop extends BaseShop {
             page.setItem(slots2, item2, event -> {
                 int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
                 int add = 1;
-                if (event instanceof InventoryClickEvent && ((InventoryClickEvent) event).isShiftClick()) {
+                /*if (event instanceof ClickInventoryEvent.Shift) {
                     add = 10;
-                }
+                }*/
                 if (shops.pokemon.getLevel() + levels - add < 1) {
                     add = shops.pokemon.getLevel() + levels - 1;
                     // 1 = lvl + lvls - add

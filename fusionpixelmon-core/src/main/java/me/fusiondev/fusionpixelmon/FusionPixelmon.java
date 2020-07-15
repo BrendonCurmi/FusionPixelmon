@@ -15,11 +15,11 @@ public class FusionPixelmon {
 
     private static IPluginInfo plugin;
 
-    public static void setPlugin(IPluginInfo plugin) {
+    public static void setInstance(IPluginInfo plugin) {
         FusionPixelmon.plugin = plugin;
     }
 
-    public static IPluginInfo getPlugin() {
+    public static IPluginInfo getInstance() {
         return FusionPixelmon.plugin;
     }
 }

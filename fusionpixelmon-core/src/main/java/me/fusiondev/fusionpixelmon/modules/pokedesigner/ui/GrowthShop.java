@@ -1,17 +1,15 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.enums.EnumGrowth;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.Registry;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
+import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
+import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.Grammar;
-import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
-import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColor;
-import org.spongepowered.api.data.type.DyeColors;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
 
 public class GrowthShop extends BaseShop {
     public GrowthShop(Shops shops) {
@@ -33,11 +31,14 @@ public class GrowthShop extends BaseShop {
                 .setSelectedItemName("Selected Growth")
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
+        Registry reg = FusionPixelmon.getRegistry();
 
         for (GrowthOptions option : GrowthOptions.values()) {
-            ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
-            itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
-            InvItem item = new InvItem(SpongeAdapter.adapt(itemStack), "§3§l" + Grammar.cap(option.name()));
+            AbstractItemStack itemStack = reg.getItemTypesRegistry().STAINED_HARDENED_CLAY().to();
+            itemStack.setColour(option.dyeColor);
+            //ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+            //itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
+            InvItem item = new InvItem(itemStack, "§3§l" + Grammar.cap(option.name()));
             page.setItem(option.slot, item, event -> {
                 if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), option.name());
@@ -75,17 +76,17 @@ public class GrowthShop extends BaseShop {
     }
 
     public enum GrowthOptions {
-        Microscopic(11, DyeColors.RED),
-        Pygmy(20, DyeColors.ORANGE),
-        Runt(29, DyeColors.YELLOW),
+        Microscopic(11, DyeColor.RED),
+        Pygmy(20, DyeColor.ORANGE),
+        Runt(29, DyeColor.YELLOW),
 
-        Small(13, DyeColors.GREEN),
-        Ordinary(22, DyeColors.LIGHT_BLUE),
-        Huge(31, DyeColors.PURPLE),
+        Small(13, DyeColor.GREEN),
+        Ordinary(22, DyeColor.LIGHT_BLUE),
+        Huge(31, DyeColor.PURPLE),
 
-        Giant(15, DyeColors.PINK),
-        Enormous(24, DyeColors.GRAY),
-        Ginormous(33, DyeColors.BLACK);
+        Giant(15, DyeColor.PINK),
+        Enormous(24, DyeColor.GRAY),
+        Ginormous(33, DyeColor.BLACK);
 
         int slot;
         DyeColor dyeColor;

@@ -3,9 +3,9 @@ package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.commands;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import me.FusionDev.FusionPixelmon.sponge.gui.PokeSelectorUI;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
-import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui.SpongeShops;
+import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.ui.SpongeShops;
+import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -26,7 +26,7 @@ public class PokeDesignerCmd implements CommandExecutor {
         Player player = (Player) src;
         Shops shops = new SpongeShops(SpongeAdapter.adapt(player));
         PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
-        new PokeSelectorUI(player, config.getPokeSelectorGuiTitle(), "pokeselector", pokemon -> {
+        new PokeSelectorUI(SpongeAdapter.adapt(player), config.getPokeSelectorGuiTitle(), "pokeselector", pokemon -> {
             if (!config.containsBlackListedPokemon(pokemon.getSpecies())) {
                 shops.launch(pokemon, config.getGuiTitle());
             } else player.sendMessage(Text.of(TextColors.RED, "That Pokemon cant use the PokeDesigner!"));

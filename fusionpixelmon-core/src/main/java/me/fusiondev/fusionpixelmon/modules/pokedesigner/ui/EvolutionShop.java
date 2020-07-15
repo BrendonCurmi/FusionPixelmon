@@ -1,16 +1,15 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
-import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
-import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.impl.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class EvolutionShop extends BaseShop {
 
         int i = 9;
         for (PokemonSpec spec : getEvolutionsList(shops.pokemon)) {
-            InvItem item = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(spec.create())), "§f" + spec.name);
+            InvItem item = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(spec.create()), "§f" + spec.name);
             page.setItem(i, item, event -> {
                 if (!spec.name.equals(shops.pokemon.getSpecies().name)) {
                     PokemonSpecWrapper wrapper = (PokemonSpecWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new PokemonSpecWrapper());
@@ -87,7 +86,7 @@ public class EvolutionShop extends BaseShop {
             evolutions.add(PokemonSpec.from(preEvolutions[preEvolutions.length - i - 1].name));
         }
 
-        evolutions.add(PixelmonAPI.fromPokemon(pokemon, false));
+        evolutions.add(FusionPixelmon.getRegistry().getPixelmonUtils().fromPokemon(pokemon, false));
 
         List<Evolution> currEvolutions = pokemon.getBaseStats().evolutions;
         while (!currEvolutions.isEmpty()) {

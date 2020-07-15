@@ -1,33 +1,34 @@
-package me.fusiondev.fusionpixelmon.spigot.gui;
+package me.fusiondev.fusionpixelmon.ui;
 
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.Registry;
+import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
-import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvItem;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Creates and opens an inventory GUI which allows selecting of pokemon
+ * from the Player's current party of pokemon.
+ */
 public class PokeSelectorUI {
 
     private Pokemon selectedPokemon;
 
-    public PokeSelectorUI(Player player, String name, String id, Consumer<Pokemon> consumer) {
+    public PokeSelectorUI(AbstractPlayer player, String name, String id, Consumer<Pokemon> consumer) {
+        Registry reg = FusionPixelmon.getRegistry();
+
         List<InvPage> pages = new ArrayList<>();
         InvPage pagePokeSelect = new InvPage("§8" + name, id, 1);
 
@@ -37,7 +38,7 @@ public class PokeSelectorUI {
             Pokemon pokemon = partyStorage.get(i);
             if (pokemon != null && !pokemon.isEgg()) {
                 IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-                partyItem = new SpigotInvItem(SpigotAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), pokemonWrapper.getTitle());
+                partyItem = new InvItem(reg.getPixelmonUtils().getPokeSprite(pokemon, true), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
                         pokemonWrapper.getAbility(),
                         pokemonWrapper.getNature(),
@@ -57,28 +58,32 @@ public class PokeSelectorUI {
                     consumer.accept(selectedPokemon);
                 });
             } else if (pokemon != null) {
-                partyItem = new SpigotInvItem(Material.EGG, "§3Unknown");
+                partyItem = new InvItem(reg.getItemTypesRegistry().EGG(), "§3Unknown");
                 pagePokeSelect.setItem(i, partyItem);
             } else {
-                ItemStack og = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
-                AbstractItemStack stack = new SpigotItemStack(og);
-                partyItem = new SpigotInvItem(stack, "§fEmpty party slot");
+                //ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+                //itemStack.offer(Keys.DYE_COLOR, DyeColors.WHITE);
+                AbstractItemStack itemStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE().to();
+                itemStack.setColour(DyeColor.WHITE);
+                partyItem = new InvItem(itemStack, "§fEmpty party slot");
                 pagePokeSelect.setItem(i, partyItem);
             }
         }
 
         // Party can have max 6 pokemon but inventory row has 9 slots, so fill remaining space with panes
-        ItemStack og = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getWoolData());
-        AbstractItemStack stack = new SpigotItemStack(og);
-        InvItem emptyItem = new SpigotInvItem(stack, "");
+        AbstractItemStack emptyStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE().to();
+        emptyStack.setColour(DyeColor.BLACK);
+        //ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
+        //emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
+        InvItem emptyItem = new InvItem(emptyStack, "");
         pagePokeSelect.setItem(6, emptyItem);
         pagePokeSelect.setItem(7, emptyItem);
         pagePokeSelect.setItem(8, emptyItem);
 
         pages.add(pagePokeSelect);
 
-        InvInventory inv = new SpigotInvInventory();
+        InvInventory inv = reg.getInvInventory();
         inv.add(pages);
-        inv.openPage(SpigotAdapter.adapt(player), pagePokeSelect);
+        inv.openPage(player, pagePokeSelect);
     }
 }

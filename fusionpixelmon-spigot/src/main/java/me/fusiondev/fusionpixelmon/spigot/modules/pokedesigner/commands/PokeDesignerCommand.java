@@ -1,6 +1,9 @@
 package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands;
 
-import me.fusiondev.fusionpixelmon.spigot.gui.PokeSelectorUI;
+import me.fusiondev.fusionpixelmon.api.ui.Shops;
+import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
+import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.ui.SpigotShops;
+import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,8 +25,10 @@ public class PokeDesignerCommand implements CommandExecutor {
 
             //player.openInventory(new SpigotInvInventory().getInv());
 
-            new PokeSelectorUI(player, "Name", "id", pokemon -> {
-                System.out.println(pokemon.getDisplayName());
+            Shops shops = new SpigotShops(SpigotAdapter.adapt(player));
+
+            new PokeSelectorUI(SpigotAdapter.adapt(player), "Name", "id", pokemon -> {
+                shops.launch(pokemon, "Name");
             });
         }
         return false;

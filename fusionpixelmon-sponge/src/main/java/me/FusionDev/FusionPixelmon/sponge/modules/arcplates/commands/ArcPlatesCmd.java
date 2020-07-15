@@ -1,8 +1,9 @@
 package me.FusionDev.FusionPixelmon.sponge.modules.arcplates.commands;
 
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
-import me.FusionDev.FusionPixelmon.sponge.gui.PokeSelectorUI;
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.FusionDev.FusionPixelmon.sponge.modules.arcplates.ArcPlates;
+import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -21,7 +22,7 @@ public class ArcPlatesCmd implements CommandExecutor {
             return CommandResult.empty();
         }
         Player player = (Player) src;
-        new PokeSelectorUI(player, "Arceus Selector", "arceusselector", pokemon -> {
+        new PokeSelectorUI(SpongeAdapter.adapt(player), "Arceus Selector", "arceusselector", pokemon -> {
             if (pokemon.getSpecies() == EnumSpecies.Arceus) new ArcPlates().launch(player, pokemon);
             else player.sendMessage(Text.of(TextColors.RED, "Please only select an Arceus!"));
         });

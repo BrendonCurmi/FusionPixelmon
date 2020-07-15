@@ -1,5 +1,6 @@
 package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
 
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.spongepowered.api.data.key.Keys;
@@ -24,8 +25,9 @@ public class SpongeItemStack extends AbstractItemStack {
     }
 
     @Override
-    public void setName(String name) {
+    public AbstractItemStack setName(String name) {
         itemStack.offer(Keys.DISPLAY_NAME, Text.of(name));
+        return this;
     }
 
     @Override
@@ -37,13 +39,19 @@ public class SpongeItemStack extends AbstractItemStack {
     }
 
     @Override
-    public void setLore(List<String> itemLore) {
+    public AbstractItemStack setLore(List<String> itemLore) {
         itemStack.offer(Keys.ITEM_LORE, toTextList(itemLore));
+        return this;
     }
 
     @Override
-    public void setColour(Object colour) {
-        itemStack.offer(Keys.DYE_COLOR, (DyeColor) colour);
+    public AbstractItemStack setColour(Object colour) {
+        if (colour instanceof DyeColor) {
+            itemStack.offer(Keys.DYE_COLOR, (DyeColor) colour);
+        } else if (colour instanceof me.fusiondev.fusionpixelmon.api.colour.DyeColor) {
+            itemStack.offer(Keys.DYE_COLOR, SpongeAdapter.adapt((me.fusiondev.fusionpixelmon.api.colour.DyeColor) colour));
+        }
+        return this;
     }
 
     @Override

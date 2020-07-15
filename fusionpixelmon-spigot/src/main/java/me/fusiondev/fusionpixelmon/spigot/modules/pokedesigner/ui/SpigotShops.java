@@ -1,6 +1,7 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
@@ -12,10 +13,7 @@ import me.fusiondev.fusionpixelmon.api.ui.Event;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
-import me.fusiondev.fusionpixelmon.spigot.api.pixelmon.PixelmonAPI;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
-import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemType;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -28,27 +26,8 @@ import java.util.Map;
 
 public class SpigotShops extends Shops {
 
-    static {
-        ItemStack emptyStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getWoolData());
-        BaseShop.EMPTY_ITEM = new InvItem(SpigotAdapter.adapt(emptyStack), "");
-
-
-        BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpigotItemType(Material.BARRIER);
-
-
-        BaseShop.backItemStack = new SpigotItemStack(PixelmonAPI.getPixelmonItemStack("eject_button"));
-        BaseShop.resetItemStack = new SpigotItemStack(PixelmonAPI.getPixelmonItemStack("trash_can"));
-        BaseShop.infoItemStack = new SpigotItemStack(new ItemStack(Material.PAPER));
-    }
-
     public SpigotShops(AbstractPlayer player) {
         super(player);
-
-        for (Options options : Options.values()) {
-            Shops.Options opt = Shops.Options.valueOf(options.name());
-            opt.setShopClass(options.getShopClass());
-            opt.setItemStack(SpigotAdapter.adapt(options.getItemStack()));
-        }
     }
 
     @Override
@@ -112,10 +91,10 @@ public class SpigotShops extends Shops {
 
         ItemStack cancelInvStack = new ItemStack(Material.INK_SACK, 1, DyeColor.RED.getDyeData());
         InvItem cancelInvItem = new InvItem(SpigotAdapter.adapt(cancelInvStack), "§4§lCancel");
-        InvItem curr = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
+        InvItem curr = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
 
         IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-        InvItem pokeItem = new InvItem(SpigotAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), "§b§lSelected Pokemon");
+        InvItem pokeItem = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
@@ -251,35 +230,5 @@ public class SpigotShops extends Shops {
         }
         inv.add(pages);
         inv.openPage(player, pagePokeEditor);
-    }
-
-    public enum Options {
-        LEVEL(LevelShop.class, PixelmonAPI.getPixelmonItemStack("rare_candy")),
-        ABILITY(AbilityShop.class, PixelmonAPI.getPixelmonItemStack("ability_capsule")),
-        NATURE(NatureShop.class, PixelmonAPI.getPixelmonItemStack("ever_stone")),
-        IVEV(IVEVShop.class, PixelmonAPI.getPixelmonItemStack("destiny_knot")),
-        GENDER(GenderShop.class, PixelmonAPI.getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, new ItemStack(Material.INK_SACK, 1, DyeColor.WHITE.getDyeData())),
-        SHINY(ShinyShop.class, PixelmonAPI.getPixelmonItemStack("light_ball")),
-        POKEBALL(PokeballShop.class, PixelmonAPI.getPixelmonItemStack("poke_ball")),
-        FORM(FormShop.class, PixelmonAPI.getPixelmonItemStack("meteorite")),
-        EVOLUTION(EvolutionShop.class, PixelmonAPI.getPixelmonItemStack("fire_stone")),
-        NICK(NickShop.class, PixelmonAPI.getPixelmonItemStack("ruby"));
-
-        private Class<? extends BaseShop> shopClass;
-        private ItemStack itemStack;
-
-        Options(Class<? extends BaseShop> shopClass, ItemStack itemStack) {
-            this.shopClass = shopClass;
-            this.itemStack = itemStack;
-        }
-
-        public Class<? extends BaseShop> getShopClass() {
-            return shopClass;
-        }
-
-        public ItemStack getItemStack() {
-            return itemStack;
-        }
     }
 }

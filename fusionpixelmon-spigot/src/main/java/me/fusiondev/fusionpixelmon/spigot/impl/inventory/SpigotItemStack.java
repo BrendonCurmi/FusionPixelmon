@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.spigot.impl.inventory;
 
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.bukkit.ChatColor;
@@ -24,9 +25,10 @@ public class SpigotItemStack extends AbstractItemStack {
     }
 
     @Override
-    public void setName(String name) {
+    public AbstractItemStack setName(String name) {
         // If name is empty, set it to some colour to not be empty, otherwise spigot will revert display name sigh
         meta(meta -> meta.setDisplayName(!name.isEmpty() ? name : ChatColor.BLACK + ""));
+        return this;
     }
 
     @Override
@@ -35,18 +37,29 @@ public class SpigotItemStack extends AbstractItemStack {
     }
 
     @Override
-    public void setLore(List<String> itemLore) {
+    public AbstractItemStack setLore(List<String> itemLore) {
         meta(meta -> {
             meta.setLore(itemLore);
         });
+        return this;
     }
 
     @Override
-    public void setColour(Object colour) {
+    public AbstractItemStack setColour(Object colour) {
         //Colorable cl = (Colorable) itemStack.getData();
         //cl.setColor((DyeColor) colour);
         //itemStack.setData((MaterialData) cl);
-        itemStack.setDurability((byte) colour);
+        if (colour instanceof DyeColor) {
+            if (itemStack.getType() == Material.INK_SACK
+                    || itemStack.getType() == Material.BANNER
+                    || itemStack.getType() == Material.STANDING_BANNER
+                    || itemStack.getType() == Material.WALL_BANNER) {
+                itemStack.setDurability(((DyeColor) colour).getDyeData());
+            } else {
+                itemStack.setDurability(((DyeColor) colour).getBlockData());
+            }
+        } else itemStack.setDurability((byte) colour);
+        return this;
     }
 
     private void meta(Runnable runnable) {

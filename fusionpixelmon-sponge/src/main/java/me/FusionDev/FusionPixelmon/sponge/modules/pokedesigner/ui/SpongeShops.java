@@ -1,6 +1,7 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
@@ -12,10 +13,7 @@ import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.FusionDev.FusionPixelmon.sponge.api.economy.EconomyProvider;
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonAPI;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
 import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;//todo hi
 import org.spongepowered.api.Sponge;
@@ -36,29 +34,8 @@ import java.util.Map;
 
 public class SpongeShops extends Shops {
 
-    static {
-        ItemStack emptyStack = ItemStack.builder().itemType(ItemTypes.STAINED_GLASS_PANE).build();
-        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
-        BaseShop.EMPTY_ITEM = new InvItem(SpongeAdapter.adapt(emptyStack), "");
-
-
-        BaseShop.DEFAULT_SELECTED_ITEM_TYPE = new SpongeItemType(ItemTypes.BARRIER);
-
-
-        BaseShop.backItemStack = new SpongeItemStack(PixelmonAPI.getPixelmonItemStack("eject_button"));
-        BaseShop.resetItemStack = new SpongeItemStack(PixelmonAPI.getPixelmonItemStack("trash_can"));
-        BaseShop.infoItemStack = new SpongeItemStack(ItemStack.builder().itemType(ItemTypes.PAPER).build());
-    }
-
     public SpongeShops(AbstractPlayer player) {
         super(player);
-
-        // Update Shops.Options with SpongeShops.Options variables
-        for (Options options : Options.values()) {
-            Shops.Options opt = Shops.Options.valueOf(options.name());
-            opt.setShopClass(options.getShopClass());
-            opt.setItemStack(SpongeAdapter.adapt(options.getItemStack()));
-        }
     }
 
     @Override
@@ -122,10 +99,10 @@ public class SpongeShops extends Shops {
         ItemStack cancelInvStack = ItemStack.builder().itemType(ItemTypes.DYE).build();
         cancelInvStack.offer(Keys.DYE_COLOR, DyeColors.RED);
         InvItem cancelInvItem = new InvItem(SpongeAdapter.adapt(cancelInvStack), "§4§lCancel");
-        InvItem curr = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPixelmonItemStack("grass_gem")), "§2Current Balance: §a" + bank.balance(player));
+        InvItem curr = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
 
         IPokemonWrapper pokemonWrapper = new PokemonWrapper(pokemon);
-        InvItem pokeItem = new InvItem(SpongeAdapter.adapt(PixelmonAPI.getPokeSprite(pokemon, true)), "§b§lSelected Pokemon");
+        InvItem pokeItem = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPokeSprite(pokemon, true), "§b§lSelected Pokemon");
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
@@ -260,35 +237,5 @@ public class SpongeShops extends Shops {
         }
         inv.add(pages);
         inv.openPage(player, pagePokeEditor);
-    }
-
-    public enum Options {
-        LEVEL(LevelShop.class, PixelmonAPI.getPixelmonItemStack("rare_candy")),
-        ABILITY(AbilityShop.class, PixelmonAPI.getPixelmonItemStack("ability_capsule")),
-        NATURE(NatureShop.class, PixelmonAPI.getPixelmonItemStack("ever_stone")),
-        IVEV(IVEVShop.class, PixelmonAPI.getPixelmonItemStack("destiny_knot")),
-        GENDER(GenderShop.class, PixelmonAPI.getPixelmonItemStack("full_incense")),
-        GROWTH(GrowthShop.class, ItemStack.builder().itemType(ItemTypes.DYE).add(Keys.DYE_COLOR, DyeColors.WHITE).build()),
-        SHINY(ShinyShop.class, PixelmonAPI.getPixelmonItemStack("light_ball")),
-        POKEBALL(PokeballShop.class, PixelmonAPI.getPixelmonItemStack("poke_ball")),
-        FORM(FormShop.class, PixelmonAPI.getPixelmonItemStack("meteorite")),
-        EVOLUTION(EvolutionShop.class, PixelmonAPI.getPixelmonItemStack("fire_stone")),
-        NICK(NickShop.class, PixelmonAPI.getPixelmonItemStack("ruby"));
-
-        private Class<? extends BaseShop> shopClass;
-        private ItemStack itemStack;
-
-        Options(Class<? extends BaseShop> shopClass, ItemStack itemStack) {
-            this.shopClass = shopClass;
-            this.itemStack = itemStack;
-        }
-
-        public Class<? extends BaseShop> getShopClass() {
-            return shopClass;
-        }
-
-        public ItemStack getItemStack() {
-            return itemStack;
-        }
     }
 }

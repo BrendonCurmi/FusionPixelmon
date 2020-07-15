@@ -1,15 +1,13 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.gui;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.Registry;
+import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
+import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColor;
-import org.spongepowered.api.data.type.DyeColors;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
 
 public class AbilityShop extends BaseShop {
     public AbilityShop(Shops shops) {
@@ -33,19 +31,25 @@ public class AbilityShop extends BaseShop {
                 .setSelectedItemName("Selected Ability")
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
+        Registry reg = FusionPixelmon.getRegistry();
+
 
         int[] slots = new int[]{20, 22, 24};
-        DyeColor[] colors = new DyeColor[]{DyeColors.GREEN, DyeColors.YELLOW, DyeColors.RED};
+        DyeColor[] colors = new DyeColor[]{DyeColor.GREEN, DyeColor.YELLOW, DyeColor.RED};
         String[] allAbilities = shops.pokemon.getBaseStats().abilities;
         for (int i = 0; i < allAbilities.length; i++) {
             if (allAbilities[i] == null || (i == 1 && allAbilities[1].equals(allAbilities[0]))) {
-                InvItem item = new InvItem(SpongeAdapter.adapt(ItemTypes.BARRIER), "§c§lN/A");
+                InvItem item = new InvItem(reg.getItemTypesRegistry().BARRIER(), "§c§lN/A");
                 page.setItem(slots[i], item);
             } else {
                 String ability = allAbilities[i];
-                ItemStack abilityStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
-                abilityStack.offer(Keys.DYE_COLOR, colors[i]);
-                InvItem item = new InvItem(SpongeAdapter.adapt(abilityStack), "§3§l" + ability);
+
+                AbstractItemStack itemStack = reg.getItemTypesRegistry().STAINED_HARDENED_CLAY().to();
+                itemStack.setColour(colors[i]);
+
+                //ItemStack abilityStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
+                //abilityStack.offer(Keys.DYE_COLOR, colors[i]);
+                InvItem item = new InvItem(itemStack, "§3§l" + ability);
                 int finalI = i;
                 page.setItem(slots[i], item, event -> {
                     if (!shops.pokemon.getAbilityName().equalsIgnoreCase(ability)) {

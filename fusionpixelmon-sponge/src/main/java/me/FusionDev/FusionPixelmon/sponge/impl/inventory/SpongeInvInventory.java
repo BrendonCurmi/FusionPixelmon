@@ -1,11 +1,11 @@
 package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
 
+import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.ui.Event;
-import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.FusionDev.FusionPixelmon.sponge.impl.SpongeInventory;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
@@ -84,7 +84,7 @@ public class SpongeInvInventory extends InvInventory {
                     }
                 })
                 .property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(page.title)))
-                .build(SpongeFusionPixelmon.getInstance());
+                .build(FusionPixelmon.getInstance());
 
         // Add items to inventory
         int num = 0;
@@ -107,7 +107,7 @@ public class SpongeInvInventory extends InvInventory {
         // Open page for player
         Task.builder().execute(() -> {
             player.openInventory(this.inventory);
-        }).delayTicks(1).submit(SpongeFusionPixelmon.getInstance());
+        }).delayTicks(1).submit(FusionPixelmon.getInstance());
         playerOpened(player, page);
     }
 
@@ -139,6 +139,6 @@ public class SpongeInvInventory extends InvInventory {
                     num++;
                 }
             }
-        }).submit(SpongeFusionPixelmon.getInstance());
+        }).submit(FusionPixelmon.getInstance());
     }
 }
