@@ -19,14 +19,14 @@ public class PixelmonEvents {
      * of {@value #FALL_INVULNERABILITY} seconds after defeating a wild
      * pokemon in flight.
      */
-    private List<EntityPlayerMP> invulnerableFall = new ArrayList<>();
+    private final List<EntityPlayerMP> INVULNERABLE_FALL = new ArrayList<>();
     private static final int FALL_INVULNERABILITY = 5;
 
     @SubscribeEvent
     public void onBeatPokemon(BeatWildPixelmonEvent event) {
-        if (!invulnerableFall.contains(event.player)) {
-            invulnerableFall.add(event.player);
-            TimeUtil.setTimeout(() -> invulnerableFall.remove(event.player), FALL_INVULNERABILITY * 1000);
+        if (!INVULNERABLE_FALL.contains(event.player)) {
+            INVULNERABLE_FALL.add(event.player);
+            TimeUtil.setTimeout(() -> INVULNERABLE_FALL.remove(event.player), FALL_INVULNERABILITY * 1000);
         }
     }
 
@@ -34,7 +34,7 @@ public class PixelmonEvents {
     public void onFall(LivingFallEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
-            if (invulnerableFall.contains(player)) {
+            if (INVULNERABLE_FALL.contains(player)) {
                 event.setDamageMultiplier(0);
                 event.setCanceled(true);
             }

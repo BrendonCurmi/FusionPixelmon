@@ -7,19 +7,19 @@ import org.spongepowered.api.item.inventory.ItemStack;
 
 public class SpongeItemType extends AbstractItemType {
 
-    private ItemType itemType;
+    private final ItemType ITEMTYPE;
 
     public SpongeItemType(ItemType itemType) {
-        this.itemType = itemType;
+        this.ITEMTYPE = itemType;
     }
 
     @Override
     public AbstractItemStack to() {
-        return new SpongeItemStack(ItemStack.builder().itemType(itemType).build());
+        return new SpongeItemStack(ItemStack.builder().itemType(ITEMTYPE).build());
     }
 
     @Override
     public ItemType getRaw() {
-        return itemType;
+        return ITEMTYPE;
     }
 }

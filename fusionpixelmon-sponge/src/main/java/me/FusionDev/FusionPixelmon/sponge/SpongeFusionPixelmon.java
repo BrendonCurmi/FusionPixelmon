@@ -61,7 +61,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     private static SpongeFusionPixelmon instance;
 
     public Path configDir;
-    private Logger logger;
+    private final Logger LOGGER;
 
     /**
      * Main class constructor that gets called by Sponge's classloader.
@@ -74,7 +74,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpongeRegistry());
         this.configDir = configDir;
-        this.logger = logger;
+        this.LOGGER = logger;
     }
 
     @Listener
@@ -84,7 +84,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
         try {
             Files.createDirectories(this.configDir);
         } catch (IOException ex) {
-            logger.error("Error loading '" + configDir.toString() + "' directory", ex);
+            LOGGER.error("Error loading '" + configDir.toString() + "' directory", ex);
         }
 
         try {
@@ -102,7 +102,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
             // Load PokeDesigner config
             getConfiguration().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
         } catch (IOException | ObjectMappingException ex) {
-            logger.error("Config file could not be loaded", ex);
+            LOGGER.error("Config file could not be loaded", ex);
         }
 
         // Register commands through Sponge
@@ -161,14 +161,14 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
-        logger.info("Successfully running FusionPixelmon v" + VERSION + "!");
+        LOGGER.info("Successfully running FusionPixelmon v" + VERSION + "!");
 
         if (!Sponge.getServiceManager().isRegistered(EconomyService.class) && getConfiguration().getPokeDesignerConfig().useCurrency()) {
-            logger.warn("No economy plugin detected, so using PokeDollars as currency instead");
+            LOGGER.warn("No economy plugin detected, so using PokeDollars as currency instead");
         }
 
         try {
-            new UpdateChecker(logger).check(VERSIONS_ENDPOINT, ORE_VERSIONS);
+            new UpdateChecker(LOGGER).check(VERSIONS_ENDPOINT, ORE_VERSIONS);
         } catch (IOException ignored) {
             // If an exception occurs, just don't check for newer versions
         }
@@ -176,7 +176,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     @Listener
     public void onServerStop(GameStoppedServerEvent event) {
-        logger.info("Successfully stopped FusionPixelmon!");
+        LOGGER.info("Successfully stopped FusionPixelmon!");
     }
 
     public static SpongeFusionPixelmon getInstance() {

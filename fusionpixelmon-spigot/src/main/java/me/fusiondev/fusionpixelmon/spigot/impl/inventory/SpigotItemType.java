@@ -7,19 +7,19 @@ import org.bukkit.inventory.ItemStack;
 
 public class SpigotItemType extends AbstractItemType {
 
-    Material material;
+    private final Material MATERIAL;
 
     public SpigotItemType(Material material) {
-        this.material = material;
+        this.MATERIAL = material;
     }
 
     @Override
     public AbstractItemStack to() {
-        return new SpigotItemStack(new ItemStack(material));
+        return new SpigotItemStack(new ItemStack(MATERIAL));
     }
 
     @Override
     public Material getRaw() {
-        return material;
+        return MATERIAL;
     }
 }

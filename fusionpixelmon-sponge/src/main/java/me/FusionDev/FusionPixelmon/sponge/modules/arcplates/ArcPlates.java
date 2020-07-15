@@ -40,7 +40,7 @@ import java.util.Optional;
 /**
  * An interface which provides a method of storing and quick switching between
  * Arceus Plates to change Arceus' type and form.
- * The data is persisted by serialising to {@link #path [config]/arcplates}.
+ * The data is persisted by serialising to {@link #PATH [config]/arcplates}.
  * Supports multiple Players and multiple separate Arceus pokemon per player.
  */
 public class ArcPlates {
@@ -48,7 +48,7 @@ public class ArcPlates {
     /**
      * The config path to the serialised data files.
      */
-    private static Path path = SpongeFusionPixelmon.getInstance().configDir.resolve("arcplates");
+    private static final Path PATH = SpongeFusionPixelmon.getInstance().configDir.resolve("arcplates");
 
     private static final int ROWS = 5;
     private static final int[] BACKGROUND_SLOTS = {0, 1, 9, 10, 19, 27, 28, 36, 37};
@@ -66,7 +66,7 @@ public class ArcPlates {
     public void launch(Player player, Pokemon pokemon) {
         if (pokemon.getSpecies() != EnumSpecies.Arceus) return;
 
-        File dataFile = new File(path.toFile(), player.getUniqueId() + " " + pokemon.getUUID().toString());
+        File dataFile = new File(PATH.toFile(), player.getUniqueId() + " " + pokemon.getUUID().toString());
         FileFactory factory = new FileFactory();
         ArcStorageData data = dataFile.exists() ? (ArcStorageData) factory.deserialize(dataFile.getAbsolutePath()) : new ArcStorageData();
 

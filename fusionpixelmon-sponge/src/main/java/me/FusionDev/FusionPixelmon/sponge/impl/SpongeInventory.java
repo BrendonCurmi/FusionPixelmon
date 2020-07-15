@@ -4,14 +4,14 @@ import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import org.spongepowered.api.item.inventory.Inventory;
 
 public class SpongeInventory extends AbstractInventory {
-    Inventory inventory;
+    private final Inventory INVENTORY;
 
-    public SpongeInventory(org.spongepowered.api.item.inventory.Inventory inventory) {
-        this.inventory = inventory;
+    public SpongeInventory(Inventory inventory) {
+        this.INVENTORY = inventory;
     }
 
     @Override
     public Inventory getRaw() {
-        return inventory;
+        return INVENTORY;
     }
 }

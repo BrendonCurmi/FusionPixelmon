@@ -17,10 +17,10 @@ import java.util.Optional;
 
 public class EconomyProvider implements IEconomyProvider<EconomyService, Currency> {
 
-    private Currency currency;
+    private final Currency CURRENCY;
 
     public EconomyProvider(String currencyName) {
-        this.currency = getCurrency(currencyName);
+        this.CURRENCY = getCurrency(currencyName);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
 
     @Override
     public Currency getCurrency() {
-        return currency != null ? currency : getCurrency("");
+        return CURRENCY != null ? CURRENCY : getCurrency("");
     }
 
     @Override
@@ -57,7 +57,7 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
         if (economyService.isPresent()) {
             Optional<UniqueAccount> account = economyService.get().getOrCreateAccount(player.getUniqueId());
             if (account.isPresent())
-                return account.get().getBalance(currency);
+                return account.get().getBalance(CURRENCY);
         }
         return BigDecimal.ZERO;
     }

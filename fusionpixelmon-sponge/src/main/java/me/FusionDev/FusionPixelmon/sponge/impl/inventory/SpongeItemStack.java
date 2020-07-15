@@ -13,10 +13,10 @@ import java.util.List;
 
 public class SpongeItemStack extends AbstractItemStack {
 
-    private ItemStack itemStack;
+    private final ItemStack ITEMSTACK;
 
     public SpongeItemStack(ItemStack itemStack) {
-        this.itemStack = itemStack;
+        this.ITEMSTACK = itemStack;
     }
 
     @Override
@@ -26,30 +26,30 @@ public class SpongeItemStack extends AbstractItemStack {
 
     @Override
     public AbstractItemStack setName(String name) {
-        itemStack.offer(Keys.DISPLAY_NAME, Text.of(name));
+        ITEMSTACK.offer(Keys.DISPLAY_NAME, Text.of(name));
         return this;
     }
 
     @Override
     public List<String> getLore() {
-        if (itemStack.get(Keys.ITEM_LORE).isPresent()) {
-            return toStringList(itemStack.get(Keys.ITEM_LORE).get());
+        if (ITEMSTACK.get(Keys.ITEM_LORE).isPresent()) {
+            return toStringList(ITEMSTACK.get(Keys.ITEM_LORE).get());
         }
         return new ArrayList<>();
     }
 
     @Override
     public AbstractItemStack setLore(List<String> itemLore) {
-        itemStack.offer(Keys.ITEM_LORE, toTextList(itemLore));
+        ITEMSTACK.offer(Keys.ITEM_LORE, toTextList(itemLore));
         return this;
     }
 
     @Override
     public AbstractItemStack setColour(Object colour) {
         if (colour instanceof DyeColor) {
-            itemStack.offer(Keys.DYE_COLOR, (DyeColor) colour);
+            ITEMSTACK.offer(Keys.DYE_COLOR, (DyeColor) colour);
         } else if (colour instanceof me.fusiondev.fusionpixelmon.api.colour.DyeColor) {
-            itemStack.offer(Keys.DYE_COLOR, SpongeAdapter.adapt((me.fusiondev.fusionpixelmon.api.colour.DyeColor) colour));
+            ITEMSTACK.offer(Keys.DYE_COLOR, SpongeAdapter.adapt((me.fusiondev.fusionpixelmon.api.colour.DyeColor) colour));
         }
         return this;
     }
@@ -57,7 +57,7 @@ public class SpongeItemStack extends AbstractItemStack {
     @Override
     public ItemStack getRaw() {
         //return ItemStack.builder().fromItemStack(itemStack).add(Keys.DISPLAY_NAME, Text.of(name)).build();
-        return itemStack;
+        return ITEMSTACK;
     }
 
     private List<Text> toTextList(List<String> list) {

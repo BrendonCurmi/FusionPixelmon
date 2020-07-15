@@ -19,7 +19,7 @@ public class PixelmonUtils extends AbstractPixelmonUtils {
     @Override
     public AbstractItemStack getPokeSprite(Pokemon pokemon, boolean createNewPokemon) {
         if (!createNewPokemon)
-            return SpigotAdapter.adapt(CraftItemStack.asBukkitCopy((net.minecraft.server.v1_12_R1.ItemStack) (Object) ItemPixelmonSprite.getPhoto(pokemon)));;
+            return SpigotAdapter.adapt(CraftItemStack.asBukkitCopy((net.minecraft.server.v1_12_R1.ItemStack) (Object) ItemPixelmonSprite.getPhoto(pokemon)));
         Pokemon newPokemon = fromPokemon(pokemon, true).create();
         newPokemon.setCustomTexture("");
         return SpigotAdapter.adapt(CraftItemStack.asBukkitCopy((net.minecraft.server.v1_12_R1.ItemStack) (Object) ItemPixelmonSprite.getPhoto(newPokemon)));

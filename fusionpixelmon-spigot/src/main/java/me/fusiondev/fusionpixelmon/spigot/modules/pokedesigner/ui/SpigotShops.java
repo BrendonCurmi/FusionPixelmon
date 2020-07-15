@@ -13,7 +13,7 @@ public class SpigotShops extends Shops {
     }
 
     @Override
-    public IEconomyProvider getBank(PokeDesignerConfig config) {
+    public IEconomyProvider<?, ?> getBank(PokeDesignerConfig config) {
         return new BankAPI(player);
     }
 }

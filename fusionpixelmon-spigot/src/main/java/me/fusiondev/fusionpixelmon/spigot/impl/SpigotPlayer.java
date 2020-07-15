@@ -9,39 +9,39 @@ import java.util.UUID;
 
 public class SpigotPlayer extends AbstractPlayer {
 
-    Player player;
+    private final Player PLAYER;
 
     public SpigotPlayer(Player player) {
-        this.player = player;
+        this.PLAYER = player;
     }
 
     @Override
     public String getName() {
-        return player.getName();
+        return PLAYER.getName();
     }
 
     @Override
     public UUID getUniqueId() {
-        return player.getUniqueId();
+        return PLAYER.getUniqueId();
     }
 
     @Override
     public void sendMessage(Object message) {
-        player.sendMessage(message.toString());
+        PLAYER.sendMessage(message.toString());
     }
 
     @Override
     public Player get() {
-        return player;
+        return PLAYER;
     }
 
     @Override
     public void closeInventory() {
-        player.closeInventory();
+        PLAYER.closeInventory();
     }
 
     @Override
     public void openInventory(AbstractInventory inventory) {
-        player.openInventory((Inventory) inventory.getRaw());
+        PLAYER.openInventory((Inventory) inventory.getRaw());
     }
 }

@@ -13,10 +13,10 @@ import java.util.Objects;
 
 public class SpigotItemStack extends AbstractItemStack {
 
-    ItemStack itemStack;
+    private final ItemStack ITEMSTACK;
 
     public SpigotItemStack(ItemStack itemStack) {
-        this.itemStack = itemStack;
+        this.ITEMSTACK = itemStack;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SpigotItemStack extends AbstractItemStack {
 
     @Override
     public List<String> getLore() {
-        return Objects.requireNonNull(itemStack.getItemMeta()).getLore();
+        return Objects.requireNonNull(ITEMSTACK.getItemMeta()).getLore();
     }
 
     @Override
@@ -50,23 +50,23 @@ public class SpigotItemStack extends AbstractItemStack {
         //cl.setColor((DyeColor) colour);
         //itemStack.setData((MaterialData) cl);
         if (colour instanceof DyeColor) {
-            if (itemStack.getType() == Material.INK_SACK
-                    || itemStack.getType() == Material.BANNER
-                    || itemStack.getType() == Material.STANDING_BANNER
-                    || itemStack.getType() == Material.WALL_BANNER) {
-                itemStack.setDurability(((DyeColor) colour).getDyeData());
+            if (ITEMSTACK.getType() == Material.INK_SACK
+                    || ITEMSTACK.getType() == Material.BANNER
+                    || ITEMSTACK.getType() == Material.STANDING_BANNER
+                    || ITEMSTACK.getType() == Material.WALL_BANNER) {
+                ITEMSTACK.setDurability(((DyeColor) colour).getDyeData());
             } else {
-                itemStack.setDurability(((DyeColor) colour).getBlockData());
+                ITEMSTACK.setDurability(((DyeColor) colour).getBlockData());
             }
-        } else itemStack.setDurability((byte) colour);
+        } else ITEMSTACK.setDurability((byte) colour);
         return this;
     }
 
     private void meta(Runnable runnable) {
-        if (itemStack.getData().getItemType() == Material.AIR) return;
-        ItemMeta meta = itemStack.getItemMeta();
+        if (ITEMSTACK.getData().getItemType() == Material.AIR) return;
+        ItemMeta meta = ITEMSTACK.getItemMeta();
         runnable.run(meta);
-        itemStack.setItemMeta(meta);
+        ITEMSTACK.setItemMeta(meta);
     }
 
     private interface Runnable {
@@ -75,6 +75,6 @@ public class SpigotItemStack extends AbstractItemStack {
 
     @Override
     public ItemStack getRaw() {
-        return itemStack;
+        return ITEMSTACK;
     }
 }

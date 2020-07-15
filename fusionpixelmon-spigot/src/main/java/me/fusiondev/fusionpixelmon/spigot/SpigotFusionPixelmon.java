@@ -22,6 +22,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
     private static SpigotFusionPixelmon instance;
 
     @Override
+    @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
         instance = this;
         FusionPixelmon.setInstance(this);
@@ -35,7 +36,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         // Load main config
         try {
             ConfigManager configManager = new SpigotConfigManager(configFile.toPath());
-            config = configManager.getNode().getValue(Config.type);//todo setConfiguration
+            setConfiguration(configManager.getNode().getValue(Config.type));
 
             // Load PokeDesigner config
             getConfiguration().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
@@ -78,7 +79,6 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
     public static SpigotFusionPixelmon getInstance() {
         return SpigotFusionPixelmon.instance;
     }
-
 
 
     public static final String ID = "fusionpixelmon";

@@ -16,7 +16,7 @@ import org.spongepowered.common.item.inventory.util.ItemStackUtil;
  */
 public class PixelmonUtils extends AbstractPixelmonUtils {
 
-    private static ItemType fallbackItemType = ItemTypes.REDSTONE;
+    private static final ItemType FALLBACK_ITEM_TYPE = ItemTypes.REDSTONE;
 
     @Override
     public AbstractItemStack getPokeSprite(Pokemon pokemon, boolean createNewPokemon) {
@@ -28,6 +28,6 @@ public class PixelmonUtils extends AbstractPixelmonUtils {
 
     @Override
     public AbstractItemType getPixelmonItemType(String id) {
-        return SpongeAdapter.adapt(Sponge.getRegistry().getType(ItemType.class, "pixelmon:" + id).orElse(fallbackItemType));
+        return SpongeAdapter.adapt(Sponge.getRegistry().getType(ItemType.class, "pixelmon:" + id).orElse(FALLBACK_ITEM_TYPE));
     }
 }

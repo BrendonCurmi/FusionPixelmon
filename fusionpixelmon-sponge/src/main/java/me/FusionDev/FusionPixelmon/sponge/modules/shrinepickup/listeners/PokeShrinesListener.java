@@ -1,7 +1,6 @@
 package me.FusionDev.FusionPixelmon.sponge.modules.shrinepickup.listeners;
 
 import com.flowpowered.math.vector.Vector3i;
-import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
