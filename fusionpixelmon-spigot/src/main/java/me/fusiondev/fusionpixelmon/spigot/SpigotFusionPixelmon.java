@@ -4,7 +4,7 @@ import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappin
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.IPluginInfo;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
-import me.fusiondev.fusionpixelmon.spigot.config.Config;
+import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
@@ -18,8 +18,6 @@ import java.nio.file.Files;
 import java.util.Optional;
 
 public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
-
-    private Config config;
 
     private static SpigotFusionPixelmon instance;
 
@@ -37,10 +35,10 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         // Load main config
         try {
             ConfigManager configManager = new SpigotConfigManager(configFile.toPath());
-            config = configManager.getNode().getValue(Config.type);
+            config = configManager.getNode().getValue(Config.type);//todo setConfiguration
 
             // Load PokeDesigner config
-            getConfigInst().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
+            getConfiguration().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
         } catch (IOException | ObjectMappingException ex) {
             ex.printStackTrace();
         }
@@ -81,10 +79,6 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         return SpigotFusionPixelmon.instance;
     }
 
-    public Config getConfigInst() {
-        return SpigotFusionPixelmon.instance.config;
-    }
-
 
 
     public static final String ID = "fusionpixelmon";
@@ -115,5 +109,17 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
     @Override
     public String getVersionsApiUrl() {
         return VERSIONS_ENDPOINT;
+    }
+
+    private Config config;
+
+    @Override
+    public Config getConfiguration() {
+        return config;
+    }
+
+    @Override
+    public void setConfiguration(Config config) {
+        this.config = config;
     }
 }

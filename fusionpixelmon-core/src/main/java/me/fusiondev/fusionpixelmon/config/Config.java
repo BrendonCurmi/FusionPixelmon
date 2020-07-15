@@ -1,11 +1,10 @@
-package me.FusionDev.FusionPixelmon.sponge.config;
+package me.fusiondev.fusionpixelmon.config;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
-import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.Setting;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
-import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 
 import java.util.List;
 
@@ -14,19 +13,14 @@ public class Config extends AbstractConfig {
     @SuppressWarnings("UnstableApiUsage")
     public final static TypeToken<Config> type = TypeToken.of(Config.class);
 
-    @Inject
     @Setting("anti-fall-damage")
     private boolean antiFallDamage;
-    @Inject
     @Setting("craft-masterballs")
     private boolean craftMasterBalls;
-    @Inject
     @Setting("arcplate")
     private boolean arcPlate;
-    @Inject
     @Setting("shrine-pickup")
     private List<String> shrinePickup = ImmutableList.of();
-    @Inject
     @Setting("pokedesigner")
     private PokeDesignerConfig pokeDesigner = new PokeDesignerConfig();
 

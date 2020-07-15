@@ -1,6 +1,6 @@
-package me.fusiondev.fusionpixelmon.spigot.config;
+package me.fusiondev.fusionpixelmon.config;
 
-import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.config.PokeDesignerConfig;
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 
 import java.util.List;
 

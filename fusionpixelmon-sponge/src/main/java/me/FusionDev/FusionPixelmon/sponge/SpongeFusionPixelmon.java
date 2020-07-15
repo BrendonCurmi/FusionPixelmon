@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
-import me.FusionDev.FusionPixelmon.sponge.config.Config;
 import me.FusionDev.FusionPixelmon.sponge.impl.SpongeConfigManager;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.FusionDev.FusionPixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
@@ -12,6 +11,7 @@ import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.commands.PokeDesi
 import me.FusionDev.FusionPixelmon.sponge.modules.shrinepickup.listeners.PokeShrinesListener;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.FusionDev.FusionPixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
+import me.fusiondev.fusionpixelmon.config.Config;
 import net.minecraftforge.common.MinecraftForge;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
@@ -62,7 +62,6 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     public Path configDir;
     private Logger logger;
-    private Config config;
 
     /**
      * Main class constructor that gets called by Sponge's classloader.
@@ -98,16 +97,16 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
             // Load main config
             ConfigManager configManager = new SpongeConfigManager(path);
-            config = configManager.getNode().getValue(Config.type);
+            setConfiguration(configManager.getNode().getValue(Config.type));
 
             // Load PokeDesigner config
-            getConfig().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
+            getConfiguration().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
         } catch (IOException | ObjectMappingException ex) {
             logger.error("Config file could not be loaded", ex);
         }
 
         // Register commands through Sponge
-        if (getConfig().isArcPlateEnabled()) {
+        if (getConfiguration().isArcPlateEnabled()) {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
                     .description(Text.of("Opens the ArcPlates GUI to store your Type Plates for your Arceus"))
                     .permission(CMD_PERM + "arc")
@@ -115,7 +114,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
                     .build(), "arc");
         }
 
-        if (getConfig().getPokeDesignerConfig().isEnabled()) {
+        if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
                     .description(Text.of("Open the PokeDesigner GUI to design your Pokemon"))
                     .permission(CMD_PERM + "pokedesigner")
@@ -124,12 +123,12 @@ public class SpongeFusionPixelmon extends PluginInfo {
         }
 
         // Register event listeners through Sponge
-        if (!getConfig().getPickableShrines().isEmpty()) {
+        if (!getConfiguration().getPickableShrines().isEmpty()) {
             Sponge.getEventManager().registerListeners(this, new PokeShrinesListener());
         }
 
         // Register pixelmon events through Forge
-        if (getConfig().isAntiFallDamageEnabled()) {
+        if (getConfiguration().isAntiFallDamageEnabled()) {
             PixelmonEvents pixelmonEvents = new PixelmonEvents();
             MinecraftForge.EVENT_BUS.register(pixelmonEvents);
             EVENT_BUS.register(pixelmonEvents);
@@ -138,7 +137,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     @Listener
     public void init(GameInitializationEvent event) {
-        if (getConfig().isMasterballCraftingEnabled()) {
+        if (getConfiguration().isMasterballCraftingEnabled()) {
             // Add Master Ball crafting recipe back
             ItemStack dye = ItemStack.builder().itemType(ItemTypes.DYE).build();
             dye.offer(Keys.DYE_COLOR, DyeColors.PURPLE);
@@ -164,7 +163,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     public void onServerStart(GameStartedServerEvent event) {
         logger.info("Successfully running FusionPixelmon v" + VERSION + "!");
 
-        if (!Sponge.getServiceManager().isRegistered(EconomyService.class) && getConfig().getPokeDesignerConfig().useCurrency()) {
+        if (!Sponge.getServiceManager().isRegistered(EconomyService.class) && getConfiguration().getPokeDesignerConfig().useCurrency()) {
             logger.warn("No economy plugin detected, so using PokeDollars as currency instead");
         }
 
@@ -182,9 +181,5 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     public static SpongeFusionPixelmon getInstance() {
         return SpongeFusionPixelmon.instance;
-    }
-
-    public Config getConfig() {
-        return SpongeFusionPixelmon.instance.config;
     }
 }

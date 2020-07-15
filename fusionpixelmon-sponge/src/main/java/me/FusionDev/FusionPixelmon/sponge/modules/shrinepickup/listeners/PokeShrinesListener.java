@@ -39,7 +39,7 @@ public class PokeShrinesListener {
     /**
      * The blocks which can be obtained using this method.
      */
-    private static final List<String> BLOCKS = SpongeFusionPixelmon.getInstance().getConfig().getPickableShrines();
+    private static final List<String> BLOCKS = FusionPixelmon.getInstance().getConfiguration().getPickableShrines();
 
     /**
      * The block that the {@link #BLOCKS} will turn into upon valid interaction.

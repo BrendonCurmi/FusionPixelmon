@@ -14,8 +14,8 @@ import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
 import me.FusionDev.FusionPixelmon.sponge.api.economy.EconomyProvider;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
-import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;//todo hi
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
@@ -40,8 +40,8 @@ public class SpongeShops extends Shops {
 
     @Override
     public PokeDesignerConfig.ShopConfig getShopConfig(Shops.Options option) {
-        return SpongeFusionPixelmon.getInstance()
-                .getConfig()
+        return FusionPixelmon.getInstance()
+                .getConfiguration()
                 .getPokeDesignerConfig()
                 .getShopNamed(option.name().toLowerCase());
     }
@@ -54,7 +54,7 @@ public class SpongeShops extends Shops {
 
     @Override
     protected void initShops() {
-        PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfiguration().getPokeDesignerConfig();
         for (Shops.Options option : Shops.Options.values()) {
             if (config.existsShop(option.name().toLowerCase()) && config.getShopNamed(option.name().toLowerCase()).isEnabled()) {
                 try {
@@ -72,7 +72,7 @@ public class SpongeShops extends Shops {
         this.pages = new ArrayList<>();
         this.pokemon = pokemon;
 
-        PokeDesignerConfig config = SpongeFusionPixelmon.getInstance().getConfig().getPokeDesignerConfig();
+        PokeDesignerConfig config = FusionPixelmon.getInstance().getConfiguration().getPokeDesignerConfig();
         bank = (Sponge.getServiceManager().isRegistered(EconomyService.class) && config.useCurrency()) ? new EconomyProvider(config.getCurrency()) : new BankAPI(player);
 
         InvPage pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);

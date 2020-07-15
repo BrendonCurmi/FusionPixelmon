@@ -1,6 +1,7 @@
 package me.FusionDev.FusionPixelmon.sponge;
 
 import me.fusiondev.fusionpixelmon.IPluginInfo;
+import me.fusiondev.fusionpixelmon.config.Config;
 
 public class PluginInfo implements IPluginInfo {
     public static final String ID = "fusionpixelmon";
@@ -36,5 +37,17 @@ public class PluginInfo implements IPluginInfo {
     @Override
     public String getVersionsApiUrl() {
         return VERSIONS_ENDPOINT;
+    }
+
+    private Config config;
+
+    @Override
+    public Config getConfiguration() {
+        return config;
+    }
+
+    @Override
+    public void setConfiguration(Config config) {
+        this.config = config;
     }
 }

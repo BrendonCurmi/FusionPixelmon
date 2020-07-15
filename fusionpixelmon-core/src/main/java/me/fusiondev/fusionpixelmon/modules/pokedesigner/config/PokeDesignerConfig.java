@@ -1,4 +1,4 @@
-package me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.config;
+package me.fusiondev.fusionpixelmon.modules.pokedesigner.config;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
