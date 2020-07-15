@@ -4,7 +4,7 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
-import me.fusiondev.fusionpixelmon.api.ui.Event;
+import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.data.FileFactory;
 import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;

@@ -7,6 +7,7 @@ import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
+import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 
 import java.util.ArrayList;
 import java.util.List;

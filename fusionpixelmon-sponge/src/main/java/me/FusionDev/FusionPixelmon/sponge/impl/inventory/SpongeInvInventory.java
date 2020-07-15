@@ -5,7 +5,7 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.fusiondev.fusionpixelmon.api.ui.Event;
+import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 import me.FusionDev.FusionPixelmon.sponge.impl.SpongeInventory;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
@@ -24,6 +24,7 @@ import org.spongepowered.api.text.Text;
 import java.util.Optional;
 
 public class SpongeInvInventory extends InvInventory {
+
     @Override
     public void openPage(AbstractPlayer player, InvPage page) {
         final Inventory inventory = Inventory.builder()

@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.api.inventory;
 
-import me.fusiondev.fusionpixelmon.api.ui.EventHandler;
+import me.fusiondev.fusionpixelmon.api.ui.events.EventHandler;
 
 import java.util.HashMap;
 import java.util.Map;

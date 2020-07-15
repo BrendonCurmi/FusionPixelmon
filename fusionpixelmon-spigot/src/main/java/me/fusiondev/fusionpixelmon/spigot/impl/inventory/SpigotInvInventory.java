@@ -5,7 +5,7 @@ import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.fusiondev.fusionpixelmon.api.ui.Event;
+import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import me.fusiondev.fusionpixelmon.spigot.SpigotFusionPixelmon;
 import org.bukkit.Bukkit;
