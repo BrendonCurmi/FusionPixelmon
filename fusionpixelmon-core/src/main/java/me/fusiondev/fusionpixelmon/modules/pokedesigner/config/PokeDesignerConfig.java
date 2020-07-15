@@ -8,7 +8,6 @@ import info.pixelmon.repack.ninja.leaping.configurate.hocon.HoconConfigurationLo
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.Setting;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
-import me.fusiondev.fusionpixelmon.api.AbstractConfig;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @ConfigSerializable
-public class PokeDesignerConfig extends AbstractConfig {
+public class PokeDesignerConfig {
     @Setting("blacklisted-pokemon")
     public List<EnumSpecies> blacklistedPokemon = ImmutableList.of();
     @Setting("poke-selector-gui-title")
@@ -55,7 +54,7 @@ public class PokeDesignerConfig extends AbstractConfig {
     }
 
     @ConfigSerializable
-    public static class ShopConfig extends AbstractConfig {
+    public static class ShopConfig {
         @SuppressWarnings("UnstableApiUsage")
         public final static TypeToken<ShopConfig> TYPE = TypeToken.of(ShopConfig.class);
 
