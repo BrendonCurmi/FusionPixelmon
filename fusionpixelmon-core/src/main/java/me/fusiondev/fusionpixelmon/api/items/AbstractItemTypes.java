@@ -1,6 +1,7 @@
 package me.fusiondev.fusionpixelmon.api.items;
 
 public abstract class AbstractItemTypes {
+    public abstract AbstractItemType AIR();
     public abstract AbstractItemType BARRIER();
     public abstract AbstractItemType PAPER();
     public abstract AbstractItemType GLASS_PANE();
@@ -13,5 +14,4 @@ public abstract class AbstractItemTypes {
     public abstract AbstractItemType GOLD_BLOCK();
     public abstract AbstractItemType QUARTZ_BLOCK();
     public abstract AbstractItemType DYE();
-
 }

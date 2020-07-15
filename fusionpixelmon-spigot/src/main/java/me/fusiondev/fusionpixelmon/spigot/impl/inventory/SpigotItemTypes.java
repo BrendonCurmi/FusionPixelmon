@@ -11,6 +11,11 @@ public class SpigotItemTypes extends AbstractItemTypes {
     }
 
     @Override
+    public AbstractItemType AIR() {
+        return get(Material.AIR);
+    }
+
+    @Override
     public AbstractItemType BARRIER() {
         return get(Material.BARRIER);
     }

@@ -12,6 +12,11 @@ public class SpongeItemTypes extends AbstractItemTypes {
     }
 
     @Override
+    public AbstractItemType AIR() {
+        return get(ItemTypes.AIR);
+    }
+
+    @Override
     public AbstractItemType BARRIER() {
         return get(ItemTypes.BARRIER);
     }
