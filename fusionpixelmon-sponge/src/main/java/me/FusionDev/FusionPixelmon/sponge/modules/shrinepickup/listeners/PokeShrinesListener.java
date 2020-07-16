@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.shrinepickup.listeners;
+package me.fusiondev.fusionpixelmon.sponge.modules.shrinepickup.listeners;
 
 import com.flowpowered.math.vector.Vector3i;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;

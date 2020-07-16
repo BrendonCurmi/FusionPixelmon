@@ -1,6 +1,6 @@
-package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
+package me.fusiondev.fusionpixelmon.sponge.impl.inventory;
 
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import org.spongepowered.api.data.key.Keys;

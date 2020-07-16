@@ -1,8 +1,8 @@
-package me.FusionDev.FusionPixelmon.sponge;
+package me.fusiondev.fusionpixelmon.sponge;
 
-import me.FusionDev.FusionPixelmon.sponge.api.pixelmon.PixelmonUtils;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemTypes;
+import me.fusiondev.fusionpixelmon.sponge.api.pixelmon.PixelmonUtils;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeItemTypes;
 import me.fusiondev.fusionpixelmon.Registry;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;

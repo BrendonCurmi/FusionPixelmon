@@ -1,9 +1,9 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.commands;
+package me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands;
 
+import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.ui.SpongeShops;
+import me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.ui.SpongeShops;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import org.spongepowered.api.command.CommandResult;

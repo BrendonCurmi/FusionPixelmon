@@ -1,10 +1,10 @@
-package me.FusionDev.FusionPixelmon.sponge;
+package me.fusiondev.fusionpixelmon.sponge;
 
-import me.FusionDev.FusionPixelmon.sponge.impl.SpongeInventory;
-import me.FusionDev.FusionPixelmon.sponge.impl.SpongePlayer;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvEvent;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
+import me.fusiondev.fusionpixelmon.sponge.impl.SpongeInventory;
+import me.fusiondev.fusionpixelmon.sponge.impl.SpongePlayer;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvEvent;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeItemStack;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeItemType;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;

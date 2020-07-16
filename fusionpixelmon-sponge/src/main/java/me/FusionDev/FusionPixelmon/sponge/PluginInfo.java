@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.sponge;
+package me.fusiondev.fusionpixelmon.sponge;
 
 import me.fusiondev.fusionpixelmon.IPluginInfo;
 import me.fusiondev.fusionpixelmon.config.Config;

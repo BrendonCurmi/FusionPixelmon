@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.sponge.util;
+package me.fusiondev.fusionpixelmon.sponge.util;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.CauseStackManager;

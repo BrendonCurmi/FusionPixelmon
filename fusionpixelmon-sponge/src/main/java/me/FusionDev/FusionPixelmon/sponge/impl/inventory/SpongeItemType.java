@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
+package me.fusiondev.fusionpixelmon.sponge.impl.inventory;
 
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;

@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.sponge.impl;
+package me.fusiondev.fusionpixelmon.sponge.impl;
 
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;

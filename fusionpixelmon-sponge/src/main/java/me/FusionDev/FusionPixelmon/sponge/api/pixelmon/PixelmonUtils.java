@@ -1,8 +1,8 @@
-package me.FusionDev.FusionPixelmon.sponge.api.pixelmon;
+package me.fusiondev.fusionpixelmon.sponge.api.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.items.ItemPixelmonSprite;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import me.fusiondev.fusionpixelmon.api.pixelmon.AbstractPixelmonUtils;

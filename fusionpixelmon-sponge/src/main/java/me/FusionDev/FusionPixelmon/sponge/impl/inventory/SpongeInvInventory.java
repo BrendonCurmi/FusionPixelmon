@@ -1,13 +1,13 @@
-package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
+package me.fusiondev.fusionpixelmon.sponge.impl.inventory;
 
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.sponge.impl.SpongeInventory;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.ui.events.Event;
-import me.FusionDev.FusionPixelmon.sponge.impl.SpongeInventory;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;

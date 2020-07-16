@@ -1,9 +1,9 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.pokedesigner.ui;
+package me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.ui;
 
+import me.fusiondev.fusionpixelmon.sponge.api.economy.EconomyProvider;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
 import me.fusiondev.fusionpixelmon.api.economy.BankAPI;
-import me.FusionDev.FusionPixelmon.sponge.api.economy.EconomyProvider;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 import org.spongepowered.api.Sponge;

@@ -1,4 +1,4 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.antifall.listeners;
+package me.fusiondev.fusionpixelmon.sponge.modules.antifall.listeners;
 
 import com.pixelmonmod.pixelmon.api.events.BeatWildPixelmonEvent;
 import me.fusiondev.fusionpixelmon.impl.TimeUtil;

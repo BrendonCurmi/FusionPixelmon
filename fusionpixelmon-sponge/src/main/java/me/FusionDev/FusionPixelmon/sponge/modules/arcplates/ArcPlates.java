@@ -1,15 +1,15 @@
-package me.FusionDev.FusionPixelmon.sponge.modules.arcplates;
+package me.fusiondev.fusionpixelmon.sponge.modules.arcplates;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
-import me.fusiondev.fusionpixelmon.api.ui.events.Event;
-import me.FusionDev.FusionPixelmon.sponge.SpongeFusionPixelmon;
-import me.fusiondev.fusionpixelmon.api.data.FileFactory;
-import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
-import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.FusionDev.FusionPixelmon.data.ArcStorageData;
+import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.sponge.SpongeFusionPixelmon;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
+import me.fusiondev.fusionpixelmon.api.ui.events.Event;
+import me.fusiondev.fusionpixelmon.api.data.FileFactory;
 import me.fusiondev.fusionpixelmon.impl.Grammar;
 import me.fusiondev.fusionpixelmon.impl.TimeUtil;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
