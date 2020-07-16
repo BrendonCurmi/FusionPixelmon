@@ -1,5 +1,6 @@
 package me.FusionDev.FusionPixelmon.sponge.impl.inventory;
 
+import me.FusionDev.FusionPixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
@@ -78,7 +79,7 @@ public class SpongeInvInventory extends InvInventory {
                         InvPage invPage;
                         if ((invPage = getPlayerOpened(player)) != null) {
                             if (invPage.actions.containsKey(slot)) {
-                                invPage.actions.get(slot).action(event);
+                                invPage.actions.get(slot).action(SpongeAdapter.adapt(event));
                             }
                         }
                     } catch (IndexOutOfBoundsException ignored) {

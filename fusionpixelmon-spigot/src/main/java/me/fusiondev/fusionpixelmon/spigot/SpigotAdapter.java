@@ -5,11 +5,13 @@ import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotPlayer;
+import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvEvent;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInventory;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemStack;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotItemType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -74,5 +76,9 @@ public class SpigotAdapter {
             case BLACK:
                 return org.bukkit.DyeColor.BLACK;
         }
+    }
+
+    public static SpigotInvEvent adapt(InventoryClickEvent event) {
+        return new SpigotInvEvent(event);
     }
 }

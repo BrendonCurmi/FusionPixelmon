@@ -62,7 +62,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
 
                 if ((invPage.rows * 9) - 1 > slot) {
                     if (invPage.actions.containsKey(slot)) {
-                        invPage.actions.get(slot).action(event);
+                        invPage.actions.get(slot).action(SpigotAdapter.adapt(event));
                     }
                 }
             } catch (IndexOutOfBoundsException ignored) {

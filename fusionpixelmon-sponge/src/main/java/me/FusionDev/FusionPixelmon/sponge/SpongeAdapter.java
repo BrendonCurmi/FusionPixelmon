@@ -2,11 +2,13 @@ package me.FusionDev.FusionPixelmon.sponge;
 
 import me.FusionDev.FusionPixelmon.sponge.impl.SpongeInventory;
 import me.FusionDev.FusionPixelmon.sponge.impl.SpongePlayer;
+import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeInvEvent;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemStack;
 import me.FusionDev.FusionPixelmon.sponge.impl.inventory.SpongeItemType;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -72,5 +74,9 @@ public class SpongeAdapter {
             case BLACK:
                 return DyeColors.BLACK;
         }
+    }
+
+    public static SpongeInvEvent adapt(ClickInventoryEvent event) {
+        return new SpongeInvEvent(event);
     }
 }

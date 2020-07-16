@@ -70,9 +70,7 @@ public class LevelShop extends BaseShop {
             page.setItem(slots1, item1, event -> {
                 int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
                 int add = 1;
-                /*if (event instanceof ClickInventoryEvent.Shift) {
-                    add = 10;
-                }*/
+                if (event.isShift()) add = 10;
                 if (shops.pokemon.getLevel() + levels + add > 100) {
                     add = 100 - shops.pokemon.getLevel() - levels;
                     // 100 = lvl + lvls + add
@@ -102,9 +100,7 @@ public class LevelShop extends BaseShop {
             page.setItem(slots2, item2, event -> {
                 int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
                 int add = 1;
-                /*if (event instanceof ClickInventoryEvent.Shift) {
-                    add = 10;
-                }*/
+                if (event.isShift()) add = 10;
                 if (shops.pokemon.getLevel() + levels - add < 1) {
                     add = shops.pokemon.getLevel() + levels - 1;
                     // 1 = lvl + lvls - add

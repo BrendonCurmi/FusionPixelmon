@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.api.inventory;
 
+import me.fusiondev.fusionpixelmon.api.ui.events.AbstractInvEvent;
 import me.fusiondev.fusionpixelmon.api.ui.events.EventHandler;
 
 import java.util.HashMap;
@@ -83,6 +84,6 @@ public class InvPage {
     }
 
     public static interface InvAction {
-        void action(Object event);
+        void action(AbstractInvEvent event);
     }
 }

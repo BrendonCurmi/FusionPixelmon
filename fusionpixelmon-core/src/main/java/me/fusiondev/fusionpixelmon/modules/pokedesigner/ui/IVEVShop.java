@@ -118,7 +118,7 @@ public class IVEVShop extends BaseShop {
                 );
                 page.setItem((i * 9) + 2, items[i][1], event -> {
                     int delta = 1;
-                    //if (event instanceof ClickInventoryEvent.Shift) delta = 10;todo add shift function to event
+                    if (event.isShift()) delta = 10;
                     action[0].removeEV(type.statsType, delta);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -133,7 +133,7 @@ public class IVEVShop extends BaseShop {
                 );
                 page.setItem((i * 9) + 3, items[i][2], event -> {
                     int delta = 1;
-                    //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
+                    if (event.isShift()) delta = 10;
                     action[0].addEV(type.statsType, delta, totalEV);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -148,7 +148,7 @@ public class IVEVShop extends BaseShop {
                 );
                 page.setItem((i * 9) + 5, items[i][3], event -> {
                     int delta = 1;
-                    //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
+                    if (event.isShift()) delta = 10;
                     action[0].removeIV(type.statsType, delta);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
@@ -163,7 +163,7 @@ public class IVEVShop extends BaseShop {
                 );
                 page.setItem((i * 9) + 6, items[i][4], event -> {
                     int delta = 1;
-                    //if (event instanceof ClickInventoryEvent.Shift) delta = 10;
+                    if (event.isShift()) delta = 10;
                     action[0].addIV(type.statsType, delta);
                     shops.getSelectedOptions().put(getOption(), action[0]);
                     action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
