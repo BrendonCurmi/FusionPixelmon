@@ -62,6 +62,11 @@ public class SpigotItemStack extends AbstractItemStack {
         return this;
     }
 
+    @Override
+    public AbstractItemStack copy() {
+        return new SpigotItemStack(ITEMSTACK.clone());
+    }
+
     private void meta(Runnable runnable) {
         if (ITEMSTACK.getData().getItemType() == Material.AIR) return;
         ItemMeta meta = ITEMSTACK.getItemMeta();

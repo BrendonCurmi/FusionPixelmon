@@ -55,6 +55,11 @@ public class SpongeItemStack extends AbstractItemStack {
     }
 
     @Override
+    public AbstractItemStack copy() {
+        return new SpongeItemStack(ITEMSTACK.copy());
+    }
+
+    @Override
     public ItemStack getRaw() {
         //return ItemStack.builder().fromItemStack(itemStack).add(Keys.DISPLAY_NAME, Text.of(name)).build();
         return ITEMSTACK;
