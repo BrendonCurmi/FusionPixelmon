@@ -133,20 +133,20 @@ public abstract class BaseShop {
         return null;
     }
 
-    private static Registry reg = FusionPixelmon.getRegistry();
+    protected static final Registry REG = FusionPixelmon.getRegistry();
 
     /**
      * The default item to show when displaying what the player is purchasing.
      */
-    public static AbstractItemType DEFAULT_SELECTED_ITEM_TYPE = reg.getItemTypesRegistry().BARRIER();
+    public static AbstractItemType DEFAULT_SELECTED_ITEM_TYPE = REG.getItemTypesRegistry().BARRIER();
     /**
      * The item that represents an empty slot.
      */
-    public static InvItem EMPTY_ITEM = new InvItem(reg.getItemTypesRegistry().STAINED_GLASS_PANE().to().setColour(DyeColor.BLACK), "");
+    public static InvItem EMPTY_ITEM = new InvItem(REG.getItemTypesRegistry().STAINED_GLASS_PANE().to().setColour(DyeColor.BLACK), "");
 
-    public static AbstractItemStack backItemStack = reg.getPixelmonUtils().getPixelmonItemStack("eject_button");
-    public static AbstractItemStack resetItemStack = reg.getPixelmonUtils().getPixelmonItemStack("trash_can");
-    public static AbstractItemStack infoItemStack = reg.getItemTypesRegistry().PAPER().to();
+    public static AbstractItemStack backItemStack = REG.getPixelmonUtils().getPixelmonItemStack("eject_button");
+    public static AbstractItemStack resetItemStack = REG.getPixelmonUtils().getPixelmonItemStack("trash_can");
+    public static AbstractItemStack infoItemStack = REG.getItemTypesRegistry().PAPER().to();
 
 
     public class Builder {

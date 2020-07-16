@@ -7,8 +7,6 @@ import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
-import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
-import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
@@ -38,35 +36,24 @@ public class IVEVShop extends BaseShop {
         return Shops.Options.IVEV;
     }
 
-    private static InvItem subtractionItem;
-    private static InvItem additionItem;
-    private static AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
+    private static final InvItem SUBTRACTION_ITEM = new InvItem(REG.getItemTypesRegistry().STAINED_HARDENED_CLAY().to().setColour(DyeColor.RED), "");
+    private static final InvItem ADDITION_ITEM = new InvItem(REG.getItemTypesRegistry().STAINED_HARDENED_CLAY().to().setColour(DyeColor.GREEN), "");
 
-    static {
-        AbstractItemStack subtractionStack = reg.STAINED_HARDENED_CLAY().to();
-        subtractionStack.setColour(DyeColor.RED);
-//        subtractionStack.offer(Keys.DYE_COLOR, DyeColors.RED);
-        subtractionItem = new InvItem(subtractionStack, "");
-        AbstractItemStack additionStack = reg.STAINED_HARDENED_CLAY().to();
-        additionStack.setColour(DyeColor.GREEN);
-//        additionStack.offer(Keys.DYE_COLOR, DyeColors.GREEN);
-        additionItem = new InvItem(additionStack, "");
-    }
+    private static final int ROWS = 6;
 
     @Override
     public InvPage buildPage() {
-        final IVEVAction[] action = new IVEVAction[1];
-        action[0] = new IVEVAction();
+        final IVEVAction[] ACTION = new IVEVAction[1];
+        ACTION[0] = new IVEVAction();
 
-        final int ROWS = 6;
         Builder builder = new Builder("§0IV/EV Modification", "pokeeditor-ivef", ROWS)
                 .setInfoItemData("IV/EV Info",
                         "To modify the IVs/EVs for your Pokemon",
                         "simply use the options.")
                 .setSelectedSlot(-2)
                 .onReset(() -> {
-                    action[0].IV.clear();
-                    action[0].EV.clear();
+                    ACTION[0].IV.clear();
+                    ACTION[0].EV.clear();
                 })
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
@@ -94,10 +81,10 @@ public class IVEVShop extends BaseShop {
             items[i1][0] = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(type.itemID), "§3§l" + optName);
             page.setItem(i1 * 9, items[i1][0]);
 
-            items[i1][1] = subtractionItem.copy("§c§lRemove " + optName + " EVs");
-            items[i1][2] = additionItem.copy("§a§lAdd " + optName + " EVs");
-            items[i1][3] = subtractionItem.copy("§c§lRemove " + optName + " IVs");
-            items[i1][4] = additionItem.copy("§a§lAdd " + optName + " IVs");
+            items[i1][1] = SUBTRACTION_ITEM.copy("§c§lRemove " + optName + " EVs");
+            items[i1][2] = ADDITION_ITEM.copy("§a§lAdd " + optName + " EVs");
+            items[i1][3] = SUBTRACTION_ITEM.copy("§c§lRemove " + optName + " IVs");
+            items[i1][4] = ADDITION_ITEM.copy("§a§lAdd " + optName + " IVs");
             i1++;
         }
 
@@ -105,75 +92,74 @@ public class IVEVShop extends BaseShop {
         page.setRunnable(() -> {
             int i = 0;
 
-            int requestedIV = action[0].getRequestedIV();
-            int requestedEV = action[0].getRequestedEV();
+            int requestedIV = ACTION[0].getRequestedIV();
+            int requestedEV = ACTION[0].getRequestedEV();
 
             for (IVEVOption type : IVEVOption.values()) {
                 items[i][1].setLore(
                         lore(IPokemonWrapper.beautifyEV(EV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalEV, EVStore.MAX_TOTAL_EVS),
-                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + action[0].EV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + ACTION[0].EV.getOrDefault(type.statsType, 0)),
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         sub
                 );
                 page.setItem((i * 9) + 2, items[i][1], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    action[0].removeEV(type.statsType, delta);
-                    shops.getSelectedOptions().put(getOption(), action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
+                    ACTION[0].removeEV(type.statsType, delta);
+                    shops.getSelectedOptions().put(getOption(), ACTION[0]);
+                    ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
 
                 items[i][2].setLore(
                         lore(IPokemonWrapper.beautifyEV(EV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalEV, EVStore.MAX_TOTAL_EVS),
-                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + action[0].EV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + ACTION[0].EV.getOrDefault(type.statsType, 0)),
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         add
                 );
                 page.setItem((i * 9) + 3, items[i][2], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    action[0].addEV(type.statsType, delta, totalEV);
-                    shops.getSelectedOptions().put(getOption(), action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
+                    ACTION[0].addEV(type.statsType, delta, totalEV);
+                    shops.getSelectedOptions().put(getOption(), ACTION[0]);
+                    ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
 
                 items[i][3].setLore(
                         lore(IPokemonWrapper.beautifyIV(IV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalIV, IVStore.MAX_IVS * IV_CACHE.length),
-                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + action[0].IV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + ACTION[0].IV.getOrDefault(type.statsType, 0)),
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         sub
                 );
                 page.setItem((i * 9) + 5, items[i][3], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    action[0].removeIV(type.statsType, delta);
-                    shops.getSelectedOptions().put(getOption(), action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
+                    ACTION[0].removeIV(type.statsType, delta);
+                    shops.getSelectedOptions().put(getOption(), ACTION[0]);
+                    ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
 
                 items[i][4].setLore(
                         lore(IPokemonWrapper.beautifyIV(IV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalIV, IVStore.MAX_IVS * IV_CACHE.length),
-                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + action[0].IV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + ACTION[0].IV.getOrDefault(type.statsType, 0)),
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         add
                 );
                 page.setItem((i * 9) + 6, items[i][4], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    action[0].addIV(type.statsType, delta);
-                    shops.getSelectedOptions().put(getOption(), action[0]);
-                    action[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
+                    ACTION[0].addIV(type.statsType, delta);
+                    shops.getSelectedOptions().put(getOption(), ACTION[0]);
+                    ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
                 i++;
             }
         });
         return page;
     }
-
 
     private static String[] lore(String current, String currentTotal, String requested, String requestedTotal) {
         return new String[]{"Current: " + current, "Current Total: " + currentTotal, "", "Requested: " + requested, "Requested Total: " + requestedTotal};
@@ -245,8 +231,8 @@ public class IVEVShop extends BaseShop {
         Defence("power_belt", StatsType.Defence),
         Special_Attack("power_lens", StatsType.SpecialAttack),
         Special_Defence("power_band", StatsType.SpecialDefence),
-        Speed("power_anklet", StatsType.Speed),
-        ;
+        Speed("power_anklet", StatsType.Speed);
+
         String itemID;
         StatsType statsType;
 
