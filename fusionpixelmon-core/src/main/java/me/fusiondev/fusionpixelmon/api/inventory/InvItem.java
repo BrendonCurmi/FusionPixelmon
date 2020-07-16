@@ -192,7 +192,7 @@ public class InvItem {
      * @return the new copy instance with the new name.
      */
     public InvItem copy(String name) {
-        return new InvItem(itemStack, name, itemLore);
+        return new InvItem(itemStack.copy(), name, itemLore);
     }
 
     /**
