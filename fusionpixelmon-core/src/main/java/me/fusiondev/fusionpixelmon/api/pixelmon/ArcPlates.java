@@ -24,7 +24,7 @@ public class ArcPlates {
         INSECT(6, 17, EnumPlate.INSECT, DyeColor.LIME),
         IRON(7, 21, EnumPlate.IRON, DyeColor.WHITE),
         MEADOW(8, 23, EnumPlate.MEADOW, DyeColor.GREEN),
-        MIND(9, 25, EnumPlate.MIND, itemTypes.STAINED_GLASS_PANE()),
+        MIND(9, 25, EnumPlate.MIND, itemTypes.GLASS_PANE()),
         PIXIE(10, 29, EnumPlate.PIXIE, DyeColor.PURPLE),
         SKY(11, 31, EnumPlate.SKY, DyeColor.LIGHT_BLUE),
         SPLASH(12, 33, EnumPlate.SPLASH, DyeColor.BLUE),
