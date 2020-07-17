@@ -1,4 +1,4 @@
-package me.fusiondev.fusionpixelmon.api.data;
+package me.fusiondev.fusionpixelmon.api.files;
 
 import org.json.JSONObject;
 
