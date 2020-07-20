@@ -32,6 +32,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -172,6 +173,11 @@ public class SpongeFusionPixelmon extends PluginInfo {
         } catch (IOException ignored) {
             // If an exception occurs, just don't check for newer versions
         }
+
+        if (hasDeprecatedDataFiles()) {
+            LOGGER.warn("Old ArcStorageData files found! ");
+            LOGGER.warn("Join our discord (https://discord.gg/VFNTycm) to download the data migrator plugin so players can keep their Arceus plates");
+        }
     }
 
     @Listener
@@ -179,7 +185,17 @@ public class SpongeFusionPixelmon extends PluginInfo {
         LOGGER.info("Successfully stopped FusionPixelmon!");
     }
 
+    public Path getConfigDir() {
+        return configDir;
+    }
+
     public static SpongeFusionPixelmon getInstance() {
         return SpongeFusionPixelmon.instance;
+    }
+
+    private static boolean hasDeprecatedDataFiles() {
+        File[] files = SpongeFusionPixelmon.getInstance().getConfigDir().resolve("arcplates").toFile().listFiles();
+        for (File file : files) if (!file.getName().endsWith(".json")) return true;
+        return false;
     }
 }
