@@ -57,7 +57,7 @@ public class ArcPlates {
     public void launch(Player player, Pokemon pokemon) {
         if (pokemon.getSpecies() != EnumSpecies.Arceus) return;
 
-        ArcPlateData data = new ArcPlateData(SpongeFusionPixelmon.getInstance().getConfigDir().resolve("arcplates").toFile(), pokemon);
+        ArcPlateData data = new ArcPlateData(SpongeFusionPixelmon.getInstance().getConfigDir().resolve("arcplates").toFile(), pokemon.getUUID());
 
         InvPage page = new InvPage("§8Arc Plates", "arcplates", ROWS);
 
