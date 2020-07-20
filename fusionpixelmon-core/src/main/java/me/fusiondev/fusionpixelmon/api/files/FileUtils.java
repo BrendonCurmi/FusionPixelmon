@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class FileUtils implements IFileUtils{
+public class FileUtils implements IFileUtils {
 
     @Override
     public void write(String name, JSONObject json) {
