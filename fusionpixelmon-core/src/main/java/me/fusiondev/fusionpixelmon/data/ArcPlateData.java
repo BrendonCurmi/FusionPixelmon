@@ -1,12 +1,12 @@
 package me.fusiondev.fusionpixelmon.data;
 
-import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.fusiondev.fusionpixelmon.api.files.FileUtils;
 import me.fusiondev.fusionpixelmon.api.files.IFileUtils;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 public class ArcPlateData {
 
@@ -15,13 +15,8 @@ public class ArcPlateData {
     private final File FILE;
     private JSONObject data;
 
-    public ArcPlateData(String path, Pokemon pokemon) {
-        this.FILE = new File(path, pokemon.getUUID() + ".json");
-        get();
-    }
-
-    public ArcPlateData(File file, Pokemon pokemon) {
-        this.FILE = new File(file, pokemon.getUUID() + ".json");
+    public ArcPlateData(File file, UUID uuid) {
+        this.FILE = new File(file, uuid + ".json");
         get();
     }
 
@@ -41,6 +36,7 @@ public class ArcPlateData {
 
     /**
      * Builds the default structure of the data.
+     *
      * @return the data JSONObject.
      */
     private JSONObject build() {
@@ -65,6 +61,7 @@ public class ArcPlateData {
 
     /**
      * Checks if the plate in the specified index is saved in the data.
+     *
      * @param i the index of the plate.
      * @return true if the plate is saved; otherwise false.
      */
@@ -74,6 +71,7 @@ public class ArcPlateData {
 
     /**
      * Adds the plate at the specified index.
+     *
      * @param i the index of the plate.
      */
     public void add(int i) {
@@ -82,6 +80,7 @@ public class ArcPlateData {
 
     /**
      * Removes the plate at the specified index.
+     *
      * @param i the index of the plate.
      */
     public void remove(int i) {
