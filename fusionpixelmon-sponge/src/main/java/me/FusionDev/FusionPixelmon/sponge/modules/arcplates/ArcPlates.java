@@ -4,17 +4,16 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
-import me.FusionDev.FusionPixelmon.data.ArcStorageData;
-import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
-import me.fusiondev.fusionpixelmon.sponge.SpongeFusionPixelmon;
-import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
-import me.fusiondev.fusionpixelmon.api.ui.events.Event;
-import me.fusiondev.fusionpixelmon.api.data.FileFactory;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
-import me.fusiondev.fusionpixelmon.impl.TimeUtil;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates.Plate;
+import me.fusiondev.fusionpixelmon.api.ui.events.Event;
+import me.fusiondev.fusionpixelmon.data.ArcPlateData;
+import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
+import me.fusiondev.fusionpixelmon.sponge.SpongeFusionPixelmon;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import net.minecraft.util.ResourceLocation;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
@@ -30,25 +29,16 @@ import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * An interface which provides a method of storing and quick switching between
  * Arceus Plates to change Arceus' type and form.
- * The data is persisted by serialising to {@link #PATH [config]/arcplates}.
+ * The data is persisted by serialising to [config]/arcplates.
  * Supports multiple Players and multiple separate Arceus pokemon per player.
  */
 public class ArcPlates {
-
-    /**
-     * The config path to the serialised data files.
-     */
-    private static final Path PATH = SpongeFusionPixelmon.getInstance().configDir.resolve("arcplates");
 
     private static final int ROWS = 5;
     private static final int[] BACKGROUND_SLOTS = {0, 1, 9, 10, 19, 27, 28, 36, 37};
@@ -60,31 +50,19 @@ public class ArcPlates {
      * Launches the Arc Plates Storage interface for the specified
      * Player and Pokemon. Only an Arceus Pokemon should be passed
      * as this feature is irrelevant for other Pokemon.
-     * @param player the player.
+     *
+     * @param player  the player.
      * @param pokemon the Arceus pokemon.
      */
     public void launch(Player player, Pokemon pokemon) {
         if (pokemon.getSpecies() != EnumSpecies.Arceus) return;
 
-        File dataFile = new File(PATH.toFile(), player.getUniqueId() + " " + pokemon.getUUID().toString());
-        FileFactory factory = new FileFactory();
-        ArcStorageData data = dataFile.exists() ? (ArcStorageData) factory.deserialize(dataFile.getAbsolutePath()) : new ArcStorageData();
+        ArcPlateData data = new ArcPlateData(SpongeFusionPixelmon.getInstance().getConfigDir().resolve("arcplates").toFile(), pokemon);
 
         InvPage page = new InvPage("§8Arc Plates", "arcplates", ROWS);
 
         // Save data to file upon closing GUI
-        page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player1) -> {
-            if (!dataFile.exists()) {
-                try {
-                    boolean created = dataFile.getParentFile().mkdirs() && dataFile.createNewFile();
-                    if (!created && !dataFile.exists())
-                        throw new FileNotFoundException("File " + dataFile.getAbsolutePath() + " could not be found or created!");
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            factory.serialize(data, dataFile.getAbsolutePath());
-        });
+        page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player1) -> data.save());
 
         // Handle inventory action
         page.getEventHandler().add(Event.CLICK_INVENTORY, (event1, player1) -> {
@@ -153,8 +131,8 @@ public class ArcPlates {
                                         ItemType heldItemType = getType(Objects.requireNonNull(heldItemPlate.getRegistryName()));
                                         for (Plate p : Plate.values()) {
                                             if (getType(Objects.requireNonNull(p.plate.getItem().getRegistryName())) == heldItemType) {
-                                                if (data.get(p.i) == null) {
-                                                    data.set(p.i, ItemStack.builder().itemType(heldItemType).build());
+                                                if (!data.hasPlate(p.i)) {
+                                                    data.add(p.i);
                                                     break;
                                                 } else {
                                                     player.sendMessage(Text.of(TextColors.RED, "Cant unequip " + Grammar.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
@@ -165,7 +143,7 @@ public class ArcPlates {
                                     }
                                 }
                                 pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedItemPlate));
-                                data.set(getIDFromSlot(slot), null);
+                                data.remove(getIDFromSlot(slot));
                                 player.sendMessage(Text.of(TextColors.GREEN, "Plate equipped!"));
                             } else
                                 player.sendMessage(Text.of(TextColors.RED, "Cannot equip Plate because Pokemon is currently holding something!"));
@@ -179,7 +157,7 @@ public class ArcPlates {
                             PlayerInventory playerInv = (PlayerInventory) player.getInventory();
                             if (playerInv.getMainGrid().canFit(selected)) {
                                 player.getInventory().offer(selected);
-                                data.set(getIDFromSlot(slot), null);
+                                data.remove(getIDFromSlot(slot));
                             } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
                         }
                     }
@@ -189,11 +167,10 @@ public class ArcPlates {
 
         // GUI page runnable task
         page.setRunnable(() -> {
-            if (data == null) return;
             for (Plate plate : Plate.values()) {
                 ItemStack stack;
                 String name = "";
-                if (data.get(plate.i) == null) {
+                if (!data.hasPlate(plate.i)) {
                     stack = ItemStack.builder().itemType((ItemType) plate.type.getRaw()).build();
                     if (plate.colour != null) stack.offer(Keys.DYE_COLOR, SpongeAdapter.adapt(plate.colour));
                 } else {
@@ -239,11 +216,11 @@ public class ArcPlates {
      * the data; false if the item isn't a plate or if it's a
      * plate but already in the data.
      */
-    private boolean checkItem(ItemStack item, ArcStorageData data) {
+    private boolean checkItem(ItemStack item, ArcPlateData data) {
         for (Plate p : Plate.values()) {
             if (getType(Objects.requireNonNull(p.plate.getItem().getRegistryName())) == item.getType()) {
-                if (data.get(p.i) != null) return false;
-                data.set(p.i, item);
+                if (data.hasPlate(p.i)) return false;
+                data.add(p.i);
                 return true;
             }
         }
