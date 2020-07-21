@@ -2,6 +2,7 @@ package me.fusiondev.fusionpixelmon.sponge;
 
 import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
+import me.fusiondev.fusionpixelmon.modules.arcplates.ArcPlates;
 import me.fusiondev.fusionpixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
@@ -133,6 +134,8 @@ public class SpongeFusionPixelmon extends PluginInfo {
             PixelmonEvents pixelmonEvents = new PixelmonEvents();
             MinecraftForge.EVENT_BUS.register(pixelmonEvents);
             EVENT_BUS.register(pixelmonEvents);
+
+            MinecraftForge.EVENT_BUS.register(new ArcPlates());
         }
     }
 
