@@ -12,6 +12,13 @@
     <artifactId>fusionpixelmon-sponge</artifactId>
     <version>1.9</version>
 
+    <repositories>
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>io.github.brendoncurmi</groupId>
@@ -38,6 +45,14 @@
             <artifactId>spongeforge</artifactId>
             <version>1.12.2-2825-7.1.6-dev-shaded</version>
         </dependency>
+
+        <!-- For metric collection -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-sponge</artifactId>
+            <version>1.7</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,6 +71,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.json:json</include>
+                                    <include>org.bstats:bstats-sponge</include>
                                     <include>io.github.brendoncurmi:fusionpixelmon-core</include>
                                 </includes>
                             </artifactSet>

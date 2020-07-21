@@ -14,6 +14,7 @@ import me.fusiondev.fusionpixelmon.sponge.modules.shrinepickup.listeners.PokeShr
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.fusiondev.fusionpixelmon.config.Config;
 import net.minecraftforge.common.MinecraftForge;
+import org.bstats.sponge.Metrics2;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
@@ -29,7 +30,6 @@ import org.spongepowered.api.item.recipe.crafting.Ingredient;
 import org.spongepowered.api.item.recipe.crafting.ShapedCraftingRecipe;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.text.Text;
 
@@ -57,26 +57,23 @@ public class SpongeFusionPixelmon extends PluginInfo {
     // todo if change form and do something to affect form, wasted money
     // todo may need to update the lvl thing for nature as well
 
-    /**
-     * Contains a reference to this (soft) singleton class.
-     */
     private static SpongeFusionPixelmon instance;
 
     public Path configDir;
     private final Logger LOGGER;
+    private final Metrics2 METRICS;
 
     /**
      * Main class constructor that gets called by Sponge's classloader.
-     *
-     * @param pluginContainer the container passed by Sponge.
      */
     @Inject
-    public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, PluginContainer pluginContainer) {
+    public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, Metrics2.Factory metricsFactory) {
         SpongeFusionPixelmon.instance = this;
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpongeRegistry());
         this.configDir = configDir;
         this.LOGGER = logger;
+        this.METRICS = metricsFactory.make(BSTATS_ID);
     }
 
     @Listener
