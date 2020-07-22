@@ -9,6 +9,7 @@ import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
 import org.apache.commons.io.IOUtils;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +29,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpigotRegistry());
         System.out.println("STARTED");
+
+        Metrics metrics = new Metrics(this, BSTATS_ID);
 
         createConfigFile(new File(getDataFolder(), "default.conf"), true);
         File configFile = new File(getDataFolder(), ID + ".conf");
@@ -84,6 +87,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
     public static final String ID = "fusionpixelmon";
     public static final String NAME = "FusionPixelmon";
     public static final String VERSION = "1.9";
+
+    public static final int BSTATS_ID = 8277;
 
     public static final String CMD_PERM = ID + ".command.";
 

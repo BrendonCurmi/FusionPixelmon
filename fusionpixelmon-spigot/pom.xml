@@ -12,12 +12,16 @@
     <artifactId>fusionpixelmon-spigot</artifactId>
     <version>1.9</version>
 
-    <!--<repositories>
-        <repository>
+    <repositories>
+        <!--<repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>-->
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
-    </repositories>-->
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -46,6 +50,14 @@
             <version>1.12.2-bt</version>
         </dependency>
 
+        <!-- For metric collection -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.7</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -67,9 +79,16 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>me.fusiondev.fusionpixelmon.spigot</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <artifactSet>
                                 <includes>
                                     <include>org.json:json</include>
+                                    <include>org.bstats:bstats-bukkit</include>
                                     <include>io.github.brendoncurmi:fusionpixelmon-core</include>
                                 </includes>
                             </artifactSet>
