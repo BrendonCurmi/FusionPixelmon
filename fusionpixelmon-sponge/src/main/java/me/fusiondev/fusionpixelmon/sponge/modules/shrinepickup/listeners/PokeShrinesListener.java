@@ -57,7 +57,7 @@ public class PokeShrinesListener {
      * @return true if the item is an allowed pickaxe; false otherwise.
      */
     private boolean isAllowedPickaxe(ItemType itemType) {
-        for (ItemType pick : ALLOWED_PICKS) if (itemType == pick) return true;
+        for (ItemType pick : ALLOWED_PICKS) if (itemType.equals(pick)) return true;
         return false;
     }
 

@@ -124,7 +124,7 @@ public class ArcPlates {
                             if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
                                 if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
                                     ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
-                                    if (selectedItemPlate == heldItemPlate) {
+                                    if (selectedItemPlate.equals(heldItemPlate)) {
                                         player.sendMessage(Text.of(TextColors.RED, "That Plate is already equipped!"));
                                         return;
                                     } else {
