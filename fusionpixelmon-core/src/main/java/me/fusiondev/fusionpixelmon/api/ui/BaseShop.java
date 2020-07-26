@@ -236,7 +236,7 @@ public abstract class BaseShop {
             return this;
         }
 
-        boolean hasSelected = true;
+        private boolean hasSelected = true;
 
         public Builder setSelected(boolean hasSelected) {
             this.hasSelected = hasSelected;
