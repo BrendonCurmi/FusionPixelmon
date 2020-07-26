@@ -1,7 +1,6 @@
 package me.fusiondev.fusionpixelmon.spigot.api.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.items.ItemPixelmonSprite;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
@@ -9,7 +8,6 @@ import me.fusiondev.fusionpixelmon.api.pixelmon.AbstractPixelmonUtils;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * Toolkit class that provides helper methods for accessing the Pixelmon mod.
