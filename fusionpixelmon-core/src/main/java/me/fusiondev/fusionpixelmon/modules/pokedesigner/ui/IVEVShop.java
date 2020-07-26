@@ -78,7 +78,7 @@ public class IVEVShop extends BaseShop {
         for (IVEVOption type : IVEVOption.values()) {
             optName = GrammarUtils.underscoreToSpace(type.name());
 
-            items[i1][0] = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(type.itemID), "§3§l" + optName);
+            items[i1][0] = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(type.getItemID()), "§3§l" + optName);
             page.setItem(i1 * 9, items[i1][0]);
 
             items[i1][1] = SUBTRACTION_ITEM.copy("§c§lRemove " + optName + " EVs");
@@ -99,14 +99,14 @@ public class IVEVShop extends BaseShop {
                 items[i][1].setLore(
                         lore(IPokemonWrapper.beautifyEV(EV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalEV, EVStore.MAX_TOTAL_EVS),
-                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + ACTION[0].EV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + ACTION[0].EV.getOrDefault(type.getStatsType(), 0)),
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         sub
                 );
                 page.setItem((i * 9) + 2, items[i][1], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    ACTION[0].removeEV(type.statsType, delta);
+                    ACTION[0].removeEV(type.getStatsType(), delta);
                     shops.getSelectedOptions().put(getOption(), ACTION[0]);
                     ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
@@ -114,14 +114,14 @@ public class IVEVShop extends BaseShop {
                 items[i][2].setLore(
                         lore(IPokemonWrapper.beautifyEV(EV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalEV, EVStore.MAX_TOTAL_EVS),
-                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + ACTION[0].EV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyEV(EV_CACHE[i] + ACTION[0].EV.getOrDefault(type.getStatsType(), 0)),
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         add
                 );
                 page.setItem((i * 9) + 3, items[i][2], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    ACTION[0].addEV(type.statsType, delta, totalEV);
+                    ACTION[0].addEV(type.getStatsType(), delta, totalEV);
                     shops.getSelectedOptions().put(getOption(), ACTION[0]);
                     ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
@@ -129,14 +129,14 @@ public class IVEVShop extends BaseShop {
                 items[i][3].setLore(
                         lore(IPokemonWrapper.beautifyIV(IV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalIV, IVStore.MAX_IVS * IV_CACHE.length),
-                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + ACTION[0].IV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + ACTION[0].IV.getOrDefault(type.getStatsType(), 0)),
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         sub
                 );
                 page.setItem((i * 9) + 5, items[i][3], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    ACTION[0].removeIV(type.statsType, delta);
+                    ACTION[0].removeIV(type.getStatsType(), delta);
                     shops.getSelectedOptions().put(getOption(), ACTION[0]);
                     ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
@@ -144,14 +144,14 @@ public class IVEVShop extends BaseShop {
                 items[i][4].setLore(
                         lore(IPokemonWrapper.beautifyIV(IV_CACHE[i]),
                                 IPokemonWrapper.beautifyTally(totalIV, IVStore.MAX_IVS * IV_CACHE.length),
-                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + ACTION[0].IV.getOrDefault(type.statsType, 0)),
+                                IPokemonWrapper.beautifyIV(IV_CACHE[i] + ACTION[0].IV.getOrDefault(type.getStatsType(), 0)),
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         add
                 );
                 page.setItem((i * 9) + 6, items[i][4], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
-                    ACTION[0].addIV(type.statsType, delta);
+                    ACTION[0].addIV(type.getStatsType(), delta);
                     shops.getSelectedOptions().put(getOption(), ACTION[0]);
                     ACTION[0] = (IVEVAction) shops.getSelectedOptions().get(getOption());
                 });
@@ -233,12 +233,20 @@ public class IVEVShop extends BaseShop {
         Special_Defence("power_band", StatsType.SpecialDefence),
         Speed("power_anklet", StatsType.Speed);
 
-        String itemID;
-        StatsType statsType;
+        private String itemID;
+        private StatsType statsType;
 
         IVEVOption(String itemID, StatsType statsType) {
             this.itemID = itemID;
             this.statsType = statsType;
+        }
+
+        public String getItemID() {
+            return itemID;
+        }
+
+        public StatsType getStatsType() {
+            return statsType;
         }
     }
 
