@@ -70,17 +70,13 @@ public class SpongeInvInventory extends InvInventory {
                         int slot = -1;
 
                         Optional<SlotIndex> slotIndex = event.getTransactions().get(0).getSlot().getInventoryProperty(SlotIndex.class);
-                        if (slotIndex.isPresent()) {
-                            if (slotIndex.get().getValue() != null) {
-                                slot = slotIndex.get().getValue();
-                            }
+                        if (slotIndex.isPresent() && slotIndex.get().getValue() != null) {
+                            slot = slotIndex.get().getValue();
                         }
 
                         InvPage invPage;
-                        if ((invPage = getPlayerOpened(player)) != null) {
-                            if (invPage.actions.containsKey(slot)) {
-                                invPage.actions.get(slot).action(SpongeAdapter.adapt(event));
-                            }
+                        if ((invPage = getPlayerOpened(player)) != null && invPage.actions.containsKey(slot)) {
+                            invPage.actions.get(slot).action(SpongeAdapter.adapt(event));
                         }
                     } catch (IndexOutOfBoundsException ignored) {
                     }
