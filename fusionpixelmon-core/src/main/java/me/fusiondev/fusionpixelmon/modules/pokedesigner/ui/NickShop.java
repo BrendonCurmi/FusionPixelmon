@@ -10,7 +10,7 @@ import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 import me.fusiondev.fusionpixelmon.impl.colour.ColourWrapper;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 
@@ -46,7 +46,7 @@ public class NickShop extends BaseShop {
             AbstractItemStack itemStack = option.getItemType().to();
             if (option.getDyeColor() != null) itemStack.setColour(option.getDyeColor());
             //if (option.getDyeColor() != null) itemStack.offer(Keys.DYE_COLOR, option.getDyeColor());
-            InvItem item = new InvItem(itemStack, "§" + option.getCode() + Grammar.cap(option.name()));
+            InvItem item = new InvItem(itemStack, "§" + option.getCode() + GrammarUtils.cap(option.name()));
             page.setItem(slot, item, event -> {
                 IColourWrapper wrapper = (IColourWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new ColourWrapper());
                 if (option.getColour().isStyle()) wrapper.setStyle(option.getColour());

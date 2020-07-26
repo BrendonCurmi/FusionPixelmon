@@ -9,7 +9,7 @@ import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 
 public class NatureShop extends BaseShop {
     public NatureShop(Shops shops) {
@@ -37,11 +37,11 @@ public class NatureShop extends BaseShop {
             AbstractItemStack itemStack = reg.STAINED_HARDENED_CLAY().to();
             itemStack.setColour(option.dyeColor);
             //itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
-            InvItem item = new InvItem(itemStack, "§3§l" + Grammar.cap(option.name()));
+            InvItem item = new InvItem(itemStack, "§3§l" + GrammarUtils.cap(option.name()));
             item.setLore("  Boosted: §b" + option.boosted, "  Lowered: §c" + option.lowered);
             page.setItem(option.slot, item, event -> {
                 if (!shops.pokemon.getNature().name().equalsIgnoreCase(option.name()))
-                    shops.getSelectedOptions().put(getOption(), Grammar.cap(option.name()));
+                    shops.getSelectedOptions().put(getOption(), GrammarUtils.cap(option.name()));
                 else shops.getSelectedOptions().remove(getOption());
                 builder.setSelectedItem(item.getItemStack());
             });

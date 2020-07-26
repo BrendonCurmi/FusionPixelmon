@@ -5,7 +5,7 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.EnumSpecialTexture;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,7 +92,7 @@ public class PokemonWrapper implements IPokemonWrapper {
     @Override
     public String getTexture() {
         return "§7Texture: §e"
-                + Grammar.cap(pokemon.getSpecialTexture() != EnumSpecialTexture.None
+                + GrammarUtils.cap(pokemon.getSpecialTexture() != EnumSpecialTexture.None
                 ? pokemon.getSpecialTexture().name()
                 : pokemon.getCustomTexture());
     }

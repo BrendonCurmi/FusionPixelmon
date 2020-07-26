@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.impl;
 
-public class Grammar {
+public class GrammarUtils {
 
     /**
      * Capitalizes the first letter of the string, and replaces the

@@ -9,7 +9,7 @@ import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 
 public class GrowthShop extends BaseShop {
     public GrowthShop(Shops shops) {
@@ -38,7 +38,7 @@ public class GrowthShop extends BaseShop {
             itemStack.setColour(option.dyeColor);
             //ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
             //itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
-            InvItem item = new InvItem(itemStack, "§3§l" + Grammar.cap(option.name()));
+            InvItem item = new InvItem(itemStack, "§3§l" + GrammarUtils.cap(option.name()));
             page.setItem(option.slot, item, event -> {
                 if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), option.name());

@@ -2,7 +2,7 @@ package me.fusiondev.fusionpixelmon.impl.colour;
 
 import me.fusiondev.fusionpixelmon.api.colour.Colour;
 import me.fusiondev.fusionpixelmon.api.colour.IColourWrapper;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 
 public class ColourWrapper implements IColourWrapper {
 
@@ -47,6 +47,6 @@ public class ColourWrapper implements IColourWrapper {
             if (s.length() > 0) s.append(" & ");
             s.append(style.name());
         }
-        return Grammar.cap(s.toString());
+        return GrammarUtils.cap(s.toString());
     }
 }

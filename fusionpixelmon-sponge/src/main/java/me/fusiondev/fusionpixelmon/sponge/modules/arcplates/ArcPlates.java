@@ -9,7 +9,7 @@ import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates.Plate;
 import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 import me.fusiondev.fusionpixelmon.data.ArcPlateData;
-import me.fusiondev.fusionpixelmon.impl.Grammar;
+import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 import me.fusiondev.fusionpixelmon.impl.TimeUtil;
 import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.sponge.SpongeFusionPixelmon;
@@ -135,7 +135,7 @@ public class ArcPlates {
                                                     data.add(p.i);
                                                     break;
                                                 } else {
-                                                    player.sendMessage(Text.of(TextColors.RED, "Cant unequip " + Grammar.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
+                                                    player.sendMessage(Text.of(TextColors.RED, "Cant unequip " + GrammarUtils.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
                                                     return;
                                                 }
                                             }
@@ -176,7 +176,7 @@ public class ArcPlates {
                 } else {
                     ItemPlate plateItem = (ItemPlate) plate.plate.getItem();
                     stack = ItemStack.builder().itemType(getType(Objects.requireNonNull(plateItem.getRegistryName()))).build();
-                    name = "§a" + Grammar.cap(plate.name()) + " Plate";
+                    name = "§a" + GrammarUtils.cap(plate.name()) + " Plate";
                 }
                 page.setItem(plate.slot, new InvItem(SpongeAdapter.adapt(stack), name));
             }
