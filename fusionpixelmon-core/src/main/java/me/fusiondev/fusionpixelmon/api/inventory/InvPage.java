@@ -35,10 +35,10 @@ public class InvPage {
         this.rows = rows;
     }
 
-    public InvPage(String title, String id, String parent, int rows) {
+    /*public InvPage(String title, String id, String parent, int rows) {
         this(title, id);
         this.rows = rows;
-    }
+    }*/
 
     public void setRunnable(Runnable runnable) {
         this.runnable = runnable;
