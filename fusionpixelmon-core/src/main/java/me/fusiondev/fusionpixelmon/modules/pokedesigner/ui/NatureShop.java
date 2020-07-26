@@ -66,7 +66,7 @@ public class NatureShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String CHANGE = "change";
+        private static final String CHANGE = "change";
     }
 
     public enum NatureOptions {
