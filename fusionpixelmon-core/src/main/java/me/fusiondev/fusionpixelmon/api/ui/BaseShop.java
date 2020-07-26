@@ -179,7 +179,7 @@ public abstract class BaseShop {
             return this;
         }
 
-        Runnable runnable;
+        private Runnable runnable;
 
         public Builder onReset(Runnable runnable) {
             this.runnable = runnable;
@@ -243,7 +243,7 @@ public abstract class BaseShop {
             return this;
         }
 
-        boolean border;
+        private boolean border;
 
         public Builder border(boolean border) {
             this.border = border;
