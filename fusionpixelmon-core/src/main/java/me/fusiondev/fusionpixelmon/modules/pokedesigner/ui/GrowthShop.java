@@ -35,11 +35,11 @@ public class GrowthShop extends BaseShop {
 
         for (GrowthOptions option : GrowthOptions.values()) {
             AbstractItemStack itemStack = reg.getItemTypesRegistry().STAINED_HARDENED_CLAY().to();
-            itemStack.setColour(option.dyeColor);
+            itemStack.setColour(option.getDyeColor());
             //ItemStack itemStack = ItemStack.builder().itemType(ItemTypes.STAINED_HARDENED_CLAY).build();
             //itemStack.offer(Keys.DYE_COLOR, option.dyeColor);
             InvItem item = new InvItem(itemStack, "§3§l" + GrammarUtils.cap(option.name()));
-            page.setItem(option.slot, item, event -> {
+            page.setItem(option.getSlot(), item, event -> {
                 if (!shops.pokemon.getGrowth().name().equalsIgnoreCase(option.name()))
                     shops.getSelectedOptions().put(getOption(), option.name());
                 else shops.getSelectedOptions().remove(getOption());
@@ -88,12 +88,20 @@ public class GrowthShop extends BaseShop {
         Enormous(24, DyeColor.GRAY),
         Ginormous(33, DyeColor.BLACK);
 
-        int slot;
-        DyeColor dyeColor;
+        private int slot;
+        private DyeColor dyeColor;
 
         GrowthOptions(int slot, DyeColor dyeColor) {
             this.slot = slot;
             this.dyeColor = dyeColor;
+        }
+
+        public int getSlot() {
+            return slot;
+        }
+
+        public DyeColor getDyeColor() {
+            return dyeColor;
         }
     }
 }
