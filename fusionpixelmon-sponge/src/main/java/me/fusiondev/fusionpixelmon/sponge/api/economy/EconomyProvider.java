@@ -64,67 +64,55 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
 
     @Override
     public boolean canAfford(AbstractPlayer player, double amount) {
-        Optional<EconomyService> economyService = getService();
-        if (economyService.isPresent()) {
-            Optional<UniqueAccount> account = economyService.get().getOrCreateAccount(player.getUniqueId());
-            return account.isPresent() && balance(player).doubleValue() >= amount;
-        }
-        return false;
+        return getAccount(player).isPresent() && balance(player).doubleValue() >= amount;
     }
 
     @Override
     public boolean deposit(AbstractPlayer player, double amount, boolean message) {
-        Optional<EconomyService> economyService = getService();
-        if (economyService.isPresent()) {
-            EconomyService service = economyService.get();
-            Optional<UniqueAccount> account = service.getOrCreateAccount(player.getUniqueId());
-            if (!account.isPresent()) {
-                player.sendMessage(Text.of(TextColors.RED, "Cannot find an account for player '" + player.getName() + "'"));
-                return false;
-            }
-
-            BigDecimal cost = BigDecimal.valueOf(amount);
-            TransactionResult result = account.get().deposit(getCurrency(), cost, CauseStackUtil.createCause(player));
-            if (result.getResult() == ResultType.SUCCESS) {
-                if (message) {
-                    player.sendMessage(Text.of(TextColors.GREEN, "Successfully deposited " + getCurrencySymbol(amount) + " into your account"));
-                }
-                return true;
-            } else {
-                if (message) {
-                    player.sendMessage(Text.of(TextColors.RED, "Unable to deposit " + getCurrencySymbol(amount) + " into your account"));
-                }
-            }
+        Optional<UniqueAccount> account = getAccount(player);
+        if (!account.isPresent()) return false;
+        BigDecimal cost = BigDecimal.valueOf(amount);
+        TransactionResult result = account.get().deposit(getCurrency(), cost, CauseStackUtil.createCause(player));
+        if (result.getResult() == ResultType.SUCCESS) {
+            if (message)
+                player.sendMessage(Text.of(TextColors.GREEN, "Successfully deposited " + getCurrencySymbol(amount) + " into your account"));
+            return true;
+        } else {
+            if (message)
+                player.sendMessage(Text.of(TextColors.RED, "Unable to deposit " + getCurrencySymbol(amount) + " into your account"));
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean withdraw(AbstractPlayer player, double amount, boolean message) {
-        Optional<EconomyService> economyService = getService();
-        if (economyService.isPresent()) {
-            EconomyService service = economyService.get();
-            Optional<UniqueAccount> account = service.getOrCreateAccount(player.getUniqueId());
-            if (!account.isPresent()) {
-                player.sendMessage(Text.of(TextColors.RED, "Cannot find an account for player '" + player.getName() + "'"));
-                return false;
-            }
-
-            BigDecimal cost = BigDecimal.valueOf(amount);
-            TransactionResult result = account.get().withdraw(getCurrency(), cost, CauseStackUtil.createCause(player));
-            if (result.getResult() == ResultType.SUCCESS) {
-                if (message) {
-                    player.sendMessage(Text.of(TextColors.GREEN, "Successfully withdrew " + getCurrencySymbol(amount) + " from your account"));
-                }
-                return true;
-            } else if (result.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
-                if (message) {
-                    player.sendMessage(Text.of(TextColors.RED, "You do not have enough " + getCurrency().getPluralDisplayName() + " to perform this transaction"));
-                }
-            } else {
-                player.sendMessage(Text.of(TextColors.RED, "Unable to withdraw " + getCurrencySymbol(amount) + " from your account"));
-            }
+        Optional<UniqueAccount> account = getAccount(player);
+        if (!account.isPresent()) return false;
+        BigDecimal cost = BigDecimal.valueOf(amount);
+        TransactionResult result = account.get().withdraw(getCurrency(), cost, CauseStackUtil.createCause(player));
+        if (result.getResult() == ResultType.SUCCESS) {
+            if (message)
+                player.sendMessage(Text.of(TextColors.GREEN, "Successfully withdrew " + getCurrencySymbol(amount) + " from your account"));
+            return true;
+        } else if (result.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
+            if (message)
+                player.sendMessage(Text.of(TextColors.RED, "You do not have enough " + getCurrency().getPluralDisplayName() + " to perform this transaction"));
+            return false;
+        } else {
+            player.sendMessage(Text.of(TextColors.RED, "Unable to withdraw " + getCurrencySymbol(amount) + " from your account"));
+            return false;
         }
-        return false;
+    }
+
+    private Optional<UniqueAccount> getAccount(AbstractPlayer player) {
+        Optional<EconomyService> economyService = getService();
+        if (!economyService.isPresent()) return Optional.empty();
+        EconomyService service = economyService.get();
+        Optional<UniqueAccount> account = service.getOrCreateAccount(player.getUniqueId());
+        if (!account.isPresent()) {
+            player.sendMessage(Text.of(TextColors.RED, "Cannot find an account for player '" + player.getName() + "'"));
+            return Optional.empty();
+        }
+        return account;
     }
 }
