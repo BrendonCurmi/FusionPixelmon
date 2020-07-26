@@ -77,7 +77,7 @@ public class InvPage {
         return eventHandler;
     }
 
-    boolean isCancellable = true;
+    private boolean isCancellable = true;
 
     public void setCancellable(boolean cancellable) {
         isCancellable = cancellable;
