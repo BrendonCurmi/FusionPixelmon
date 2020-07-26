@@ -251,8 +251,8 @@ public class IVEVShop extends BaseShop {
     }
 
     public class IVEVAction {
-        HashMap<StatsType, Integer> IV = new HashMap<>();
-        HashMap<StatsType, Integer> EV = new HashMap<>();
+        private HashMap<StatsType, Integer> IV = new HashMap<>();
+        private HashMap<StatsType, Integer> EV = new HashMap<>();
 
         public int getRequestedIV() {
             int total = 0;
