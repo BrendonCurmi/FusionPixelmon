@@ -2,8 +2,8 @@ package me.fusiondev.fusionpixelmon.sponge;
 
 import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import me.fusiondev.fusionpixelmon.modules.arcplates.ArcPlates;
 import me.fusiondev.fusionpixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
+import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.SpongeArcPlates;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
@@ -61,7 +61,6 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     public Path configDir;
     private final Logger LOGGER;
-    private final Metrics2 METRICS;
 
     /**
      * Main class constructor that gets called by Sponge's classloader.
@@ -73,7 +72,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
         FusionPixelmon.setRegistry(new SpongeRegistry());
         this.configDir = configDir;
         this.LOGGER = logger;
-        this.METRICS = metricsFactory.make(BSTATS_ID);
+        metricsFactory.make(BSTATS_ID);
     }
 
     @Listener
@@ -131,8 +130,6 @@ public class SpongeFusionPixelmon extends PluginInfo {
             PixelmonEvents pixelmonEvents = new PixelmonEvents();
             MinecraftForge.EVENT_BUS.register(pixelmonEvents);
             EVENT_BUS.register(pixelmonEvents);
-
-            MinecraftForge.EVENT_BUS.register(new ArcPlates());
         }
     }
 
