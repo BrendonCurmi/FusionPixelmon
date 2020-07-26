@@ -83,8 +83,8 @@ public class NickShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String CHANGE_COLOUR = "change-colour";
-        static final String CHANGE_STYLE = "change-style";
+        private static final String CHANGE_COLOUR = "change-colour";
+        private static final String CHANGE_STYLE = "change-style";
     }
 
     private static AbstractItemTypes reg = REG.getItemTypesRegistry();

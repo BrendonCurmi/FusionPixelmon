@@ -69,7 +69,7 @@ public class ShinyShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String ADD = "add";
-        static final String REMOVE = "remove";
+        private static final String ADD = "add";
+        private static final String REMOVE = "remove";
     }
 }

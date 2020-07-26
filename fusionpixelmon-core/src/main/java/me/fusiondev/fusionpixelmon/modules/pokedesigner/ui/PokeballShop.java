@@ -81,9 +81,9 @@ public class PokeballShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String REGULAR = "regular";
-        static final String SPECIAL = "special";
-        static final String GOD = "god";
-        static final String BEAST = "beast";
+        private static final String REGULAR = "regular";
+        private static final String SPECIAL = "special";
+        private static final String GOD = "god";
+        private static final String BEAST = "beast";
     }
 }

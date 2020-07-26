@@ -220,9 +220,9 @@ public class IVEVShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String ADD_IV = "add-iv";
-        static final String REMOVE_IV = "remove-iv";
-        static final String CHANGE_EV = "change-ev";
+        private static final String ADD_IV = "add-iv";
+        private static final String REMOVE_IV = "remove-iv";
+        private static final String CHANGE_EV = "change-ev";
     }
 
     enum IVEVOption {

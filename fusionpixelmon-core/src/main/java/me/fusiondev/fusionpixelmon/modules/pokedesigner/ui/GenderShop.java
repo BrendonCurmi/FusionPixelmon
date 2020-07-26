@@ -87,6 +87,6 @@ public class GenderShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String CHANGE = "change";
+        private static final String CHANGE = "change";
     }
 }

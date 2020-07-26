@@ -140,7 +140,7 @@ public class LevelShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String ADD_LEVEL = "add-per-level";
-        static final String REMOVE_LEVEL = "remove-per-level";
+        private static final String ADD_LEVEL = "add-per-level";
+        private static final String REMOVE_LEVEL = "remove-per-level";
     }
 }

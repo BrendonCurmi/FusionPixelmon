@@ -71,8 +71,8 @@ public class GrowthShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String REGULAR = "regular";
-        static final String SPECIAL = "special";
+        private static final String REGULAR = "regular";
+        private static final String SPECIAL = "special";
     }
 
     public enum GrowthOptions {

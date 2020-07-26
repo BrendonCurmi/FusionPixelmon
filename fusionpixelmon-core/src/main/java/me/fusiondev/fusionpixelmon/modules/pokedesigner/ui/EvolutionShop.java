@@ -74,7 +74,7 @@ public class EvolutionShop extends BaseShop {
     }
 
     private static class ConfigKeys {
-        static final String CHANGE = "change";
+        private static final String CHANGE = "change";
     }
 
     private List<PokemonSpec> getEvolutionsList(Pokemon pokemon) {
