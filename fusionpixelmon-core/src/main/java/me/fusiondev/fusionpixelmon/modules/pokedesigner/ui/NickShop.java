@@ -1,6 +1,5 @@
 package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
-import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.colour.Colour;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.colour.IColourWrapper;
@@ -41,7 +40,6 @@ public class NickShop extends BaseShop {
                 .border(true)
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
-        AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
 
         int slot = 9;
         for (ColourOptions option : ColourOptions.values()) {
@@ -89,7 +87,7 @@ public class NickShop extends BaseShop {
         static final String CHANGE_STYLE = "change-style";
     }
 
-    private static AbstractItemTypes reg = FusionPixelmon.getRegistry().getItemTypesRegistry();
+    private static AbstractItemTypes reg = REG.getItemTypesRegistry();
 
     public enum ColourOptions {
         DARK_RED(Colour.DARK_RED, reg.CONCRETE(), DyeColor.RED),
