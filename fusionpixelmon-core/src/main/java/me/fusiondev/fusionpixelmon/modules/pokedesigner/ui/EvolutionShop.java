@@ -106,7 +106,7 @@ public class EvolutionShop extends BaseShop {
     private static class PokemonSpecWrapper {
         private PokemonSpec pokemonSpec;
 
-        void setPokemonSpec(PokemonSpec pokemonSpec) {
+        private void setPokemonSpec(PokemonSpec pokemonSpec) {
             this.pokemonSpec = pokemonSpec;
         }
 
