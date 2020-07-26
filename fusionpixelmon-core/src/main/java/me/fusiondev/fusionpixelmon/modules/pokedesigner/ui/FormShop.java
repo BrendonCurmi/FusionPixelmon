@@ -64,12 +64,12 @@ public class FormShop extends BaseShop {
 
     @Override
     public int prices(Object value) {
-        return getPriceOf(ConfigKeys.CHANGE, 4000);
+        return getPriceOf(ConfigKeyConstants.CHANGE, 4000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Form Change", getPriceOf(ConfigKeys.CHANGE, 4000));
+        addPriceSummary("Form Change", getPriceOf(ConfigKeyConstants.CHANGE, 4000));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class FormShop extends BaseShop {
         shops.pokemon.setForm((IEnumForm) value);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String CHANGE = "change";
     }
 }

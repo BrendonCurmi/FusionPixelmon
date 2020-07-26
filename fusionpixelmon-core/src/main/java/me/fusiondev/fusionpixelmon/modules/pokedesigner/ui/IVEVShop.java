@@ -170,21 +170,21 @@ public class IVEVShop extends BaseShop {
         IVEVAction action = ((IVEVAction) value);
         int totalCost = 0;
         for (int i : action.IV.values()) {
-            if (i > 0) totalCost += i * getPriceOf(ConfigKeys.ADD_IV, 600);
-            else if (i < 0) totalCost += -i * getPriceOf(ConfigKeys.REMOVE_IV, 5);
+            if (i > 0) totalCost += i * getPriceOf(ConfigKeyConstants.ADD_IV, 600);
+            else if (i < 0) totalCost += -i * getPriceOf(ConfigKeyConstants.REMOVE_IV, 5);
         }
 
         for (int i : action.EV.values()) {
-            totalCost += Math.abs(i) * getPriceOf(ConfigKeys.CHANGE_EV, 5);
+            totalCost += Math.abs(i) * getPriceOf(ConfigKeyConstants.CHANGE_EV, 5);
         }
         return totalCost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Add IV", getPriceOf(ConfigKeys.ADD_IV, 600) + " per IV");
-        addPriceSummary("Remove IV", getPriceOf(ConfigKeys.REMOVE_IV, 5) + " per IV");
-        String changeEV = getPriceOf(ConfigKeys.CHANGE_EV, 5) + " per EV";
+        addPriceSummary("Add IV", getPriceOf(ConfigKeyConstants.ADD_IV, 600) + " per IV");
+        addPriceSummary("Remove IV", getPriceOf(ConfigKeyConstants.REMOVE_IV, 5) + " per IV");
+        String changeEV = getPriceOf(ConfigKeyConstants.CHANGE_EV, 5) + " per EV";
         addPriceSummary("Add EV", changeEV);
         addPriceSummary("Remove EV", changeEV);
     }
@@ -219,7 +219,7 @@ public class IVEVShop extends BaseShop {
         shops.pokemon.setLevel(level);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String ADD_IV = "add-iv";
         private static final String REMOVE_IV = "remove-iv";
         private static final String CHANGE_EV = "change-ev";

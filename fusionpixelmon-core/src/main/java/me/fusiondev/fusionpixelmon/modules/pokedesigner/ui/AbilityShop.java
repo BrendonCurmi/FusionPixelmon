@@ -68,13 +68,13 @@ public class AbilityShop extends BaseShop {
 
     @Override
     public int prices(Object value) {
-        return (abilitySlot == 2) ? getPriceOf(ConfigKeys.SPECIAL, 8000) : getPriceOf(ConfigKeys.REGULAR, 750);
+        return (abilitySlot == 2) ? getPriceOf(ConfigKeyConstants.SPECIAL, 8000) : getPriceOf(ConfigKeyConstants.REGULAR, 750);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Regular Ability", getPriceOf(ConfigKeys.REGULAR, 750));
-        addPriceSummary("Special Ability", getPriceOf(ConfigKeys.SPECIAL, 8000));
+        addPriceSummary("Regular Ability", getPriceOf(ConfigKeyConstants.REGULAR, 750));
+        addPriceSummary("Special Ability", getPriceOf(ConfigKeyConstants.SPECIAL, 8000));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class AbilityShop extends BaseShop {
         shops.pokemon.setAbility(value.toString());
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String REGULAR = "regular";
         private static final String SPECIAL = "special";
     }

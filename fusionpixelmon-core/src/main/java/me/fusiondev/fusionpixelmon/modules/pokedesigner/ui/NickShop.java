@@ -63,15 +63,15 @@ public class NickShop extends BaseShop {
     public int prices(Object value) {
         IColourWrapper wrapper = (IColourWrapper) value;
         int cost = 0;
-        if (wrapper.hasColour()) cost += getPriceOf(ConfigKeys.CHANGE_COLOUR, 10000);
-        if (wrapper.hasStyle()) cost += getPriceOf(ConfigKeys.CHANGE_STYLE, 20000);
+        if (wrapper.hasColour()) cost += getPriceOf(ConfigKeyConstants.CHANGE_COLOUR, 10000);
+        if (wrapper.hasStyle()) cost += getPriceOf(ConfigKeyConstants.CHANGE_STYLE, 20000);
         return cost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Change Colour", getPriceOf(ConfigKeys.CHANGE_COLOUR, 10000));
-        addPriceSummary("Change Style", getPriceOf(ConfigKeys.CHANGE_STYLE, 20000));
+        addPriceSummary("Change Colour", getPriceOf(ConfigKeyConstants.CHANGE_COLOUR, 10000));
+        addPriceSummary("Change Style", getPriceOf(ConfigKeyConstants.CHANGE_STYLE, 20000));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class NickShop extends BaseShop {
         shops.pokemon.setNickname(((IColourWrapper) value).getFullCode() + name);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String CHANGE_COLOUR = "change-colour";
         private static final String CHANGE_STYLE = "change-style";
     }

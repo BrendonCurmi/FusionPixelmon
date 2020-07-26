@@ -52,17 +52,17 @@ public class GrowthShop extends BaseShop {
     @Override
     public int prices(Object value) {
         String growth = (String) value;
-        int cost = getPriceOf(ConfigKeys.REGULAR, 600);
+        int cost = getPriceOf(ConfigKeyConstants.REGULAR, 600);
         if (growth.equals(EnumGrowth.Microscopic.name()) || growth.equals(EnumGrowth.Ginormous.name()))
-            cost = getPriceOf(ConfigKeys.SPECIAL, 2000);
+            cost = getPriceOf(ConfigKeyConstants.SPECIAL, 2000);
         return cost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Most Growths", getPriceOf(ConfigKeys.REGULAR, 600));
-        addPriceSummary(EnumGrowth.Microscopic.name(), getPriceOf(ConfigKeys.SPECIAL, 2000));
-        addPriceSummary(EnumGrowth.Ginormous.name(), getPriceOf(ConfigKeys.SPECIAL, 2000));
+        addPriceSummary("Most Growths", getPriceOf(ConfigKeyConstants.REGULAR, 600));
+        addPriceSummary(EnumGrowth.Microscopic.name(), getPriceOf(ConfigKeyConstants.SPECIAL, 2000));
+        addPriceSummary(EnumGrowth.Ginormous.name(), getPriceOf(ConfigKeyConstants.SPECIAL, 2000));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class GrowthShop extends BaseShop {
         shops.pokemon.setGrowth(EnumGrowth.growthFromString(value.toString()));
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String REGULAR = "regular";
         private static final String SPECIAL = "special";
     }

@@ -59,12 +59,12 @@ public class EvolutionShop extends BaseShop {
 
     @Override
     public int prices(Object value) {
-        return getPriceOf(ConfigKeys.CHANGE, 10000);
+        return getPriceOf(ConfigKeyConstants.CHANGE, 10000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Change Evolution", getPriceOf(ConfigKeys.CHANGE, 10000));
+        addPriceSummary("Change Evolution", getPriceOf(ConfigKeyConstants.CHANGE, 10000));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class EvolutionShop extends BaseShop {
         TimeUtil.setTimeout(() -> shops.pokemon.evolve(evolve.pokemonSpec), 1000);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String CHANGE = "change";
     }
 

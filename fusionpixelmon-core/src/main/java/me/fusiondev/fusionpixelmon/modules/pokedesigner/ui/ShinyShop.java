@@ -47,14 +47,14 @@ public class ShinyShop extends BaseShop {
 
     @Override
     public int prices(Object value) {
-        return ((boolean) value) ? getPriceOf(ConfigKeys.ADD, 4000) : getPriceOf(ConfigKeys.REMOVE, 125);
+        return ((boolean) value) ? getPriceOf(ConfigKeyConstants.ADD, 4000) : getPriceOf(ConfigKeyConstants.REMOVE, 125);
 
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Add Shininess", getPriceOf(ConfigKeys.ADD, 4000));
-        addPriceSummary("Remove Shininess", getPriceOf(ConfigKeys.REMOVE, 125));
+        addPriceSummary("Add Shininess", getPriceOf(ConfigKeyConstants.ADD, 4000));
+        addPriceSummary("Remove Shininess", getPriceOf(ConfigKeyConstants.REMOVE, 125));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ShinyShop extends BaseShop {
         }
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String ADD = "add";
         private static final String REMOVE = "remove";
     }

@@ -52,12 +52,12 @@ public class NatureShop extends BaseShop {
 
     @Override
     public int prices(Object value) {
-        return getPriceOf(ConfigKeys.CHANGE, 3000);
+        return getPriceOf(ConfigKeyConstants.CHANGE, 3000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Nature Change", getPriceOf(ConfigKeys.CHANGE, 3000));
+        addPriceSummary("Nature Change", getPriceOf(ConfigKeyConstants.CHANGE, 3000));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class NatureShop extends BaseShop {
         shops.pokemon.setNature(EnumNature.natureFromString(value.toString()));
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String CHANGE = "change";
     }
 

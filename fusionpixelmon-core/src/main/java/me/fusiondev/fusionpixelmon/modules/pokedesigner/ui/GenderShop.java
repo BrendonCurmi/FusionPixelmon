@@ -72,12 +72,12 @@ public class GenderShop extends BaseShop {
 
     @Override
     public int prices(Object value) {
-        return getPriceOf(ConfigKeys.CHANGE, 1000);
+        return getPriceOf(ConfigKeyConstants.CHANGE, 1000);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Gender Change", getPriceOf(ConfigKeys.CHANGE, 1000));
+        addPriceSummary("Gender Change", getPriceOf(ConfigKeyConstants.CHANGE, 1000));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class GenderShop extends BaseShop {
         else if (value.toString().contains("Male")) shops.pokemon.setGender(Gender.Male);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String CHANGE = "change";
     }
 }

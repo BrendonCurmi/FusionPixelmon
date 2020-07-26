@@ -54,25 +54,25 @@ public class PokeballShop extends BaseShop {
     @Override
     public int prices(Object value) {
         EnumPokeballs ball = (EnumPokeballs) value;
-        int cost = getPriceOf(ConfigKeys.REGULAR, 300);
+        int cost = getPriceOf(ConfigKeyConstants.REGULAR, 300);
         if (ball == EnumPokeballs.PremierBall || ball == EnumPokeballs.GSBall)
-            cost = getPriceOf(ConfigKeys.SPECIAL, 400);
+            cost = getPriceOf(ConfigKeyConstants.SPECIAL, 400);
         else if (ball == EnumPokeballs.MasterBall || ball == EnumPokeballs.ParkBall)
-            cost = getPriceOf(ConfigKeys.GOD, 600);
+            cost = getPriceOf(ConfigKeyConstants.GOD, 600);
         else if (ball == EnumPokeballs.BeastBall)
-            cost = getPriceOf(ConfigKeys.BEAST, 800);
+            cost = getPriceOf(ConfigKeyConstants.BEAST, 800);
         return cost;
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Most Pokeballs", getPriceOf(ConfigKeys.REGULAR, 300));
-        addPriceSummary(EnumPokeballs.PremierBall.name(), getPriceOf(ConfigKeys.SPECIAL, 400));
-        addPriceSummary(EnumPokeballs.GSBall.name(), getPriceOf(ConfigKeys.SPECIAL, 400));
-        addPriceSummary(EnumPokeballs.MasterBall.name(), getPriceOf(ConfigKeys.GOD, 600));
-        addPriceSummary(EnumPokeballs.ParkBall.name(), getPriceOf(ConfigKeys.GOD, 600));
+        addPriceSummary("Most Pokeballs", getPriceOf(ConfigKeyConstants.REGULAR, 300));
+        addPriceSummary(EnumPokeballs.PremierBall.name(), getPriceOf(ConfigKeyConstants.SPECIAL, 400));
+        addPriceSummary(EnumPokeballs.GSBall.name(), getPriceOf(ConfigKeyConstants.SPECIAL, 400));
+        addPriceSummary(EnumPokeballs.MasterBall.name(), getPriceOf(ConfigKeyConstants.GOD, 600));
+        addPriceSummary(EnumPokeballs.ParkBall.name(), getPriceOf(ConfigKeyConstants.GOD, 600));
         if (IPokemonWrapper.isUltraBeast(shops.pokemon))
-            addPriceSummary(EnumPokeballs.BeastBall.name(), getPriceOf(ConfigKeys.BEAST, 800));
+            addPriceSummary(EnumPokeballs.BeastBall.name(), getPriceOf(ConfigKeyConstants.BEAST, 800));
     }
 
     @Override
@@ -80,7 +80,7 @@ public class PokeballShop extends BaseShop {
         shops.pokemon.setCaughtBall((EnumPokeballs) value);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String REGULAR = "regular";
         private static final String SPECIAL = "special";
         private static final String GOD = "god";

@@ -119,13 +119,13 @@ public class LevelShop extends BaseShop {
     @Override
     public int prices(Object value) {
         int levels = (int) value;
-        return (levels > 0) ? levels * getPriceOf(ConfigKeys.ADD_LEVEL, 100) : Math.abs(levels) * getPriceOf(ConfigKeys.REMOVE_LEVEL, 10);
+        return (levels > 0) ? levels * getPriceOf(ConfigKeyConstants.ADD_LEVEL, 100) : Math.abs(levels) * getPriceOf(ConfigKeyConstants.REMOVE_LEVEL, 10);
     }
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Add Level", getPriceOf(ConfigKeys.ADD_LEVEL, 100) + " per level");
-        addPriceSummary("Remove Level", getPriceOf(ConfigKeys.REMOVE_LEVEL, 10) + " per level");
+        addPriceSummary("Add Level", getPriceOf(ConfigKeyConstants.ADD_LEVEL, 100) + " per level");
+        addPriceSummary("Remove Level", getPriceOf(ConfigKeyConstants.REMOVE_LEVEL, 10) + " per level");
     }
 
     @Override
@@ -139,7 +139,7 @@ public class LevelShop extends BaseShop {
         } else shops.pokemon.setLevel(shops.pokemon.getLevel() + levels);
     }
 
-    private static class ConfigKeys {
+    private static class ConfigKeyConstants {
         private static final String ADD_LEVEL = "add-per-level";
         private static final String REMOVE_LEVEL = "remove-per-level";
     }
