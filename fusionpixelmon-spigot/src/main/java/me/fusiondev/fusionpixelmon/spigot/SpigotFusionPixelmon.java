@@ -30,7 +30,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         FusionPixelmon.setRegistry(new SpigotRegistry());
         System.out.println("STARTED");
 
-        Metrics metrics = new Metrics(this, BSTATS_ID);
+        new Metrics(this, BSTATS_ID);
 
         createConfigFile(new File(getDataFolder(), "default.conf"), true);
         File configFile = new File(getDataFolder(), ID + ".conf");
