@@ -1,8 +1,8 @@
 package me.fusiondev.fusionpixelmon.api.items;
 
 public abstract class AbstractItems<S, T> {
-    S itemStack;
-    T itemType;
+    private S itemStack;
+    private T itemType;
 
     public S getItemStack() {
         return itemStack;
