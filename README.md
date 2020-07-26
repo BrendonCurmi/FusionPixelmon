@@ -1,8 +1,10 @@
 # FusionPixelmon
+
+[![Release](https://img.shields.io/github/v/release/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/releases)
+[![License](https://img.shields.io/github/license/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/LICENSE)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/25aa4d845f5c438d8160788bd7e163bf)](https://app.codacy.com/manual/BrendonCurmi/FusionPixelmon?utm_source=github.com&utm_medium=referral&utm_content=BrendonCurmi/FusionPixelmon&utm_campaign=Badge_Grade_Dashboard)
-[![license](https://img.shields.io/github/license/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/LICENSE)
-[![version](https://img.shields.io/github/v/release/BrendonCurmi/FusionPixelmon)](https://github.com/BrendonCurmi/FusionPixelmon/releases)
-[![discord](https://discordapp.com/api/guilds/699764448155533404/widget.png)](https://discord.gg/VFNTycm)
+[![Minecraft](https://img.shields.io/badge/MC-1.12.2-brightgreen.svg)](https://github.com/BrendonCurmi/FusionPixelmon)
+[![Discord](https://discordapp.com/api/guilds/699764448155533404/widget.png)](https://discord.gg/VFNTycm)
 
 This is a plugin/mod hybrid that adds extra features to your Pixelmon Sponge server.
 
