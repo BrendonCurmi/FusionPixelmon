@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.sponge.api.economy;
 
-import me.fusiondev.fusionpixelmon.sponge.util.CauseStackUtil;
+import me.fusiondev.fusionpixelmon.sponge.util.CauseStackUtils;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
 import org.spongepowered.api.Sponge;
@@ -72,7 +72,7 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
         Optional<UniqueAccount> account = getAccount(player);
         if (!account.isPresent()) return false;
         BigDecimal cost = BigDecimal.valueOf(amount);
-        TransactionResult result = account.get().deposit(getCurrency(), cost, CauseStackUtil.createCause(player));
+        TransactionResult result = account.get().deposit(getCurrency(), cost, CauseStackUtils.createCause(player));
         if (result.getResult() == ResultType.SUCCESS) {
             if (message)
                 player.sendMessage(Text.of(TextColors.GREEN, "Successfully deposited " + getCurrencySymbol(amount) + " into your account"));
@@ -89,7 +89,7 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
         Optional<UniqueAccount> account = getAccount(player);
         if (!account.isPresent()) return false;
         BigDecimal cost = BigDecimal.valueOf(amount);
-        TransactionResult result = account.get().withdraw(getCurrency(), cost, CauseStackUtil.createCause(player));
+        TransactionResult result = account.get().withdraw(getCurrency(), cost, CauseStackUtils.createCause(player));
         if (result.getResult() == ResultType.SUCCESS) {
             if (message)
                 player.sendMessage(Text.of(TextColors.GREEN, "Successfully withdrew " + getCurrencySymbol(amount) + " from your account"));

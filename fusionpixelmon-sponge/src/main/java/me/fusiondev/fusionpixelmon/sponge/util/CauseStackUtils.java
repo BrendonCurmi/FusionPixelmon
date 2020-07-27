@@ -5,7 +5,7 @@ import org.spongepowered.api.event.CauseStackManager;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 
-public class CauseStackUtil {
+public class CauseStackUtils {
     public static Cause createCause(Object object) {
         if (Sponge.getServer().isMainThread()) {
             try (CauseStackManager.StackFrame stackFrame = Sponge.getCauseStackManager().pushCauseFrame()) {
