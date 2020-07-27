@@ -11,7 +11,7 @@ import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
 import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
-import me.fusiondev.fusionpixelmon.impl.MathUtil;
+import me.fusiondev.fusionpixelmon.impl.MathUtils;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 
 import java.util.ArrayList;
@@ -204,12 +204,12 @@ public class IVEVShop extends BaseShop {
         int lvl;
         for (Map.Entry<StatsType, Integer> entry : action.EV.entrySet()) {
             lvl = shops.pokemon.getEVs().get(entry.getKey());
-            lvl = MathUtil.clamp(lvl + entry.getValue(), 0, EVStore.MAX_EVS);
+            lvl = MathUtils.clamp(lvl + entry.getValue(), 0, EVStore.MAX_EVS);
             shops.pokemon.getEVs().set(entry.getKey(), lvl);
         }
         for (Map.Entry<StatsType, Integer> entry : action.IV.entrySet()) {
             lvl = shops.pokemon.getIVs().get(entry.getKey());
-            lvl = MathUtil.clamp(lvl + entry.getValue(), 0, IVStore.MAX_IVS);
+            lvl = MathUtils.clamp(lvl + entry.getValue(), 0, IVStore.MAX_IVS);
             shops.pokemon.getIVs().set(entry.getKey(), lvl);
         }
 
@@ -251,8 +251,8 @@ public class IVEVShop extends BaseShop {
     }
 
     public class IVEVAction {
-        private HashMap<StatsType, Integer> IV = new HashMap<>();
-        private HashMap<StatsType, Integer> EV = new HashMap<>();
+        private final HashMap<StatsType, Integer> IV = new HashMap<>();
+        private final HashMap<StatsType, Integer> EV = new HashMap<>();
 
         public int getRequestedIV() {
             int total = 0;

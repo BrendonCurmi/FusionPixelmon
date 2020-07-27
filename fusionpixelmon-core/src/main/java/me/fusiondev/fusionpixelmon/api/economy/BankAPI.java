@@ -3,7 +3,7 @@ package me.fusiondev.fusionpixelmon.api.economy;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.economy.IPixelmonBankAccount;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
-import me.fusiondev.fusionpixelmon.impl.MathUtil;
+import me.fusiondev.fusionpixelmon.impl.MathUtils;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -58,12 +58,12 @@ public class BankAPI implements IEconomyProvider {
 
     @Override
     public boolean deposit(AbstractPlayer player, double amount, boolean message) {
-        return change(MathUtil.clamp((int) amount, 0, MAX)) != -1;
+        return change(MathUtils.clamp((int) amount, 0, MAX)) != -1;
     }
 
     @Override
     public boolean withdraw(AbstractPlayer player, double amount, boolean message) {
-        return change(-MathUtil.clamp((int) amount, 0, MAX)) != -1;
+        return change(-MathUtils.clamp((int) amount, 0, MAX)) != -1;
     }
 
     private final int MAX = 999999;
@@ -78,7 +78,7 @@ public class BankAPI implements IEconomyProvider {
      * @return the player's balance after the change.
      */
     private int change(int amount) {
-        amount = MathUtil.clamp(amount, MIN, MAX);
+        amount = MathUtils.clamp(amount, MIN, MAX);
         int before = account.getMoney();
         int change = account.changeMoney(amount);
         int diff = change - before;

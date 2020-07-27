@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.impl;
 
-public class MathUtil {
+public class MathUtils {
 
     /**
      * Clamps down the specified num to be within the
