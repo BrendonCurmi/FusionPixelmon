@@ -9,7 +9,7 @@ import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemTypes;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.impl.TimeUtils;
 
 public class LevelShop extends BaseShop {
     public LevelShop(Shops shops) {
@@ -132,7 +132,7 @@ public class LevelShop extends BaseShop {
     public void purchaseAction(Object value) {
         int levels = (int) value;
         if (levels > 0) {
-            TimeUtil.setTimeout(() -> {
+            TimeUtils.setTimeout(() -> {
                 for (int i = 1; i <= levels; i++)
                     shops.pokemon.getLevelContainer().awardEXP(shops.pokemon.getExperienceToLevelUp(), ExperienceGainType.BATTLE);
             }, 1000);

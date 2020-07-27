@@ -10,7 +10,7 @@ import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates.Plate;
 import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 import me.fusiondev.fusionpixelmon.data.ArcPlateData;
 import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
-import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.impl.TimeUtils;
 import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.sponge.SpongeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
@@ -108,7 +108,7 @@ public class ArcPlates {
                     if (enabled) {
                         // Delay to prevent duping
                         enabled = false;
-                        TimeUtil.setTimeout(() -> enabled = true, 900);
+                        TimeUtils.setTimeout(() -> enabled = true, 900);
 
                         // Left clicking plate in GUI
                         if (event instanceof ClickInventoryEvent.Primary) {

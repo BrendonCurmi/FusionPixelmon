@@ -9,7 +9,7 @@ import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.impl.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class EvolutionShop extends BaseShop {
     @Override
     public void purchaseAction(Object value) {
         PokemonSpecWrapper evolve = (PokemonSpecWrapper) value;
-        TimeUtil.setTimeout(() -> shops.pokemon.evolve(evolve.pokemonSpec), 1000);
+        TimeUtils.setTimeout(() -> shops.pokemon.evolve(evolve.pokemonSpec), 1000);
     }
 
     private static class ConfigKeyConstants {

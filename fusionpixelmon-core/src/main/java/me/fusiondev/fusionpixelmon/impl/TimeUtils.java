@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.impl;
 
-public class TimeUtil {
+public class TimeUtils {
 
     /**
      * Asynchronously executes the specified runnable a time 'millis' milliseconds later.

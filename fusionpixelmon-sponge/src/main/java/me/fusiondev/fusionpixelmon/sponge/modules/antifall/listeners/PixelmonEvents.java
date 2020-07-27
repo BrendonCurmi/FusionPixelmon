@@ -1,7 +1,7 @@
 package me.fusiondev.fusionpixelmon.sponge.modules.antifall.listeners;
 
 import com.pixelmonmod.pixelmon.api.events.BeatWildPixelmonEvent;
-import me.fusiondev.fusionpixelmon.impl.TimeUtil;
+import me.fusiondev.fusionpixelmon.impl.TimeUtils;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,7 +26,7 @@ public class PixelmonEvents {
     public void onBeatPokemon(BeatWildPixelmonEvent event) {
         if (!INVULNERABLE_FALL.contains(event.player)) {
             INVULNERABLE_FALL.add(event.player);
-            TimeUtil.setTimeout(() -> INVULNERABLE_FALL.remove(event.player), FALL_INVULNERABILITY * 1000);
+            TimeUtils.setTimeout(() -> INVULNERABLE_FALL.remove(event.player), FALL_INVULNERABILITY * 1000);
         }
     }
 
