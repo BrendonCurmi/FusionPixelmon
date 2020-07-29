@@ -89,6 +89,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
         if (openPages.containsKey(player.getUniqueId())) {
+            openPages.get(player.getUniqueId()).getEventHandler().call(Event.CLOSE_INVENTORY, event, SpigotAdapter.adapt(player));
             playerClosed(player.getUniqueId());
         }
     }
