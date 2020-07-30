@@ -16,6 +16,7 @@ public class ArcPlateData {
     private JSONObject data;
 
     public ArcPlateData(File file, UUID uuid) {
+        if (!file.exists()) file.mkdirs();
         this.FILE = new File(file, uuid + ".json");
         get();
     }
