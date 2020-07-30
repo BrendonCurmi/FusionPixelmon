@@ -1,4 +1,4 @@
-package me.fusiondev.fusionpixelmon.sponge.impl;
+package me.fusiondev.fusionpixelmon.sponge.impl.inventory;
 
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;
 import org.spongepowered.api.item.inventory.Inventory;
