@@ -1,7 +1,6 @@
 package me.fusiondev.fusionpixelmon.sponge.impl.inventory;
 
 import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
-import me.fusiondev.fusionpixelmon.sponge.impl.SpongeInventory;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.inventory.AbstractInventory;

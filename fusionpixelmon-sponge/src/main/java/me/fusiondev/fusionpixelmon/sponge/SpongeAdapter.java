@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.sponge;
 
-import me.fusiondev.fusionpixelmon.sponge.impl.SpongeInventory;
+import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInventory;
 import me.fusiondev.fusionpixelmon.sponge.impl.SpongePlayer;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvEvent;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeItemStack;
