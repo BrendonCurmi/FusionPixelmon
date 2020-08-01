@@ -23,7 +23,7 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
     /**
      * The pickaxes that are allowed to validate the interaction.
      */
-    private static final Material[] ALLOWED_PICKS = {Material.IRON_PICKAXE, Material.DIAMOND_PICKAXE};
+    private static final Material[] ALLOWED_PICKS = {Material.DIAMOND_PICKAXE};
 
     /**
      * Checks if the specified itemtype is an allowed pickaxe.

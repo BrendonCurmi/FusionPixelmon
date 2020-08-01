@@ -35,7 +35,7 @@ public class SpongePokeShrines extends PokeShrinesModule {
     /**
      * The pickaxes that are allowed to validate the interaction.
      */
-    private static final ItemType[] ALLOWED_PICKS = {ItemTypes.IRON_PICKAXE, ItemTypes.DIAMOND_PICKAXE};
+    private static final ItemType[] ALLOWED_PICKS = {ItemTypes.DIAMOND_PICKAXE};
 
     /**
      * Checks if the specified itemtype is an allowed pickaxe.
