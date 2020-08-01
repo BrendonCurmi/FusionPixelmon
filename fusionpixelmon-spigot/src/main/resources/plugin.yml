@@ -5,6 +5,7 @@ main: me.fusiondev.fusionpixelmon.spigot.SpigotFusionPixelmon
 website: https://github.com/BrendonCurmi/FusionPixelmon
 commands:
   pd:
-    description: Opens the pokedesigner
-    usage: /pd
+    description: Opens the PokeDesigner inventory
     aliases: [pokedesigner]
+  arc:
+    description: Opens the ArcPlate inventory
