@@ -1,7 +1,8 @@
-package me.fusiondev.fusionpixelmon.sponge.modules.shrinepickup.listeners;
+package me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines;
 
 import com.flowpowered.math.vector.Vector3i;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.modules.pokeshrines.PokeShrinesModule;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
@@ -22,23 +23,9 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import org.spongepowered.common.block.SpongeBlockSnapshot;
 
-import java.util.List;
 import java.util.Map;
 
-/**
- * Handles the feature which allows the "breaking" and obtaining of the
- * shrines, altars, and chalices that naturally spawn throughout the world
- * of Pixelmon, since they are made to be unbreakable.<br/>
- * If the player interacts with one of these blocks while holding any of
- * the {@link #ALLOWED_PICKS allowed pickaxes} whilst in Survival Mode (and
- * with inventory space), then the block will drop into the player's inventory.
- */
-public class PokeShrinesListener {
-
-    /**
-     * The blocks which can be obtained using this method.
-     */
-    private static final List<String> BLOCKS = FusionPixelmon.getInstance().getConfiguration().getPickableShrines();
+public class SpongePokeShrines extends PokeShrinesModule {
 
     /**
      * The block that the {@link #BLOCKS} will turn into upon valid interaction.
