@@ -31,6 +31,6 @@ public class PokeDesignerCommand implements CommandExecutor {
                 shops.launch(pokemon, "Name");
             });
         }
-        return false;
+        return true;
     }
 }
