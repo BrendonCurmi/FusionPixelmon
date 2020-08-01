@@ -16,7 +16,7 @@ import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.plugin.meta.util.NonnullByDefault;
 
 @NonnullByDefault
-public class PokeDesignerCmd implements CommandExecutor {
+public class PokeDesignerCommand implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
         if (!(src instanceof Player)) {

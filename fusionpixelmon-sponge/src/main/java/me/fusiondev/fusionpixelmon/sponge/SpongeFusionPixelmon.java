@@ -8,7 +8,7 @@ import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.SpongeConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
-import me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCmd;
+import me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCommand;
 import me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines.SpongePokeShrines;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.fusiondev.fusionpixelmon.config.Config;
@@ -116,7 +116,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
                     .description(Text.of("Open the PokeDesigner GUI to design your Pokemon"))
                     .permission(CMD_PERM + "pokedesigner")
-                    .executor(new PokeDesignerCmd())
+                    .executor(new PokeDesignerCommand())
                     .build(), "pokedesigner", "pd");
         }
 
