@@ -1,4 +1,4 @@
-package me.fusiondev.fusionpixelmon.sponge.modules.antifall.listeners;
+package me.fusiondev.fusionpixelmon.modules.antifall.listeners;
 
 import com.pixelmonmod.pixelmon.api.events.BeatWildPixelmonEvent;
 import me.fusiondev.fusionpixelmon.impl.TimeUtils;
@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PixelmonEvents {
+public class AntifallEvents {
 
     /**
      * On the server, after beating a wild pokemon while the player is
@@ -32,10 +32,12 @@ public class PixelmonEvents {
 
     @SubscribeEvent
     public void onFall(LivingFallEvent event) {
+        System.out.println("HEIIJASJDSJ");
         if (event.getEntityLiving() instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if (INVULNERABLE_FALL.contains(player)) {
                 event.setDamageMultiplier(0);
+                System.out.println("BOOP");
                 event.setCanceled(true);
             }
         }
