@@ -2,18 +2,16 @@ package me.fusiondev.fusionpixelmon.sponge;
 
 import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import me.fusiondev.fusionpixelmon.sponge.modules.antifall.listeners.PixelmonEvents;
-import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.SpongeArcPlates;
+import me.fusiondev.fusionpixelmon.modules.antifall.AntifallModule;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.SpongeConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCmd;
-import me.fusiondev.fusionpixelmon.sponge.modules.shrinepickup.listeners.PokeShrinesListener;
+import me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines.SpongePokeShrines;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.fusiondev.fusionpixelmon.config.Config;
-import net.minecraftforge.common.MinecraftForge;
 import org.bstats.sponge.Metrics2;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
@@ -43,8 +41,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-
-import static com.pixelmonmod.pixelmon.Pixelmon.EVENT_BUS;
 
 @Plugin(id = SpongeFusionPixelmon.ID,
         name = SpongeFusionPixelmon.NAME,
@@ -126,14 +122,12 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
         // Register event listeners through Sponge
         if (!getConfiguration().getPickableShrines().isEmpty()) {
-            Sponge.getEventManager().registerListeners(this, new PokeShrinesListener());
+            Sponge.getEventManager().registerListeners(this, new SpongePokeShrines());
         }
 
         // Register pixelmon events through Forge
         if (getConfiguration().isAntiFallDamageEnabled()) {
-            PixelmonEvents pixelmonEvents = new PixelmonEvents();
-            MinecraftForge.EVENT_BUS.register(pixelmonEvents);
-            EVENT_BUS.register(pixelmonEvents);
+            AntifallModule.init();
         }
     }
 
