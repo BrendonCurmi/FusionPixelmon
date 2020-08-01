@@ -8,6 +8,7 @@ import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
+import me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines.SpigotPokeShrines;
 import org.apache.commons.io.IOUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandExecutor;
@@ -50,6 +51,10 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         get("pd", new PokeDesignerCommand());
 
         getServer().getPluginManager().registerEvents(new SpigotInvInventory(), this);
+
+        if (!getConfiguration().getPickableShrines().isEmpty()) {
+            getServer().getPluginManager().registerEvents(new SpigotPokeShrines(), this);
+        }
 
         SpigotInvInventory.runUpdater();
     }
