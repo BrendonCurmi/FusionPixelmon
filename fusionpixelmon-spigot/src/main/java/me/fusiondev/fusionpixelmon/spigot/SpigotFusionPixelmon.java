@@ -64,7 +64,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
             try {
                 Files.createDirectories(file.getParentFile().toPath());
 
-                InputStream in = getInstance().getResource(getId() + "/default.conf");
+                InputStream in = getInstance().getResource("assets/" + getId() + "/default.conf");
                 OutputStream out = new FileOutputStream(file);
                 IOUtils.copy(in, out);
                 out.close();
