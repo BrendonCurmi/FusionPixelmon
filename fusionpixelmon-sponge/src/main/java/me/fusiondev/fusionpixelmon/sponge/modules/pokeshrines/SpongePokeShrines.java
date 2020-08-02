@@ -12,8 +12,6 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.event.cause.EventContextKey;
 import org.spongepowered.api.event.cause.EventContextKeys;
-import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.item.inventory.entity.PlayerInventory;
@@ -32,50 +30,34 @@ public class SpongePokeShrines extends PokeShrinesModule {
      */
     private static final BlockType EMPTY_BLOCK = BlockTypes.AIR;
 
-    /**
-     * The pickaxes that are allowed to validate the interaction.
-     */
-    private static final ItemType[] ALLOWED_PICKS = {ItemTypes.DIAMOND_PICKAXE};
-
-    /**
-     * Checks if the specified itemtype is an allowed pickaxe.
-     *
-     * @param itemType the itemtype.
-     * @return true if the item is an allowed pickaxe; false otherwise.
-     */
-    private boolean isAllowedPickaxe(ItemType itemType) {
-        for (ItemType pick : ALLOWED_PICKS) if (itemType.equals(pick)) return true;
-        return false;
-    }
-
     @Listener
     public void onInteractBlockEvent(InteractBlockEvent event) {
-        for (String block : BLOCKS) {
-            if (event.getTargetBlock().getState().getType().getName().equals(block)) {
-                Player player = (Player) event.getSource();
-                Map<EventContextKey<?>, Object> context = event.getContext().asMap();
-                ItemStackSnapshot itemStackSnapshot = (ItemStackSnapshot) context.get(EventContextKeys.USED_ITEM);
-                if (player.get(Keys.GAME_MODE).orElse(GameModes.NOT_SET) == GameModes.SURVIVAL && itemStackSnapshot != null && isAllowedPickaxe(itemStackSnapshot.getType())) {
-                    SpongeBlockSnapshot blockSnapshot = (SpongeBlockSnapshot) context.get(EventContextKeys.BLOCK_HIT);
-                    if (blockSnapshot.getLocation().isPresent()) {
-                        PlayerInventory playerInv = (PlayerInventory) player.getInventory();
-                        ItemStack selected = (ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(block.replace("pixelmon:", "")).to().getRaw();
-                        if (playerInv.getMain().canFit(selected)) {
-                            Location<World> blockLoc = blockSnapshot.getLocation().get();
-                            blockLoc.setBlockType(EMPTY_BLOCK);
+        if (!(event.getSource() instanceof Player)) return;
+        Player player = (Player) event.getSource();
+        Map<EventContextKey<?>, Object> context = event.getContext().asMap();
+        ItemStackSnapshot itemStackSnapshot = (ItemStackSnapshot) context.get(EventContextKeys.USED_ITEM);
+        if (player.get(Keys.GAME_MODE).orElse(GameModes.NOT_SET) == GameModes.SURVIVAL && itemStackSnapshot != null) {
+            String block = event.getTargetBlock().getState().getType().getName();
+            if (BLOCKS.containsKey(block) && isAllowedTool(BLOCKS.get(block), itemStackSnapshot.getType().getName())) {
+                SpongeBlockSnapshot blockSnapshot = (SpongeBlockSnapshot) context.get(EventContextKeys.BLOCK_HIT);
+                if (blockSnapshot.getLocation().isPresent()) {
+                    PlayerInventory playerInv = (PlayerInventory) player.getInventory();
+                    ItemStack selected = (ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(block.replace("pixelmon:", "")).to().getRaw();
+                    if (playerInv.getMain().canFit(selected)) {
+                        Location<World> blockLoc = blockSnapshot.getLocation().get();
+                        blockLoc.setBlockType(EMPTY_BLOCK);
 
-                            // Some blocks may have a secondary block to make it bigger, so remove that too
-                            Location<World> block2Loc = blockLoc.setBlockPosition(new Vector3i(blockLoc.getBlockX(), blockLoc.getBlockY() + 1, blockLoc.getBlockZ()));
-                            if (!block2Loc.getBlockType().getName().equals(block)) {
-                                block2Loc = blockLoc.setBlockPosition(new Vector3i(blockLoc.getBlockX(), blockLoc.getBlockY() - 1, blockLoc.getBlockZ()));
-                            }
-                            if (block2Loc.getBlockType().getName().equals(block)) {
-                                block2Loc.setBlockType(EMPTY_BLOCK);
-                            }
+                        // Some blocks may have a secondary block to make it bigger, so remove that too
+                        Location<World> block2Loc = blockLoc.setBlockPosition(new Vector3i(blockLoc.getBlockX(), blockLoc.getBlockY() + 1, blockLoc.getBlockZ()));
+                        if (!block2Loc.getBlockType().getName().equals(block)) {
+                            block2Loc = blockLoc.setBlockPosition(new Vector3i(blockLoc.getBlockX(), blockLoc.getBlockY() - 1, blockLoc.getBlockZ()));
+                        }
+                        if (block2Loc.getBlockType().getName().equals(block)) {
+                            block2Loc.setBlockType(EMPTY_BLOCK);
+                        }
 
-                            playerInv.offer(selected);
-                        } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
-                    }
+                        playerInv.offer(selected);
+                    } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
                 }
             }
         }
