@@ -1,12 +1,11 @@
 package me.fusiondev.fusionpixelmon.config;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.Setting;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 
-import java.util.List;
+import java.util.HashMap;
 
 @ConfigSerializable
 public class Config extends AbstractConfig {
@@ -19,8 +18,8 @@ public class Config extends AbstractConfig {
     private boolean craftMasterBalls;
     @Setting("arcplate")
     private boolean arcPlate;
-    @Setting("shrine-pickup")
-    private List<String> shrinePickup = ImmutableList.of();
+    @Setting("pokeshrine")
+    private HashMap<String, String> shrinePickup;
     @Setting("pokedesigner")
     private PokeDesignerConfig pokeDesigner = new PokeDesignerConfig();
 
@@ -40,7 +39,7 @@ public class Config extends AbstractConfig {
     }
 
     @Override
-    public List<String> getPickableShrines() {
+    public HashMap<String, String> getPickableShrines() {
         return shrinePickup;
     }
 
