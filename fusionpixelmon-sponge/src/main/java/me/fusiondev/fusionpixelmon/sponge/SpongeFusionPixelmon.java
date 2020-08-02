@@ -189,8 +189,11 @@ public class SpongeFusionPixelmon extends PluginInfo {
     }
 
     private static boolean hasDeprecatedDataFiles() {
-        File[] files = SpongeFusionPixelmon.getInstance().getConfigDir().resolve("arcplates").toFile().listFiles();
-        for (File file : files) if (!file.getName().endsWith(".json")) return true;
+        File arcplate = SpongeFusionPixelmon.getInstance().getConfigDir().resolve("arcplates").toFile();
+        if (arcplate.exists()) {
+            File[] files = arcplate.listFiles();
+            for (File file : files) if (!file.getName().endsWith(".json")) return true;
+        }
         return false;
     }
 }
