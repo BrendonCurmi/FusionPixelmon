@@ -20,47 +20,30 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
      */
     private static final Material EMPTY_BLOCK = Material.AIR;
 
-    /**
-     * The pickaxes that are allowed to validate the interaction.
-     */
-    private static final Material[] ALLOWED_PICKS = {Material.DIAMOND_PICKAXE};
-
-    /**
-     * Checks if the specified itemtype is an allowed pickaxe.
-     *
-     * @param itemType the itemtype.
-     * @return true if the item is an allowed pickaxe; false otherwise.
-     */
-    private boolean isAllowedPickaxe(Material itemType) {
-        for (Material pick : ALLOWED_PICKS) if (itemType.equals(pick)) return true;
-        return false;
-    }
-
     @EventHandler
     public void onBlockClick(PlayerInteractEvent event) {
         if ((event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
-                && event.getPlayer().getGameMode() == GameMode.SURVIVAL
-                && isAllowedPickaxe(event.getMaterial())) {
-            for (String block : BLOCKS) {
-                block = block.replace(":", "_");
-                if (event.getClickedBlock().getType().toString().equalsIgnoreCase(block.replace(":", "_"))) {
-                    if (event.getPlayer().getInventory().firstEmpty() != -1) {
-                        event.getClickedBlock().setType(EMPTY_BLOCK);
+                && event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
+            String block = event.getClickedBlock().getType().toString().toLowerCase().replace("pixelmon_", "pixelmon:");
+            if (BLOCKS.containsKey(block) && isAllowedTool(BLOCKS.get(block), event.getMaterial().toString())) {
+                if (event.getPlayer().getInventory().firstEmpty() != -1) {
+                    block = event.getClickedBlock().getType().toString();
+                    ItemStack selected = (ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(block.toLowerCase().replace("pixelmon_", "")).to().getRaw();
 
-                        // Some blocks may have a secondary block to make it bigger, so remove that too
-                        Block clickedBlock = event.getClickedBlock();
-                        Location block2Loc = new Location(clickedBlock.getWorld(), clickedBlock.getX(), clickedBlock.getY() + 1, clickedBlock.getZ());
-                        if (!block2Loc.getBlock().getType().name().equalsIgnoreCase(block)) {
-                            block2Loc = new Location(clickedBlock.getWorld(), clickedBlock.getX(), clickedBlock.getY() - 1, clickedBlock.getZ());
-                        }
-                        if (block2Loc.getBlock().getType().name().equalsIgnoreCase(block)) {
-                            block2Loc.getBlock().setType(EMPTY_BLOCK);
-                        }
+                    event.getClickedBlock().setType(EMPTY_BLOCK);
 
-                        ItemStack selected = (ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(block.replace("pixelmon_", "")).to().getRaw();
-                        event.getPlayer().getInventory().addItem(selected);
-                    } else event.getPlayer().sendMessage("§" + Colour.RED.getCode() + "Your inventory is full!");
-                }
+                    // Some blocks may have a secondary block to make it bigger, so remove that too
+                    Block clickedBlock = event.getClickedBlock();
+                    Location block2Loc = new Location(clickedBlock.getWorld(), clickedBlock.getX(), clickedBlock.getY() + 1, clickedBlock.getZ());
+                    if (!block2Loc.getBlock().getType().name().equalsIgnoreCase(block)) {
+                        block2Loc = new Location(clickedBlock.getWorld(), clickedBlock.getX(), clickedBlock.getY() - 1, clickedBlock.getZ());
+                    }
+                    if (block2Loc.getBlock().getType().name().equalsIgnoreCase(block)) {
+                        block2Loc.getBlock().setType(EMPTY_BLOCK);
+                    }
+
+                    event.getPlayer().getInventory().addItem(selected);
+                } else event.getPlayer().sendMessage("§" + Colour.RED.getCode() + "Your inventory is full!");
             }
         }
     }
