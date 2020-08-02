@@ -25,6 +25,8 @@ public abstract class ConfigManager extends AbstractConfigManager<CommentedConfi
     protected void configUpdater(int newVersion) throws IOException {
         // Backwards compatibility to remove 1.8 "currency" field
         getNode().getNode("pokedesigner").removeChild("currency");
+        // Backwards compatibility to remove 1.8 "shrine-pickup" section
+        getNode().removeChild("shrine-pickup");
         super.configUpdater(newVersion);
     }
 
