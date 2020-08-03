@@ -33,4 +33,8 @@
             <version>1.12.2-2825-7.1.6-dev-shaded</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>FusionPixelmonDataMigrator-${project.version}</finalName>
+    </build>
 </project>
