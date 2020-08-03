@@ -46,7 +46,7 @@ public class ArcPlateData {
         JSONObject plates = new JSONObject();
 
         for (int i = 0; i < 17; i++) {
-            plates.put(i + "", false);
+            plates.put(i + "", 0);
         }
 
         data.put("plates", plates);
@@ -67,7 +67,7 @@ public class ArcPlateData {
      * @return true if the plate is saved; otherwise false.
      */
     public boolean hasPlate(int i) {
-        return data.getJSONObject("plates").getBoolean(i + "");
+        return data.getJSONObject("plates").getInt(i + "") == 1;
     }
 
     /**
@@ -76,7 +76,7 @@ public class ArcPlateData {
      * @param i the index of the plate.
      */
     public void add(int i) {
-        data.getJSONObject("plates").put(i + "", true);
+        data.getJSONObject("plates").put(i + "", 1);
     }
 
     /**
@@ -85,6 +85,6 @@ public class ArcPlateData {
      * @param i the index of the plate.
      */
     public void remove(int i) {
-        data.getJSONObject("plates").put(i + "", false);
+        data.getJSONObject("plates").put(i + "", 0);
     }
 }
