@@ -18,4 +18,6 @@ public abstract class AbstractPlayer {
 
     //todo need to remove this inventory object
     public abstract void openInventory(AbstractInventory inventory);
+
+    public abstract Object getWorld();
 }

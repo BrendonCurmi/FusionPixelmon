@@ -45,4 +45,9 @@ public class SpongePlayer extends AbstractPlayer {
     public void openInventory(AbstractInventory inventory) {
         PLAYER.openInventory((Inventory) inventory.getRaw());
     }
+
+    @Override
+    public Object getWorld() {
+        return PLAYER.getWorld();
+    }
 }
