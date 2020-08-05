@@ -7,6 +7,7 @@ import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
+import me.fusiondev.fusionpixelmon.spigot.modules.masterball.SpigotMasterballModule;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines.SpigotPokeShrines;
 import org.apache.commons.io.IOUtils;
@@ -54,6 +55,11 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             getServer().getPluginManager().registerEvents(new SpigotPokeShrines(), this);
+        }
+
+        // Add Master Ball crafting recipe back
+        if (getConfiguration().isMasterballCraftingEnabled()) {
+            new SpigotMasterballModule(this);
         }
 
         SpigotInvInventory.runUpdater();
