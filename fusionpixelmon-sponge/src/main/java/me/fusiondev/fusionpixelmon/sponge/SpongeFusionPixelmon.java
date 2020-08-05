@@ -8,6 +8,7 @@ import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.SpongeConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
+import me.fusiondev.fusionpixelmon.sponge.modules.masterball.SpongeMasterballModule;
 import me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCommand;
 import me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines.SpongePokeShrines;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
@@ -18,18 +19,8 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.DyeColors;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.event.game.state.GameStartedServerEvent;
-import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
-import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.api.item.recipe.crafting.Ingredient;
-import org.spongepowered.api.item.recipe.crafting.ShapedCraftingRecipe;
+import org.spongepowered.api.event.game.state.*;
 import org.spongepowered.api.plugin.Dependency;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.economy.EconomyService;
@@ -133,20 +124,9 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     @Listener
     public void init(GameInitializationEvent event) {
+        // Add Master Ball crafting recipe back
         if (getConfiguration().isMasterballCraftingEnabled()) {
-            // Add Master Ball crafting recipe back
-            ItemStack dye = ItemStack.builder().itemType(ItemTypes.DYE).build();
-            dye.offer(Keys.DYE_COLOR, DyeColors.PURPLE);
-            Sponge.getRegistry().getCraftingRecipeRegistry().register(
-                    ShapedCraftingRecipe.builder()
-                            .aisle("PPP", "OBO", "DDD")
-                            .where('P', Ingredient.of(dye))
-                            .where('O', Ingredient.of(ItemTypes.OBSIDIAN))
-                            .where('B', Ingredient.of(ItemTypes.STONE_BUTTON))
-                            .where('D', Ingredient.of(ItemTypes.DIAMOND))
-                            .result((ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("master_ball").getRaw())
-                            .build("master_ball", this)
-            );
+            new SpongeMasterballModule();
         }
     }
 
