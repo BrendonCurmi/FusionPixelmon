@@ -126,7 +126,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     public void init(GameInitializationEvent event) {
         // Add Master Ball crafting recipe back
         if (getConfiguration().isMasterballCraftingEnabled()) {
-            new SpongeMasterballModule();
+            new SpongeMasterballModule(this);
         }
     }
 

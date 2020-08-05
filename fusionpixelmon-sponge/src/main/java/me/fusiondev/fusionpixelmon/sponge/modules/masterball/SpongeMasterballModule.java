@@ -10,7 +10,7 @@ import org.spongepowered.api.item.recipe.crafting.Ingredient;
 import org.spongepowered.api.item.recipe.crafting.ShapedCraftingRecipe;
 
 public class SpongeMasterballModule {
-    public SpongeMasterballModule() {
+    public SpongeMasterballModule(Object plugin) {
         ItemStack dye = ItemStack.builder().itemType(ItemTypes.DYE).build();
         dye.offer(Keys.DYE_COLOR, DyeColors.PURPLE);
         Sponge.getRegistry().getCraftingRecipeRegistry().register(
@@ -21,7 +21,7 @@ public class SpongeMasterballModule {
                         .where('B', Ingredient.of(ItemTypes.STONE_BUTTON))
                         .where('D', Ingredient.of(ItemTypes.DIAMOND))
                         .result((ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("master_ball").getRaw())
-                        .build("master_ball", this)
+                        .build("master_ball", plugin)
         );
     }
 }
