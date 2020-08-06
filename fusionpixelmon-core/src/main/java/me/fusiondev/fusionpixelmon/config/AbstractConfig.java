@@ -3,7 +3,6 @@ package me.fusiondev.fusionpixelmon.config;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 
 import java.util.HashMap;
-import java.util.List;
 
 public abstract class AbstractConfig {
     public abstract boolean isAntiFallDamageEnabled();
