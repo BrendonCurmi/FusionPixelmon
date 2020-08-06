@@ -7,6 +7,8 @@ import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
+import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.SpigotArcPlatesModule;
+import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.masterball.SpigotMasterballModule;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines.SpigotPokeShrines;
@@ -50,6 +52,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         }
 
         get("pd", new PokeDesignerCommand());
+        get("arc", new ArcPlatesCommand());
 
         getServer().getPluginManager().registerEvents(new SpigotInvInventory(), this);
 
@@ -87,6 +90,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     @Override
     public void onDisable() {
+        SpigotArcPlatesModule.getArcPlates().cleanup();
         System.out.println("ENDED");
     }
 
