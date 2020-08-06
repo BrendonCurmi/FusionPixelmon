@@ -13,6 +13,7 @@
         <module>fusionpixelmon-core</module>
         <module>fusionpixelmon-sponge</module>
         <module>fusionpixelmon-spigot</module>
+        <module>fusionpixelmon-data</module>
     </modules>
 
     <properties>
