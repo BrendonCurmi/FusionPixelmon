@@ -3,7 +3,8 @@ package me.fusiondev.fusionpixelmon.sponge;
 import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import me.fusiondev.fusionpixelmon.modules.antifall.AntifallModule;
-import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCmd;
+import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.SpongeArcPlatesModule;
+import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.SpongeConfigManager;
@@ -99,7 +100,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
                     .description(Text.of("Opens the ArcPlates GUI to store your Type Plates for your Arceus"))
                     .permission(CMD_PERM + "arc")
-                    .executor(new ArcPlatesCmd())
+                    .executor(new ArcPlatesCommand())
                     .build(), "arc");
         }
 
@@ -153,6 +154,11 @@ public class SpongeFusionPixelmon extends PluginInfo {
             LOGGER.warn("Old ArcStorageData files found! ");
             LOGGER.warn("Join our discord (https://discord.gg/VFNTycm) to download the data migrator plugin so players can keep their Arceus plates");
         }
+    }
+
+    @Listener
+    public void onServerStop(GameStoppingServerEvent event) {
+        SpongeArcPlatesModule.getArcPlates().cleanup();
     }
 
     @Listener
