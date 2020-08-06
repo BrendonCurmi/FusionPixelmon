@@ -55,65 +55,63 @@ public class SpigotArcPlates extends AbstractArcPlatesUI {
             else selected.setAmount(selected.getAmount() - 1);
         }
         // In GUI Page
-        else if (isItemPlate(selected)) {
-            if (enabled) {
-                // Delay to prevent duping
-                enabled = false;
-                TimeUtils.setTimeout(() -> enabled = true, 900);
+        else if (isItemPlate(selected) && enabled) {
+            // Delay to prevent duping
+            enabled = false;
+            TimeUtils.setTimeout(() -> enabled = true, 900);
 
-                // Left clicking plate in GUI
-                if (event.isLeftClick()) {
-                    /*
-                     * Give the pokemon the plate that is left clicked in the GUI.
-                     * If the pokemon is already holding a plate (but different type), put it in storage and give
-                     * the pokemon the new clicked plate.
-                     * If the pokemon is already holding a plate but there is another one of the same type in
-                     * storage, do nothing as player must remove the one in storage first.
-                     * If the pokemon is already holding something which isnt a plate, do nothing as player must
-                     * remove that first.
-                     */
-                    if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
-                        EnumPlate selectedEnumPlate = getPlate(selected.getType());
-                        if (selectedEnumPlate == null) {
-                            player.sendMessage("§cCannot equip Plate");
+            // Left clicking plate in GUI
+            if (event.isLeftClick()) {
+                /*
+                 * Give the pokemon the plate that is left clicked in the GUI.
+                 * If the pokemon is already holding a plate (but different type), put it in storage and give
+                 * the pokemon the new clicked plate.
+                 * If the pokemon is already holding a plate but there is another one of the same type in
+                 * storage, do nothing as player must remove the one in storage first.
+                 * If the pokemon is already holding something which isnt a plate, do nothing as player must
+                 * remove that first.
+                 */
+                if (pokemon.getHeldItemAsItemHeld() instanceof NoItem || pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
+                    EnumPlate selectedEnumPlate = getPlate(selected.getType());
+                    if (selectedEnumPlate == null) {
+                        player.sendMessage("§cCannot equip Plate");
+                        return;
+                    }
+
+                    if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
+                        ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
+                        if (selected.getType().name().toLowerCase().contains(heldItemPlate.getType().name().toLowerCase())) {
+                            player.sendMessage("§cThat Plate is already equipped!");
                             return;
-                        }
-
-                        if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
-                            ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
-                            if (selected.getType().name().toLowerCase().contains(heldItemPlate.getType().name().toLowerCase())) {
-                                player.sendMessage("§cThat Plate is already equipped!");
-                                return;
-                            } else {
-                                for (ArcPlates.Plate p : ArcPlates.Plate.values()) {
-                                    if (p.plate.getItem().getRegistryName() == heldItemPlate.getRegistryName()) {
-                                        if (!data.hasPlate(p.i)) {
-                                            data.add(p.i);
-                                            break;
-                                        } else {
-                                            player.sendMessage("§cCant unequip " + GrammarUtils.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping.");
-                                            return;
-                                        }
+                        } else {
+                            for (ArcPlates.Plate p : ArcPlates.Plate.values()) {
+                                if (p.plate.getItem().getRegistryName() == heldItemPlate.getRegistryName()) {
+                                    if (!data.hasPlate(p.i)) {
+                                        data.add(p.i);
+                                        break;
+                                    } else {
+                                        player.sendMessage("§cCant unequip " + GrammarUtils.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping.");
+                                        return;
                                     }
                                 }
                             }
                         }
-                        pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedEnumPlate.getItem()));
-                        data.remove(getIDFromSlot(slot));
-                        player.sendMessage("§aPlate equipped!");
-                    } else
-                        player.sendMessage("§cCannot equip Plate because Pokemon is currently holding something!");
-                }
-                // Right clicking plate in GUI
-                else if (event.isRightClick()) {
-                    /*
-                     * Take the plate that is right clicked in the GUI and give it to the player if there is free
-                     * inventory space.
-                     */
-                    PlayerInventory playerInv = ((Player) player.get()).getInventory();
-                    playerInv.addItem(selected);
+                    }
+                    pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedEnumPlate.getItem()));
                     data.remove(getIDFromSlot(slot));
-                }
+                    player.sendMessage("§aPlate equipped!");
+                } else
+                    player.sendMessage("§cCannot equip Plate because Pokemon is currently holding something!");
+            }
+            // Right clicking plate in GUI
+            else if (event.isRightClick()) {
+                /*
+                 * Take the plate that is right clicked in the GUI and give it to the player if there is free
+                 * inventory space.
+                 */
+                PlayerInventory playerInv = ((Player) player.get()).getInventory();
+                playerInv.addItem(selected);
+                data.remove(getIDFromSlot(slot));
             }
         }
     }
