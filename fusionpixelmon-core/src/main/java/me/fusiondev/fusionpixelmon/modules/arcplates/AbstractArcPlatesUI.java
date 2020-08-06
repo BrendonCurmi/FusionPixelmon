@@ -141,7 +141,7 @@ public abstract class AbstractArcPlatesUI {
      */
     protected int getIDFromSlot(int slot) {
         // todo plate slots are in ascending order, can break out of loop with plates.slot > slot if not found
-        for (me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates.Plate plate : me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates.Plate.values()) if (plate.slot == slot) return plate.i;
+        for (ArcPlates.Plate plate : ArcPlates.Plate.values()) if (plate.slot == slot) return plate.i;
         return -1;
     }
 
