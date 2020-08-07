@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.api.inventory;
 
-import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemType;
 
@@ -12,7 +12,7 @@ public class InvItem {
     private String name;
     private List<String> itemLore;
 
-    private static final String DEFAULT_LORE_COLOUR = "§" + Colour.GREY.getCode();
+    private static final String DEFAULT_LORE_COLOUR = "§" + Color.GRAY.getCode();
 
     public InvItem(AbstractItemStack itemStack, String name, List<String> itemLore) {
         this.itemStack = itemStack;

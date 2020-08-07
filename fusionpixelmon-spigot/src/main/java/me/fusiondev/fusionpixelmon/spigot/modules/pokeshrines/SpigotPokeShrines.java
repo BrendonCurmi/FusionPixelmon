@@ -1,7 +1,7 @@
 package me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines;
 
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
-import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.data.PokeShrineData;
 import me.fusiondev.fusionpixelmon.modules.pokeshrines.PokeShrinesModule;
 import org.bukkit.GameMode;
@@ -62,7 +62,7 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
 
                     player.getInventory().addItem(selected);
                     player.sendMessage("§7§oClicking the placed shrine with an empty hand will lock it to stop other players from picking it up");
-                } else player.sendMessage("§" + Colour.RED.getCode() + "Your inventory is full!");
+                } else player.sendMessage("§" + Color.RED.getCode() + "Your inventory is full!");
             } else if (BLOCKS.containsKey(block) && !event.hasItem()) {
                 Location blockLoc = getLocation(event.getClickedBlock().getLocation(), block);
                 int x = blockLoc.getBlockX(), y = blockLoc.getBlockY(), z = blockLoc.getBlockZ();

@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
-import me.fusiondev.fusionpixelmon.api.colour.Colour;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.colour.IColourWrapper;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
@@ -49,8 +49,8 @@ public class NickShop extends BaseShop {
             InvItem item = new InvItem(itemStack, "§" + option.getCode() + GrammarUtils.cap(option.name()));
             page.setItem(slot, item, event -> {
                 IColourWrapper wrapper = (IColourWrapper) shops.getSelectedOptions().getOrDefault(getOption(), new ColourWrapper());
-                if (option.getColour().isStyle()) wrapper.setStyle(option.getColour());
-                else wrapper.setColour(option.getColour());
+                if (option.getColor().isStyle()) wrapper.setStyle(option.getColor());
+                else wrapper.setColor(option.getColor());
                 shops.getSelectedOptions().put(getOption(), wrapper);
                 builder.setSelectedItem(item.getItemStack());
             });
@@ -90,46 +90,46 @@ public class NickShop extends BaseShop {
     private static AbstractItemTypes reg = REG.getItemTypesRegistry();
 
     public enum ColourOptions {
-        DARK_RED(Colour.DARK_RED, reg.CONCRETE(), DyeColor.RED),
-        RED(Colour.RED, reg.REDSTONE_BLOCK(), null),
-        GOLD(Colour.GOLD, reg.GOLD_BLOCK(), null),
-        YELLOW(Colour.YELLOW, reg.CONCRETE(), DyeColor.YELLOW),
-        DARK_GREEN(Colour.DARK_GREEN, reg.CONCRETE(), DyeColor.GREEN),
-        GREEN(Colour.GREEN, reg.CONCRETE(), DyeColor.LIME),
-        AQUA(Colour.AQUA, reg.CONCRETE(), DyeColor.LIGHT_BLUE),
-        DARK_AQUA(Colour.DARK_AQUA, reg.CONCRETE(), DyeColor.CYAN),
-        DARK_BLUE(Colour.DARK_BLUE, reg.CONCRETE(), DyeColor.BLUE),
-        BLUE(Colour.BLUE, reg.LAPIS_BLOCK(), null),
-        LIGHT_PURPLE(Colour.LIGHT_PURPLE, reg.CONCRETE(), DyeColor.MAGENTA),
-        DARK_PURPLE(Colour.DARK_PURPLE, reg.CONCRETE(), DyeColor.PURPLE),
-        WHITE(Colour.WHITE, reg.QUARTZ_BLOCK(), null),
-        GREY(Colour.GREY, reg.CONCRETE(), DyeColor.SILVER),
-        DARK_GREY(Colour.DARK_GREY, reg.CONCRETE(), DyeColor.GRAY),
-        BLACK(Colour.BLACK, reg.CONCRETE(), DyeColor.BLACK),
+        DARK_RED(Color.DARK_RED, reg.CONCRETE(), DyeColor.RED),
+        RED(Color.RED, reg.REDSTONE_BLOCK(), null),
+        GOLD(Color.GOLD, reg.GOLD_BLOCK(), null),
+        YELLOW(Color.YELLOW, reg.CONCRETE(), DyeColor.YELLOW),
+        DARK_GREEN(Color.DARK_GREEN, reg.CONCRETE(), DyeColor.GREEN),
+        GREEN(Color.GREEN, reg.CONCRETE(), DyeColor.LIME),
+        AQUA(Color.AQUA, reg.CONCRETE(), DyeColor.LIGHT_BLUE),
+        DARK_AQUA(Color.DARK_AQUA, reg.CONCRETE(), DyeColor.CYAN),
+        DARK_BLUE(Color.DARK_BLUE, reg.CONCRETE(), DyeColor.BLUE),
+        BLUE(Color.BLUE, reg.LAPIS_BLOCK(), null),
+        LIGHT_PURPLE(Color.LIGHT_PURPLE, reg.CONCRETE(), DyeColor.MAGENTA),
+        DARK_PURPLE(Color.DARK_PURPLE, reg.CONCRETE(), DyeColor.PURPLE),
+        WHITE(Color.WHITE, reg.QUARTZ_BLOCK(), null),
+        GRAY(Color.GRAY, reg.CONCRETE(), DyeColor.SILVER),
+        DARK_GRAY(Color.DARK_GRAY, reg.CONCRETE(), DyeColor.GRAY),
+        BLACK(Color.BLACK, reg.CONCRETE(), DyeColor.BLACK),
 
-        OBFUSCATED(Colour.OBFUSCATED, reg.DYE(), DyeColor.GRAY),
-        BOLD(Colour.BOLD, reg.DYE(), DyeColor.GRAY),
-        STRIKETHROUGH(Colour.STRIKETHROUGH, reg.DYE(), DyeColor.GRAY),
-        UNDERLINE(Colour.UNDERLINE, reg.DYE(), DyeColor.GRAY),
-        ITALIC(Colour.ITALIC, reg.DYE(), DyeColor.GRAY),
-        RESET(Colour.RESET, reg.DYE(), DyeColor.GRAY);
+        OBFUSCATED(Color.OBFUSCATED, reg.DYE(), DyeColor.GRAY),
+        BOLD(Color.BOLD, reg.DYE(), DyeColor.GRAY),
+        STRIKETHROUGH(Color.STRIKETHROUGH, reg.DYE(), DyeColor.GRAY),
+        UNDERLINE(Color.UNDERLINE, reg.DYE(), DyeColor.GRAY),
+        ITALIC(Color.ITALIC, reg.DYE(), DyeColor.GRAY),
+        RESET(Color.RESET, reg.DYE(), DyeColor.GRAY);
 
-        private Colour colour;
+        private Color color;
         private AbstractItemType itemType;
         private DyeColor dyeColor;
 
-        ColourOptions(Colour colour, AbstractItemType itemType, DyeColor dyeColor) {
-            this.colour = colour;
+        ColourOptions(Color color, AbstractItemType itemType, DyeColor dyeColor) {
+            this.color = color;
             this.itemType = itemType;
             this.dyeColor = dyeColor;
         }
 
-        public Colour getColour() {
-            return colour;
+        public Color getColor() {
+            return color;
         }
 
         public char getCode() {
-            return colour.getCode();
+            return color.getCode();
         }
 
         public AbstractItemType getItemType() {
