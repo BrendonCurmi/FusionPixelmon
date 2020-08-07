@@ -5,6 +5,7 @@ import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.IPluginInfo;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
+import me.fusiondev.fusionpixelmon.data.PokeShrineData;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.SpigotArcPlatesModule;
@@ -25,6 +26,8 @@ import java.util.Optional;
 public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     private static SpigotFusionPixelmon instance;
+
+    private PokeShrineData pokeShrineData;
 
     @Override
     @SuppressWarnings("UnstableApiUsage")
@@ -57,7 +60,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         getServer().getPluginManager().registerEvents(new SpigotInvInventory(), this);
 
         if (!getConfiguration().getPickableShrines().isEmpty()) {
-            getServer().getPluginManager().registerEvents(new SpigotPokeShrines(), this);
+            this.pokeShrineData = new PokeShrineData(SpigotFusionPixelmon.getInstance().getDataFolder(), "pokeshrines");
+            getServer().getPluginManager().registerEvents(new SpigotPokeShrines(pokeShrineData), this);
         }
 
         // Add Master Ball crafting recipe back
@@ -91,11 +95,16 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
     @Override
     public void onDisable() {
         SpigotArcPlatesModule.getArcPlates().cleanup();
+        pokeShrineData.save();
         System.out.println("ENDED");
     }
 
     public static SpigotFusionPixelmon getInstance() {
         return SpigotFusionPixelmon.instance;
+    }
+
+    public PokeShrineData getPokeShrineData() {
+        return pokeShrineData;
     }
 
 

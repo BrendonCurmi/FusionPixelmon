@@ -2,6 +2,7 @@ package me.fusiondev.fusionpixelmon.sponge;
 
 import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
+import me.fusiondev.fusionpixelmon.data.PokeShrineData;
 import me.fusiondev.fusionpixelmon.modules.antifall.AntifallModule;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.SpongeArcPlatesModule;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCommand;
@@ -58,6 +59,8 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     public Path configDir;
     private final Logger LOGGER;
+
+    private PokeShrineData pokeShrineData;
 
     /**
      * Main class constructor that gets called by Sponge's classloader.
@@ -119,7 +122,8 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
         // Register event listeners through Sponge
         if (!getConfiguration().getPickableShrines().isEmpty()) {
-            Sponge.getEventManager().registerListeners(this, new SpongePokeShrines());
+            this.pokeShrineData = new PokeShrineData(SpongeFusionPixelmon.getInstance().getConfigDir().toFile(), "pokeshrines");
+            Sponge.getEventManager().registerListeners(this, new SpongePokeShrines(pokeShrineData));
         }
 
         // Register pixelmon events through Forge
@@ -164,6 +168,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     @Listener
     public void onServerStop(GameStoppingServerEvent event) {
         SpongeArcPlatesModule.getArcPlates().cleanup();
+        pokeShrineData.save();
     }
 
     @Listener
@@ -177,6 +182,10 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     public static SpongeFusionPixelmon getInstance() {
         return SpongeFusionPixelmon.instance;
+    }
+
+    public PokeShrineData getPokeShrineData() {
+        return pokeShrineData;
     }
 
     private static boolean hasDeprecatedDataFiles() {
