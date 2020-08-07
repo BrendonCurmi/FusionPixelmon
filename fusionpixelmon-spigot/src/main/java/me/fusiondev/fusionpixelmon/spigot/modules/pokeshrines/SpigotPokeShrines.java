@@ -61,6 +61,7 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
                     }
 
                     player.getInventory().addItem(selected);
+                    player.sendMessage("§7§oClicking the placed shrine with an empty hand will lock it to stop other players from picking it up");
                 } else player.sendMessage("§" + Colour.RED.getCode() + "Your inventory is full!");
             } else if (BLOCKS.containsKey(block) && !event.hasItem()) {
                 Location blockLoc = getLocation(event.getClickedBlock().getLocation(), block);
