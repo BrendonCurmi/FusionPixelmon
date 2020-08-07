@@ -203,7 +203,7 @@ public class InvItem {
      * @return the new copy instance with item and name only.
      */
     public InvItem copyItem() {
-        return new InvItem(itemStack, name);
+        return new InvItem(itemStack.copy(), name);
     }
 
     /**
