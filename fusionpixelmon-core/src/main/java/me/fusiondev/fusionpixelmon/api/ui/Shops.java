@@ -275,6 +275,7 @@ public abstract class Shops {
 
         pagePokeEditor.setItem(17, confirmInvItem, event -> {
             InvPage pageCheckout = new InvPage("§8Checkout", "pokecheckout", 5);
+            pageCheckout.getEventHandler().add(Event.CLOSE_INVENTORY, (event1, player) -> resetSelectedOptions(false));
             pageCheckout.setBackground(emptyItem);
             pageCheckout.setItemRange(10, 16, airItem);
             pageCheckout.setItemRange(28, 34, airItem);
