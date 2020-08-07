@@ -208,9 +208,7 @@ public abstract class Shops {
         bank = getBank(config);
 
         InvPage pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
-        pagePokeEditor.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player) -> {
-            resetSelectedOptions(false);
-        });
+        pagePokeEditor.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player) -> resetSelectedOptions(false));
 
         Registry reg = FusionPixelmon.getRegistry();
 
