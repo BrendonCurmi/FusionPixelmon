@@ -208,11 +208,6 @@ public abstract class Shops {
         bank = getBank(config);
 
         InvPage pagePokeEditor = new InvPage("§8" + guiTitle, SHOP_ID, 6);
-        /*pagePokeEditor.setInteractInventoryEventListener(event -> {
-            if (event instanceof InteractInventoryEvent.Close) {
-                resetSelectedOptions(false);
-            }
-        });*/
         pagePokeEditor.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player) -> {
             resetSelectedOptions(false);
         });
@@ -220,18 +215,15 @@ public abstract class Shops {
         Registry reg = FusionPixelmon.getRegistry();
 
         AbstractItemStack emptyStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE().to().setColour(DyeColor.BLACK);
-//        emptyStack.offer(Keys.DYE_COLOR, DyeColors.BLACK);
         InvItem emptyItem = new InvItem(emptyStack, "");
 
         InvItem airItem = new InvItem(reg.getItemTypesRegistry().AIR().to(), "");
 
         AbstractItemStack confirmInvStack = reg.getItemTypesRegistry().DYE().to().setColour(DyeColor.LIME);
-//        confirmInvStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
         InvItem confirmInvItem = new InvItem(confirmInvStack, "§a§lConfirm");
         confirmInvItem.setLore("This will take you to", "the final checkout page.");
 
         AbstractItemStack cancelInvStack = reg.getItemTypesRegistry().DYE().to().setColour(DyeColor.RED);
-//        cancelInvStack.offer(Keys.DYE_COLOR, DyeColors.RED);
         InvItem cancelInvItem = new InvItem(cancelInvStack, "§4§lCancel");
         InvItem curr = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("grass_gem"), "§2Current Balance: §a" + bank.balance(player));
 
