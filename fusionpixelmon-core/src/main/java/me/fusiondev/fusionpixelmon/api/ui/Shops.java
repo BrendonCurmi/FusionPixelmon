@@ -4,6 +4,7 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.Registry;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
 import me.fusiondev.fusionpixelmon.api.inventory.InvInventory;
@@ -52,11 +53,6 @@ public abstract class Shops {
     protected final String SHOP_ID = "pokeeditor";
 
     protected List<InvPage> pages;// todo check if this is even needed
-
-    /**
-     * The inventory GUI page for the main shop.
-     */
-//    InvPage pagePokeEditor;// todo can be converted into local variable
 
     /**
      * The player's bank account.
@@ -308,9 +304,7 @@ public abstract class Shops {
 
             pageCheckout.setItem(33, confirmInvItem1, event1 -> {
                 if (!bank.canAfford(player, totalCost)) {
-                    //todo handle this
-                    //player.sendMessage(Text.of("§cYou are not able to make this transaction"));
-                    //((ClickInventoryEvent) (event)).setCancelled(true);
+                    player.sendMessage(Color.RED + "You are not able to make this transaction");
                     return;
                 }
 
@@ -323,8 +317,7 @@ public abstract class Shops {
                     Object result = e.getValue();
                     shops.get(e.getKey()).purchaseAction(result);
                 }
-                //todo handle this
-                //player.sendMessage(Text.of(TextColors.GREEN, "Successfully edited your Pokemon!"));
+                player.sendMessage(Color.GREEN + "Successfully edited your Pokemon!");
             });
             pageCheckout.setItem(31, curr);
 
