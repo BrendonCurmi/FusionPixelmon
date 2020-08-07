@@ -284,7 +284,7 @@ public abstract class Shops {
             int totalCost = calculateCost();
 
             if (bank.canAfford(player, totalCost)) {
-                //todo confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.LIME);
+                confirmInvItem1.getItemStack().setColour(DyeColor.LIME);
                 confirmInvItem1.setLore(
                         "Your total cost is: §c" + bank.getCurrencySymbol(totalCost) + "§7.",
                         "",
@@ -294,7 +294,7 @@ public abstract class Shops {
                         "Your updated balance will be §a" + bank.getCurrencySymbol(bank.balance(player).intValue() - totalCost) + "§7."
                 );
             } else {
-                //todo confirmInvItem1.setKey(Keys.DYE_COLOR, DyeColors.GRAY);
+                confirmInvItem1.getItemStack().setColour(DyeColor.GRAY);
                 confirmInvItem1.setLore(
                         "Your total cost is: §c" + bank.getCurrencySymbol(totalCost) + "§7.",
                         "",
