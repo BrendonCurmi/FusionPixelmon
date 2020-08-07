@@ -15,14 +15,14 @@ public class ArcPlatesCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("§" + Color.RED.getCode() + "This command can only be executed by a player");
+            commandSender.sendMessage(Color.RED + "This command can only be executed by a player");
             return true;
         }
         Player player = (Player) commandSender;
         AbstractPlayer abstractPlayer = SpigotAdapter.adapt(player);
         new PokeSelectorUI(abstractPlayer, "Arceus Selector", "arceusselector", pokemon -> {
             if (pokemon.getSpecies() == EnumSpecies.Arceus) new SpigotArcPlates().launch(abstractPlayer, pokemon);
-            else player.sendMessage("§" + Color.RED.getCode() + "Please only select an Arceus!");
+            else player.sendMessage(Color.RED + "Please only select an Arceus!");
         });
         return true;
     }

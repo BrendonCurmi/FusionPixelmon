@@ -40,7 +40,7 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
                     int x = blockLoc.getBlockX(), y = blockLoc.getBlockY(), z = blockLoc.getBlockZ();
                     if (DATA.isLocked(x, y, z)) {
                         if (!DATA.isLockedBy(x, y, z, player.getUniqueId())) {
-                            player.sendMessage("§cThis shrine is locked for pickup by another player");
+                            player.sendMessage(Color.RED + "This shrine is locked for pickup by another player");
                             return;
                         }
                         DATA.unlock(x, y, z);
@@ -61,21 +61,21 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
                     }
 
                     player.getInventory().addItem(selected);
-                    player.sendMessage("§7§oClicking the placed shrine with an empty hand will lock it to stop other players from picking it up");
-                } else player.sendMessage("§" + Color.RED.getCode() + "Your inventory is full!");
+                    player.sendMessage(Color.GRAY + "" + Color.ITALIC + "Clicking the placed shrine with an empty hand will lock it to stop other players from picking it up");
+                } else player.sendMessage(Color.RED + "Your inventory is full!");
             } else if (BLOCKS.containsKey(block) && !event.hasItem()) {
                 Location blockLoc = getLocation(event.getClickedBlock().getLocation(), block);
                 int x = blockLoc.getBlockX(), y = blockLoc.getBlockY(), z = blockLoc.getBlockZ();
                 if (DATA.isLocked(x, y, z)) {
                     if (DATA.isLockedBy(x, y, z, player.getUniqueId())) {
                         DATA.unlock(x, y, z);
-                        player.sendMessage("§aThis shrine has been unlocked for pickup");
+                        player.sendMessage(Color.GREEN + "This shrine has been unlocked for pickup");
                     } else {
-                        player.sendMessage("§cThis shrine is already locked for pickup by another player");
+                        player.sendMessage(Color.RED + "This shrine is already locked for pickup by another player");
                     }
                 } else {
                     DATA.lock(x, y, z, player.getUniqueId());
-                    player.sendMessage("§aThis shrine has been locked for pickup");
+                    player.sendMessage(Color.GREEN + "This shrine has been locked for pickup");
                 }
             }
         }

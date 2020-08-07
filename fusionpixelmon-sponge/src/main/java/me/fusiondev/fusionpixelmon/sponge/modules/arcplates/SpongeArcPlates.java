@@ -6,6 +6,7 @@ import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates;
 import me.fusiondev.fusionpixelmon.data.ArcPlateData;
@@ -46,7 +47,7 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
     protected void clickInventory(Object event1, AbstractPlayer player1) {
         ClickInventoryEvent event = (ClickInventoryEvent) event1;
         if (event instanceof ClickInventoryEvent.Shift) {
-            player.sendMessage(Text.of("§cShifting in this inventory is not a function"));
+            player.sendMessage(Text.of(Color.RED + "Shifting in this inventory is not a function"));
             return;
         }
 
@@ -103,7 +104,7 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
                             if (pokemon.getHeldItemAsItemHeld() instanceof ItemPlate) {
                                 ItemPlate heldItemPlate = (ItemPlate) pokemon.getHeldItemAsItemHeld();
                                 if (selectedItemPlate.equals(heldItemPlate)) {
-                                    player.sendMessage(Text.of("§cThat Plate is already equipped!"));
+                                    player.sendMessage(Text.of(Color.RED + "That Plate is already equipped!"));
                                     return;
                                 } else {
                                     ItemType heldItemType = getType(Objects.requireNonNull(heldItemPlate.getRegistryName()));
@@ -113,7 +114,7 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
                                                 data.add(p.i);
                                                 break;
                                             } else {
-                                                player.sendMessage(Text.of("§cCant unequip " + GrammarUtils.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
+                                                player.sendMessage(Text.of(Color.RED + "Cant unequip " + GrammarUtils.cap(p.name()) + " Plate because there is another in Storage! Please remove the one in Storage first before unequiping."));
                                                 return;
                                             }
                                         }
@@ -122,9 +123,9 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
                             }
                             pokemon.setHeldItem(new net.minecraft.item.ItemStack(selectedItemPlate));
                             data.remove(getIDFromSlot(slot));
-                            player.sendMessage(Text.of("§aPlate equipped!"));
+                            player.sendMessage(Text.of(Color.GREEN + "Plate equipped!"));
                         } else
-                            player.sendMessage(Text.of("§cCannot equip Plate because Pokemon is currently holding something!"));
+                            player.sendMessage(Text.of(Color.RED + "Cannot equip Plate because Pokemon is currently holding something!"));
                     }
                     // Right clicking plate in GUI
                     else if (event instanceof ClickInventoryEvent.Secondary) {
@@ -136,7 +137,7 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
                         if (playerInv.getMainGrid().canFit(selected)) {
                             ((Player) player.get()).getInventory().offer(selected);
                             data.remove(getIDFromSlot(slot));
-                        } else player.sendMessage(Text.of("§cYour inventory is full!"));
+                        } else player.sendMessage(Text.of(Color.RED + "Your inventory is full!"));
                     }
                 }
             }

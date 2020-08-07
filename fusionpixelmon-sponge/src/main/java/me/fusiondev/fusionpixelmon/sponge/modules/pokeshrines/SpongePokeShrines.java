@@ -2,6 +2,7 @@ package me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines;
 
 import com.flowpowered.math.vector.Vector3i;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.data.PokeShrineData;
 import me.fusiondev.fusionpixelmon.modules.pokeshrines.PokeShrinesModule;
 import org.spongepowered.api.block.BlockType;
@@ -17,8 +18,6 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.item.inventory.entity.PlayerInventory;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import org.spongepowered.common.block.SpongeBlockSnapshot;
@@ -56,7 +55,7 @@ public class SpongePokeShrines extends PokeShrinesModule {
                         int x = blockLoc.getBlockX(), y = blockLoc.getBlockY(), z = blockLoc.getBlockZ();
                         if (DATA.isLocked(x, y, z)) {
                             if (!DATA.isLockedBy(x, y, z, player.getUniqueId())) {
-                                player.sendMessage(Text.of(TextColors.RED, "This shrine is locked for pickup by another player"));
+                                player.sendMessage(Text.of(Color.RED + "This shrine is locked for pickup by another player"));
                                 return;
                             }
                             DATA.unlock(x, y, z);
@@ -76,8 +75,8 @@ public class SpongePokeShrines extends PokeShrinesModule {
                         }
 
                         playerInv.offer(selected);
-                        player.sendMessage(Text.of(TextColors.GRAY, TextStyles.ITALIC, "Clicking the placed shrine with an empty hand will lock it to stop other players from picking it up"));
-                    } else player.sendMessage(Text.of(TextColors.RED, "Your inventory is full!"));
+                        player.sendMessage(Text.of(Color.GRAY, Color.ITALIC, "Clicking the placed shrine with an empty hand will lock it to stop other players from picking it up"));
+                    } else player.sendMessage(Text.of(Color.RED + "Your inventory is full!"));
                 }
             } else if (BLOCKS.containsKey(block) && itemStackSnapshot.isEmpty()) {
                 SpongeBlockSnapshot blockSnapshot = (SpongeBlockSnapshot) context.get(EventContextKeys.BLOCK_HIT);
@@ -88,13 +87,13 @@ public class SpongePokeShrines extends PokeShrinesModule {
                 if (DATA.isLocked(x, y, z)) {
                     if (DATA.isLockedBy(x, y, z, player.getUniqueId())) {
                         DATA.unlock(x, y, z);
-                        player.sendMessage(Text.of(TextColors.GREEN, "This shrine has been unlocked for pickup"));
+                        player.sendMessage(Text.of(Color.GREEN + "This shrine has been unlocked for pickup"));
                     } else {
-                        player.sendMessage(Text.of(TextColors.RED, "This shrine is already locked for pickup by another player"));
+                        player.sendMessage(Text.of(Color.RED + "This shrine is already locked for pickup by another player"));
                     }
                 } else {
                     DATA.lock(x, y, z, player.getUniqueId());
-                    player.sendMessage(Text.of(TextColors.GREEN, "This shrine has been locked for pickup"));
+                    player.sendMessage(Text.of(Color.GREEN + "This shrine has been locked for pickup"));
                 }
             }
         }

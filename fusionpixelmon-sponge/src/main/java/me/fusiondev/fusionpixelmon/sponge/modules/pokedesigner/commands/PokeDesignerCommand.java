@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands;
 
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.sponge.SpongeAdapter;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
@@ -12,7 +13,6 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.plugin.meta.util.NonnullByDefault;
 
 @NonnullByDefault
@@ -20,7 +20,7 @@ public class PokeDesignerCommand implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
         if (!(src instanceof Player)) {
-            src.sendMessage(Text.of(TextColors.RED, "This command can only be executed by a player"));
+            src.sendMessage(Text.of(Color.RED + "This command can only be executed by a player"));
             return CommandResult.empty();
         }
         Player player = (Player) src;
@@ -29,7 +29,7 @@ public class PokeDesignerCommand implements CommandExecutor {
         new PokeSelectorUI(SpongeAdapter.adapt(player), config.getPokeSelectorGuiTitle(), "pokeselector", pokemon -> {
             if (!config.containsBlackListedPokemon(pokemon.getSpecies())) {
                 shops.launch(pokemon, config.getGuiTitle());
-            } else player.sendMessage(Text.of(TextColors.RED, "That Pokemon cant use the PokeDesigner!"));
+            } else player.sendMessage(Text.of(Color.RED + "That Pokemon cant use the PokeDesigner!"));
         });
         return CommandResult.success();
     }
