@@ -46,8 +46,7 @@ public interface IPokemonWrapper {
      * @param pokemon the Pokemon to check.
      * @return true if the Pokemon is an UltraBeast; otherwise false.
      */
-    public static boolean isUltraBeast(Pokemon pokemon) {
-        //todo can convert to an interface method
+    static boolean isUltraBeast(Pokemon pokemon) {
         return EnumSpecies.ultrabeasts.contains(pokemon.getSpecies().getPokemonName());
     }
 
@@ -58,7 +57,7 @@ public interface IPokemonWrapper {
      * @param pokemon the Pokemon.
      * @return an array of the Pokemon's IVs.
      */
-    public static int[] getIVArray(Pokemon pokemon) {
+    static int[] getIVArray(Pokemon pokemon) {
         StatsType[] statsTypes = StatsType.getStatValues();
         int[] array = new int[statsTypes.length];
         for (int i = 0; i < statsTypes.length; i++)
@@ -73,7 +72,7 @@ public interface IPokemonWrapper {
      * @param pokemon the Pokemon.
      * @return an array of the Pokemon's EVs.
      */
-    public static int[] getEVArray(Pokemon pokemon) {
+    static int[] getEVArray(Pokemon pokemon) {
         StatsType[] statsTypes = StatsType.getStatValues();
         int[] array = new int[statsTypes.length];
         for (int i = 0; i < statsTypes.length; i++)
@@ -89,7 +88,7 @@ public interface IPokemonWrapper {
      * @param max the maximum value.
      * @return a pretty formatted tally.
      */
-    public static String beautifyTally(int val, int max) {
+    static String beautifyTally(int val, int max) {
         return "§e" + val + "§8/§e" + max + " §8(§a" + (Math.round((float) val / max * 100)) + "%§8)";
     }
 
@@ -101,7 +100,7 @@ public interface IPokemonWrapper {
      * @see #beautifyTally(int, int)
      * @see IVStore#MAX_IVS
      */
-    public static String beautifyIV(int val) {
+    static String beautifyIV(int val) {
         return beautifyTally(val, IVStore.MAX_IVS);
     }
 
@@ -114,7 +113,7 @@ public interface IPokemonWrapper {
      * @see #beautifyTally(int, int)
      * @see EVStore#MAX_EVS
      */
-    public static String beautifyEV(int val) {
+    static String beautifyEV(int val) {
         return beautifyTally(val, EVStore.MAX_EVS);
     }
 }

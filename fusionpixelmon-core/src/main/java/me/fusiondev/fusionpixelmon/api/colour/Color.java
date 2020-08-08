@@ -1,6 +1,6 @@
 package me.fusiondev.fusionpixelmon.api.colour;
 
-public enum Colour {
+public enum Color {
     DARK_RED('4'),
     RED('c'),
     GOLD('6'),
@@ -14,8 +14,8 @@ public enum Colour {
     LIGHT_PURPLE('d'),
     DARK_PURPLE('5'),
     WHITE('f'),
-    GREY('7'),
-    DARK_GREY('8'),
+    GRAY('7'),
+    DARK_GRAY('8'),
     BLACK('0'),
 
     OBFUSCATED('k', true),
@@ -28,12 +28,14 @@ public enum Colour {
     private char code;
     private boolean style;
 
-    Colour(char code, boolean style) {
+    private static final String S = "§";
+
+    Color(char code, boolean style) {
         this.code = code;
         this.style = style;
     }
 
-    Colour(char code) {
+    Color(char code) {
         this(code, false);
     }
 
@@ -43,5 +45,10 @@ public enum Colour {
 
     public boolean isStyle() {
         return style;
+    }
+
+    @Override
+    public String toString() {
+        return S + code;
     }
 }

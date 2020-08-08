@@ -28,7 +28,10 @@ public class SpongePlayer extends AbstractPlayer {
 
     @Override
     public void sendMessage(Object message) {
-        PLAYER.sendMessage((Text) message);
+        if (message instanceof Text)
+            PLAYER.sendMessage((Text) message);
+        else
+            PLAYER.sendMessage(Text.of(message));
     }
 
     @Override

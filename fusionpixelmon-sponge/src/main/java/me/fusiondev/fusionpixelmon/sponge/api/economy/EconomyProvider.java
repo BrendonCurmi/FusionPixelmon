@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.sponge.api.economy;
 
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.sponge.util.CauseStackUtils;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.economy.IEconomyProvider;
@@ -10,7 +11,6 @@ import org.spongepowered.api.service.economy.account.UniqueAccount;
 import org.spongepowered.api.service.economy.transaction.ResultType;
 import org.spongepowered.api.service.economy.transaction.TransactionResult;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -75,11 +75,11 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
         TransactionResult result = account.get().deposit(getCurrency(), cost, CauseStackUtils.createCause(player));
         if (result.getResult() == ResultType.SUCCESS) {
             if (message)
-                player.sendMessage(Text.of(TextColors.GREEN, "Successfully deposited " + getCurrencySymbol(amount) + " into your account"));
+                player.sendMessage(Text.of(Color.GREEN + "Successfully deposited " + getCurrencySymbol(amount) + " into your account"));
             return true;
         } else {
             if (message)
-                player.sendMessage(Text.of(TextColors.RED, "Unable to deposit " + getCurrencySymbol(amount) + " into your account"));
+                player.sendMessage(Text.of(Color.RED + "Unable to deposit " + getCurrencySymbol(amount) + " into your account"));
             return false;
         }
     }
@@ -92,14 +92,14 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
         TransactionResult result = account.get().withdraw(getCurrency(), cost, CauseStackUtils.createCause(player));
         if (result.getResult() == ResultType.SUCCESS) {
             if (message)
-                player.sendMessage(Text.of(TextColors.GREEN, "Successfully withdrew " + getCurrencySymbol(amount) + " from your account"));
+                player.sendMessage(Text.of(Color.GREEN + "Successfully withdrew " + getCurrencySymbol(amount) + " from your account"));
             return true;
         } else if (result.getResult() == ResultType.ACCOUNT_NO_FUNDS) {
             if (message)
-                player.sendMessage(Text.of(TextColors.RED, "You do not have enough " + getCurrency().getPluralDisplayName() + " to perform this transaction"));
+                player.sendMessage(Text.of(Color.RED + "You do not have enough " + getCurrency().getPluralDisplayName() + " to perform this transaction"));
             return false;
         } else {
-            player.sendMessage(Text.of(TextColors.RED, "Unable to withdraw " + getCurrencySymbol(amount) + " from your account"));
+            player.sendMessage(Text.of(Color.RED + "Unable to withdraw " + getCurrencySymbol(amount) + " from your account"));
             return false;
         }
     }
@@ -110,7 +110,7 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
         EconomyService service = economyService.get();
         Optional<UniqueAccount> account = service.getOrCreateAccount(player.getUniqueId());
         if (!account.isPresent()) {
-            player.sendMessage(Text.of(TextColors.RED, "Cannot find an account for player '" + player.getName() + "'"));
+            player.sendMessage(Text.of(Color.RED + "Cannot find an account for player '" + player.getName() + "'"));
             return Optional.empty();
         }
         return account;

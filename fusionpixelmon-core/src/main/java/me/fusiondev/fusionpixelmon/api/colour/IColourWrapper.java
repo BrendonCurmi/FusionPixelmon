@@ -3,11 +3,11 @@ package me.fusiondev.fusionpixelmon.api.colour;
 public interface IColourWrapper {
     boolean hasColour();
 
-    void setColour(Colour colour);
+    void setColor(Color color);
 
     boolean hasStyle();
 
-    void setStyle(Colour style);
+    void setStyle(Color style);
 
     String getFullCode();
 }
