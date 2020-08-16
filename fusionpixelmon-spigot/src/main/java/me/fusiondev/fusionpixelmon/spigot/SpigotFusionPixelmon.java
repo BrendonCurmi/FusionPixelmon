@@ -13,7 +13,6 @@ import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.commands.ArcPlatesCo
 import me.fusiondev.fusionpixelmon.spigot.modules.masterball.SpigotMasterballModule;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines.SpigotPokeShrines;
-import org.apache.commons.io.IOUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -77,13 +76,23 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
             try {
                 Files.createDirectories(file.getParentFile().toPath());
 
-                InputStream in = getInstance().getResource("assets/" + getId() + "/default.conf");
-                OutputStream out = new FileOutputStream(file);
-                IOUtils.copy(in, out);
-                out.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            try (InputStream in = getInstance().getResource("assets/" + getId() + "/default.conf");
+                 OutputStream out = new FileOutputStream(file)) {
+                copy(in, out);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void copy(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[4096];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
         }
     }
 
