@@ -42,7 +42,7 @@ public class ForgePlayer extends AbstractPlayer {
 
     @Override
     public void closeInventory() {
-        PLAYER.closeContainer();
+        PLAYER.closeScreen();
     }
 
     @Override
