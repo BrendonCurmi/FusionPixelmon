@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.forge.modules.pokedesigner.commands;
 
+import mcp.MethodsReturnNonnullByDefault;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
@@ -8,13 +9,16 @@ import me.fusiondev.fusionpixelmon.forge.modules.pokedesigner.ui.ForgeShops;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class PokeDesignerCommand extends CommandBase {
     @Override
     public String getName() {
@@ -27,7 +31,7 @@ public class PokeDesignerCommand extends CommandBase {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         if (!(sender instanceof EntityPlayerMP)) {
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "This command can only be executed by a player"));
             return;
