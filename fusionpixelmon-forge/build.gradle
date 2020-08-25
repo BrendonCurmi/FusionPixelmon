@@ -146,3 +146,7 @@ shadowJar {
 
     configurations = [project.configurations.include]
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
