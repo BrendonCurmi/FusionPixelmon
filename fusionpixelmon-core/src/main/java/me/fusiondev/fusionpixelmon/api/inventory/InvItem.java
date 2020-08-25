@@ -12,7 +12,7 @@ public class InvItem {
     private String name;
     private List<String> itemLore;
 
-    private static final String DEFAULT_LORE_COLOUR = "§" + Color.GRAY.getCode();
+    public static final String DEFAULT_LORE_COLOUR = "§" + Color.GRAY.getCode();
 
     public InvItem(AbstractItemStack itemStack, String name, List<String> itemLore) {
         this.itemStack = itemStack;
