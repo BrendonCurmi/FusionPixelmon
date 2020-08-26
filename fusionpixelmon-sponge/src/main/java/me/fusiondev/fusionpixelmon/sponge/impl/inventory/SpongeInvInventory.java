@@ -128,12 +128,14 @@ public class SpongeInvInventory extends InvInventory {
 
                 // This populates the inventory again, which also handles elements added/updated through runnable
                 //todo optimize this
-                int num = 0;
-                for (final Inventory slot : ((Inventory) page.inventory.getRaw()).slots()) {
-                    if (page.elements.get(num) != null) {
-                        slot.set((ItemStack) page.elements.get(num).getItemStack().getRaw());
+                if (page.dynamicElements != null) {
+                    int num = 0;
+                    for (final Inventory slot : ((Inventory) page.inventory.getRaw()).slots()) {
+                        if (page.dynamicElements.get(num) != null) {
+                            slot.set((ItemStack) page.dynamicElements.get(num).getItemStack().getRaw());
+                        }
+                        num++;
                     }
-                    num++;
                 }
             }
         }).submit(FusionPixelmon.getInstance());
