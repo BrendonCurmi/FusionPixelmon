@@ -346,7 +346,7 @@ public abstract class Shops {
                 curr.setLore("§" + col + "Current Cost: " + calculateCost());
             else
                 curr.setLore("§" + col + "Current Cost: " + calculateCost(), Color.DARK_GRAY + "[click to refresh]");
-            pagePokeEditor.setItem(49, curr);
+            pagePokeEditor.setDynamicItem(49, curr);
         });
 
         pagePokeEditor.setBackground(emptyItem);
