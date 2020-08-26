@@ -333,11 +333,19 @@ public abstract class Shops {
             player.closeInventory();
         });
 
+        if (FusionPixelmon.getModule().equals("forge")) {
+            curr.setLore(Color.DARK_GRAY + "[click to refresh]");
+            pagePokeEditor.setItem(49, curr);
+        }
+
         // Bottom
         pagePokeEditor.setRunnable(() -> {
             char col = 'c';
             if (bank.balance(player).intValue() > calculateCost()) col = 'a';
-            curr.setLore("§" + col + "Current Cost: " + calculateCost());
+            if (FusionPixelmon.getModule().equals("forge"))
+                curr.setLore("§" + col + "Current Cost: " + calculateCost());
+            else
+                curr.setLore("§" + col + "Current Cost: " + calculateCost(), Color.DARK_GRAY + "[click to refresh]");
             pagePokeEditor.setItem(49, curr);
         });
 
