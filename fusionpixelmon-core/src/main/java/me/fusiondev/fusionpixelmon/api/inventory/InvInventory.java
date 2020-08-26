@@ -114,7 +114,12 @@ public abstract class InvInventory {
      * Circumvent this by adding UUIDs to a grace-period to only execute a closing
      * if the grace-period has already ended, with {@link #noGrace(UUID)}.
      */
-    private static final List<UUID> GRACE = new ArrayList<>();
+    private static List<UUID> grace;
+
+    private static void lazyLoadGrace() {
+        if (grace == null)
+            grace = new ArrayList<>();
+    }
 
     /**
      * Adds the player's UUID to the closing grace-period.
@@ -123,8 +128,9 @@ public abstract class InvInventory {
      * @param uuid the player's UUID.
      */
     protected static void addGrace(UUID uuid) {
-        GRACE.add(uuid);
-        TimeUtils.setTimeout(() -> GRACE.remove(uuid), 500);
+        lazyLoadGrace();
+        grace.add(uuid);
+        TimeUtils.setTimeout(() -> grace.remove(uuid), 500);
     }
 
     /**
@@ -134,6 +140,6 @@ public abstract class InvInventory {
      * @return true if the closing should be executed; false otherwise.
      */
     protected static boolean noGrace(UUID uuid) {
-        return !GRACE.contains(uuid);
+        return grace == null || !grace.contains(uuid);
     }
 }
