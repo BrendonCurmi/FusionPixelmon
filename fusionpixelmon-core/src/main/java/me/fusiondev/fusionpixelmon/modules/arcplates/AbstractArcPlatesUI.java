@@ -99,14 +99,14 @@ public abstract class AbstractArcPlatesUI {
                     stack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(plate.plate.name().toLowerCase() + "_plate").to();
                     name = "§a" + GrammarUtils.cap(plate.name()) + " Plate";
                 }
-                page.setItem(plate.slot, new InvItem(stack, name));
+                page.setDynamicItem(plate.slot, new InvItem(stack, name));
             }
 
             EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
 
             hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
             InvItem hoveringItem = new InvItem(hoveringStack, "§b§lArcPlates Hovering").setLore("Hover the plates around your Arceus");
-            page.setItem(27, hoveringItem, event -> {
+            page.setDynamicItem(27, hoveringItem, event -> {
                 if (entityPixelmon != null) {
                     deactivateForPlayer(entityPixelmon);
                     if (!isActive(entityPixelmon)) {
