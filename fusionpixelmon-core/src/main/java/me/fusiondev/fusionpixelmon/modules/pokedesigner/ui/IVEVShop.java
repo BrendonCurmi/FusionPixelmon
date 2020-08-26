@@ -103,7 +103,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         sub
                 );
-                page.setItem((i * 9) + 2, items[i][1], event -> {
+                page.setDynamicItem((i * 9) + 2, items[i][1], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].removeEV(type.getStatsType(), delta);
@@ -118,7 +118,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         add
                 );
-                page.setItem((i * 9) + 3, items[i][2], event -> {
+                page.setDynamicItem((i * 9) + 3, items[i][2], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].addEV(type.getStatsType(), delta, totalEV);
@@ -133,7 +133,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         sub
                 );
-                page.setItem((i * 9) + 5, items[i][3], event -> {
+                page.setDynamicItem((i * 9) + 5, items[i][3], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].removeIV(type.getStatsType(), delta);
@@ -148,7 +148,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         add
                 );
-                page.setItem((i * 9) + 6, items[i][4], event -> {
+                page.setDynamicItem((i * 9) + 6, items[i][4], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].addIV(type.getStatsType(), delta);
