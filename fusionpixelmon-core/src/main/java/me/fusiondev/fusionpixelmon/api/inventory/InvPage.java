@@ -15,6 +15,7 @@ public class InvPage {
     public String id;
     public int rows = 4;
     public Map<Integer, InvItem> elements;
+    public Map<Integer, InvItem> dynamicElements;
     public HashMap<Integer, InvAction> actions;
 
     public InvItem backgroundItem = null;
@@ -65,6 +66,21 @@ public class InvPage {
         for (int slot = slotFrom; slot <= slotTo; slot++) {
             elements.put(slot, element);
         }
+    }
+
+    private void lazyLoadDynamicElements() {
+        if (dynamicElements == null)
+            this.dynamicElements = new HashMap<>();
+    }
+
+    public void setDynamicItem(int slot, InvItem element) {
+        setDynamicItem(slot, element, null);
+    }
+
+    public void setDynamicItem(int slot, InvItem element, InvAction invAction) {
+        lazyLoadDynamicElements();
+        dynamicElements.put(slot, element);
+        if (invAction != null) actions.put(slot, invAction);
     }
 
     public void setBackground(InvItem backgroundItem) {
