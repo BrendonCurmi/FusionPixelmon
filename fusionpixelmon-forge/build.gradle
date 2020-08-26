@@ -84,6 +84,8 @@ dependencies {
     include fileTree(dir: 'libs', include: 'GooeyLibs-1.0.5.jar')
     //exclude(files("$rootDir/libs/forgeSrc-1.12.2-14.23.5.2768.jar"))
 
+    testCompile 'junit:junit:4.12'
+
     // Real examples
     // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
