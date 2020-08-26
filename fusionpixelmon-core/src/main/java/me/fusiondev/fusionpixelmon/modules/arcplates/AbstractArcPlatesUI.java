@@ -53,6 +53,8 @@ public abstract class AbstractArcPlatesUI {
     protected ArcPlateData data;
     protected InvPage page;
 
+    protected Registry reg = FusionPixelmon.getRegistry();
+
     /**
      * Launches the Arc Plates Storage interface for the specified
      * Player and Pokemon. Only an Arceus Pokemon should be passed
@@ -70,13 +72,18 @@ public abstract class AbstractArcPlatesUI {
         this.data = new ArcPlateData(arcplatesDataFile, pokemon.getUUID());
         this.page = new InvPage("§8Arc Plates", "arcplates", ROWS);
 
+        create();
+    }
+
+    /**
+     * Creates and opens the ArcPlates inventory UI.
+     */
+    protected void create() {
         // Save data to file upon closing GUI
         page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player1) -> data.save());
 
         // Handle inventory action
         page.getEventHandler().add(Event.CLICK_INVENTORY, this::clickInventory);
-
-        Registry reg = FusionPixelmon.getRegistry();
 
         AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to();
 
@@ -146,15 +153,6 @@ public abstract class AbstractArcPlatesUI {
     }
 
 
-
-
-
-
-
-
-
-
-
     /**
      * Stores the pixelmon entities and whether their ArcPlates hovering is enabled.
      * Realistically entities are only found in this map if hovering is enabled, as they
@@ -164,6 +162,7 @@ public abstract class AbstractArcPlatesUI {
 
     /**
      * Checks if the specified pixelmon entity has ArcPlates hovering enabled.
+     *
      * @param entityPixelmon the pokemon entity.
      * @return true if the pixelmon entity is not null and has ArcPlates hovering active.
      */
@@ -173,6 +172,7 @@ public abstract class AbstractArcPlatesUI {
 
     /**
      * Activates ArcPlates hovering for the specified pixelmon entity.
+     *
      * @param entityPixelmon the pokemon entity.
      */
     public void activate(EntityPixelmon entityPixelmon) {
@@ -195,9 +195,10 @@ public abstract class AbstractArcPlatesUI {
     /**
      * Deactivates all the other active ArcPlates hoverings,
      * other than the specified Arceus entity's
+     *
      * @param entityPixelmon the pokemon entity.
      */
-    private void deactivateForPlayer(EntityPixelmon entityPixelmon) {
+    protected void deactivateForPlayer(EntityPixelmon entityPixelmon) {
         Optional<PlayerPartyStorage> partyStorage = entityPixelmon.getPlayerStorage();
         if (!partyStorage.isPresent()) return;
         for (int i = 0; i < 6; i++) {
