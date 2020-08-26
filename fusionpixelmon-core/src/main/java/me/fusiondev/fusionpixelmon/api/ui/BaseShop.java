@@ -330,7 +330,7 @@ public abstract class BaseShop {
                     selectedItem.setLore("Current: §e" + value, Color.DARK_GRAY + "[click to refresh]");
                 else
                     selectedItem.setLore("Current: §e" + value);
-                page.setItem(selectedSlot, selectedItem);
+                page.setDynamicItem(selectedSlot, selectedItem);
             });
 
             //pagePokeEditor.setBackground(emptyItem);
