@@ -343,9 +343,9 @@ public abstract class Shops {
             char col = 'c';
             if (bank.balance(player).intValue() > calculateCost()) col = 'a';
             if (FusionPixelmon.getModule().equals("forge"))
-                curr.setLore("§" + col + "Current Cost: " + calculateCost());
-            else
                 curr.setLore("§" + col + "Current Cost: " + calculateCost(), Color.DARK_GRAY + "[click to refresh]");
+            else
+                curr.setLore("§" + col + "Current Cost: " + calculateCost());
             pagePokeEditor.setDynamicItem(49, curr);
         });
 
