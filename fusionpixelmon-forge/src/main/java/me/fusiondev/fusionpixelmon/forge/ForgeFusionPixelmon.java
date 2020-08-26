@@ -5,8 +5,10 @@ import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.forge.impl.ForgeConfigManager;
+import me.fusiondev.fusionpixelmon.forge.impl.inventory.ForgeInvInventory;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -65,6 +67,11 @@ public class ForgeFusionPixelmon extends PluginInfo {
         System.out.println(p);
         System.out.println(p.getName());
         p.sendMessage(new TextComponentString(p.getName()));
+    }
+
+    @SubscribeEvent
+    public void openInventory(GuiOpenEvent event) {
+        ForgeInvInventory.runUpdater();
     }
 
     private void createConfigFile(File file, boolean alwaysCreate) {
