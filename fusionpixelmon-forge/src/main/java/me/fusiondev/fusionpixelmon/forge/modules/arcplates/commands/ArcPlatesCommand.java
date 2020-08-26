@@ -1,18 +1,22 @@
 package me.fusiondev.fusionpixelmon.forge.modules.arcplates.commands;
 
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
+import mcp.MethodsReturnNonnullByDefault;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.forge.ForgeAdapter;
 import me.fusiondev.fusionpixelmon.forge.modules.arcplates.ForgeArcPlates;
 import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class ArcPlatesCommand extends CommandBase {
     @Override
     public String getName() {
@@ -25,7 +29,7 @@ public class ArcPlatesCommand extends CommandBase {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         if (!(sender instanceof EntityPlayerMP)) {
             sender.sendMessage(new TextComponentString(Color.RED + "This command can only be executed by a player"));
             return;
