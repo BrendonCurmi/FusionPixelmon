@@ -2,6 +2,7 @@ package me.fusiondev.fusionpixelmon.api.ui;
 
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.Registry;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
@@ -312,6 +313,12 @@ public abstract class BaseShop {
                 selectedSlot = row * 9;
             }
 
+            if (FusionPixelmon.getModule().equals("forge")) {
+                InvItem selectedItem = new InvItem(DEFAULT_SELECTED_ITEM_TYPE, "§3§l" + selectedItemName);
+                selectedItem.setLore(Color.DARK_GRAY + "[click to refresh]");
+                page.setItem(selectedSlot, selectedItem);
+            }
+
             page.setRunnable(() -> {
                 InvItem selectedItem = (selectedItemStack != null) ? new InvItem(selectedItemStack, "§3§l" + selectedItemName) : new InvItem(DEFAULT_SELECTED_ITEM_TYPE, "§3§l" + selectedItemName);
                 Object value = shops.getSelectedOptions().getOrDefault(options, "N/A");
@@ -319,7 +326,10 @@ public abstract class BaseShop {
                     if ((int) value < 0) value = "§c" + value;
                     else value = "§a+" + value;
                 }
-                selectedItem.setLore("Current: §e" + value);
+                if (FusionPixelmon.getModule().equals("forge"))
+                    selectedItem.setLore("Current: §e" + value, Color.DARK_GRAY + "[click to refresh]");
+                else
+                    selectedItem.setLore("Current: §e" + value);
                 page.setItem(selectedSlot, selectedItem);
             });
 
