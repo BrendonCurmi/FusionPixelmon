@@ -57,7 +57,7 @@ public abstract class Shops {
     /**
      * The player's bank account.
      */
-    protected IEconomyProvider bank;
+    protected IEconomyProvider<?, ?> bank;
 
     public Shops(AbstractPlayer player) {
         this.player = player;
@@ -192,7 +192,7 @@ public abstract class Shops {
         return totalCost;
     }
 
-    public abstract IEconomyProvider getBank(PokeDesignerConfig config);
+    public abstract IEconomyProvider<?, ?> getBank(PokeDesignerConfig config);
 
     /**
      * Launch the Shop GUI to display options, other shops, etc.
