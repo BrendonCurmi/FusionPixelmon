@@ -5,7 +5,7 @@ import mcp.MethodsReturnNonnullByDefault;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.forge.ForgeAdapter;
-import me.fusiondev.fusionpixelmon.forge.modules.arcplates.ForgeArcPlates;
+import me.fusiondev.fusionpixelmon.forge.modules.arcplates.ForgeArcPlatesModule;
 import me.fusiondev.fusionpixelmon.ui.PokeSelectorUI;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -37,7 +37,7 @@ public class ArcPlatesCommand extends CommandBase {
         EntityPlayerMP player = (EntityPlayerMP) sender;
         AbstractPlayer abstractPlayer = ForgeAdapter.adapt(player);
         new PokeSelectorUI(abstractPlayer, "Arceus Selector", "arceusselector", pokemon -> {
-            if (pokemon.getSpecies() == EnumSpecies.Arceus) new ForgeArcPlates().launch(abstractPlayer, pokemon);
+            if (pokemon.getSpecies() == EnumSpecies.Arceus) ForgeArcPlatesModule.getArcPlates().launch(abstractPlayer, pokemon);
             else abstractPlayer.sendMessage(Color.RED + "Please only select an Arceus!");
         });
     }
