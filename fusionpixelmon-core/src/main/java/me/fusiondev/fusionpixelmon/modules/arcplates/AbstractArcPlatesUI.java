@@ -96,7 +96,7 @@ public abstract class AbstractArcPlatesUI {
                     stack = plate.type.to();
                     if (plate.colour != null) stack.setColour(plate.colour);
                 } else {
-                    stack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(plate.plate.name().toLowerCase() + "_plate").to();
+                    stack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack(plate.plate.name().toLowerCase() + "_plate");
                     name = "§a" + GrammarUtils.cap(plate.name()) + " Plate";
                 }
                 page.setDynamicItem(plate.slot, new InvItem(stack, name));
