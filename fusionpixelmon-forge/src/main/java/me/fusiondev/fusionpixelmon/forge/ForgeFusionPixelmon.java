@@ -10,14 +10,13 @@ import me.fusiondev.fusionpixelmon.forge.modules.arcplates.ForgeArcPlatesModule;
 import me.fusiondev.fusionpixelmon.forge.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.forge.modules.masterball.ForgeMasterballModule;
 import me.fusiondev.fusionpixelmon.forge.modules.pokedesigner.commands.PokeDesignerCommand;
+import me.fusiondev.fusionpixelmon.forge.modules.pokeshrines.ForgePokeShrines;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import org.apache.logging.log4j.Logger;
@@ -71,6 +70,8 @@ public class ForgeFusionPixelmon extends PluginInfo {
         MinecraftForge.EVENT_BUS.register(this);
 
         MinecraftForge.EVENT_BUS.register(ForgeArcPlatesModule.getArcPlates());
+
+        MinecraftForge.EVENT_BUS.register(new ForgePokeShrines());
     }
 
     @Mod.EventHandler
@@ -79,7 +80,7 @@ public class ForgeFusionPixelmon extends PluginInfo {
     }
 
     @Mod.EventHandler
-    public void init(FMLServerStartingEvent event) {
+    public void starting(FMLServerStartingEvent event) {
         event.registerServerCommand(new PokeDesignerCommand());
         event.registerServerCommand(new ArcPlatesCommand());
     }
