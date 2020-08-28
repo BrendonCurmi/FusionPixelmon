@@ -78,7 +78,7 @@ public class IVEVShop extends BaseShop {
         for (IVEVOption type : IVEVOption.values()) {
             optName = GrammarUtils.underscoreToSpace(type.name());
 
-            items[i1][0] = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(type.getItemID()), "§3§l" + optName);
+            items[i1][0] = new InvItem(REG.getPixelmonUtils().getPixelmonItemStack(type.getItemID()), "§3§l" + optName);
             page.setItem(i1 * 9, items[i1][0]);
 
             items[i1][1] = SUBTRACTION_ITEM.copy("§c§lRemove " + optName + " EVs");
