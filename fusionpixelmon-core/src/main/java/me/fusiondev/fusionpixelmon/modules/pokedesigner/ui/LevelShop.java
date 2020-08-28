@@ -133,6 +133,7 @@ public class LevelShop extends BaseShop {
         int levels = (int) value;
         if (levels > 0) {
             TimeUtils.setTimeout(() -> {
+                shops.pokemon.retrieve();
                 for (int i = 1; i <= levels; i++)
                     shops.pokemon.getLevelContainer().awardEXP(shops.pokemon.getExperienceToLevelUp(), ExperienceGainType.BATTLE);
             }, 1000);
