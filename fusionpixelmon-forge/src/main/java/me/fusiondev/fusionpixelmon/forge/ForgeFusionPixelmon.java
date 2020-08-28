@@ -8,12 +8,14 @@ import me.fusiondev.fusionpixelmon.forge.impl.ForgeConfigManager;
 import me.fusiondev.fusionpixelmon.forge.impl.inventory.ForgeInvInventory;
 import me.fusiondev.fusionpixelmon.forge.modules.arcplates.ForgeArcPlatesModule;
 import me.fusiondev.fusionpixelmon.forge.modules.arcplates.commands.ArcPlatesCommand;
+import me.fusiondev.fusionpixelmon.forge.modules.masterball.ForgeMasterballModule;
 import me.fusiondev.fusionpixelmon.forge.modules.pokedesigner.commands.PokeDesignerCommand;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -65,6 +67,11 @@ public class ForgeFusionPixelmon extends PluginInfo {
         MinecraftForge.EVENT_BUS.register(this);
 
         MinecraftForge.EVENT_BUS.register(ForgeArcPlatesModule.getArcPlates());
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        new ForgeMasterballModule();
     }
 
     @Mod.EventHandler
