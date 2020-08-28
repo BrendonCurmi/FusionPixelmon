@@ -1,6 +1,5 @@
 package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
-import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;

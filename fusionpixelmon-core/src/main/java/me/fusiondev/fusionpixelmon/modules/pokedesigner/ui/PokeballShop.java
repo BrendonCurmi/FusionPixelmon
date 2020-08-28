@@ -1,7 +1,6 @@
 package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
-import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
