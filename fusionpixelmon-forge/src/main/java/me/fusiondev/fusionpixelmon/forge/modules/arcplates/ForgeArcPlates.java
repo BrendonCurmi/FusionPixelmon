@@ -14,14 +14,20 @@ import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates;
+import me.fusiondev.fusionpixelmon.data.ArcPlateData;
 import me.fusiondev.fusionpixelmon.forge.ForgeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.forge.impl.inventory.ForgeInvInventory;
 import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 import me.fusiondev.fusionpixelmon.impl.TimeUtils;
 import me.fusiondev.fusionpixelmon.modules.arcplates.AbstractArcPlatesUI;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +64,7 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
 
         // Plates
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
-            AbstractItemStack stack = reg.getPixelmonUtils().getPixelmonItemType(plate.plate.name().toLowerCase() + "_plate").to();
+            AbstractItemStack stack = reg.getPixelmonUtils().getPixelmonItemStack(plate.plate.name().toLowerCase() + "_plate");
             String name = "§" + (data.hasPlate(plate.i) ? 'a' : '7') + GrammarUtils.cap(plate.name()) + " Plate";
 
             Button plateBtn = Button.builder()
@@ -213,12 +219,74 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
         throw new IllegalArgumentException("Item is not a plate!");
     }
 
+
+    /**
+     * ArcPlates hovering.
+     */
+    private EntityPixelmon entityPixelmon;
+
     @Override
     public void createRing(EntityPixelmon entityPixelmon) {
+        if (isActive(entityPixelmon)) return;
+        this.entityPixelmon = entityPixelmon;
+        this.data = new ArcPlateData(ForgeFusionPixelmon.getInstance().getDataFolder().toPath().resolve("arcplates").toFile(), entityPixelmon.getPokemonData().getUUID());
+
+        EntityArmorStand[] ARMORS = new EntityArmorStand[17];
+        for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
+            EntityArmorStand armor = new EntityArmorStand(entityPixelmon.getEntityWorld());
+            armor.setCustomNameTag(AbstractArcPlatesUI.ARMOR_STAND_NAME);
+            armor.setNoGravity(true);
+            armor.getEntityData().setBoolean("NoBasePlate", false);
+            armor.setInvisible(true);
+            armor.setPosition(entityPixelmon.getPosition().getX(), entityPixelmon.getPosition().getY(), entityPixelmon.getPosition().getZ());
+            entityPixelmon.getEntityWorld().spawnEntity(armor);
+            ARMORS[plate.i] = armor;
+        }
+
         activate(entityPixelmon);
+        get(entityPixelmon).setArmorStands(ARMORS);
     }
 
     @Override
     public void deleteRing(EntityPixelmon entityPixelmon) {
+        if (!isActive(entityPixelmon)) return;
+        EntityArmorStand[] ARMORS = (EntityArmorStand[]) get(entityPixelmon).getArmorStands();
+        for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
+            entityPixelmon.getEntityWorld().removeEntity(ARMORS[plate.i]);
+        }
+    }
+
+    private int ticks = 0;
+
+    @SubscribeEvent
+    public void worldTick(TickEvent.WorldTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            ticks++;
+            if (ticks % 5 == 0) run();
+            if (ticks == 20) ticks = 0;
+        }
+    }
+
+    public void run() {
+        if (entityPixelmon == null || data == null) {
+            return;
+        }
+
+        if (!entityPixelmon.isAddedToWorld() || !isActive(entityPixelmon)) {
+            deleteRing(entityPixelmon);
+            deactivate(entityPixelmon);
+            return;
+        }
+
+        BlockPos location = entityPixelmon.getPosition();
+        double x0 = location.getX(), y0 = location.getY();
+
+        EntityArmorStand[] ARMORS = (EntityArmorStand[]) get(entityPixelmon).getArmorStands();
+        loop(x0, y0, (x, y, plate) -> {
+            EntityArmorStand armor = ARMORS[plate.i];
+            AbstractItemStack itemStack = reg.getPixelmonUtils().getPixelmonItemStack(plate.name().toLowerCase() + "_plate");
+            armor.setItemStackToSlot(EntityEquipmentSlot.HEAD, (ItemStack) itemStack.getRaw());
+            armor.setPosition(x, y, location.getZ());
+        });
     }
 }
