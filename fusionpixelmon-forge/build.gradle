@@ -81,7 +81,7 @@ dependencies {
     include(project(':fusionpixelmon-core'))
     compile(files("$rootDir/libs/Pixelmon-1.12.2-7.3.0-universal.jar"))
 
-    include fileTree(dir: 'libs', include: 'GooeyLibs-1.0.5.jar')
+    compile(fileTree(dir: 'libs', include: 'GooeyLibs-1.0.5.jar'))
     //exclude(files("$rootDir/libs/forgeSrc-1.12.2-14.23.5.2768.jar"))
 
     testCompile 'junit:junit:4.12'
