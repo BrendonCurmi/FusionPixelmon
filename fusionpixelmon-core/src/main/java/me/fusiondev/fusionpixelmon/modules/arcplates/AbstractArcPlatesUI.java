@@ -245,7 +245,7 @@ public abstract class AbstractArcPlatesUI {
     private static final int PLATES = ArcPlates.Plate.values().length;
     private int timeInterval = 0;
 
-    protected void loop(double x0, double y0, LoopRunnable runnable) {
+    protected void loop(double x0, double y0, /*double z0, double angle,*/ LoopRunnable runnable) {
         double radian;
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
             if (data.hasPlate(plate.i)) {
@@ -253,6 +253,15 @@ public abstract class AbstractArcPlatesUI {
                 double x = x0 + RADIUS * Math.cos(radian);
                 double y = y0 + RADIUS * Math.sin(radian);
                 runnable.run(x, y, plate);
+                /*
+                 * tan(theta)=opp/adj
+                 * where theta is 45d
+                 * tan(45)=z/x
+                 * z=x*tan(45)
+                 * where x is x0-x
+                 */
+                //double z = ((x0 - x) * -Math.tan(Math.toRadians(angle))) + z0;
+                //runnable.run(x, y, z, plate);
             }
         }
         timeInterval++;
