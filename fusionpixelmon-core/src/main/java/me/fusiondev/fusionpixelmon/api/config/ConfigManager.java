@@ -27,6 +27,8 @@ public abstract class ConfigManager extends AbstractConfigManager<CommentedConfi
         getNode().getNode("pokedesigner").removeChild("currency");
         // Backwards compatibility to remove 1.8 "shrine-pickup" section
         getNode().removeChild("shrine-pickup");
+        // Backwards compatibility to remove 1.8 "arcplate" field
+        getNode().removeChild("arcplate");
         super.configUpdater(newVersion);
     }
 
