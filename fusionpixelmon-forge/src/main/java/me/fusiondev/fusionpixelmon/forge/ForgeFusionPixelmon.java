@@ -69,20 +69,37 @@ public class ForgeFusionPixelmon extends PluginInfo {
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        MinecraftForge.EVENT_BUS.register(ForgeArcPlatesModule.getArcPlates());
+        if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
+            MinecraftForge.EVENT_BUS.register(ForgeArcPlatesModule.getArcPlates());
+        }
 
-        MinecraftForge.EVENT_BUS.register(new ForgePokeShrines());
+        if (!getConfiguration().getPickableShrines().isEmpty()) {
+            MinecraftForge.EVENT_BUS.register(new ForgePokeShrines());
+        }
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        new ForgeMasterballModule();
+        if (getConfiguration().isMasterballCraftingEnabled()) {
+            new ForgeMasterballModule();
+        }
     }
 
     @Mod.EventHandler
     public void starting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new PokeDesignerCommand());
-        event.registerServerCommand(new ArcPlatesCommand());
+        if (getConfiguration().getArcPlates().isEnabled()) {
+            event.registerServerCommand(new ArcPlatesCommand());
+        }
+        if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
+            event.registerServerCommand(new PokeDesignerCommand());
+        }
+    }
+
+    @Mod.EventHandler
+    public void stopping(FMLServerStoppedEvent event) {
+        if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
+            ForgeArcPlatesModule.getArcPlates().cleanup();
+        }
     }
 
     @SubscribeEvent
