@@ -245,6 +245,15 @@ public abstract class AbstractArcPlatesUI {
     private static final int PLATES = ArcPlates.Plate.values().length;
     private int timeInterval = 0;
 
+    /**
+     * Loops through the plates for the ArcPlates hovering, and calculates the coordinates
+     * of each point.
+     * https://math.stackexchange.com/questions/1030655/how-do-we-find-points-on-a-circle-equidistant-from-each-other
+     *
+     * @param x0       the x origin.
+     * @param y0       the y origin
+     * @param runnable the LoopRunnable executor.
+     */
     protected void loop(double x0, double y0, /*double z0, double angle,*/ LoopRunnable runnable) {
         double radian;
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
