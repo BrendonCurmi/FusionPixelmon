@@ -103,8 +103,12 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     @Override
     public void onDisable() {
-        SpigotArcPlatesModule.getArcPlates().cleanup();
-        pokeShrineData.save();
+        if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
+            SpigotArcPlatesModule.getArcPlates().cleanup();
+        }
+        if (!getConfiguration().getPickableShrines().isEmpty()) {
+            pokeShrineData.save();
+        }
         System.out.println("ENDED");
     }
 
