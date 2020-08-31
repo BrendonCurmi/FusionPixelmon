@@ -17,8 +17,6 @@ public class Config extends AbstractConfig {
     private boolean antiFallDamage;
     @Setting("craft-masterballs")
     private boolean craftMasterBalls;
-    @Setting("arcplate")
-    private boolean arcPlate;
     @Setting("pokeshrine")
     private HashMap<String, String> shrinePickup;
     @Setting("arcplates")
@@ -34,11 +32,6 @@ public class Config extends AbstractConfig {
     @Override
     public boolean isMasterballCraftingEnabled() {
         return craftMasterBalls;
-    }
-
-    @Override
-    public boolean isArcPlateEnabled() {
-        return arcPlate;
     }
 
     @Override

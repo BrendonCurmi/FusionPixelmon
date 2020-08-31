@@ -8,7 +8,6 @@ import java.util.HashMap;
 public abstract class AbstractConfig {
     public abstract boolean isAntiFallDamageEnabled();
     public abstract boolean isMasterballCraftingEnabled();
-    public abstract boolean isArcPlateEnabled();
     public abstract HashMap<String, String> getPickableShrines();
     public abstract ArcPlatesConfig getArcPlates();
     public abstract PokeDesignerConfig getPokeDesignerConfig();
