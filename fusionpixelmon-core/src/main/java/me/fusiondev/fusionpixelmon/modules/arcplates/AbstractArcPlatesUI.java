@@ -35,7 +35,7 @@ public abstract class AbstractArcPlatesUI {
     /**
      * The slots for the background in the UI.
      */
-    protected static final int[] BACKGROUND_SLOTS = {0, 1, 10, 18, 19, 28, 36, 37};
+    protected static final int[] BACKGROUND_SLOTS = {0, 1, 9, 10, 18, 19, 27, 28, 36, 37};
 
     /**
      * Cooldown variable to prevent duping.
@@ -85,7 +85,11 @@ public abstract class AbstractArcPlatesUI {
         // Handle inventory action
         page.getEventHandler().add(Event.CLICK_INVENTORY, this::clickInventory);
 
-        AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to();
+        // Background items
+        AbstractItemStack backgroundStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE()
+                .to().setColour(DyeColor.BLACK);
+        InvItem backgroundItem = new InvItem(backgroundStack, "");
+        for (int backSlot : BACKGROUND_SLOTS) page.setItem(backSlot, backgroundItem);
 
         // GUI page runnable task
         page.setRunnable(() -> {
@@ -102,21 +106,24 @@ public abstract class AbstractArcPlatesUI {
                 page.setDynamicItem(plate.slot, new InvItem(stack, name));
             }
 
-            EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
+            if (FusionPixelmon.getInstance().getConfiguration().getArcPlates().getHovering().isEnabled()) {
+                AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to();
+                EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
 
-            hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
-            InvItem hoveringItem = new InvItem(hoveringStack, "§b§lArcPlates Hovering").setLore("Hover the plates around your Arceus");
-            page.setDynamicItem(27, hoveringItem, event -> {
-                if (entityPixelmon != null) {
-                    deactivateForPlayer(entityPixelmon);
-                    if (!isActive(entityPixelmon)) {
-                        createRing(entityPixelmon);
-                    } else {
-                        deleteRing(entityPixelmon);
-                        deactivate(entityPixelmon);
+                hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
+                InvItem hoveringItem = new InvItem(hoveringStack, "§b§lArcPlates Hovering").setLore("Hover the plates around your Arceus");
+                page.setDynamicItem(27, hoveringItem, event -> {
+                    if (entityPixelmon != null) {
+                        deactivateForPlayer(entityPixelmon);
+                        if (!isActive(entityPixelmon)) {
+                            createRing(entityPixelmon);
+                        } else {
+                            deleteRing(entityPixelmon);
+                            deactivate(entityPixelmon);
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         InvItem infoItem = new InvItem(reg.getItemTypesRegistry().PAPER(), "§b§lStorage Info").setLore(
@@ -128,12 +135,8 @@ public abstract class AbstractArcPlatesUI {
                 "In Inventory:",
                 "  Left Click: §aAdd Plate to Storage"
         );
-        page.setItem(9, infoItem);
-
-        AbstractItemStack backgroundStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE()
-                .to().setColour(DyeColor.BLACK);
-        InvItem backgroundItem = new InvItem(backgroundStack, "");
-        for (int backSlot : BACKGROUND_SLOTS) page.setItem(backSlot, backgroundItem);
+        int infoItemSlot = FusionPixelmon.getInstance().getConfiguration().getArcPlates().getHovering().isEnabled() ? 9 : 18;
+        page.setItem(infoItemSlot, infoItem);
 
         reg.getInvInventory().openPage(player, page);
     }
