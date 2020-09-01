@@ -69,9 +69,9 @@ public class ForgeFusionPixelmon extends PluginInfo {
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
+        /*if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
             MinecraftForge.EVENT_BUS.register(ForgeArcPlatesModule.getArcPlates());
-        }
+        }*/
 
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             MinecraftForge.EVENT_BUS.register(new ForgePokeShrines());
@@ -92,13 +92,6 @@ public class ForgeFusionPixelmon extends PluginInfo {
         }
         if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
             event.registerServerCommand(new PokeDesignerCommand());
-        }
-    }
-
-    @Mod.EventHandler
-    public void stopping(FMLServerStoppedEvent event) {
-        if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
-            ForgeArcPlatesModule.getArcPlates().cleanup();
         }
     }
 
