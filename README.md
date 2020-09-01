@@ -6,7 +6,7 @@
 [![Minecraft](https://img.shields.io/badge/MC-1.12.2-brightgreen.svg)](https://github.com/BrendonCurmi/FusionPixelmon)
 [![Discord](https://discordapp.com/api/guilds/699764448155533404/widget.png)](https://discord.gg/VFNTycm)
 
-This is a plugin/mod hybrid that adds extra features to your Pixelmon Sponge server.
+Adds a little extra to your Pixelmon experience.
 
 ## Summary
 1. [Features](#features)
