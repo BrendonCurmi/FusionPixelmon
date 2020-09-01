@@ -6,7 +6,6 @@ import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.forge.impl.ForgeConfigManager;
 import me.fusiondev.fusionpixelmon.forge.impl.inventory.ForgeInvInventory;
-import me.fusiondev.fusionpixelmon.forge.modules.arcplates.ForgeArcPlatesModule;
 import me.fusiondev.fusionpixelmon.forge.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.forge.modules.masterball.ForgeMasterballModule;
 import me.fusiondev.fusionpixelmon.forge.modules.pokedesigner.commands.PokeDesignerCommand;
@@ -50,7 +49,6 @@ public class ForgeFusionPixelmon extends PluginInfo {
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new ForgeRegistry());
         dataFolder = new File(event.getModConfigurationDirectory(), ID);
-        System.out.println("CONFIG: " + event.getModConfigurationDirectory());
 
         createConfigFile(new File(getDataFolder(), "default.conf"), true);
         File configFile = new File(getDataFolder(), ID + ".conf");
