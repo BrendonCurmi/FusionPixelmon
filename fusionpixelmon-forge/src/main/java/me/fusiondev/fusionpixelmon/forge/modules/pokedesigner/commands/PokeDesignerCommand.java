@@ -16,6 +16,8 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.List;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -28,6 +30,13 @@ public class PokeDesignerCommand extends CommandBase {
     @Override
     public String getUsage(ICommandSender sender) {
         return "fusionpixelmon.command.pd";
+    }
+
+    @Override
+    public List<String> getAliases() {
+        ArrayList<String> alias = new ArrayList<>();
+        alias.add("pd");
+        return alias;
     }
 
     @Override
