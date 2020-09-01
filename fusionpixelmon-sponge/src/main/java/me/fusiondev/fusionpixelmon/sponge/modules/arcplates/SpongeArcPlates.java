@@ -1,6 +1,5 @@
 package me.fusiondev.fusionpixelmon.sponge.modules.arcplates;
 
-import com.flowpowered.math.vector.Vector3d;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
 import com.pixelmonmod.pixelmon.items.heldItems.ItemPlate;
 import com.pixelmonmod.pixelmon.items.heldItems.NoItem;
@@ -225,16 +224,10 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
     public void deleteRing(EntityPixelmon entityPixelmon) {
         if (!isActive(entityPixelmon)) return;
         ((Task) get(entityPixelmon).getTask()).cancel();
-        Entity pokemonEntity = ((Entity) entityPixelmon);
-        /*for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
-            ARMORS[plate.i].setLocation(pokemonEntity.getLocation());
-        }*/
-
         ArmorStand[] ARMORS = (ArmorStand[]) get(entityPixelmon).getArmorStands();
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
             ARMORS[plate.i].remove();
         }
-        pokemonEntity.offer(Keys.HAS_GRAVITY, true);
     }
 
     private class MyTask implements Runnable {
@@ -246,19 +239,9 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
                 return;
             }
             Entity pokemonEntity = ((Entity) entityPixelmon);
-            pokemonEntity.offer(Keys.HAS_GRAVITY, false);
-            Vector3d playerLoc = ((Entity) entityPixelmon.getPokemonData().getOwnerPlayer()).getLocation().getPosition();
-
-            double tpY = pokemonEntity.getLocation().getY() + (pokemonEntity.isOnGround() ? 5 : 0);
-            pokemonEntity.setLocationAndRotation(
-                    new Location<>(world,
-                            pokemonEntity.getLocation().getX(),
-                            tpY,
-                            pokemonEntity.getLocation().getZ())
-                    , playerLoc);
+            //Vector3d playerLoc = ((Entity) entityPixelmon.getPokemonData().getOwnerPlayer()).getLocation().getPosition();
 
             Location<World> location = pokemonEntity.getLocation();
-
             double x0 = location.getX(), y0 = location.getY();
 
             ArmorStand[] ARMORS = (ArmorStand[]) get(entityPixelmon).getArmorStands();
@@ -267,7 +250,7 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
                 AbstractItemStack itemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack(plate.name().toLowerCase() + "_plate");
                 armor.setHelmet((ItemStack) itemStack.getRaw());
                 armor.setLocation(new Location<>(world, x, y, location.getZ()));
-                armor.lookAt(playerLoc);
+                //armor.lookAt(playerLoc);
             });
         }
     }
