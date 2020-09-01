@@ -53,8 +53,13 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
             ex.printStackTrace();
         }
 
-        get("pd", new PokeDesignerCommand());
-        get("arc", new ArcPlatesCommand());
+        if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
+            get("pd", new PokeDesignerCommand());
+        }
+
+        if (getConfiguration().getArcPlates().isEnabled()) {
+            get("arc", new ArcPlatesCommand());
+        }
 
         getServer().getPluginManager().registerEvents(new SpigotInvInventory(), this);
 
