@@ -14,20 +14,14 @@ import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.pixelmon.ArcPlates;
-import me.fusiondev.fusionpixelmon.data.ArcPlateData;
 import me.fusiondev.fusionpixelmon.forge.ForgeFusionPixelmon;
 import me.fusiondev.fusionpixelmon.forge.impl.inventory.ForgeInvInventory;
 import me.fusiondev.fusionpixelmon.impl.GrammarUtils;
 import me.fusiondev.fusionpixelmon.impl.TimeUtils;
 import me.fusiondev.fusionpixelmon.modules.arcplates.AbstractArcPlatesUI;
-import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +33,20 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
     }
 
     private static final List<UUID> GRACE = new ArrayList<>();
-    private static final int[] INFO_BTN_COORDS = {1, 0};
-    private static final int[] HOVERING_BTN_COORDS = {3, 0};
+    //private static final int[] HOVERING_BTN_COORDS = {3, 0};
 
     @Override
     protected void create() {
         Template.Builder builder = Template.builder(page.rows);
+
+        // Background
+        AbstractItemStack backgroundStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE().to()
+                .setColour(DyeColor.BLACK)
+                .setName("");
+        for (int backSlot : BACKGROUND_SLOTS) {
+            int[] coords = ForgeInvInventory.getUICoords(backSlot);
+            builder.set(coords[0], coords[1], Button.of((ItemStack) backgroundStack.getRaw()));
+        }
 
         // Info
         AbstractItemStack infoStack = reg.getItemTypesRegistry().PAPER().to()
@@ -59,8 +61,12 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
         Button infoBtn = Button.builder()
                 .item((ItemStack) infoStack.getRaw())
                 .build();
+        builder.set(2, 0, infoBtn);
 
-        builder.set(INFO_BTN_COORDS[0], INFO_BTN_COORDS[1], infoBtn);
+        /*if (FusionPixelmon.getInstance().getConfiguration().getArcPlates().getHovering().isEnabled())
+            builder.set(1, 0, infoBtn);
+        else
+            builder.set(2, 0, infoBtn);*/
 
         // Plates
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
@@ -81,38 +87,31 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
         }
 
         // Hovering
-        EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
+        /*if (FusionPixelmon.getInstance().getConfiguration().getArcPlates().getHovering().isEnabled()) {
+            EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
 
-        AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to()
-                .setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED)
-                .setName("§b§lArcPlates Hovering")
-                .setLore(InvItem.DEFAULT_LORE_COLOUR + "Hover the plates around your Arceus");
+            AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to()
+                    .setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED)
+                    .setName("§b§lArcPlates Hovering")
+                    .setLore(InvItem.DEFAULT_LORE_COLOUR + "Hover the plates around your Arceus");
 
-        Button.Builder hoveringBtnBuilder = Button.builder().item((ItemStack) hoveringStack.getRaw());
-        hoveringBtnBuilder.onClick(action -> {
-            if (entityPixelmon != null) {
-                deactivateForPlayer(entityPixelmon);
-                if (!isActive(entityPixelmon)) {
-                    createRing(entityPixelmon);
-                } else {
-                    deleteRing(entityPixelmon);
-                    deactivate(entityPixelmon);
+            Button.Builder hoveringBtnBuilder = Button.builder().item((ItemStack) hoveringStack.getRaw());
+            hoveringBtnBuilder.onClick(action -> {
+                if (entityPixelmon != null) {
+                    deactivateForPlayer(entityPixelmon);
+                    if (!isActive(entityPixelmon)) {
+                        createRing(entityPixelmon);
+                    } else {
+                        deleteRing(entityPixelmon);
+                        deactivate(entityPixelmon);
+                    }
                 }
-            }
 
-            hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
-            builder.set(HOVERING_BTN_COORDS[0], HOVERING_BTN_COORDS[1], hoveringBtnBuilder.item((ItemStack) hoveringStack.getRaw()).build());
-        });
-        builder.set(HOVERING_BTN_COORDS[0], HOVERING_BTN_COORDS[1], hoveringBtnBuilder.build());
-
-        // Background
-        AbstractItemStack backgroundStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE().to()
-                .setColour(DyeColor.BLACK)
-                .setName("");
-        for (int backSlot : BACKGROUND_SLOTS) {
-            int[] coords = ForgeInvInventory.getUICoords(backSlot);
-            builder.set(coords[0], coords[1], Button.of((ItemStack) backgroundStack.getRaw()));
-        }
+                hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
+                builder.set(HOVERING_BTN_COORDS[0], HOVERING_BTN_COORDS[1], hoveringBtnBuilder.item((ItemStack) hoveringStack.getRaw()).build());
+            });
+            builder.set(HOVERING_BTN_COORDS[0], HOVERING_BTN_COORDS[1], hoveringBtnBuilder.build());
+        }*/
 
         Page page1 = Page.builder()
                 .title(page.title)
@@ -223,11 +222,11 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
     /**
      * ArcPlates hovering.
      */
-    private EntityPixelmon entityPixelmon;
+    //private EntityPixelmon entityPixelmon;
 
     @Override
     public void createRing(EntityPixelmon entityPixelmon) {
-        if (isActive(entityPixelmon)) return;
+        /*if (isActive(entityPixelmon)) return;
         this.entityPixelmon = entityPixelmon;
         this.data = new ArcPlateData(ForgeFusionPixelmon.getInstance().getDataFolder().toPath().resolve("arcplates").toFile(), entityPixelmon.getPokemonData().getUUID());
 
@@ -244,19 +243,19 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
         }
 
         activate(entityPixelmon);
-        get(entityPixelmon).setArmorStands(ARMORS);
+        get(entityPixelmon).setArmorStands(ARMORS);*/
     }
 
     @Override
     public void deleteRing(EntityPixelmon entityPixelmon) {
-        if (!isActive(entityPixelmon)) return;
+        /*if (!isActive(entityPixelmon)) return;
         EntityArmorStand[] ARMORS = (EntityArmorStand[]) get(entityPixelmon).getArmorStands();
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
             entityPixelmon.getEntityWorld().removeEntity(ARMORS[plate.i]);
-        }
+        }*/
     }
 
-    private int ticks = 0;
+    /*private int ticks = 0;
 
     @SubscribeEvent
     public void worldTick(TickEvent.WorldTickEvent event) {
@@ -288,5 +287,5 @@ public class ForgeArcPlates extends AbstractArcPlatesUI {
             armor.setItemStackToSlot(EntityEquipmentSlot.HEAD, (ItemStack) itemStack.getRaw());
             armor.setPosition(x, y, location.getZ());
         });
-    }
+    }*/
 }
