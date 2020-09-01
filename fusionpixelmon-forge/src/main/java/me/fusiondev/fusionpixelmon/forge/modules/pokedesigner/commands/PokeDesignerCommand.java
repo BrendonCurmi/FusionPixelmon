@@ -29,7 +29,7 @@ public class PokeDesignerCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "fusionpixelmon.command.pd";
+        return "/pokedesigner";
     }
 
     @Override
