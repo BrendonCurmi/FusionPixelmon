@@ -28,15 +28,15 @@ public class PokeDesignerCommand extends CommandBase {
     }
 
     @Override
-    public String getUsage(ICommandSender sender) {
-        return "/pokedesigner";
-    }
-
-    @Override
     public List<String> getAliases() {
         ArrayList<String> alias = new ArrayList<>();
         alias.add("pd");
         return alias;
+    }
+
+    @Override
+    public String getUsage(ICommandSender sender) {
+        return "/pokedesigner";
     }
 
     @Override
