@@ -75,7 +75,7 @@ public class SpongePokeShrines extends PokeShrinesModule {
                         }
 
                         playerInv.offer(selected);
-                        player.sendMessage(Text.of(Color.GRAY, Color.ITALIC, "Clicking the placed shrine with an empty hand will lock it to stop other players from picking it up"));
+                        player.sendMessage(Text.of(Color.GRAY.toString() + Color.ITALIC.toString() + "Clicking the placed shrine with an empty hand will lock it to stop other players from picking it up"));
                     } else player.sendMessage(Text.of(Color.RED + "Your inventory is full!"));
                 }
             } else if (BLOCKS.containsKey(block) && itemStackSnapshot.isEmpty()) {
