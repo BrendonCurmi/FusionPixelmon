@@ -25,7 +25,7 @@ public class ArcPlatesCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "fusionpixelmon.command.arc";
+        return "/arc";
     }
 
     @Override
