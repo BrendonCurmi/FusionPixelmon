@@ -1,7 +1,6 @@
 package me.fusiondev.fusionpixelmon.api.items;
 
 import me.fusiondev.fusionpixelmon.api.Raw;
-import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 
 import java.util.ArrayList;
 import java.util.List;
