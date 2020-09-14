@@ -5,6 +5,9 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
 
+/**
+ * Applies the default configuration to the Kotlin build scripts.
+ */
 fun Project.applyConfiguration() {
     /*configurations {
         create("shade")
