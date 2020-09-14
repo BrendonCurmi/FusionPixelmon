@@ -78,7 +78,7 @@ This plugin prevents taking fall damage by giving a 5 second grace period after 
 | Command       | Permission                          | Description               |
 |---------------|-------------------------------------|---------------------------|
 | /pd           | fusionpixelmon.command.pokedesigner | Opens the PokeDesigner UI |
-| /pokedesigner                                                                   |
+| /pokedesigner |                                     |                           |
 | /arc          | fusionpixelmon.command.arc          | Opens the ArcPlates UI    |
 
 Note: Empty fields will follow the values of the row above them.

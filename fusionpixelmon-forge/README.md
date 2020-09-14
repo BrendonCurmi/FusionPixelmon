@@ -41,7 +41,7 @@ Adds the Master Ball crafting recipe back in the game.
 | Command       | Permission                          | Description               |
 |---------------|-------------------------------------|---------------------------|
 | /pd           | fusionpixelmon.command.pokedesigner | Opens the PokeDesigner UI |
-| /pokedesigner                                                                   |
+| /pokedesigner |                                     |                           |
 | /arc          | fusionpixelmon.command.arc          | Opens the ArcPlates UI    |
 
 Note: Empty fields will follow the values of the row above them.
