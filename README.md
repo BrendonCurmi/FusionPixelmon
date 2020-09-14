@@ -23,7 +23,7 @@ As this is executed as a plugin, it only needs to be installed server-side in th
 
 ## Download
 You can download the latest version from:
-- [FusionPixelmon Sponge]()
+- [FusionPixelmon Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon)
 - [FusionPixelmon Spigot]()
 - [FusionPixelmon Forge]()
 
