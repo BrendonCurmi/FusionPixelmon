@@ -101,7 +101,7 @@ public abstract class BaseShop {
      * @param price the price of the item.
      */
     protected void addPriceSummary(String item, int price) {
-        priceLore.add("  §7" + item + "§7: §a$" + price);
+        priceLore.add("  §7" + item + "§7: §a" + shops.bank.getCurrencySymbol() + price);
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class BaseShop {
      * @param price the price of the item.
      */
     protected void addPriceSummary(String item, String price) {
-        priceLore.add("  §7" + item + "§7: §a$" + price);
+        priceLore.add("  §7" + item + "§7: §a" + shops.bank.getCurrencySymbol() + price);
     }
 
     /**

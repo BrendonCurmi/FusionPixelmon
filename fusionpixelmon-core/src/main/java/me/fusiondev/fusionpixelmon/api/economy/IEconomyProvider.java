@@ -24,7 +24,15 @@ public interface IEconomyProvider<S, C> {
         return getCurrency();
     }
 
-    String getCurrencySymbol(double amount);
+    String getCurrencyName(double amount);
+
+    default String getCurrencySymbol(double amount) {
+        return getCurrencySymbol() + amount;
+    }
+
+    default String getCurrencySymbol() {
+        return "$";
+    }
 
     BigDecimal balance(AbstractPlayer player);
 

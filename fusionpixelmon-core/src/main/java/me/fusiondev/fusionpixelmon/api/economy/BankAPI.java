@@ -41,7 +41,7 @@ public class BankAPI implements IEconomyProvider {
     }
 
     @Override
-    public String getCurrencySymbol(double amount) {
+    public String getCurrencyName(double amount) {
         String currency = amount != 1 ? "PokeDollars" : "PokeDollar";
         return amount + " " + currency;
     }
