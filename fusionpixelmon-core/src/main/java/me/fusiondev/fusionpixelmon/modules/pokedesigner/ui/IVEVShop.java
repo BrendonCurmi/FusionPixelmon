@@ -3,7 +3,6 @@ package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.IVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
-import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
@@ -78,7 +77,7 @@ public class IVEVShop extends BaseShop {
         for (IVEVOption type : IVEVOption.values()) {
             optName = GrammarUtils.underscoreToSpace(type.name());
 
-            items[i1][0] = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(type.getItemID()), "§3§l" + optName);
+            items[i1][0] = new InvItem(REG.getPixelmonUtils().getPixelmonItemStack(type.getItemID()), "§3§l" + optName);
             page.setItem(i1 * 9, items[i1][0]);
 
             items[i1][1] = SUBTRACTION_ITEM.copy("§c§lRemove " + optName + " EVs");
@@ -103,7 +102,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         sub
                 );
-                page.setItem((i * 9) + 2, items[i][1], event -> {
+                page.setDynamicItem((i * 9) + 2, items[i][1], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].removeEV(type.getStatsType(), delta);
@@ -118,7 +117,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalEV + requestedEV, EVStore.MAX_TOTAL_EVS)),
                         add
                 );
-                page.setItem((i * 9) + 3, items[i][2], event -> {
+                page.setDynamicItem((i * 9) + 3, items[i][2], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].addEV(type.getStatsType(), delta, totalEV);
@@ -133,7 +132,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         sub
                 );
-                page.setItem((i * 9) + 5, items[i][3], event -> {
+                page.setDynamicItem((i * 9) + 5, items[i][3], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].removeIV(type.getStatsType(), delta);
@@ -148,7 +147,7 @@ public class IVEVShop extends BaseShop {
                                 IPokemonWrapper.beautifyTally(totalIV + requestedIV, IVStore.MAX_IVS * IV_CACHE.length)),
                         add
                 );
-                page.setItem((i * 9) + 6, items[i][4], event -> {
+                page.setDynamicItem((i * 9) + 6, items[i][4], event -> {
                     int delta = 1;
                     if (event.isShift()) delta = 10;
                     ACTION[0].addIV(type.getStatsType(), delta);

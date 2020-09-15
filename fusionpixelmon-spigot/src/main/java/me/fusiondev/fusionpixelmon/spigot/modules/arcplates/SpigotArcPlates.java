@@ -209,14 +209,16 @@ public class SpigotArcPlates extends AbstractArcPlatesUI {
             }
             Location pos = entity.getLocation();
 
-            double x0 = pos.getX(), y0 = pos.getY();
+            double x0 = pos.getX(), y0 = pos.getY(), z0 = pos.getZ();
+            //entity.getLocation().getYaw()
+
             ArmorStand[] ARMORS = (ArmorStand[]) get(entityPixelmon).getArmorStands();
             loop(x0, y0, (x, y, plate) -> {
                 ArmorStand armor = ARMORS[plate.i];
 
                 AbstractItemStack itemStack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack(plate.name().toLowerCase() + "_plate");
                 armor.setHelmet((ItemStack) itemStack.getRaw());
-                armor.teleport(new Location(world, x, y, pos.getZ()));
+                armor.teleport(new Location(world, x, y, z0));
             });
         }
     }

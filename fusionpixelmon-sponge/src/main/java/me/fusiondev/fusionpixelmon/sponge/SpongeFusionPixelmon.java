@@ -104,7 +104,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
         }
 
         // Register commands through Sponge
-        if (getConfiguration().isArcPlateEnabled()) {
+        if (getConfiguration().getArcPlates().isEnabled()) {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
                     .description(Text.of("Opens the ArcPlates GUI to store your Type Plates for your Arceus"))
                     .permission(CMD_PERM + "arc")
@@ -167,8 +167,12 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
     @Listener
     public void onServerStop(GameStoppingServerEvent event) {
-        SpongeArcPlatesModule.getArcPlates().cleanup();
-        pokeShrineData.save();
+        if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
+            SpongeArcPlatesModule.getArcPlates().cleanup();
+        }
+        if (!getConfiguration().getPickableShrines().isEmpty()) {
+            pokeShrineData.save();
+        }
     }
 
     @Listener

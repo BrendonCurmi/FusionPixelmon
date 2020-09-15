@@ -39,6 +39,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
         AbstractInventory abstractInventory = new SpigotInventory(inventory);
         this.inventory = abstractInventory;
         page.inventory = abstractInventory;
+        addGrace(player.getUniqueId());
         player.openInventory(this.inventory);
         playerOpened(player, page);
     }
@@ -88,7 +89,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        if (openPages.containsKey(player.getUniqueId())) {
+        if (openPages.containsKey(player.getUniqueId()) && noGrace(player.getUniqueId())) {
             openPages.get(player.getUniqueId()).getEventHandler().call(Event.CLOSE_INVENTORY, event, SpigotAdapter.adapt(player));
             playerClosed(player.getUniqueId());
         }
@@ -112,10 +113,12 @@ public class SpigotInvInventory extends InvInventory implements Listener {
                     page.runnable.run();
                 }
 
-                for (Map.Entry<Integer, InvItem> element : page.elements.entrySet()) {
-                    if (element.getValue() != null) {
-                        ((Inventory) page.inventory.getRaw()).setItem(element.getKey(), (ItemStack) element.getValue().getItemStack().getRaw());
-                        //slot.set((ItemStack) page.elements.get(num).getItemStack().getRaw());
+                if (page.dynamicElements != null) {
+                    for (Map.Entry<Integer, InvItem> element : page.dynamicElements.entrySet()) {
+                        if (element.getValue() != null) {
+                            ((Inventory) page.inventory.getRaw()).setItem(element.getKey(), (ItemStack) element.getValue().getItemStack().getRaw());
+                            //slot.set((ItemStack) page.elements.get(num).getItemStack().getRaw());
+                        }
                     }
                 }
                 /*int num = 0;

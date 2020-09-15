@@ -35,7 +35,7 @@ public abstract class AbstractArcPlatesUI {
     /**
      * The slots for the background in the UI.
      */
-    protected static final int[] BACKGROUND_SLOTS = {0, 1, 10, 18, 19, 28, 36, 37};
+    protected static final int[] BACKGROUND_SLOTS = {0, 1, 9, 10, 18, 19, 27, 28, 36, 37};
 
     /**
      * Cooldown variable to prevent duping.
@@ -52,6 +52,8 @@ public abstract class AbstractArcPlatesUI {
     protected Pokemon pokemon;
     protected ArcPlateData data;
     protected InvPage page;
+
+    protected Registry reg = FusionPixelmon.getRegistry();
 
     /**
      * Launches the Arc Plates Storage interface for the specified
@@ -70,15 +72,24 @@ public abstract class AbstractArcPlatesUI {
         this.data = new ArcPlateData(arcplatesDataFile, pokemon.getUUID());
         this.page = new InvPage("§8Arc Plates", "arcplates", ROWS);
 
+        create();
+    }
+
+    /**
+     * Creates and opens the ArcPlates inventory UI.
+     */
+    protected void create() {
         // Save data to file upon closing GUI
         page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player1) -> data.save());
 
         // Handle inventory action
         page.getEventHandler().add(Event.CLICK_INVENTORY, this::clickInventory);
 
-        Registry reg = FusionPixelmon.getRegistry();
-
-        AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to();
+        // Background items
+        AbstractItemStack backgroundStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE()
+                .to().setColour(DyeColor.BLACK);
+        InvItem backgroundItem = new InvItem(backgroundStack, "");
+        for (int backSlot : BACKGROUND_SLOTS) page.setItem(backSlot, backgroundItem);
 
         // GUI page runnable task
         page.setRunnable(() -> {
@@ -89,27 +100,30 @@ public abstract class AbstractArcPlatesUI {
                     stack = plate.type.to();
                     if (plate.colour != null) stack.setColour(plate.colour);
                 } else {
-                    stack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(plate.plate.name().toLowerCase() + "_plate").to();
+                    stack = FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack(plate.plate.name().toLowerCase() + "_plate");
                     name = "§a" + GrammarUtils.cap(plate.name()) + " Plate";
                 }
-                page.setItem(plate.slot, new InvItem(stack, name));
+                page.setDynamicItem(plate.slot, new InvItem(stack, name));
             }
 
-            EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
+            if (FusionPixelmon.getInstance().getConfiguration().getArcPlates().getHovering().isEnabled()) {
+                AbstractItemStack hoveringStack = reg.getItemTypesRegistry().DYE().to();
+                EntityPixelmon entityPixelmon = pokemon.getPixelmonIfExists();
 
-            hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
-            InvItem hoveringItem = new InvItem(hoveringStack, "§b§lArcPlates Hovering").setLore("Hover the plates around your Arceus");
-            page.setItem(27, hoveringItem, event -> {
-                if (entityPixelmon != null) {
-                    deactivateForPlayer(entityPixelmon);
-                    if (!isActive(entityPixelmon)) {
-                        createRing(entityPixelmon);
-                    } else {
-                        deleteRing(entityPixelmon);
-                        deactivate(entityPixelmon);
+                hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
+                InvItem hoveringItem = new InvItem(hoveringStack, "§b§lArcPlates Hovering").setLore("Hover the plates around your Arceus");
+                page.setDynamicItem(27, hoveringItem, event -> {
+                    if (entityPixelmon != null) {
+                        deactivateForPlayer(entityPixelmon);
+                        if (!isActive(entityPixelmon)) {
+                            createRing(entityPixelmon);
+                        } else {
+                            deleteRing(entityPixelmon);
+                            deactivate(entityPixelmon);
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         InvItem infoItem = new InvItem(reg.getItemTypesRegistry().PAPER(), "§b§lStorage Info").setLore(
@@ -121,12 +135,8 @@ public abstract class AbstractArcPlatesUI {
                 "In Inventory:",
                 "  Left Click: §aAdd Plate to Storage"
         );
-        page.setItem(9, infoItem);
-
-        AbstractItemStack backgroundStack = reg.getItemTypesRegistry().STAINED_GLASS_PANE()
-                .to().setColour(DyeColor.BLACK);
-        InvItem backgroundItem = new InvItem(backgroundStack, "");
-        for (int backSlot : BACKGROUND_SLOTS) page.setItem(backSlot, backgroundItem);
+        int infoItemSlot = FusionPixelmon.getInstance().getConfiguration().getArcPlates().getHovering().isEnabled() ? 9 : 18;
+        page.setItem(infoItemSlot, infoItem);
 
         reg.getInvInventory().openPage(player, page);
     }
@@ -146,15 +156,6 @@ public abstract class AbstractArcPlatesUI {
     }
 
 
-
-
-
-
-
-
-
-
-
     /**
      * Stores the pixelmon entities and whether their ArcPlates hovering is enabled.
      * Realistically entities are only found in this map if hovering is enabled, as they
@@ -164,6 +165,7 @@ public abstract class AbstractArcPlatesUI {
 
     /**
      * Checks if the specified pixelmon entity has ArcPlates hovering enabled.
+     *
      * @param entityPixelmon the pokemon entity.
      * @return true if the pixelmon entity is not null and has ArcPlates hovering active.
      */
@@ -173,6 +175,7 @@ public abstract class AbstractArcPlatesUI {
 
     /**
      * Activates ArcPlates hovering for the specified pixelmon entity.
+     *
      * @param entityPixelmon the pokemon entity.
      */
     public void activate(EntityPixelmon entityPixelmon) {
@@ -195,9 +198,10 @@ public abstract class AbstractArcPlatesUI {
     /**
      * Deactivates all the other active ArcPlates hoverings,
      * other than the specified Arceus entity's
+     *
      * @param entityPixelmon the pokemon entity.
      */
-    private void deactivateForPlayer(EntityPixelmon entityPixelmon) {
+    protected void deactivateForPlayer(EntityPixelmon entityPixelmon) {
         Optional<PlayerPartyStorage> partyStorage = entityPixelmon.getPlayerStorage();
         if (!partyStorage.isPresent()) return;
         for (int i = 0; i < 6; i++) {
@@ -244,7 +248,16 @@ public abstract class AbstractArcPlatesUI {
     private static final int PLATES = ArcPlates.Plate.values().length;
     private int timeInterval = 0;
 
-    protected void loop(double x0, double y0, LoopRunnable runnable) {
+    /**
+     * Loops through the plates for the ArcPlates hovering, and calculates the coordinates
+     * of each point.
+     * https://math.stackexchange.com/questions/1030655/how-do-we-find-points-on-a-circle-equidistant-from-each-other
+     *
+     * @param x0       the x origin.
+     * @param y0       the y origin
+     * @param runnable the LoopRunnable executor.
+     */
+    protected void loop(double x0, double y0, /*double z0, double angle,*/ LoopRunnable runnable) {
         double radian;
         for (ArcPlates.Plate plate : ArcPlates.Plate.values()) {
             if (data.hasPlate(plate.i)) {
@@ -252,6 +265,15 @@ public abstract class AbstractArcPlatesUI {
                 double x = x0 + RADIUS * Math.cos(radian);
                 double y = y0 + RADIUS * Math.sin(radian);
                 runnable.run(x, y, plate);
+                /*
+                 * tan(theta)=opp/adj
+                 * where theta is 45d
+                 * tan(45)=z/x
+                 * z=x*tan(45)
+                 * where x is x0-x
+                 */
+                //double z = ((x0 - x) * -Math.tan(Math.toRadians(angle))) + z0;
+                //runnable.run(x, y, z, plate);
             }
         }
         timeInterval++;

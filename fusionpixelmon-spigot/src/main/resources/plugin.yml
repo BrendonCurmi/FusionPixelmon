@@ -6,6 +6,8 @@ website: https://github.com/BrendonCurmi/FusionPixelmon
 commands:
   pd:
     description: Opens the PokeDesigner inventory
+    permission: fusionpixelmon.command.pokedesigner
     aliases: [pokedesigner]
   arc:
     description: Opens the ArcPlate inventory
+    permission: fusionpixelmon.command.arc

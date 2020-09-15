@@ -132,9 +132,13 @@ public class LevelShop extends BaseShop {
     public void purchaseAction(Object value) {
         int levels = (int) value;
         if (levels > 0) {
+            shops.pokemon.retrieve();
+            float health = shops.pokemon.getHealthPercentage();
+            shops.pokemon.setHealth(0);
             TimeUtils.setTimeout(() -> {
                 for (int i = 1; i <= levels; i++)
                     shops.pokemon.getLevelContainer().awardEXP(shops.pokemon.getExperienceToLevelUp(), ExperienceGainType.BATTLE);
+                shops.pokemon.setHealthPercentage(health);
             }, 1000);
         } else shops.pokemon.setLevel(shops.pokemon.getLevel() + levels);
     }

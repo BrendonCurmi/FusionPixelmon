@@ -3,6 +3,7 @@ package me.fusiondev.fusionpixelmon.config;
 import com.google.common.reflect.TypeToken;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.Setting;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import me.fusiondev.fusionpixelmon.modules.arcplates.config.ArcPlatesConfig;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
 
 import java.util.HashMap;
@@ -16,10 +17,10 @@ public class Config extends AbstractConfig {
     private boolean antiFallDamage;
     @Setting("craft-masterballs")
     private boolean craftMasterBalls;
-    @Setting("arcplate")
-    private boolean arcPlate;
     @Setting("pokeshrine")
     private HashMap<String, String> shrinePickup;
+    @Setting("arcplates")
+    private ArcPlatesConfig arcPlates;
     @Setting("pokedesigner")
     private PokeDesignerConfig pokeDesigner = new PokeDesignerConfig();
 
@@ -34,13 +35,13 @@ public class Config extends AbstractConfig {
     }
 
     @Override
-    public boolean isArcPlateEnabled() {
-        return arcPlate;
+    public HashMap<String, String> getPickableShrines() {
+        return shrinePickup;
     }
 
     @Override
-    public HashMap<String, String> getPickableShrines() {
-        return shrinePickup;
+    public ArcPlatesConfig getArcPlates() {
+        return arcPlates;
     }
 
     @Override

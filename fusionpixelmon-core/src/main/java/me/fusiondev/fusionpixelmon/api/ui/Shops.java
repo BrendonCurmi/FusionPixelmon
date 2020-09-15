@@ -57,7 +57,7 @@ public abstract class Shops {
     /**
      * The player's bank account.
      */
-    protected IEconomyProvider bank;
+    protected IEconomyProvider<?, ?> bank;
 
     public Shops(AbstractPlayer player) {
         this.player = player;
@@ -192,7 +192,7 @@ public abstract class Shops {
         return totalCost;
     }
 
-    public abstract IEconomyProvider getBank(PokeDesignerConfig config);
+    public abstract IEconomyProvider<?, ?> getBank(PokeDesignerConfig config);
 
     /**
      * Launch the Shop GUI to display options, other shops, etc.
@@ -333,12 +333,20 @@ public abstract class Shops {
             player.closeInventory();
         });
 
+        if (FusionPixelmon.getModule().equals("forge")) {
+            curr.setLore(Color.DARK_GRAY + "[click to refresh]");
+            pagePokeEditor.setItem(49, curr);
+        }
+
         // Bottom
         pagePokeEditor.setRunnable(() -> {
             char col = 'c';
             if (bank.balance(player).intValue() > calculateCost()) col = 'a';
-            curr.setLore("§" + col + "Current Cost: " + calculateCost());
-            pagePokeEditor.setItem(49, curr);
+            if (FusionPixelmon.getModule().equals("forge"))
+                curr.setLore("§" + col + "Current Cost: " + calculateCost(), Color.DARK_GRAY + "[click to refresh]");
+            else
+                curr.setLore("§" + col + "Current Cost: " + calculateCost());
+            pagePokeEditor.setDynamicItem(49, curr);
         });
 
         pagePokeEditor.setBackground(emptyItem);

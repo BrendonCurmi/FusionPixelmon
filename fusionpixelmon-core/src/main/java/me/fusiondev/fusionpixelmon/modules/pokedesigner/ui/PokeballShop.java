@@ -1,7 +1,6 @@
 package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
-import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
@@ -40,7 +39,7 @@ public class PokeballShop extends BaseShop {
         int slot = 9;
         for (EnumPokeballs pokeballs : EnumPokeballs.values()) {
             if (pokeballs == EnumPokeballs.BeastBall && !IPokemonWrapper.isUltraBeast(shops.pokemon)) continue;
-            InvItem item = new InvItem(FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemType(pokeballs.getFilenamePrefix()), "§3§l" + pokeballs.name());
+            InvItem item = new InvItem(REG.getPixelmonUtils().getPixelmonItemStack(pokeballs.getFilenamePrefix()), "§3§l" + pokeballs.name());
             page.setItem(slot, item, event -> {
                 if (shops.pokemon.getCaughtBall() != pokeballs) shops.getSelectedOptions().put(getOption(), pokeballs);
                 else shops.getSelectedOptions().remove(getOption());

@@ -1,10 +1,15 @@
 /.idea
-/out
-*/target
-*/libs
-*.iml
+/.gradle
+*/.gradle
 
+/out
+/build
+*/build
+*/target
+
+*.iml
 dependency-reduced-pom.xml
 
+*/libs
 /libs/*
 !/libs/forgeSrc-1.12.2-14.23.5.2768.jar

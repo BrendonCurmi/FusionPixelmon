@@ -22,4 +22,12 @@ public class FusionPixelmon {
     public static IPluginInfo getInstance() {
         return FusionPixelmon.plugin;
     }
+
+    private static String module;
+
+    public static String getModule() {
+        if (module == null)
+            module = plugin.getClass().getSimpleName().replace("FusionPixelmon", "").toLowerCase();
+        return module;
+    }
 }
