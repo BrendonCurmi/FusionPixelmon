@@ -54,7 +54,7 @@ Note: Empty fields will follow the values of the row above them.
 Add the plugin to the 'mods' folder of your Sponge server.
 
 ## Download
-You can download the latest version from https://ore.spongepowered.org/FusionDev/FusionPixelmon
+You can download the latest version from [Ore](https://ore.spongepowered.org/FusionDev/FusionPixelmon).
 
 ## Dependencies
 - [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html)
