@@ -44,11 +44,16 @@ public class EconomyProvider implements IEconomyProvider<EconomyService, Currenc
     }
 
     @Override
-    public String getCurrencySymbol(double amount) {
+    public String getCurrencyName(double amount) {
         return getService().map(economyService -> {
             Text text = amount != 1 ? getCurrency().getPluralDisplayName() : getCurrency().getDisplayName();
             return amount + " " + text.toPlain();
         }).orElseGet(() -> String.valueOf(amount));
+    }
+
+    @Override
+    public String getCurrencySymbol() {
+        return getService().map(economyService -> getCurrency().getSymbol().toPlain()).orElse("");
     }
 
     @Override
