@@ -6,6 +6,7 @@
 /build
 */build
 */target
+/builds
 
 *.iml
 dependency-reduced-pom.xml
