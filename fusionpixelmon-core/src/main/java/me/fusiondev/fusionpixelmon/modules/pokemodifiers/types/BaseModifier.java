@@ -18,7 +18,7 @@ public abstract class BaseModifier {
 
     public BaseModifier(String name, String modifyWhat, String itemStack) {
         this.name = getFullName(name);
-        this.modifyWhat = modifyWhat;
+        this.modifyWhat = Color.WHITE + modifyWhat;
         this.itemStack = itemStack;
         PokeModifiers.setModifier(name, this);
     }
