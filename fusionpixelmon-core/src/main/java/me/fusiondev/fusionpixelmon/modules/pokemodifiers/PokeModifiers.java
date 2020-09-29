@@ -32,5 +32,10 @@ public class PokeModifiers {
      * Initialises the Modifiers.
      */
     public static void init() {
+        new GenderSwitcherModifier();
+        new ShinyModifier();
+        new GrowthModifier();
+        new PokeballModifier();
+        new NatureModifier();
     }
 }
