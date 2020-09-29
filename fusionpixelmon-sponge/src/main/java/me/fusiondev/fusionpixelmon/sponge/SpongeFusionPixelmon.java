@@ -135,6 +135,13 @@ public class SpongeFusionPixelmon extends PluginInfo {
             PokeModifiers.init();
 
             Sponge.getEventManager().registerListeners(this, new PokeModifiersListeners());
+
+            Sponge.getCommandManager().register(instance, CommandSpec.builder()
+                    .description(Text.of("Gives a Pokemon modifier to the player"))
+                    .permission(CMD_PERM + "admin.pokemodifiers")
+                    .arguments(GenericArguments.optionalWeak(GenericArguments.remainingJoinedStrings(Text.of("modifier"))))
+                    .executor(new PokeModifierCommand())
+                    .build(), "pokemodifier");
         }
 
         // Register pixelmon events through Forge
