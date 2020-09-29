@@ -21,11 +21,12 @@ import java.util.Optional;
 public class PokeModifierCommand implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) {
-        if (!(src instanceof Player)) {
-            src.sendMessage(Text.of(Color.RED + "This command can only be executed by a player"));
+        if (!args.getOne("target").isPresent() && !(src instanceof Player)) {
+            src.sendMessage(Text.of(Color.RED + "This command can only be executed by a player unless one is specified"));
             return CommandResult.empty();
         }
-        Player player = (Player) src;
+        Optional<Player> target = args.getOne("target");
+        Player player = target.orElseGet(() -> (Player) src);
         Optional<String> modifierName = args.getOne("modifier");
         if (modifierName.isPresent()) {
             if (PokeModifiers.hasModifier(modifierName.get(), false)) {
