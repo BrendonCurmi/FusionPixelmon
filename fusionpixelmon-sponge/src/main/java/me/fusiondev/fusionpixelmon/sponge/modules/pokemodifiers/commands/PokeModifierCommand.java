@@ -34,7 +34,7 @@ public class PokeModifierCommand implements CommandExecutor {
                         .getPixelmonUtils()
                         .getPixelmonItemStack(modifier.getItemStack())
                         .setName(modifier.getName())
-                        .setLore(Color.WHITE + "Use to " + modifier.getModifyWhat() + " for your Pokemon");
+                        .setLore(modifier.getModifyWhat());
                 player.getInventory().offer((ItemStack) itemStack.getRaw());
                 player.sendMessage(Text.of(Color.GREEN + "Given " + modifierName.get() + " modifier!"));
             } else player.sendMessage(Text.of(Color.RED + "That modifier doesn't exist"));
