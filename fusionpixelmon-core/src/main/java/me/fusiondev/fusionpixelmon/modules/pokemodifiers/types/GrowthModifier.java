@@ -7,7 +7,7 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 public class GrowthModifier extends BaseModifier {
 
     public GrowthModifier() {
-        super("growth", "Randomly switches your Pokemon's growth", "icicle_badge");
+        super("growth", "Use to randomly switch your Pokemon's growth", "icicle_badge");
     }
 
     @Override

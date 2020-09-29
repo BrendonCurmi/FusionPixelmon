@@ -6,7 +6,7 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 public class ShinyModifier extends BaseModifier {
 
     public ShinyModifier() {
-        super("shiny", "Switches your Pokemon's shininess", "icicle_badge");
+        super("shiny", "Use to switch your Pokemon's shininess", "icicle_badge");
     }
 
     @Override

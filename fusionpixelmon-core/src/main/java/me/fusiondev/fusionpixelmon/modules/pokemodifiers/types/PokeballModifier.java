@@ -8,7 +8,7 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 public class PokeballModifier extends BaseModifier {
 
     public PokeballModifier() {
-        super("pokeball", "Randomly switches your Pokemon's pokeball", "icicle_badge");
+        super("pokeball", "Use to randomly switch your Pokemon's pokeball", "icicle_badge");
     }
 
     @Override

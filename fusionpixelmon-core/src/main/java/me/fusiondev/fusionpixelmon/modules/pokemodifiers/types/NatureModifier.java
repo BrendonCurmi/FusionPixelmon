@@ -7,7 +7,7 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 public class NatureModifier extends BaseModifier {
 
     public NatureModifier() {
-        super("nature", "Randomly switches your Pokemon's nature", "icicle_badge");
+        super("nature", "Use to randomly switch your Pokemon's nature", "icicle_badge");
     }
 
     @Override
