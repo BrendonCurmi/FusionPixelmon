@@ -118,7 +118,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
         if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
-                    .description(Text.of("Open the PokeDesigner GUI to design your Pokemon"))
+                    .description(Text.of("Opens the PokeDesigner GUI to design your Pokemon"))
                     .permission(CMD_PERM + "pokedesigner")
                     .executor(new PokeDesignerCommand())
                     .build(), "pokedesigner", "pd");
