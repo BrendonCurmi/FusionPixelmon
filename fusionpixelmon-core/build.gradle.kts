@@ -1,11 +1,14 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 applyConfiguration()
 
 plugins {
     java
+    id("com.github.johnrengelman.shadow")
 }
 
 group = "me.fusiondev"
-version = "1.0-SNAPSHOT"
+version = "1.9"
 
 repositories {
     mavenCentral()
@@ -22,4 +25,9 @@ dependencies {
     compileOnly(files("$rootDir/libs/Pixelmon-1.12.2-7.3.0-universal.jar"))
 
     testImplementation("junit", "junit", "4.12")
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    archiveBaseName.set("FusionPixelmon")
+    archiveClassifier.set("core")
 }
