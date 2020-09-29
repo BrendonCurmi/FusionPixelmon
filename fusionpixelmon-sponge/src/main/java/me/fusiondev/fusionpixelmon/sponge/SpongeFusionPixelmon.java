@@ -133,6 +133,8 @@ public class SpongeFusionPixelmon extends PluginInfo {
         // Set up PokeDesigner Modifiers
         if (getConfiguration().hasModifiers()) {
             PokeModifiers.init();
+
+            Sponge.getEventManager().registerListeners(this, new PokeModifiersListeners());
         }
 
         // Register pixelmon events through Forge
