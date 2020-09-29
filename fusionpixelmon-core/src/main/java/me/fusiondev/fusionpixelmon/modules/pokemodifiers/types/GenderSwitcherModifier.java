@@ -7,7 +7,7 @@ import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 public class GenderSwitcherModifier extends BaseModifier {
 
     public GenderSwitcherModifier() {
-        super("gender", "switch genders", "icicle_badge");
+        super("gender", "Switches your Pokemon's gender", "icicle_badge");
     }
 
     @Override
