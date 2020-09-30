@@ -97,6 +97,15 @@ public class PokeDesignerConfig {
     }
 
     /**
+     * Removes the specified shop if the shop config is loaded.
+     *
+     * @param name the shop name.
+     */
+    public void removeShop(String name) {
+        if (existsShop(name)) shops.remove(name);
+    }
+
+    /**
      * Gets the config of the specified name.
      *
      * @param name the shop name.
