@@ -47,14 +47,21 @@ public class LevelShop extends BaseShop {
         addStack.setColour(DyeColor.LIME);
         //addStack.offer(Keys.DYE_COLOR, DyeColors.LIME);
         InvItem item1 = new InvItem(addStack, "§a§lAdd Levels");
-        item1.setLore(
-                "Click here to increase the",
-                "level of your pokemon.",
-                "",
-                "§aNote:",
-                "  Left Click: §a+1 lvl",
-                "  Left Click + Shift: §a+10 lvls"
-        );
+        if (FusionPixelmon.getModule().equals("forge")) {
+            item1.setLore(
+                    "Click here to increase the",
+                    "level of your pokemon."
+            );
+        } else {
+            item1.setLore(
+                    "Click here to increase the",
+                    "level of your pokemon.",
+                    "",
+                    "§aNote:",
+                    "  Left Click: §a+1 lvl",
+                    "  Left Click + Shift: §a+10 lvls"
+            );
+        }
         int[] item1slots = new int[]{
                 10, 11, 12,
                 19, 20, 21,
@@ -88,14 +95,21 @@ public class LevelShop extends BaseShop {
         removeStack.setColour(DyeColor.RED);
         //removeStack.offer(Keys.DYE_COLOR, DyeColors.RED);
         InvItem item2 = new InvItem(removeStack, "§c§lRemove Levels");
-        item2.setLore(
-                "Click here to decrease the",
-                "level of your pokemon.",
-                "",
-                "§aNote:",
-                "  Left Click: §c-1 lvl",
-                "  Left Click + Shift: §c-10 lvls"
-        );
+        if (FusionPixelmon.getModule().equals("forge")) {
+            item2.setLore(
+                    "Click here to decrease the",
+                    "level of your pokemon."
+            );
+        } else {
+            item2.setLore(
+                    "Click here to decrease the",
+                    "level of your pokemon.",
+                    "",
+                    "§aNote:",
+                    "  Left Click: §c-1 lvl",
+                    "  Left Click + Shift: §c-10 lvls"
+            );
+        }
         for (int slots2 : item2slots) {
             page.setItem(slots2, item2, event -> {
                 int levels = (int) shops.getSelectedOptions().getOrDefault(getOption(), 0);
