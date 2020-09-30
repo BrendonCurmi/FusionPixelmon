@@ -28,11 +28,9 @@ public class PokeModifiersListeners {
                         for (int n = 0; n <= 8; n++) {
                             Inventory openInv = ((PlayerInventory) player.getInventory()).getHotbar().query(SlotIndex.of(n));
                             Optional<ItemStack> itemStack = openInv.first().peek();
-                            if (itemStack.isPresent()) {
-                                if (itemStack.get().equalTo(i.get())) {
-                                    openInv.first().poll(1);
-                                    break;
-                                }
+                            if (itemStack.isPresent() && itemStack.get().equalTo(i.get())) {
+                                openInv.first().poll(1);
+                                break;
                             }
                         }
                     });
