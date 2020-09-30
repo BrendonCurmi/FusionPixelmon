@@ -6,12 +6,15 @@ import me.fusiondev.fusionpixelmon.IPluginInfo;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.data.PokeShrineData;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.PokeModifiers;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.SpigotArcPlatesModule;
 import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.masterball.SpigotMasterballModule;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesignerCommand;
+import me.fusiondev.fusionpixelmon.spigot.modules.pokemodifiers.PokeModifiersListeners;
+import me.fusiondev.fusionpixelmon.spigot.modules.pokemodifiers.commands.PokeModifierCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines.SpigotPokeShrines;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandExecutor;
@@ -66,6 +69,14 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             this.pokeShrineData = new PokeShrineData(SpigotFusionPixelmon.getInstance().getDataFolder(), "pokeshrines");
             getServer().getPluginManager().registerEvents(new SpigotPokeShrines(pokeShrineData), this);
+        }
+
+        if (getConfiguration().hasModifiers()) {
+            PokeModifiers.init();
+
+            getServer().getPluginManager().registerEvents(new PokeModifiersListeners(), this);
+
+            get("pokemodifier", new PokeModifierCommand());
         }
 
         // Add Master Ball crafting recipe back

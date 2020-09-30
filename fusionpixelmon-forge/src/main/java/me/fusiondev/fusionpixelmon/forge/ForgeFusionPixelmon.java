@@ -9,7 +9,10 @@ import me.fusiondev.fusionpixelmon.forge.impl.inventory.ForgeInvInventory;
 import me.fusiondev.fusionpixelmon.forge.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.forge.modules.masterball.ForgeMasterballModule;
 import me.fusiondev.fusionpixelmon.forge.modules.pokedesigner.commands.PokeDesignerCommand;
+import me.fusiondev.fusionpixelmon.forge.modules.pokemodifiers.PokeModifiersListeners;
+import me.fusiondev.fusionpixelmon.forge.modules.pokemodifiers.commands.PokeModifierCommand;
 import me.fusiondev.fusionpixelmon.forge.modules.pokeshrines.ForgePokeShrines;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.PokeModifiers;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -76,6 +79,11 @@ public class ForgeFusionPixelmon extends PluginInfo {
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             MinecraftForge.EVENT_BUS.register(new ForgePokeShrines());
         }
+
+        if (getConfiguration().hasModifiers()) {
+            PokeModifiers.init();
+            MinecraftForge.EVENT_BUS.register(new PokeModifiersListeners());
+        }
     }
 
     @Mod.EventHandler
@@ -92,6 +100,9 @@ public class ForgeFusionPixelmon extends PluginInfo {
         }
         if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
             event.registerServerCommand(new PokeDesignerCommand());
+        }
+        if (getConfiguration().hasModifiers()) {
+            event.registerServerCommand(new PokeModifierCommand());
         }
     }
 

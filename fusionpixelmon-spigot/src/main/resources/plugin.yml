@@ -11,3 +11,6 @@ commands:
   arc:
     description: Opens the ArcPlate inventory
     permission: fusionpixelmon.command.arc
+  pokemodifier:
+    description: Gives a Pokemon modifier to the player
+    permission: fusionpixelmon.command.admin.pokemodifier

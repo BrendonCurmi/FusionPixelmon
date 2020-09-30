@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import me.fusiondev.fusionpixelmon.data.PokeShrineData;
 import me.fusiondev.fusionpixelmon.modules.antifall.AntifallModule;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.PokeModifiers;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.SpongeArcPlatesModule;
 import me.fusiondev.fusionpixelmon.sponge.modules.arcplates.commands.ArcPlatesCommand;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
@@ -12,6 +13,8 @@ import me.fusiondev.fusionpixelmon.sponge.impl.SpongeConfigManager;
 import me.fusiondev.fusionpixelmon.sponge.impl.inventory.SpongeInvInventory;
 import me.fusiondev.fusionpixelmon.sponge.modules.masterball.SpongeMasterballModule;
 import me.fusiondev.fusionpixelmon.sponge.modules.pokedesigner.commands.PokeDesignerCommand;
+import me.fusiondev.fusionpixelmon.sponge.modules.pokemodifiers.PokeModifiersListeners;
+import me.fusiondev.fusionpixelmon.sponge.modules.pokemodifiers.commands.PokeModifierCommand;
 import me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines.SpongePokeShrines;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.fusiondev.fusionpixelmon.config.Config;
@@ -19,6 +22,7 @@ import org.bstats.sponge.Metrics2;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
+import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
@@ -114,7 +118,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
         if (getConfiguration().getPokeDesignerConfig().isEnabled()) {
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
-                    .description(Text.of("Open the PokeDesigner GUI to design your Pokemon"))
+                    .description(Text.of("Opens the PokeDesigner GUI to design your Pokemon"))
                     .permission(CMD_PERM + "pokedesigner")
                     .executor(new PokeDesignerCommand())
                     .build(), "pokedesigner", "pd");
@@ -124,6 +128,23 @@ public class SpongeFusionPixelmon extends PluginInfo {
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             this.pokeShrineData = new PokeShrineData(SpongeFusionPixelmon.getInstance().getConfigDir().toFile(), "pokeshrines");
             Sponge.getEventManager().registerListeners(this, new SpongePokeShrines(pokeShrineData));
+        }
+
+        // Set up PokeDesigner Modifiers
+        if (getConfiguration().hasModifiers()) {
+            PokeModifiers.init();
+
+            Sponge.getEventManager().registerListeners(this, new PokeModifiersListeners());
+
+            Sponge.getCommandManager().register(instance, CommandSpec.builder()
+                    .description(Text.of("Gives a Pokemon modifier to the player"))
+                    .permission(CMD_PERM + "admin.pokemodifier")
+                    .arguments(
+                            GenericArguments.optionalWeak(GenericArguments.string(Text.of("modifier"))),
+                            GenericArguments.optionalWeak(GenericArguments.player(Text.of("target")))
+                    )
+                    .executor(new PokeModifierCommand())
+                    .build(), "pokemodifier");
         }
 
         // Register pixelmon events through Forge
