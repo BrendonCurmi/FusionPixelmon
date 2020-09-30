@@ -35,11 +35,12 @@ Adds the Master Ball crafting recipe back in the game.
 <img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/masterball-1.png" width="300" height="150">
 
 ## Commands and Permissions
-| Command       | Permission                          | Description               |
-|---------------|-------------------------------------|---------------------------|
-| /pd           | fusionpixelmon.command.pokedesigner | Opens the PokeDesigner UI |
-| /pokedesigner |                                     |                           |
-| /arc          | fusionpixelmon.command.arc          | Opens the ArcPlates UI    |
+| Command                               | Permission                                | Description                   |
+|---------------------------------------|-------------------------------------------|-------------------------------|
+| `/pd`                                 | fusionpixelmon.command.pokedesigner       | Opens the PokeDesigner UI     |
+| `/pokedesigner`                       |                                           |                               |
+| `/arc`                                | fusionpixelmon.command.arc                | Opens the ArcPlates UI        |
+| `/pokemodifier <modifier> [player]`   | fusionpixelmon.command.admin.pokemodifier | Gives Pokemon modifier tokens |
 
 Note: Empty fields will follow the values of the row above them.
 
