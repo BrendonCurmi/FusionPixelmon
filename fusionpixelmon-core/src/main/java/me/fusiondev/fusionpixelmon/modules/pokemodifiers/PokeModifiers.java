@@ -2,7 +2,12 @@ package me.fusiondev.fusionpixelmon.modules.pokemodifiers;
 
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
 import me.fusiondev.fusionpixelmon.api.colour.Color;
-import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.*;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.BaseModifier;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.GenderSwitcherModifier;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.ShinyModifier;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.GrowthModifier;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.PokeballModifier;
+import me.fusiondev.fusionpixelmon.modules.pokemodifiers.types.NatureModifier;
 
 import java.util.HashMap;
 
