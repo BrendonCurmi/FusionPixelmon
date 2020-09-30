@@ -138,7 +138,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
 
             Sponge.getCommandManager().register(instance, CommandSpec.builder()
                     .description(Text.of("Gives a Pokemon modifier to the player"))
-                    .permission(CMD_PERM + "admin.pokemodifiers")
+                    .permission(CMD_PERM + "admin.pokemodifier")
                     .arguments(
                             GenericArguments.optionalWeak(GenericArguments.string(Text.of("modifier"))),
                             GenericArguments.optionalWeak(GenericArguments.player(Text.of("target")))

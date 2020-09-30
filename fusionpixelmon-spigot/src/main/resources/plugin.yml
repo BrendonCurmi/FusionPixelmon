@@ -13,4 +13,4 @@ commands:
     permission: fusionpixelmon.command.arc
   pokemodifier:
     description: Gives a Pokemon modifier to the player
-    permission: fusionpixelmon.command.admin.pokemodifiers
+    permission: fusionpixelmon.command.admin.pokemodifier
