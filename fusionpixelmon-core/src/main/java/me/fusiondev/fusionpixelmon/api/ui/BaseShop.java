@@ -198,7 +198,7 @@ public abstract class BaseShop {
         }
 
         public Builder setInfoItemData(String name, String... lore) {
-            infoItem = new InvItem(infoItemStack, "§3§l" + name);
+            infoItem = new InvItem(infoItemStack.copy(), "§3§l" + name);
             infoItem.setLore(lore);
             return this;
         }
