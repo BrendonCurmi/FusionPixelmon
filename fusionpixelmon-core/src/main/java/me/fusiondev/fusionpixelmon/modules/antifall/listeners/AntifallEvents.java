@@ -32,12 +32,10 @@ public class AntifallEvents {
 
     @SubscribeEvent
     public void onFall(LivingFallEvent event) {
-        System.out.println("HEIIJASJDSJ");
         if (event.getEntityLiving() instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
             if (INVULNERABLE_FALL.contains(player)) {
                 event.setDamageMultiplier(0);
-                System.out.println("BOOP");
                 event.setCanceled(true);
             }
         }
