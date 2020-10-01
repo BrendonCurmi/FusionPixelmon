@@ -7,6 +7,7 @@ import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.Registry;
 import me.fusiondev.fusionpixelmon.api.AbstractPlayer;
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.colour.DyeColor;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
@@ -113,7 +114,7 @@ public abstract class AbstractArcPlatesUI {
                 hoveringStack.setColour(isActive(entityPixelmon) ? DyeColor.LIME : DyeColor.RED);
                 InvItem hoveringItem = new InvItem(hoveringStack, "§b§lArcPlates Hovering").setLore("Hover the plates around your Arceus");
                 page.setDynamicItem(27, hoveringItem, event -> {
-                    if (entityPixelmon != null) {
+                    if (entityPixelmon != null && entityPixelmon.isAddedToWorld()) {
                         deactivateForPlayer(entityPixelmon);
                         if (!isActive(entityPixelmon)) {
                             createRing(entityPixelmon);
@@ -121,7 +122,7 @@ public abstract class AbstractArcPlatesUI {
                             deleteRing(entityPixelmon);
                             deactivate(entityPixelmon);
                         }
-                    }
+                    } else player.sendMessage(Color.RED + "Your Arceus must be sent out before enabling hovering");
                 });
             }
         });
