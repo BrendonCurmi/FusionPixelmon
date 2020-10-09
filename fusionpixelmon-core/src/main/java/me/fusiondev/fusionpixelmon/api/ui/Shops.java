@@ -148,11 +148,11 @@ public abstract class Shops {
         NICK(2, "Nick", "nick colour and style", NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby")),
         MOVE(6, "Moves", "moves", MoveShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
 
-        private int slot;
-        private String name;
-        private String modifyWhat;
-        private Class<? extends BaseShop> shopClass;
-        private AbstractItemStack itemStack;
+        private final int slot;
+        private final String name;
+        private final String modifyWhat;
+        private final Class<? extends BaseShop> shopClass;
+        private final AbstractItemStack itemStack;
 
         Options(int slot, String name, String modifyWhat, Class<? extends BaseShop> shopClass, AbstractItemStack itemStack) {
             this.slot = slot;
