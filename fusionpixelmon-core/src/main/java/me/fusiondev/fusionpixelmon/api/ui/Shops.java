@@ -15,17 +15,7 @@ import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
 import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 import me.fusiondev.fusionpixelmon.impl.pixelmon.PokemonWrapper;
 import me.fusiondev.fusionpixelmon.modules.pokedesigner.config.PokeDesignerConfig;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.AbilityShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.IVEVShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.LevelShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.NatureShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.GenderShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.GrowthShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.ShinyShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.PokeballShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.FormShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.EvolutionShop;
-import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.NickShop;
+import me.fusiondev.fusionpixelmon.modules.pokedesigner.ui.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -35,7 +25,7 @@ public abstract class Shops {
     /**
      * The player currently using the Shop
      */
-    protected AbstractPlayer player;
+    public AbstractPlayer player;
 
     /**
      * The pokemon the player is currently editing.
@@ -64,6 +54,10 @@ public abstract class Shops {
         if (!playerSelectedOptions.containsKey(player.getUniqueId())) {
             playerSelectedOptions.put(player.getUniqueId(), new HashMap<>());
         }
+    }
+
+    public InvInventory getInv() {
+        return inv;
     }
 
     // also depends on which poke slot!/which pokemon is selected
@@ -140,7 +134,8 @@ public abstract class Shops {
         POKEBALL(31, "Pokeball", "pokeball", PokeballShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("poke_ball")),
         FORM(33, "Form", "form", FormShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("meteorite")),
         EVOLUTION(4, "Evolution", "evolution", EvolutionShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("fire_stone")),
-        NICK(2, "Nick", "nick colour and style", NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
+        NICK(2, "Nick", "nick colour and style", NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby")),
+        MOVE(6, "Moves", "moves", MoveShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
 
         private int slot;
         private String name;
