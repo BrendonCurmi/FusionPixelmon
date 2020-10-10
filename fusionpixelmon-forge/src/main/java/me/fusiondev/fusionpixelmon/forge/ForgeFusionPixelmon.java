@@ -66,6 +66,8 @@ public class ForgeFusionPixelmon extends PluginInfo {
 
             // Load PokeDesigner config
             getConfiguration().getPokeDesignerConfig().loadPokeDesignerConfig(configManager.getLoader());
+
+            getConfiguration().getPokeDesignerConfig().removeShop("ivev");
         } catch (IOException | ObjectMappingException ex) {
             ex.printStackTrace();
         }

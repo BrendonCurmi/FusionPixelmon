@@ -60,6 +60,7 @@ public class UpdateChecker {
         StringBuilder builder = new StringBuilder();
         int cp;
         while ((cp = reader.read()) != -1) builder.append((char) cp);
+        //reader.close(); todo close
         return builder.toString();
     }
 }
