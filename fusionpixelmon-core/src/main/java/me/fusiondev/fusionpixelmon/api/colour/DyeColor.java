@@ -1,4 +1,4 @@
-package me.fusiondev.fusionpixelmon.api.colour;
+package me.fusiondev.fusionpixelmon.api.color;
 
 public enum DyeColor {
     WHITE(15, 0),
