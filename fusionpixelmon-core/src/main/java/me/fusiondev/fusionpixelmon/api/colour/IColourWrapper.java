@@ -1,4 +1,4 @@
-package me.fusiondev.fusionpixelmon.api.color;
+package me.fusiondev.fusionpixelmon.api.colour;
 
 public interface IColourWrapper {
     boolean hasColour();
