@@ -8,7 +8,6 @@ import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
 import me.fusiondev.fusionpixelmon.api.items.AbstractItemStack;
 import me.fusiondev.fusionpixelmon.api.ui.BaseShop;
 import me.fusiondev.fusionpixelmon.api.ui.Shops;
-import me.fusiondev.fusionpixelmon.api.ui.events.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +43,6 @@ public class MoveShop extends BaseShop {
                 .setSelectedOption(getOption());
         InvPage page = this.page = builder.build();
 
-        //closing move thing breaks pd
-
         for (int i = 0; i < MoveOption.MOVES_NUM; i++) {
             final int i1 = i;
             AbstractItemStack abstractItemStack;
@@ -70,12 +67,14 @@ public class MoveShop extends BaseShop {
         int rows = 6;
         String title = shops.pokemon.getMoveset().get(i) != null ? "Replacing " + shops.pokemon.getMoveset().get(i).getActualMove().getLocalizedName() : "Teaching";
         InvPage page = new InvPage(title, "move-" + i, rows);
-        page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player) -> shops.getInv().openPage(player, this.page));
 
         int space = 36;
         for (int j = space; j >= space && j <= (rows * 9) - 1; j++) {
             page.setItem(j, EMPTY_ITEM);
         }
+
+        InvItem cancelItem = new InvItem(REG.getItemTypesRegistry().DYE().to().setColour(DyeColor.RED), Color.RED.toString() + Color.BOLD.toString() + "Cancel");
+        page.setItem(49, cancelItem, event -> shops.getInv().openPage(shops.player, this.page));
 
         int pos = 0;
         for (Attack attack : shops.pokemon.getBaseStats().getAllMoves()
