@@ -37,15 +37,11 @@ public class FormShop extends BaseShop {
                 .setSelectedOption(getOption());
         InvPage page = builder.build();
 
-//        InvItem emptyItem = new InvItem(SpongeAdapter.adapt(ItemTypes.STAINED_GLASS_PANE), "").setKey(Keys.DYE_COLOR, DyeColors.BLACK);
-//        page.setBackground(emptyItem);
-
         PokemonSpec spec = PokemonSpec.from(shops.pokemon.getSpecies().getPokemonName());
         spec.boss = null;
         Pokemon pokemon = spec.create();
         pokemon.setShiny(shops.pokemon.isShiny());
 
-//        Pokemon pokemon1 = pokemon;
         int i = 9;
         List<IEnumForm> forms = pokemon.getSpecies().getPossibleForms(true);
         for (IEnumForm form : forms) {
@@ -58,7 +54,6 @@ public class FormShop extends BaseShop {
             });
             i++;
         }
-//        pokemon = pokemon1;
         return page;
     }
 
