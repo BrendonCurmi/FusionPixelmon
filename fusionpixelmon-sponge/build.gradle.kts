@@ -28,7 +28,7 @@ repositories {
 dependencies {
     implementation(project(":fusionpixelmon-core"))
     compileOnly("ninja.leaping.configurate:configurate-hocon:3.3")
-    compileOnly(files("$rootDir/libs/Pixelmon-1.12.2-7.3.0-universal.jar"))
+    compileOnly(files("$rootDir/libs/Pixelmon-1.12.2-8.1.2-universal.jar"))
     compileOnly(files("$rootDir/libs/forgeSrc-1.12.2-14.23.5.2768.jar"))
 
     compileOnly("org.spongepowered:spongeapi:7.2.0")
