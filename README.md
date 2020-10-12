@@ -6,11 +6,11 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/01bca84076714665a643eedcba9d1182)](https://www.codacy.com/manual/BrendonCurmi/FusionPixelmon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BrendonCurmi/FusionPixelmon&amp;utm_campaign=Badge_Grade)
 [![Discord](https://discordapp.com/api/guilds/699764448155533404/widget.png)](https://discord.gg/VFNTycm)
 
-Adds a little extra to your Pixelmon experience.
+Add a little extra to your Pixelmon experience.
 
 ## Summary
-1. [Install](#install)
-2. [Download](#download)
+1. [Download](#download)
+2. [Install](#install)
 3. [Dependencies](#dependencies)
 4. [Features](#features)
 5. [Commands and Permissions](#commands-and-permissions)
@@ -18,11 +18,8 @@ Adds a little extra to your Pixelmon experience.
 7. [Known Issues](#known-issues)
 8. [Links](#links)
 
-## Install
-As this is executed as a plugin, it only needs to be installed server-side in the 'mods' folder of a Sponge server.
-
 ## Download
-You can download the latest version from:
+You can download the latest versions from:
 - [FusionPixelmon Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon)
 - [FusionPixelmon Spigot]()
 - [FusionPixelmon Forge]()
@@ -32,38 +29,49 @@ General dependencies that are required for FusionPixelmon to run:
 - [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html)
   - forge-1.12.2-14.23.5.2847-universal.jar
 - [Pixelmon Reforged](https://reforged.gg/)
-  - Pixelmon-1.12.2-7.2.2-universal.jar
-  - Pixelmon-1.12.2-7.1.1-universal.jar
-  - Pixelmon-1.12.2-7.0.8-universal.jar
+  - Pixelmon-1.12.2-8.1.2-universal.jar (1.10-all)
+  - Pixelmon-1.12.2-7.2.2-universal.jar (1.9-sponge)
+  - Pixelmon-1.12.2-7.1.1-universal.jar (1.9-sponge)
+  - Pixelmon-1.12.2-7.0.8-universal.jar (1.9-sponge)
 
-Multiple versions may be listed under the same mod to show which versions have been tested with this plugin.
+Multiple versions may be listed under the same library to show which versions have been tested with this plugin.
 Only one version of each entry needs to be installed at a given time.
 
-Look at each plugin/mod for their specific dependencies.
+For each plugin's specific dependencies check:
+- [Sponge](fusionpixelmon-sponge/README.md)
+- [Spigot](fusionpixelmon-spigot/README.md)
+- [Forge](fusionpixelmon-forge/README.md)
 
 ## Features
 
 ### PokeDesigner
-An interactive GUI for modifying your Pokemon.
+An interactive PokeDesigner with 12 shops for modifying your Pokemon.
 
 Inspired by the pokemon designer on PokeCentral.org
 
 <img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/pokedesigner-1.gif" width="300" height="150">
 
 ### ArcPlates
-An interactive GUI for storing Plates for your Arceus, and quickly switching the active held plate.
+An interactive management UI for storing Arceus Plates and quickly switching between them.
 
 <img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/arcplates-1.gif" width="300" height="150">
 
-### Picking up Shrines
-Shrines, Timespace Altars, and Arc Chalices are unbreakable blocks in the Pixelmon mod. This plugin allows the "breaking" and picking up of these structures.
-Right clicking one of these structures while holding an iron or diamond pickaxe in survival mode will drop this item in your inventory, if there are available slots.
+### Shrine Pickup
+Allows the "breaking" and picking up of Pixelmon's unbreakable Shrines, Timespace Altars, and Chalices.
+Clicking one of these structures in survival mode while holding the appropriate diamond tool will drop this item in your inventory, if there are available slots.
+In the multiplayer versions, shrines can also be locked to prevent other players from picking them up.
 
 <img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/pickup-1.gif" width="300" height="150">
 <img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/pickup-2.gif" width="300" height="150">
 
+### Modifier Tokens
+Token items which can be used to modify specific aspects of your Pokemon.
+Admins could add modifier tokens to chest loot or prizes for players, if original item data is preserved.
+
+<img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/modifier-1.gif" width="300" height="150">
+
 ### Craftable Master Balls
-Master Balls are made craftable again with the old recipe.
+Adds the Master Ball crafting recipe back into the game.
 
 <img src="https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/assets/assets/readme/masterball-1.png" width="300" height="150">
 
@@ -77,8 +85,7 @@ This plugin prevents taking fall damage by giving a 5 second grace period after 
 ## Commands and Permissions
 | Command                               | Permission                                | Description                   |
 |---------------------------------------|-------------------------------------------|-------------------------------|
-| `/pd`                                 | fusionpixelmon.command.pokedesigner       | Opens the PokeDesigner UI     |
-| `/pokedesigner`                       |                                           |                               |
+| `/pd` or `/pokedesigner`              | fusionpixelmon.command.pokedesigner       | Opens the PokeDesigner UI     |
 | `/arc`                                | fusionpixelmon.command.arc                | Opens the ArcPlates UI        |
 | `/pokemodifier <modifier> [player]`   | fusionpixelmon.command.admin.pokemodifier | Gives Pokemon modifier tokens |
 
@@ -108,8 +115,8 @@ shrine-pickup=[
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/fusionpixelmon-core/src/main/resources/assets/fusionpixelmon/default.conf).
 
 ## Known Issues
-- Using Sponge 7.2.0 causes levels to be bought 1 at a time, and Pokemon to revert back to original form after battling or returning to pokeball.
-- Using inventory mods (like InventoryTweaks) on an open GUI menu can break the menu or cause item duplications.
+- **1.9-sponge**: Using Sponge 7.2.0 causes levels to be bought 1 at a time, and Pokemon to revert back to original form after battling or returning to pokeball.
+- **all**: Using inventory mods (like InventoryTweaks) on an open GUI menu can break the menu or cause item duplications.
 
 ## Links
 - [Discord](https://discord.gg/VFNTycm)
