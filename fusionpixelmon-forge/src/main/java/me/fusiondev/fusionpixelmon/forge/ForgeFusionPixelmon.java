@@ -109,14 +109,6 @@ public class ForgeFusionPixelmon extends PluginInfo {
     }
 
     @SubscribeEvent
-    public void log(PlayerEvent.PlayerLoggedInEvent event) {
-        EntityPlayerMP p = (EntityPlayerMP) event.player;
-        System.out.println(p);
-        System.out.println(p.getName());
-        p.sendMessage(new TextComponentString(p.getName()));
-    }
-
-    @SubscribeEvent
     public void openInventory(GuiOpenEvent event) {
         ForgeInvInventory.runUpdater();
     }
