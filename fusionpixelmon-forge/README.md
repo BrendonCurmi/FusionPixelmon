@@ -22,7 +22,7 @@ Also refer to the [General Dependencies](../README.md#dependencies).
 - [GooeyLibs](https://www.curseforge.com/minecraft/mc-mods/gooeylibs)
   - GooeyLibs-1.0.5.jar
 
-Multiple versions may be listed under the same mod to show which versions have been tested with this plugin.
+Multiple versions may be listed under the same library to show which versions have been tested with this plugin.
 Only one version of each entry needs to be installed at a given time.
 
 ## Config
