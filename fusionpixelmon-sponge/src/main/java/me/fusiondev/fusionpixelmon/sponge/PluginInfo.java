@@ -12,8 +12,8 @@ public class PluginInfo implements IPluginInfo {
 
     public static final String CMD_PERM = ID + ".command.";
 
+    public static final String DOWNLOAD_URL = "https://ore.spongepowered.org/FusionDev/FusionPixelmon/versions";
     public static final String VERSIONS_ENDPOINT = "https://ore.spongepowered.org/api/v1/projects/" + ID + "/versions";
-    public static final String ORE_VERSIONS = "https://ore.spongepowered.org/FusionDev/FusionPixelmon/versions";
 
 
     @Override
@@ -33,7 +33,7 @@ public class PluginInfo implements IPluginInfo {
 
     @Override
     public String getDownloadUrl() {
-        return ORE_VERSIONS;
+        return DOWNLOAD_URL;
     }
 
     @Override
