@@ -125,7 +125,7 @@ public class MoveShop extends BaseShop {
 
     @Override
     protected void priceSummaries() {
-        addPriceSummary("Change Move", getPriceOf(ConfigKeyConstants.CHANGE_MOVES, 10000));
+        addPriceSummary("Change Move", getPriceOf(ConfigKeyConstants.CHANGE_MOVES, 10000) + " per move");
     }
 
     @Override
