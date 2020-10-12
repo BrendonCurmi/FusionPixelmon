@@ -3,7 +3,6 @@ package me.fusiondev.fusionpixelmon.modules.pokedesigner.ui;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
-import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
 import me.fusiondev.fusionpixelmon.api.inventory.InvItem;
 import me.fusiondev.fusionpixelmon.api.inventory.InvPage;
@@ -81,9 +80,11 @@ public class EvolutionShop extends BaseShop {
         List<PokemonSpec> evolutions = new ArrayList<>();
 
         // Invert list to get proper evolution order
-        EnumSpecies[] preEvolutions = pokemon.getBaseStats().preEvolutions;
-        for (int i = 0; i < preEvolutions.length; i++) {
-            evolutions.add(PokemonSpec.from(preEvolutions[preEvolutions.length - i - 1].name));
+        PokemonSpec[] preEvolutions = pokemon.getBaseStats().specPreEvolutions;
+        if (preEvolutions != null && preEvolutions.length > 0) {
+            for (int i = preEvolutions.length - 1; i >= 0; i--) {
+                evolutions.add(preEvolutions[i]);
+            }
         }
 
         evolutions.add(FusionPixelmon.getRegistry().getPixelmonUtils().fromPokemon(pokemon, false));
