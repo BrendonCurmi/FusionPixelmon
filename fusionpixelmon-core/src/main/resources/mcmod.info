@@ -2,7 +2,7 @@
     {
         "modid": "fusionpixelmon",
         "name": "FusionPixelmon",
-        "description": "Add a little extra to Pixelmon experience!",
+        "description": "Add a little extra to Pixelmon experience",
         "authorList": ["FusionDev"],
         "version": "1.10",
         "mcversion": "1.12.2",
