@@ -173,7 +173,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
         }
 
         try {
-            new UpdateChecker(LOGGER).check(VERSIONS_ENDPOINT, ORE_VERSIONS);
+            new UpdateChecker(LOGGER).check(VERSIONS_ENDPOINT, DOWNLOAD_URL);
         } catch (IOException ignored) {
             // If an exception occurs, just don't check for newer versions
         }
