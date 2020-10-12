@@ -55,7 +55,6 @@ import java.util.Optional;
         })
 public class SpongeFusionPixelmon extends PluginInfo {
 
-    // todo if change form and do something to affect form, wasted money
     // todo may need to update the lvl thing for nature as well
 
     private static SpongeFusionPixelmon instance;
