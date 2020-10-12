@@ -115,7 +115,6 @@ shrine-pickup=[
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/fusionpixelmon-core/src/main/resources/assets/fusionpixelmon/default.conf).
 
 ## Known Issues
-- **1.9-sponge**: Using Sponge 7.2.0 causes levels to be bought 1 at a time, and Pokemon to revert back to original form after battling or returning to pokeball.
 - **all**: Using inventory mods (like InventoryTweaks) on an open GUI menu can break the menu or cause item duplications.
 
 ## Links
