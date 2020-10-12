@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "me.fusiondev"
-version = "1.9"
+version = "1.10"
 
 repositories {
     mavenCentral()
