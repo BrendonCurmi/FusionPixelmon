@@ -253,7 +253,7 @@ public abstract class BaseShop {
 
         public InvPage build() {
             // todo check that rows is minimum of 2 due to right side options
-            InvPage page = new InvPage("§cDesigner §7>> §8" + title, id, rows);
+            InvPage page = new InvPage("§8" + title, id, rows);
             page.getEventHandler().add(Event.CLOSE_INVENTORY, (event, player) -> {
                 Shops.resetSelectedOptions(player, false);
             });
