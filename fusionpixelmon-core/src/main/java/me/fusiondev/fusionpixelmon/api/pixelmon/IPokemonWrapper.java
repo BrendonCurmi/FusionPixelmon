@@ -20,7 +20,7 @@ public interface IPokemonWrapper {
 
     String getAbility();
 
-    String getNature();
+    String getNature(boolean showMint);
 
     String getGender();
 
@@ -30,6 +30,18 @@ public interface IPokemonWrapper {
 
     String getCaughtBall();
 
+    /**
+     * Checks if the pokemon has a special texture.
+     *
+     * @return true if pokemon has a special texture.
+     */
+    boolean hasSpecialTexture();
+
+    /**
+     * Checks if the pokemon has a special or custom texture.
+     *
+     * @return true if pokemon has a special or custom texture.
+     */
     boolean hasTexture();
 
     String getTexture();

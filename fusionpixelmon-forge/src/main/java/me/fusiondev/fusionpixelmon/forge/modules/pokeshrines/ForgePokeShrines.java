@@ -20,20 +20,22 @@ public class ForgePokeShrines extends PokeShrinesModule {
                 if (event.getEntityPlayer().inventory.getFirstEmptyStack() != -1) {
                     ItemStack selected = (ItemStack) FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack(clickedBlock.getResourcePath()).getRaw();
 
-                    // Some blocks may have a secondary block to make it bigger, so remove that too
                     event.getWorld().setBlockToAir(event.getPos());
 
+                    // Some blocks may have a secondary block to make it bigger, so remove that too
                     BlockPos block2Loc = new BlockPos(event.getPos().getX(), event.getPos().getY() + 1, event.getPos().getZ());
                     ResourceLocation block2Name = event.getWorld().getBlockState(block2Loc).getBlock().getRegistryName();
                     if (block2Name != null && !block2Name.equals(clickedBlock)) {
                         block2Loc = new BlockPos(event.getPos().getX(), event.getPos().getY() - 1, event.getPos().getZ());
+                        block2Name = event.getWorld().getBlockState(block2Loc).getBlock().getRegistryName();
                     }
                     if (block2Name != null && block2Name.equals(clickedBlock)) {
                         event.getWorld().setBlockToAir(block2Loc);
                     }
 
                     event.getEntityPlayer().addItemStackToInventory(selected);
-                } else event.getEntityPlayer().sendMessage(new TextComponentString(Color.RED + "Your inventory is full!"));
+                } else
+                    event.getEntityPlayer().sendMessage(new TextComponentString(Color.RED + "Your inventory is full!"));
             }
         }
     }

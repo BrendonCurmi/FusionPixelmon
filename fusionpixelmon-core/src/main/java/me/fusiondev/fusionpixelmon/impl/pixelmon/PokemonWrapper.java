@@ -1,7 +1,6 @@
 package me.fusiondev.fusionpixelmon.impl.pixelmon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.entities.pixelmon.EnumSpecialTexture;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.EVStore;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import me.fusiondev.fusionpixelmon.api.pixelmon.IPokemonWrapper;
@@ -15,7 +14,7 @@ import java.util.List;
  * Contains information on the Pokemon.
  */
 public class PokemonWrapper implements IPokemonWrapper {
-    private Pokemon pokemon;
+    private final Pokemon pokemon;
 
     public PokemonWrapper(Pokemon pokemon) {
         this.pokemon = pokemon;
@@ -23,7 +22,7 @@ public class PokemonWrapper implements IPokemonWrapper {
 
     @Override
     public String getTitle() {
-        return "§b" + getName() + " §7: §eLvl " + pokemon.getLevel() + getIfShiny();
+        return "§b" + getName() + "§r §7: §eLvl " + pokemon.getLevel() + getIfShiny();
     }
 
     @Override
@@ -47,8 +46,9 @@ public class PokemonWrapper implements IPokemonWrapper {
     }
 
     @Override
-    public String getNature() {
-        return "§7Nature: §e" + pokemon.getNature().getLocalizedName();
+    public String getNature(boolean showMint) {
+        // gets the base nature, not the mint nature
+        return "§7Nature: §e" + pokemon.getBaseNature().getLocalizedName() + (showMint && pokemon.getMintNature() != null ? " (+ " + pokemon.getMintNature() + " Mint)" : "");
     }
 
     @Override
@@ -85,15 +85,20 @@ public class PokemonWrapper implements IPokemonWrapper {
     }
 
     @Override
+    public boolean hasSpecialTexture() {
+        return pokemon.getForm() > 0 && !pokemon.getFormEnum().isDefaultForm();
+    }
+
+    @Override
     public boolean hasTexture() {
-        return pokemon.getSpecialTexture() != EnumSpecialTexture.None || !pokemon.getCustomTexture().isEmpty();
+        return hasSpecialTexture() || !pokemon.getCustomTexture().isEmpty();
     }
 
     @Override
     public String getTexture() {
         return "§7Texture: §e"
-                + GrammarUtils.cap(pokemon.getSpecialTexture() != EnumSpecialTexture.None
-                ? pokemon.getSpecialTexture().name()
+                + GrammarUtils.cap(hasSpecialTexture()
+                ? pokemon.getFormEnum().getLocalizedName()
                 : pokemon.getCustomTexture());
     }
 

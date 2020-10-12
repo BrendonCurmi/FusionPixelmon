@@ -146,7 +146,7 @@ public abstract class Shops {
         FORM(33, "Form", "form", FormShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("meteorite")),
         EVOLUTION(4, "Evolution", "evolution", EvolutionShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("fire_stone")),
         NICK(2, "Nick", "nick colour and style", NickShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby")),
-        MOVE(6, "Moves", "moves", MoveShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("ruby"));
+        MOVE(6, "Moves", "moves", MoveShop.class, FusionPixelmon.getRegistry().getPixelmonUtils().getPixelmonItemStack("tm1"));
 
         private final int slot;
         private final String name;
@@ -236,8 +236,7 @@ public abstract class Shops {
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
-                pokemonWrapper.getNature(),
-                "",
+                pokemonWrapper.getNature(true),
                 pokemonWrapper.getGender(),
                 pokemonWrapper.getSize(),
                 pokemonWrapper.getCaughtBall(),
