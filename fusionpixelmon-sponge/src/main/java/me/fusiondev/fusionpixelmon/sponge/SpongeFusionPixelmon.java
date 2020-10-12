@@ -47,8 +47,8 @@ import java.util.Optional;
 @Plugin(id = SpongeFusionPixelmon.ID,
         name = SpongeFusionPixelmon.NAME,
         version = SpongeFusionPixelmon.VERSION,
-        authors = {"BrendonCurmi/FusionDev"},
-        description = "A plugin/mod hybrid that adds a little extra to Pixelmon servers!",
+        authors = {"FusionDev"},
+        description = "Add a little extra to Pixelmon experience!",
         dependencies = {
                 @Dependency(id = "pixelmon", version = "7.0.8"),
                 @Dependency(id = "spongeapi", version = "7.1.0")
