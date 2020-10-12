@@ -56,7 +56,7 @@ public class SpigotArcPlates extends AbstractArcPlatesUI {
             else selected.setAmount(selected.getAmount() - 1);
         }
         // In GUI Page
-        else if (isItemPlate(selected) && enabled) {
+        else if (slot <= (ROWS * 9) - 1 && isItemPlate(selected) && enabled) {
             // Delay to prevent duping
             enabled = false;
             TimeUtils.setTimeout(() -> enabled = true, 900);
