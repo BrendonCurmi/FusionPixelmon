@@ -37,7 +37,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         instance = this;
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpigotRegistry());
-        System.out.println("STARTED");
+        System.out.println("Successfully running FusionPixelmon v" + VERSION + "!");
 
         new Metrics(this, BSTATS_ID);
 
