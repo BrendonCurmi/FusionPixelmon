@@ -22,7 +22,7 @@ public class PokemonWrapper implements IPokemonWrapper {
 
     @Override
     public String getTitle() {
-        return "§b" + getName() + " §7: §eLvl " + pokemon.getLevel() + getIfShiny();
+        return "§b" + getName() + "§r §7: §eLvl " + pokemon.getLevel() + getIfShiny();
     }
 
     @Override
