@@ -20,7 +20,7 @@ public interface IPokemonWrapper {
 
     String getAbility();
 
-    String getNature();
+    String getNature(boolean showMint);
 
     String getGender();
 

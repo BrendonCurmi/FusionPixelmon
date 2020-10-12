@@ -41,8 +41,7 @@ public class PokeSelectorUI {
                 partyItem = new InvItem(reg.getPixelmonUtils().getPokeSprite(pokemon, true), pokemonWrapper.getTitle());
                 partyItem.setLoreWait(
                         pokemonWrapper.getAbility(),
-                        pokemonWrapper.getNature(),
-                        "",
+                        pokemonWrapper.getNature(true),
                         pokemonWrapper.getGender(),
                         pokemonWrapper.getSize(),
                         "",

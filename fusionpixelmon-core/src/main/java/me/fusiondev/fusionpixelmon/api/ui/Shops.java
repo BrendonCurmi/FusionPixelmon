@@ -236,8 +236,7 @@ public abstract class Shops {
         pokeItem.setLoreWait(
                 pokemonWrapper.getTitle(),
                 pokemonWrapper.getAbility(),
-                pokemonWrapper.getNature(),
-                "",
+                pokemonWrapper.getNature(true),
                 pokemonWrapper.getGender(),
                 pokemonWrapper.getSize(),
                 pokemonWrapper.getCaughtBall(),

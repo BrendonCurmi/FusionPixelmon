@@ -46,9 +46,9 @@ public class PokemonWrapper implements IPokemonWrapper {
     }
 
     @Override
-    public String getNature() {
+    public String getNature(boolean showMint) {
         // gets the base nature, not the mint nature
-        return "§7Nature: §e" + pokemon.getBaseNature().getLocalizedName();
+        return "§7Nature: §e" + pokemon.getBaseNature().getLocalizedName() + (showMint && pokemon.getMintNature() != null ? " (+ " + pokemon.getMintNature() + " Mint)" : "");
     }
 
     @Override
