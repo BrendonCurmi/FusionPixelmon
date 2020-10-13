@@ -21,10 +21,6 @@ repositories {
         name = "spigot-repo"
         url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     }
-    maven {
-        name = "bstats-repo"
-        url = uri("https://repo.codemc.org/repository/maven-public")
-    }
     flatDir {
         dirs("/libs")
     }
@@ -44,7 +40,6 @@ dependencies {
     }
     //compileOnly(files("/libs/spigot-1.12.2.jar"))
     compileOnly(files("/libs/craftbukkit-1.12.2.jar"))
-    implementation("org.bstats:bstats-bukkit:1.7")
 
     testCompile("junit", "junit", "4.12")
 }
@@ -52,7 +47,4 @@ dependencies {
 tasks.named<ShadowJar>("shadowJar") {
     archiveBaseName.set("FusionPixelmon")
     archiveClassifier.set("spigot")
-    dependencies {
-        relocate("org.bstats.bukkit", "me.fusiondev.fusionpixelmon.spigot.bstats")
-    }
 }

@@ -17,7 +17,6 @@ import me.fusiondev.fusionpixelmon.spigot.modules.pokedesigner.commands.PokeDesi
 import me.fusiondev.fusionpixelmon.spigot.modules.pokemodifiers.PokeModifiersListeners;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokemodifiers.commands.PokeModifierCommand;
 import me.fusiondev.fusionpixelmon.spigot.modules.pokeshrines.SpigotPokeShrines;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,8 +38,6 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpigotRegistry());
         System.out.println("Successfully running FusionPixelmon v" + VERSION + "!");
-
-        new Metrics(this, BSTATS_ID);
 
         createConfigFile(new File(getDataFolder(), "default.conf"), true);
         File configFile = new File(getDataFolder(), ID + ".conf");
@@ -141,8 +138,6 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     public static final String ID = "fusionpixelmon";
     public static final String VERSION = "1.10";
-
-    public static final int BSTATS_ID = 8277;
 
     private static final int RESOURCE_ID = 84753;
     public static final String DOWNLOAD_URL = "https://www.spigotmc.org/resources/fusionpixelmon.84753/";
