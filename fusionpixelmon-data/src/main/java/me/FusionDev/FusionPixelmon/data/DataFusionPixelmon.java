@@ -23,7 +23,7 @@ import java.util.UUID;
         authors = {"FusionDev"},
         description = "Data migrator for FusionPixelmon 1.9",
         dependencies = {
-                @Dependency(id = "pixelmon", version = "7.0.8"),
+                @Dependency(id = "pixelmon", version = "8.1.2"),
                 @Dependency(id = "spongeapi", version = "7.1.0"),
                 @Dependency(id = DataFusionPixelmon.MAIN_ID)
         })
