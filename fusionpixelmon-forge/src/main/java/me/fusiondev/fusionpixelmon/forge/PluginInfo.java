@@ -11,7 +11,7 @@ public class PluginInfo implements IPluginInfo {
 
     public static final String CMD_PERM = ID + ".command.";
 
-    public static final String DOWNLOAD_URL = "";
+    public static final String DOWNLOAD_URL = "https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon";
     public static final String VERSIONS_ENDPOINT = "https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/master/fusionpixelmon-forge/update.json";
 
     @Override
