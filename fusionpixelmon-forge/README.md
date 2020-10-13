@@ -12,18 +12,15 @@ This Forge mod is intended to be used on Singleplayer, not on Multiplayer.
 To use on Multiplayer, use either the [Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon) or [Spigot](todo) plugins.
 
 ## Download
-You can download the latest version from [here]().
+You can download the latest version from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon).
 
 ## Install
 Add the mod to the `/mods` folder of your Minecraft installation.
 
-## Specific Dependencies
+## Dependencies
 Also refer to the [General Dependencies](../README.md#dependencies).
 - [GooeyLibs](https://www.curseforge.com/minecraft/mc-mods/gooeylibs)
   - GooeyLibs-1.0.5.jar
-
-Multiple versions may be listed under the same library to show which versions have been tested with this plugin.
-Only one version of each entry needs to be installed at a given time.
 
 ## Config
 The config files can be found in `<minecraft>/config/fusionpixelmon`.
@@ -35,9 +32,8 @@ Above each setting in the config file, there will be comments explaining the fea
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/fusionpixelmon-core/src/main/resources/assets/fusionpixelmon/default.conf).
 
 ## Features
-
 ### PokeDesigner
-An interactive PokeDesigner with 12 shops for modifying your Pokemon.
+An interactive PokeDesigner with shops for modifying your Pokemon.
 
 Inspired by the pokemon designer on PokeCentral.org
 

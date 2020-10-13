@@ -14,18 +14,12 @@ You can download the latest version from [Ore](https://ore.spongepowered.org/Fus
 ## Install
 Add the plugin to the `/mods` folder of your Sponge server.
 
-## Specific Dependencies
+## Dependencies
 Also refer to the [General Dependencies](../README.md#dependencies).
 - [Sponge Forge](https://www.spongepowered.org/downloads/spongeforge/stable/1.12.2)
-  - spongeforge-1.12.2-2838-7.3.0.jar (1.10)
-  - spongeforge-1.12.2-2825-7.1.6.jar (1.9)
-
-Multiple versions may be listed under the same library to show which versions have been tested with this plugin.
-Only one version of each entry needs to be installed at a given time.
+  - spongeforge-1.12.2-2838-7.3.0.jar
 
 ## Features
-Features can be disabled in the config
-
 ### PokeDesigner
 An interactive PokeDesigner with 12 shops for modifying your Pokemon.
 

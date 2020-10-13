@@ -14,13 +14,9 @@ You can download the latest version from [here](todo).
 ## Install
 Add the plugin to the `/plugins` folder of your modded Spigot server.
 
-## Specific Dependencies
+## Dependencies
 Also refer to the [General Dependencies](../README.md#dependencies).
 - [Spigot](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html)
-  - forge-1.12.2-14.23.5.2847-universal.jar
-
-Multiple versions may be listed under the same library to show which versions have been tested with this plugin.
-Only one version of each entry needs to be installed at a given time.
 
 ## Config
 The config files can be found in `<server>/plugins/FusionPixelmon`.
@@ -32,7 +28,6 @@ Above each setting in the config file, there will be comments explaining the fea
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/fusionpixelmon-core/src/main/resources/assets/fusionpixelmon/default.conf).
 
 ## Features
-
 ### PokeDesigner
 An interactive PokeDesigner with 12 shops for modifying your Pokemon.
 
