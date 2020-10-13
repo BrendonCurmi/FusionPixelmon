@@ -11,8 +11,8 @@ public class PluginInfo implements IPluginInfo {
 
     public static final String CMD_PERM = ID + ".command.";
 
-    public static final String VERSIONS_ENDPOINT = "";
-    public static final String ORE_VERSIONS = "";
+    public static final String DOWNLOAD_URL = "";
+    public static final String VERSIONS_ENDPOINT = "https://raw.githubusercontent.com/BrendonCurmi/FusionPixelmon/master/fusionpixelmon-forge/update.json";
 
     @Override
     public String getId() {
@@ -31,12 +31,12 @@ public class PluginInfo implements IPluginInfo {
 
     @Override
     public String getDownloadUrl() {
-        return null;
+        return DOWNLOAD_URL;
     }
 
     @Override
     public String getVersionsApiUrl() {
-        return null;
+        return VERSIONS_ENDPOINT;
     }
 
     private Config config;
