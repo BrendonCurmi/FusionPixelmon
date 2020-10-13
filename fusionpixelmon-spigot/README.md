@@ -9,7 +9,7 @@
 Add a little extra to your Pixelmon experience - PokeBuilder, ArcPlates, Modifier Tokens, and more!
 
 ## Download
-You can download the latest version from [here](todo).
+You can download the latest version from [here](https://www.spigotmc.org/resources/fusionpixelmon.84753/).
 
 ## Install
 Add the plugin to the `/plugins` folder of your modded Spigot server.

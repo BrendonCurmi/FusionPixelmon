@@ -9,7 +9,7 @@
 Add a little extra to your Pixelmon experience - PokeBuilder, ArcPlates, Modifier Tokens, and more!
 
 This Forge mod is intended to be used on Singleplayer, not on Multiplayer.
-To use on Multiplayer, use either the [Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon) or [Spigot](todo) plugins.
+To use on Multiplayer, use either the [Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon) or [Spigot](https://www.spigotmc.org/resources/fusionpixelmon.84753/) plugins.
 
 ## Download
 You can download the latest version from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon).

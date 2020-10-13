@@ -18,7 +18,7 @@ Add a little extra to your Pixelmon experience - PokeBuilder, ArcPlates, Modifie
 
 ## Download
 - [FusionPixelmon Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon)
-- [FusionPixelmon Spigot](todo)
+- [FusionPixelmon Spigot](https://www.spigotmc.org/resources/fusionpixelmon.84753/)
 - [FusionPixelmon Forge](https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon)
 
 ## Dependencies
