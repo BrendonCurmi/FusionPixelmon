@@ -1,5 +1,5 @@
 name: FusionPixelmon
-version: 1.10
+version: 1.11
 author: FusionDev
 description: Add a little extra to your Pixelmon experience - PokeBuilder, ArcPlates, Modifier Tokens, and more!
 main: me.fusiondev.fusionpixelmon.spigot.SpigotFusionPixelmon

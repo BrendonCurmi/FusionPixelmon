@@ -24,7 +24,7 @@ apply plugin: 'maven-publish'
 
 
 group 'me.fusiondev'
-version '1.10'
+version '1.11'
 archivesBaseName = 'fusionpixelmon'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.

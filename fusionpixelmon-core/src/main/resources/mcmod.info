@@ -4,7 +4,7 @@
         "name": "FusionPixelmon",
         "description": "Add a little extra to your Pixelmon experience - PokeBuilder, ArcPlates, Modifier Tokens, and more!",
         "authorList": ["FusionDev"],
-        "version": "1.10",
+        "version": "1.11",
         "mcversion": "1.12.2",
         "forgeversion": "Forge 14.23.5.2768",
         "url": "https://github.com/BrendonCurmi/FusionPixelmon",
