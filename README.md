@@ -14,8 +14,7 @@ Add a little extra to your Pixelmon experience
 3. [Features](#features)
 4. [Commands and Permissions](#commands-and-permissions)
 5. [Config](#config)
-6. [Known Issues](#known-issues)
-7. [Links](#links)
+6. [Links](#links)
 
 ## Download
 - [FusionPixelmon Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon)
