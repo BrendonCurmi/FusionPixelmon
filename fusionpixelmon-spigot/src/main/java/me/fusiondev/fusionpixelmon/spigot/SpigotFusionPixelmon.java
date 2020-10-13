@@ -7,6 +7,7 @@ import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.data.PokeShrineData;
 import me.fusiondev.fusionpixelmon.modules.pokemodifiers.PokeModifiers;
+import me.fusiondev.fusionpixelmon.spigot.api.updater.UpdateChecker;
 import me.fusiondev.fusionpixelmon.spigot.impl.SpigotConfigManager;
 import me.fusiondev.fusionpixelmon.spigot.impl.inventory.SpigotInvInventory;
 import me.fusiondev.fusionpixelmon.spigot.modules.arcplates.SpigotArcPlatesModule;
@@ -85,6 +86,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         }
 
         SpigotInvInventory.runUpdater();
+
+        new UpdateChecker(getLogger(), this).check(VERSIONS_ENDPOINT, DOWNLOAD_URL);
     }
 
     private void createConfigFile(File file, boolean alwaysCreate) {
@@ -125,7 +128,6 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             pokeShrineData.save();
         }
-        System.out.println("ENDED");
     }
 
     public static SpigotFusionPixelmon getInstance() {
@@ -138,15 +140,13 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
 
     public static final String ID = "fusionpixelmon";
-    public static final String NAME = "FusionPixelmon";
     public static final String VERSION = "1.10";
 
     public static final int BSTATS_ID = 8277;
 
-    public static final String CMD_PERM = ID + ".command.";
-
-    public static final String VERSIONS_ENDPOINT = "https://ore.spongepowered.org/api/v1/projects/" + ID + "/versions";
-    public static final String ORE_VERSIONS = "https://ore.spongepowered.org/FusionDev/FusionPixelmon/versions";
+    private static final int RESOURCE_ID = 84713;
+    public static final String DOWNLOAD_URL = "https://www.spigotmc.org/resources/test.84713/";
+    public static final String VERSIONS_ENDPOINT = "https://api.spigotmc.org/legacy/update.php?resource=" + RESOURCE_ID;
 
 
     @Override
@@ -161,7 +161,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     @Override
     public String getDownloadUrl() {
-        return ORE_VERSIONS;
+        return DOWNLOAD_URL;
     }
 
     @Override
