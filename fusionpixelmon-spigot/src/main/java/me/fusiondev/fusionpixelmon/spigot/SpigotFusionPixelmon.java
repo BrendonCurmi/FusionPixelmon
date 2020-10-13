@@ -128,7 +128,6 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         if (!getConfiguration().getPickableShrines().isEmpty()) {
             pokeShrineData.save();
         }
-        System.out.println("ENDED");//todo this
     }
 
     public static SpigotFusionPixelmon getInstance() {
