@@ -144,8 +144,8 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     public static final int BSTATS_ID = 8277;
 
-    private static final int RESOURCE_ID = 84713;
-    public static final String DOWNLOAD_URL = "https://www.spigotmc.org/resources/test.84713/";
+    private static final int RESOURCE_ID = 84753;
+    public static final String DOWNLOAD_URL = "https://www.spigotmc.org/resources/fusionpixelmon.84753/";
     public static final String VERSIONS_ENDPOINT = "https://api.spigotmc.org/legacy/update.php?resource=" + RESOURCE_ID;
 
 
