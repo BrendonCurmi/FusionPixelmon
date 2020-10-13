@@ -48,7 +48,7 @@ import java.util.Optional;
         name = SpongeFusionPixelmon.NAME,
         version = SpongeFusionPixelmon.VERSION,
         authors = {"FusionDev"},
-        description = "Add a little extra to Pixelmon experience",
+        description = "Add a little extra to your Pixelmon experience - PokeBuilder, ArcPlates, Modifier Tokens, and more!",
         dependencies = {
                 @Dependency(id = "pixelmon", version = "8.1.2"),
                 @Dependency(id = "spongeapi", version = "7.1.0")
