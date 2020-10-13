@@ -42,6 +42,6 @@ public class PokeShrineData extends Data {
 
     public boolean isLockedBy(int x, int y, int z, UUID uuid) {
         String key = getKey(x, y, z);
-        return data.has(key) && data.get(key) == uuid;
+        return data.has(key) && data.get(key).toString().equals(uuid.toString());
     }
 }

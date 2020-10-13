@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 public class UpdateChecker {
 
-    private Logger logger;
+    private final Logger logger;
 
     public UpdateChecker(Logger logger) {
         this.logger = logger;
@@ -46,7 +46,10 @@ public class UpdateChecker {
         urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
         InputStream inputStream = urlConnection.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-        return new JSONArray(read(reader));
+        String read = read(reader);
+        reader.close();
+        inputStream.close();
+        return new JSONArray(read);
     }
 
     /**
@@ -60,7 +63,6 @@ public class UpdateChecker {
         StringBuilder builder = new StringBuilder();
         int cp;
         while ((cp = reader.read()) != -1) builder.append((char) cp);
-        //reader.close(); todo close
         return builder.toString();
     }
 }

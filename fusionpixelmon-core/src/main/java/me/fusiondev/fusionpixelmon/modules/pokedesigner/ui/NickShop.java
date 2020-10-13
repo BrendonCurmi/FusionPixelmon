@@ -28,10 +28,9 @@ public class NickShop extends BaseShop {
     public InvPage buildPage() {
         Builder builder = new Builder("§0Nick Modification", "pokeeditor-nick", 6)
                 .setInfoItemData("Nick Info",
-                        "To pick a nick colour or style for your Pokemon",
-                        "simply use the options above.",
-                        "Colours and styles can be bought at once.",
-                        "Previously bought options dont stack up.")
+                        "To pick a nick colour or style for your",
+                        "Pokemon simply use the options above.",
+                        "Colours and styles can be bought at once.")
                 .setSelectedItemName("Selected Nick Colour")
                 .setSelectedSlot(46)
                 .setInfoSlot(48)

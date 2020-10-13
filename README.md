@@ -6,7 +6,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/01bca84076714665a643eedcba9d1182)](https://www.codacy.com/manual/BrendonCurmi/FusionPixelmon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BrendonCurmi/FusionPixelmon&amp;utm_campaign=Badge_Grade)
 [![Discord](https://discordapp.com/api/guilds/699764448155533404/widget.png)](https://discord.gg/VFNTycm)
 
-Add a little extra to your Pixelmon experience.
+Add a little extra to your Pixelmon experience
 
 ## Summary
 1. [Download](#download)
@@ -115,7 +115,6 @@ shrine-pickup=[
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/fusionpixelmon-core/src/main/resources/assets/fusionpixelmon/default.conf).
 
 ## Known Issues
-- **1.9-sponge**: Using Sponge 7.2.0 causes levels to be bought 1 at a time, and Pokemon to revert back to original form after battling or returning to pokeball.
 - **all**: Using inventory mods (like InventoryTweaks) on an open GUI menu can break the menu or cause item duplications.
 
 ## Links

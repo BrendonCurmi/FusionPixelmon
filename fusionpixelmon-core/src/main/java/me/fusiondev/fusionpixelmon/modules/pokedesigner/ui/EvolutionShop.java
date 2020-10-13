@@ -30,7 +30,8 @@ public class EvolutionShop extends BaseShop {
                         "To modify the evolution of your Pokemon",
                         "simply use the above options.",
                         "",
-                        "Note: can only get evolutions obtained by levelling")
+                        "Note: can only get evolutions obtained by levelling.",
+                        "Evolving down may not permit to evolve back up.")
                 .setSelectedItemName("Selected Evolution")
                 .setSelectedSlot(37)
                 .setInfoSlot(39)

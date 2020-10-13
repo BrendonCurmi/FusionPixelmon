@@ -21,9 +21,8 @@ public class PokeballShop extends BaseShop {
     public InvPage buildPage() {
         Builder builder = new Builder("§0Pokeball Modification", "pokeeditor-pokeball", 6)
                 .setInfoItemData("Pokeball Info",
-                        "To pick the Pokeball of your Pokemon",
-                        "simply select one of the Pokeballs",
-                        "on the right.")
+                        "To pick the Pokeball for your Pokemon",
+                        "simply use the options above.")
                 .setSelectedItemName("Selected Pokeball")
                 .setSelectedSlot(46)
                 .setInfoSlot(48)

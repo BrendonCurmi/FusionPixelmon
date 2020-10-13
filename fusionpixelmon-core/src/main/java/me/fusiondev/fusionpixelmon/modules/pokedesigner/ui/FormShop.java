@@ -20,13 +20,14 @@ public class FormShop extends BaseShop {
         return Shops.Options.FORM;
     }
 
-    // todo disclaimer about item types which change form
     @Override
     public InvPage buildPage() {
         Builder builder = new Builder("§0Form Modification", "pokeeditor-form", 6)
                 .setInfoItemData("Form Info",
                         "To select a form for your Pokemon",
-                        "select one of the above options.")
+                        "select one of the above options.",
+                        "",
+                        "Note: Pokemon can revert/change form from held item change.")
                 .setSelectedItemName("Selected Form")
                 .setSelectedSlot(46)
                 .setInfoSlot(48)

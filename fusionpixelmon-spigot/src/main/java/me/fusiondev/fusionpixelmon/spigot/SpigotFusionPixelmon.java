@@ -37,7 +37,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
         instance = this;
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpigotRegistry());
-        System.out.println("STARTED");
+        System.out.println("Successfully running FusionPixelmon v" + VERSION + "!");
 
         new Metrics(this, BSTATS_ID);
 
@@ -139,7 +139,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
     public static final String ID = "fusionpixelmon";
     public static final String NAME = "FusionPixelmon";
-    public static final String VERSION = "1.9";
+    public static final String VERSION = "1.10";
 
     public static final int BSTATS_ID = 8277;
 

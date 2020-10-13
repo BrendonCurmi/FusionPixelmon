@@ -47,16 +47,14 @@ import java.util.Optional;
 @Plugin(id = SpongeFusionPixelmon.ID,
         name = SpongeFusionPixelmon.NAME,
         version = SpongeFusionPixelmon.VERSION,
-        authors = {"BrendonCurmi/FusionDev"},
-        description = "A plugin/mod hybrid that adds a little extra to Pixelmon servers!",
+        authors = {"FusionDev"},
+        description = "Add a little extra to Pixelmon experience",
         dependencies = {
-                @Dependency(id = "pixelmon", version = "7.0.8"),
+                @Dependency(id = "pixelmon", version = "8.1.2"),
                 @Dependency(id = "spongeapi", version = "7.1.0")
         })
 public class SpongeFusionPixelmon extends PluginInfo {
 
-    // todo warning evolve down, cant evolve up if special evolve conditions
-    // todo if change form and do something to affect form, wasted money
     // todo may need to update the lvl thing for nature as well
 
     private static SpongeFusionPixelmon instance;
@@ -175,7 +173,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
         }
 
         try {
-            new UpdateChecker(LOGGER).check(VERSIONS_ENDPOINT, ORE_VERSIONS);
+            new UpdateChecker(LOGGER).check(VERSIONS_ENDPOINT, DOWNLOAD_URL);
         } catch (IOException ignored) {
             // If an exception occurs, just don't check for newer versions
         }
