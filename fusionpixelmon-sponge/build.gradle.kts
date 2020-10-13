@@ -16,10 +16,6 @@ repositories {
         name = "sponge-repo"
         url = uri("https://repo.spongepowered.org/maven")
     }
-    maven {
-        name = "bstats-repo"
-        url = uri("https://repo.codemc.org/repository/maven-public")
-    }
     flatDir {
         dirs("$rootDir/libs")
     }
@@ -33,7 +29,6 @@ dependencies {
 
     compileOnly("org.spongepowered:spongeapi:7.2.0")
     compileOnly("org.spongepowered:spongeforge:1.12.2-2825-7.1.6")
-    implementation("org.bstats:bstats-sponge:1.7")
 
     testCompile("junit", "junit", "4.12")
 }
@@ -44,6 +39,5 @@ tasks.named<ShadowJar>("shadowJar") {
     dependencies {
         include(project(":fusionpixelmon-core"))
         include(dependency("org.json:json:20190722"))
-        include(dependency("org.bstats:bstats-sponge:1.7"))
     }
 }

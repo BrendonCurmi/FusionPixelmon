@@ -18,7 +18,6 @@ import me.fusiondev.fusionpixelmon.sponge.modules.pokemodifiers.commands.PokeMod
 import me.fusiondev.fusionpixelmon.sponge.modules.pokeshrines.SpongePokeShrines;
 import me.fusiondev.fusionpixelmon.api.updater.UpdateChecker;
 import me.fusiondev.fusionpixelmon.config.Config;
-import org.bstats.sponge.Metrics2;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
@@ -68,13 +67,12 @@ public class SpongeFusionPixelmon extends PluginInfo {
      * Main class constructor that gets called by Sponge's classloader.
      */
     @Inject
-    public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger, Metrics2.Factory metricsFactory) {
+    public SpongeFusionPixelmon(@ConfigDir(sharedRoot = false) Path configDir, Logger logger) {
         SpongeFusionPixelmon.instance = this;
         FusionPixelmon.setInstance(this);
         FusionPixelmon.setRegistry(new SpongeRegistry());
         this.configDir = configDir;
         this.LOGGER = logger;
-        metricsFactory.make(BSTATS_ID);
     }
 
     @Listener
