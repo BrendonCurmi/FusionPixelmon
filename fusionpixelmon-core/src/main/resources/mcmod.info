@@ -14,7 +14,7 @@
             "spongeapi@7.1.0"
         ],
         "requiredMods": [
-            "pixelmon@7.1.1",
+            "pixelmon@8.1.2",
             "spongeapi@7.1.0"
         ]
     }
