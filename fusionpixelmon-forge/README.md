@@ -12,7 +12,7 @@ This Forge mod is intended to be used on Singleplayer, not on Multiplayer.
 To use on Multiplayer, use either the [Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon) or [Spigot](todo) plugins.
 
 ## Download
-You can download the latest version from [here]().
+You can download the latest version from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon).
 
 ## Install
 Add the mod to the `/mods` folder of your Minecraft installation.

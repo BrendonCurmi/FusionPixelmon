@@ -22,7 +22,7 @@ Add a little extra to your Pixelmon experience
 You can download the latest versions from:
 - [FusionPixelmon Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon)
 - [FusionPixelmon Spigot]()
-- [FusionPixelmon Forge]()
+- [FusionPixelmon Forge](https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon)
 
 ## Dependencies
 General dependencies that are required for FusionPixelmon to run:
