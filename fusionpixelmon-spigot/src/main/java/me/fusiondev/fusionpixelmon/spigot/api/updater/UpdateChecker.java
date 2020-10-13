@@ -19,12 +19,12 @@ public class UpdateChecker {
         this.plugin = plugin;
     }
 
-    public void check(String apiUrl, String downloadUrl) {
+    public void check(String currentVersion, String apiUrl, String downloadUrl) {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
             try (InputStream inputStream = new URL(apiUrl).openStream(); Scanner scanner = new Scanner(inputStream)) {
                 if (scanner.hasNext()) {
                     String version = scanner.next();
-                    if (!plugin.getDescription().getVersion().equalsIgnoreCase(version)) {
+                    if (!currentVersion.equalsIgnoreCase(version)) {
                         logger.info("There is a newer version of FusionPixelmon available! Version " + version + " @ " + downloadUrl);
                     }
                 }
