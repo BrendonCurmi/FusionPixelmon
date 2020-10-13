@@ -2,7 +2,6 @@ package me.fusiondev.fusionpixelmon.forge;
 
 import info.pixelmon.repack.ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import me.fusiondev.fusionpixelmon.FusionPixelmon;
-import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.api.config.ConfigManager;
 import me.fusiondev.fusionpixelmon.config.Config;
 import me.fusiondev.fusionpixelmon.forge.impl.ForgeConfigManager;
