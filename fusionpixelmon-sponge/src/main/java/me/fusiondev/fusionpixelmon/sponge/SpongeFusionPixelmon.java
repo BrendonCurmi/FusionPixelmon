@@ -50,7 +50,7 @@ import java.util.Optional;
         authors = {"FusionDev"},
         description = "Add a little extra to Pixelmon experience",
         dependencies = {
-                @Dependency(id = "pixelmon", version = "7.0.8"),
+                @Dependency(id = "pixelmon", version = "8.1.2"),
                 @Dependency(id = "spongeapi", version = "7.1.0")
         })
 public class SpongeFusionPixelmon extends PluginInfo {
