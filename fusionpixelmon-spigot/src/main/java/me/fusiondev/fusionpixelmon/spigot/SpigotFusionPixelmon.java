@@ -140,7 +140,7 @@ public class SpigotFusionPixelmon extends JavaPlugin implements IPluginInfo {
 
 
     public static final String ID = "fusionpixelmon";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.10";
 
     public static final int BSTATS_ID = 8277;
 
