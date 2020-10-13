@@ -10,40 +10,31 @@ Add a little extra to your Pixelmon experience
 
 ## Summary
 1. [Download](#download)
-2. [Install](#install)
-3. [Dependencies](#dependencies)
-4. [Features](#features)
-5. [Commands and Permissions](#commands-and-permissions)
-6. [Config](#config)
-7. [Known Issues](#known-issues)
-8. [Links](#links)
+2. [Dependencies](#dependencies)
+3. [Features](#features)
+4. [Commands and Permissions](#commands-and-permissions)
+5. [Config](#config)
+6. [Known Issues](#known-issues)
+7. [Links](#links)
 
 ## Download
-You can download the latest versions from:
 - [FusionPixelmon Sponge](https://ore.spongepowered.org/FusionDev/FusionPixelmon)
-- [FusionPixelmon Spigot]()
+- [FusionPixelmon Spigot](todo)
 - [FusionPixelmon Forge](https://www.curseforge.com/minecraft/mc-mods/fusionpixelmon)
 
 ## Dependencies
-General dependencies that are required for FusionPixelmon to run:
+For each plugin's specific dependencies check:
+- [Sponge](https://github.com/BrendonCurmi/FusionPixelmon/tree/master/fusionpixelmon-sponge)
+- [Spigot](https://github.com/BrendonCurmi/FusionPixelmon/tree/master/fusionpixelmon-spigot)
+- [Forge](https://github.com/BrendonCurmi/FusionPixelmon/tree/master/fusionpixelmon-forge)
+
+General dependencies that are required:
 - [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html)
   - forge-1.12.2-14.23.5.2847-universal.jar
 - [Pixelmon Reforged](https://reforged.gg/)
-  - Pixelmon-1.12.2-8.1.2-universal.jar (1.10-all)
-  - Pixelmon-1.12.2-7.2.2-universal.jar (1.9-sponge)
-  - Pixelmon-1.12.2-7.1.1-universal.jar (1.9-sponge)
-  - Pixelmon-1.12.2-7.0.8-universal.jar (1.9-sponge)
-
-Multiple versions may be listed under the same library to show which versions have been tested with this plugin.
-Only one version of each entry needs to be installed at a given time.
-
-For each plugin's specific dependencies check:
-- [Sponge](fusionpixelmon-sponge/README.md)
-- [Spigot](fusionpixelmon-spigot/README.md)
-- [Forge](fusionpixelmon-forge/README.md)
+  - Pixelmon-1.12.2-8.1.2-universal.jar
 
 ## Features
-
 ### PokeDesigner
 An interactive PokeDesigner with 12 shops for modifying your Pokemon.
 
@@ -89,8 +80,6 @@ This plugin prevents taking fall damage by giving a 5 second grace period after 
 | `/arc`                                | fusionpixelmon.command.arc                | Opens the ArcPlates UI        |
 | `/pokemodifier <modifier> [player]`   | fusionpixelmon.command.admin.pokemodifier | Gives Pokemon modifier tokens |
 
-Note: Empty fields will follow the values of the row above them.
-
 ## Config
 To modify features of this plugin, use `[config]/fusionpixelmon.conf`.
 
@@ -113,9 +102,6 @@ shrine-pickup=[
 ```
 
 To return the `fusionpixelmon.conf` config file back to the original, you can either delete it and it'll be created upon next server startup, or copy-paste the values from the [default config](https://github.com/BrendonCurmi/FusionPixelmon/blob/master/fusionpixelmon-core/src/main/resources/assets/fusionpixelmon/default.conf).
-
-## Known Issues
-- **all**: Using inventory mods (like InventoryTweaks) on an open GUI menu can break the menu or cause item duplications.
 
 ## Links
 - [Discord](https://discord.gg/VFNTycm)
