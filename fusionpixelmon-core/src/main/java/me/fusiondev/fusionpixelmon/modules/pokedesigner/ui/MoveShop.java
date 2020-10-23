@@ -154,7 +154,7 @@ public class MoveShop extends BaseShop {
     }
 
     private static class ConfigKeyConstants {
-        private static final String CHANGE_MOVES = "change-moves";
+        private static final String CHANGE_MOVES = "change-move";
     }
 
     private static class MoveOption {
