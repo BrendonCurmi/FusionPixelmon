@@ -16,7 +16,7 @@ public class PokeModifiersListeners implements Listener {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!itemStack.hasItemMeta()) return;
         String name = itemStack.getItemMeta().getDisplayName();
-        if (event.getHand() == EquipmentSlot.HAND && !name.isEmpty() && PokeModifiers.hasModifier(name, true)) {
+        if (event.getHand() == EquipmentSlot.HAND && name != null && !name.isEmpty() && PokeModifiers.hasModifier(name, true)) {
             PokeModifiers.getModifier(name, true).action(SpigotAdapter.adapt(player), () -> {
                 if (itemStack.getAmount() > 1)
                     itemStack.setAmount(itemStack.getAmount() - 1);
