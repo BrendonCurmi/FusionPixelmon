@@ -1,5 +1,6 @@
 package me.fusiondev.fusionpixelmon.spigot.modules.pokemodifiers;
 
+import me.fusiondev.fusionpixelmon.api.colour.Color;
 import me.fusiondev.fusionpixelmon.modules.pokemodifiers.PokeModifiers;
 import me.fusiondev.fusionpixelmon.spigot.SpigotAdapter;
 import org.bukkit.entity.Player;
@@ -16,7 +17,7 @@ public class PokeModifiersListeners implements Listener {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!itemStack.hasItemMeta()) return;
         String name = itemStack.getItemMeta().getDisplayName();
-        if (event.getHand() == EquipmentSlot.HAND && name != null && !name.isEmpty() && PokeModifiers.hasModifier(name, true)) {
+        if (event.getHand() == EquipmentSlot.HAND && name != null && !name.isEmpty() && PokeModifiers.hasModifier(name, true) && name.startsWith(Color.GREEN.toString())) {
             PokeModifiers.getModifier(name, true).action(SpigotAdapter.adapt(player), () -> {
                 if (itemStack.getAmount() > 1)
                     itemStack.setAmount(itemStack.getAmount() - 1);
