@@ -12,6 +12,7 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.entity.PlayerInventory;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class PokeModifiersListeners {
             Optional<ItemStack> i = player.getItemInHand(HandTypes.MAIN_HAND);
             if (i.isPresent()) {
                 Optional<Text> name = i.get().get(Keys.DISPLAY_NAME);
-                if (name.isPresent() && PokeModifiers.hasModifier(name.get().toPlain(), true)) {
+                if (name.isPresent() && PokeModifiers.hasModifier(name.get().toPlain(), true) && name.get().getColor() == TextColors.GREEN) {
                     PokeModifiers.getModifier(name.get().toPlain(), true).action(SpongeAdapter.adapt(player), () -> {
                         for (int n = 0; n <= 8; n++) {
                             Inventory openInv = ((PlayerInventory) player.getInventory()).getHotbar().query(SlotIndex.of(n));
