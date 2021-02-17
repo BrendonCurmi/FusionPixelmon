@@ -206,6 +206,7 @@ public class SpongeArcPlates extends AbstractArcPlatesUI {
             armor.offer(Keys.HAS_GRAVITY, false);
             armor.offer(Keys.ARMOR_STAND_MARKER, true);
             armor.offer(Keys.INVISIBLE, true);
+            armor.offer(Keys.IS_SILENT, true);
             armor.setCreator(((Entity) entityPixelmon.getPokemonData().getOwnerPlayer()).getUniqueId());
             ARMORS[plate.i] = armor;
         }
