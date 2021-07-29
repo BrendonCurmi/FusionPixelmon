@@ -36,7 +36,7 @@ public class AbilityShop extends BaseShop {
 
         int[] slots = new int[]{20, 22, 24};
         DyeColor[] colors = new DyeColor[]{DyeColor.GREEN, DyeColor.YELLOW, DyeColor.RED};
-        String[] allAbilities = shops.pokemon.getBaseStats().abilities;
+        String[] allAbilities = shops.pokemon.getBaseStats().getAbilitiesArray();
         for (int i = 0; i < allAbilities.length; i++) {
             if (allAbilities[i] == null || (i == 1 && allAbilities[1].equals(allAbilities[0]))) {
                 InvItem item = new InvItem(reg.getItemTypesRegistry().BARRIER(), "§c§lN/A");
