@@ -38,9 +38,7 @@ public class SpigotItemStack extends AbstractItemStack {
 
     @Override
     public AbstractItemStack setLore(List<String> itemLore) {
-        meta(meta -> {
-            meta.setLore(itemLore);
-        });
+        meta(meta -> meta.setLore(itemLore));
         return this;
     }
 
