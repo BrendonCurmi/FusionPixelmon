@@ -29,6 +29,7 @@ public class SpigotPokeShrines extends PokeShrinesModule implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("unused")
     public void onBlockClick(PlayerInteractEvent event) {
         if ((event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
                 && event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
