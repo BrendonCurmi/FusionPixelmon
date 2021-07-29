@@ -38,6 +38,7 @@ public class SpongePokeShrines extends PokeShrinesModule {
     }
 
     @Listener
+    @SuppressWarnings("unused")
     public void onInteractBlockEvent(InteractBlockEvent event) {
         if (!(event.getSource() instanceof Player)) return;
         Player player = (Player) event.getSource();
