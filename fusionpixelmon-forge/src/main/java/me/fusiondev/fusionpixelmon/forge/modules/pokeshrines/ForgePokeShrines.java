@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ForgePokeShrines extends PokeShrinesModule {
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void onRightClick(PlayerInteractEvent.LeftClickBlock event) {
         if (!event.getEntityPlayer().getEntityWorld().isRemote && !event.getEntityPlayer().capabilities.isCreativeMode) {
             ResourceLocation clickedBlock = event.getWorld().getBlockState(event.getPos()).getBlock().getRegistryName();
