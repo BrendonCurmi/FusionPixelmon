@@ -31,7 +31,7 @@ General dependencies that are required:
 - [Forge](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html)
   - forge-1.12.2-14.23.5.2847-universal.jar
 - [Pixelmon Reforged](https://reforged.gg/)
-  - Pixelmon-1.12.2-8.1.2-universal.jar
+  - Pixelmon-1.12.2-8.2.0-universal.jar
 
 ## Features
 ### PokeDesigner
