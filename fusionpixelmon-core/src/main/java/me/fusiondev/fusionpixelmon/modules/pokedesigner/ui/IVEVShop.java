@@ -202,14 +202,14 @@ public class IVEVShop extends BaseShop {
         IVEVShop.IVEVAction action = (IVEVShop.IVEVAction) value;
         int lvl;
         for (Map.Entry<StatsType, Integer> entry : action.EV.entrySet()) {
-            lvl = shops.pokemon.getEVs().get(entry.getKey());
+            lvl = shops.pokemon.getEVs().getStat(entry.getKey());
             lvl = MathUtils.clamp(lvl + entry.getValue(), 0, EVStore.MAX_EVS);
-            shops.pokemon.getEVs().set(entry.getKey(), lvl);
+            shops.pokemon.getEVs().setStat(entry.getKey(), lvl);
         }
         for (Map.Entry<StatsType, Integer> entry : action.IV.entrySet()) {
-            lvl = shops.pokemon.getIVs().get(entry.getKey());
+            lvl = shops.pokemon.getIVs().getStat(entry.getKey());
             lvl = MathUtils.clamp(lvl + entry.getValue(), 0, IVStore.MAX_IVS);
-            shops.pokemon.getIVs().set(entry.getKey(), lvl);
+            shops.pokemon.getIVs().setStat(entry.getKey(), lvl);
         }
 
         // Quickly change and restore the Pokemon's level, to update the stats in the Stats menu
@@ -267,7 +267,7 @@ public class IVEVShop extends BaseShop {
 
         public void addIV(StatsType statsType, int i) {
             int lvl = IV.getOrDefault(statsType, 0) + i;
-            int iv = shops.pokemon.getIVs().get(statsType);
+            int iv = shops.pokemon.getIVs().getStat(statsType);
             if (iv + lvl > IVStore.MAX_IVS) {
                 lvl = IVStore.MAX_IVS - iv;
                 // 31 = iv + lvl + i
@@ -279,7 +279,7 @@ public class IVEVShop extends BaseShop {
 
         public void removeIV(StatsType statsType, int i) {
             int lvl = IV.getOrDefault(statsType, 0) - i;
-            int iv = shops.pokemon.getIVs().get(statsType);
+            int iv = shops.pokemon.getIVs().getStat(statsType);
             if (iv + lvl < 0) {
                 lvl = -iv;
                 // 0 = iv - lvl
@@ -290,7 +290,7 @@ public class IVEVShop extends BaseShop {
 
         public void addEV(StatsType statsType, int i, int total) {
             int lvl = EV.getOrDefault(statsType, 0) + i;
-            int ev = shops.pokemon.getEVs().get(statsType);
+            int ev = shops.pokemon.getEVs().getStat(statsType);
             if (ev + lvl > EVStore.MAX_EVS) {
                 lvl = EVStore.MAX_EVS - ev;
                 // 252 = iv + lvl
@@ -307,7 +307,7 @@ public class IVEVShop extends BaseShop {
 
         public void removeEV(StatsType statsType, int i) {
             int lvl = EV.getOrDefault(statsType, 0) - i;
-            int ev = shops.pokemon.getEVs().get(statsType);
+            int ev = shops.pokemon.getEVs().getStat(statsType);
             if (ev + lvl < 0) {
                 lvl = -ev;
                 // 0 = iv - lvl
