@@ -88,20 +88,20 @@ public class GrowthShop extends BaseShop {
         Enormous(24, DyeColor.GRAY),
         Ginormous(33, DyeColor.BLACK);
 
-        private int slot;
-        private DyeColor dyeColor;
+        private final int SLOT;
+        private final DyeColor DYE_COLOR;
 
         GrowthOptions(int slot, DyeColor dyeColor) {
-            this.slot = slot;
-            this.dyeColor = dyeColor;
+            this.SLOT = slot;
+            this.DYE_COLOR = dyeColor;
         }
 
         public int getSlot() {
-            return slot;
+            return SLOT;
         }
 
         public DyeColor getDyeColor() {
-            return dyeColor;
+            return DYE_COLOR;
         }
     }
 }
