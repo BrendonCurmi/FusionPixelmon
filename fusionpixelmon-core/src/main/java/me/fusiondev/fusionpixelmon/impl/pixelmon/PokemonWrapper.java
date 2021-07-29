@@ -133,16 +133,16 @@ public class PokemonWrapper implements IPokemonWrapper {
     public List<String> getIVs() {
         int total = 0;
         int max = 186;// 31 max IV * 6 stat types
-        for (StatsType stats : StatsType.getStatValues()) total += pokemon.getIVs().get(stats);
+        for (StatsType stats : StatsType.getStatValues()) total += pokemon.getIVs().getStat(stats);
         List<String> result = new ArrayList<>();
         result.add("IVs: " + IPokemonWrapper.beautifyTally(total, max));
         result.add(
-                "    §8(§e" + pokemon.getIVs().get(StatsType.HP) +
-                        "§8/§e" + pokemon.getIVs().get(StatsType.Attack) +
-                        "§8/§e" + pokemon.getIVs().get(StatsType.Defence) +
-                        "§8/§e" + pokemon.getIVs().get(StatsType.SpecialAttack) +
-                        "§8/§e" + pokemon.getIVs().get(StatsType.SpecialDefence) +
-                        "§8/§e" + pokemon.getIVs().get(StatsType.Speed) + "§8)");
+                "    §8(§e" + pokemon.getIVs().getStat(StatsType.HP) +
+                        "§8/§e" + pokemon.getIVs().getStat(StatsType.Attack) +
+                        "§8/§e" + pokemon.getIVs().getStat(StatsType.Defence) +
+                        "§8/§e" + pokemon.getIVs().getStat(StatsType.SpecialAttack) +
+                        "§8/§e" + pokemon.getIVs().getStat(StatsType.SpecialDefence) +
+                        "§8/§e" + pokemon.getIVs().getStat(StatsType.Speed) + "§8)");
         result.add("    " + STATS);
         return result;
     }
@@ -151,16 +151,16 @@ public class PokemonWrapper implements IPokemonWrapper {
     public List<String> getEVs() {
         int total = 0;
         int max = EVStore.MAX_TOTAL_EVS;// 510
-        for (StatsType stats : StatsType.getStatValues()) total += pokemon.getEVs().get(stats);
+        for (StatsType stats : StatsType.getStatValues()) total += pokemon.getEVs().getStat(stats);
         List<String> result = new ArrayList<>();
         result.add("EVs: " + IPokemonWrapper.beautifyTally(total, max));
         result.add(
-                "    §8(§e" + pokemon.getEVs().get(StatsType.HP) +
-                        "§8/§e" + pokemon.getEVs().get(StatsType.Attack) +
-                        "§8/§e" + pokemon.getEVs().get(StatsType.Defence) +
-                        "§8/§e" + pokemon.getEVs().get(StatsType.SpecialAttack) +
-                        "§8/§e" + pokemon.getEVs().get(StatsType.SpecialDefence) +
-                        "§8/§e" + pokemon.getEVs().get(StatsType.Speed) + "§8)");
+                "    §8(§e" + pokemon.getEVs().getStat(StatsType.HP) +
+                        "§8/§e" + pokemon.getEVs().getStat(StatsType.Attack) +
+                        "§8/§e" + pokemon.getEVs().getStat(StatsType.Defence) +
+                        "§8/§e" + pokemon.getEVs().getStat(StatsType.SpecialAttack) +
+                        "§8/§e" + pokemon.getEVs().getStat(StatsType.SpecialDefence) +
+                        "§8/§e" + pokemon.getEVs().getStat(StatsType.Speed) + "§8)");
         result.add("    " + STATS);
         return result;
     }
