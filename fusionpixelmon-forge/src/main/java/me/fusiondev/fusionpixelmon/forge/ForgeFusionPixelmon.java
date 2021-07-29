@@ -50,7 +50,7 @@ public class ForgeFusionPixelmon extends PluginInfo {
     private File dataFolder;
 
     @Mod.EventHandler
-    @SuppressWarnings("UnstableApiUsage")
+    @SuppressWarnings({"UnstableApiUsage", "unused"})
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
         FusionPixelmon.setInstance(this);
@@ -91,6 +91,7 @@ public class ForgeFusionPixelmon extends PluginInfo {
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         if (getConfiguration().isMasterballCraftingEnabled()) {
             new ForgeMasterballModule();
@@ -98,6 +99,7 @@ public class ForgeFusionPixelmon extends PluginInfo {
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void starting(FMLServerStartingEvent event) {
         if (getConfiguration().getArcPlates().isEnabled()) {
             event.registerServerCommand(new ArcPlatesCommand());
@@ -111,6 +113,7 @@ public class ForgeFusionPixelmon extends PluginInfo {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void log(PlayerEvent.PlayerLoggedInEvent event) {
         EntityPlayerMP player = (EntityPlayerMP) event.player;
         if (ForgeVersion.getResult(Loader.instance().activeModContainer()).status == ForgeVersion.Status.OUTDATED) {
@@ -119,6 +122,7 @@ public class ForgeFusionPixelmon extends PluginInfo {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void openInventory(GuiOpenEvent event) {
         ForgeInvInventory.runUpdater();
     }
