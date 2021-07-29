@@ -18,6 +18,7 @@ import java.util.Optional;
 
 public class PokeModifiersListeners {
     @Listener
+    @SuppressWarnings("unused")
     public void onClick(InteractItemEvent event) {
         if (event.getSource() instanceof Player) {
             Player player = (Player) event.getSource();
