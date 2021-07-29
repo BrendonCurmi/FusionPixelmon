@@ -90,7 +90,7 @@ public class EvolutionShop extends BaseShop {
 
         evolutions.add(FusionPixelmon.getRegistry().getPixelmonUtils().fromPokemon(pokemon, false));
 
-        List<Evolution> currEvolutions = pokemon.getBaseStats().evolutions;
+        List<Evolution> currEvolutions = pokemon.getBaseStats().getEvolutions();
         while (!currEvolutions.isEmpty()) {
             for (Evolution ev : currEvolutions) {
                 // Only show evolutions that can be obtained through simple
@@ -99,7 +99,7 @@ public class EvolutionShop extends BaseShop {
                 if (ev.evoType.equals("leveling") && ev.conditions.isEmpty()) {
                     evolutions.add(ev.to);
                 }
-                currEvolutions = ev.to.create().getBaseStats().evolutions;
+                currEvolutions = ev.to.create().getBaseStats().getEvolutions();
             }
         }
         return evolutions;
