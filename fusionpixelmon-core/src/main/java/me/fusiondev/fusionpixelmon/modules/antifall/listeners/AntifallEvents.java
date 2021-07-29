@@ -23,6 +23,7 @@ public class AntifallEvents {
     private static final int FALL_INVULNERABILITY = 5;
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void onBeatPokemon(BeatWildPixelmonEvent event) {
         if (!INVULNERABLE_FALL.contains(event.player)) {
             INVULNERABLE_FALL.add(event.player);
@@ -31,6 +32,7 @@ public class AntifallEvents {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void onFall(LivingFallEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
