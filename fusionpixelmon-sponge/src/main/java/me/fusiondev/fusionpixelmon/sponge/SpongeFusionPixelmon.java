@@ -76,7 +76,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     }
 
     @Listener
-    @SuppressWarnings("UnstableApiUsage")
+    @SuppressWarnings({"UnstableApiUsage", "unused"})
     public void preInit(GamePreInitializationEvent event) {
         // Configs
         try {
@@ -150,6 +150,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     }
 
     @Listener
+    @SuppressWarnings("unused")
     public void init(GameInitializationEvent event) {
         // Add Master Ball crafting recipe back
         if (getConfiguration().isMasterballCraftingEnabled()) {
@@ -158,11 +159,13 @@ public class SpongeFusionPixelmon extends PluginInfo {
     }
 
     @Listener
+    @SuppressWarnings("unused")
     public void postInit(GamePostInitializationEvent event) {
         SpongeInvInventory.runUpdater();
     }
 
     @Listener
+    @SuppressWarnings("unused")
     public void onServerStart(GameStartedServerEvent event) {
         LOGGER.info("Successfully running FusionPixelmon v" + VERSION + "!");
 
@@ -183,6 +186,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     }
 
     @Listener
+    @SuppressWarnings("unused")
     public void onServerStop(GameStoppingServerEvent event) {
         if (getConfiguration().getArcPlates().getHovering().isEnabled()) {
             SpongeArcPlatesModule.getArcPlates().cleanup();
@@ -193,6 +197,7 @@ public class SpongeFusionPixelmon extends PluginInfo {
     }
 
     @Listener
+    @SuppressWarnings("unused")
     public void onServerStop(GameStoppedServerEvent event) {
         LOGGER.info("Successfully stopped FusionPixelmon!");
     }
