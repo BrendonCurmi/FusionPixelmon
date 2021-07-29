@@ -79,7 +79,7 @@ dependencies {
     // compile "some.group:artifact:version"
 
     include(project(':fusionpixelmon-core'))
-    compile(files("$rootDir/libs/Pixelmon-1.12.2-8.1.2-universal.jar"))
+    compile(files("$rootDir/libs/Pixelmon-1.12.2-8.2.0-universal.jar"))
 
     compile(fileTree(dir: 'libs', include: 'GooeyLibs-1.0.5.jar'))
     //exclude(files("$rootDir/libs/forgeSrc-1.12.2-14.23.5.2768.jar"))

@@ -32,7 +32,7 @@ repositories {
 
 dependencies {
     implementation(project(":fusionpixelmon-core"))
-    compileOnly(files("$rootDir/libs/Pixelmon-1.12.2-8.1.2-universal.jar"))
+    compileOnly(files("$rootDir/libs/Pixelmon-1.12.2-8.2.0-universal.jar"))
     compileOnly(files("$rootDir/libs/forgeSrc-1.12.2-14.23.5.2768.jar"))
 
     compileOnly("org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT") {
