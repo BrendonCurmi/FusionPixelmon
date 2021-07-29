@@ -73,7 +73,7 @@ public interface IPokemonWrapper {
         StatsType[] statsTypes = StatsType.getStatValues();
         int[] array = new int[statsTypes.length];
         for (int i = 0; i < statsTypes.length; i++)
-            array[i] = pokemon.getIVs().get(statsTypes[i]);
+            array[i] = pokemon.getIVs().getStat(statsTypes[i]);
         return array;
     }
 
@@ -88,7 +88,7 @@ public interface IPokemonWrapper {
         StatsType[] statsTypes = StatsType.getStatValues();
         int[] array = new int[statsTypes.length];
         for (int i = 0; i < statsTypes.length; i++)
-            array[i] = pokemon.getEVs().get(statsTypes[i]);
+            array[i] = pokemon.getEVs().getStat(statsTypes[i]);
         return array;
     }
 
