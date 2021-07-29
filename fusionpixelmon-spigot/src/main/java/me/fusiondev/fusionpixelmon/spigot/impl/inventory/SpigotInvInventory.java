@@ -45,6 +45,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("unused")
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (openPages.containsKey(player.getUniqueId())) {
@@ -73,6 +74,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("unused")
     public void onInventoryInteract(InventoryInteractEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (openPages.containsKey(player.getUniqueId())) {
@@ -87,6 +89,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
 
 
     @EventHandler
+    @SuppressWarnings("unused")
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
         if (openPages.containsKey(player.getUniqueId()) && noGrace(player.getUniqueId())) {
@@ -96,6 +99,7 @@ public class SpigotInvInventory extends InvInventory implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("unused")
     public void onInventoryClick(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (openPages.containsKey(player.getUniqueId())) {
@@ -129,6 +133,6 @@ public class SpigotInvInventory extends InvInventory implements Listener {
                     num++;
                 }*/
             }
-        }, 0L, (long) UPDATE_TICK_RATE);
+        }, 0L, UPDATE_TICK_RATE);
     }
 }
