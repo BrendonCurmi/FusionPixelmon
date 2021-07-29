@@ -232,20 +232,20 @@ public class IVEVShop extends BaseShop {
         Special_Defence("power_band", StatsType.SpecialDefence),
         Speed("power_anklet", StatsType.Speed);
 
-        private String itemID;
-        private StatsType statsType;
+        private final String ITEM_ID;
+        private final StatsType STATS_TYPE;
 
         IVEVOption(String itemID, StatsType statsType) {
-            this.itemID = itemID;
-            this.statsType = statsType;
+            this.ITEM_ID = itemID;
+            this.STATS_TYPE = statsType;
         }
 
         public String getItemID() {
-            return itemID;
+            return ITEM_ID;
         }
 
         public StatsType getStatsType() {
-            return statsType;
+            return STATS_TYPE;
         }
     }
 
