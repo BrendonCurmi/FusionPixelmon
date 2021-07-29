@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class PokeModifiersListeners implements Listener {
     @EventHandler
+    @SuppressWarnings("unused")
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack itemStack = player.getInventory().getItemInMainHand();
