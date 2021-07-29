@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PokeModifiersListeners {
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void onClick(PlayerInteractEvent event) {
         ItemStack itemStack = event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND);
         if (PokeModifiers.hasModifier(itemStack.getDisplayName(), true) && itemStack.getDisplayName().startsWith(Color.GREEN.toString())) {
