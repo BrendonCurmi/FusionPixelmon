@@ -102,9 +102,7 @@ public class SpongeInvInventory extends InvInventory {
         page.inventory = abstractInventory;
 
         // Open page for player
-        Task.builder().execute(() -> {
-            player.openInventory(this.inventory);
-        }).delayTicks(1).submit(FusionPixelmon.getInstance());
+        Task.builder().execute(() -> player.openInventory(this.inventory)).delayTicks(1).submit(FusionPixelmon.getInstance());
         playerOpened(player, page);
     }
 
