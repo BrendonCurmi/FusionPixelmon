@@ -113,30 +113,30 @@ public class NickShop extends BaseShop {
         ITALIC(Color.ITALIC, reg.DYE(), DyeColor.GRAY),
         RESET(Color.RESET, reg.DYE(), DyeColor.GRAY);
 
-        private Color color;
-        private AbstractItemType itemType;
-        private DyeColor dyeColor;
+        private final Color COLOR;
+        private final AbstractItemType ITEM_TYPE;
+        private final DyeColor DYE_COLOR;
 
         ColourOptions(Color color, AbstractItemType itemType, DyeColor dyeColor) {
-            this.color = color;
-            this.itemType = itemType;
-            this.dyeColor = dyeColor;
+            this.COLOR = color;
+            this.ITEM_TYPE = itemType;
+            this.DYE_COLOR = dyeColor;
         }
 
         public Color getColor() {
-            return color;
+            return COLOR;
         }
 
         public char getCode() {
-            return color.getCode();
+            return COLOR.getCode();
         }
 
         public AbstractItemType getItemType() {
-            return itemType;
+            return ITEM_TYPE;
         }
 
         public DyeColor getDyeColor() {
-            return dyeColor;
+            return DYE_COLOR;
         }
     }
 }
