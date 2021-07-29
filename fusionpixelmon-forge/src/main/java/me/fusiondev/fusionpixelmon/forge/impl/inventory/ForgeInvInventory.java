@@ -49,9 +49,7 @@ public class ForgeInvInventory extends InvInventory {
         Page page1 = Page.builder()
                 .title(page.title)
                 .template(b.build())
-                .onOpen(() -> {
-                    addGrace(player.getUniqueId());
-                })
+                .onOpen(() -> addGrace(player.getUniqueId()))
                 .onClose(() -> {
                     if (noGrace(player.getUniqueId())) {
                         onInventoryClose(player);
