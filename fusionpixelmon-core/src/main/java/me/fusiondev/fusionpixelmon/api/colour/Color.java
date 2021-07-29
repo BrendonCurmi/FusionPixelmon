@@ -25,14 +25,14 @@ public enum Color {
     ITALIC('o', true),
     RESET('r', true);
 
-    private char code;
-    private boolean style;
+    private final char CODE;
+    private final boolean STYLE;
 
     private static final String S = "§";
 
     Color(char code, boolean style) {
-        this.code = code;
-        this.style = style;
+        this.CODE = code;
+        this.STYLE = style;
     }
 
     Color(char code) {
@@ -40,15 +40,15 @@ public enum Color {
     }
 
     public char getCode() {
-        return code;
+        return CODE;
     }
 
     public boolean isStyle() {
-        return style;
+        return STYLE;
     }
 
     @Override
     public String toString() {
-        return S + code;
+        return S + CODE;
     }
 }
